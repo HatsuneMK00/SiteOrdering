@@ -10,9 +10,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/user")
+    @GetMapping("/user/{username}")
     @ResponseBody
-    User getUser(@RequestParam("username") String name){
+    User getUser(@PathVariable("username") String name){
         User user = userService.getUserByName(name);
         return user;
     }

@@ -1,16 +1,16 @@
 package xyz.st.meethere.entity;
 
 public class User {
-    private String userId;
+    private int userId;
     private String userName;
     private String password;
     private String profilePic;
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
