@@ -20,7 +20,7 @@ public class GroundService {
         return groundMapper.getGroundByGroundId(id);
     }
 
-    public Ground addGround(Ground ground) {
+    public int addGround(Ground ground) {
         return groundMapper.addGround(ground);
     }
 

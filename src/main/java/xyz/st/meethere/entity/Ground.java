@@ -1,13 +1,23 @@
 package xyz.st.meethere.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Map;
 
+@ApiModel(value = "场馆实体类")
 public class Ground {
+    @ApiModelProperty("场馆名字")
     private String groundName;
+    @ApiModelProperty("场馆id号，是数据库中的主键，更新的时候需要传入，插入的时候不需要传入")
     private int groundId;
+    @ApiModelProperty("场馆照片信息，不需要传入")
     private String photo;
+    @ApiModelProperty("场馆每小时单价，要求为整数")
     private int pricePerHour;
+    @ApiModelProperty("场馆地址")
     private String address;
+    @ApiModelProperty("场馆描述")
     private String description;
 
     public Ground() {

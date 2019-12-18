@@ -24,5 +24,5 @@ public interface CommentMapper {
     int updateCommentOfUserIdOnGroundId(Integer userId, Integer groundId);
 
     @Insert("insert into comment(userId,groundId,date,content) values(#{userId},#{groundId},#{date},#{content})")
-    Comment addCommentOfUserIdOnGroundId(Comment comment);
+    int addCommentOfUserIdOnGroundId(Comment comment);
 }

@@ -14,7 +14,7 @@ public interface UserMapper {
 
     @Options(useGeneratedKeys = true,keyProperty = "userId")
     @Insert("insert into user(userName,password,profilePic) values(#{userName},#{password},#{profilePic})")
-    User addUser(User user);
+    int addUser(User user);
 
     @Update("update user set profilePic=#{profilePic} where userName=#{userName}")
     void updateUserProfilePic(User user);

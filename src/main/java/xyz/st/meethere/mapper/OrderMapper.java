@@ -22,7 +22,7 @@ public interface OrderMapper {
     @Options(useGeneratedKeys = true,keyProperty = "preOrderId")
     @Insert("insert into preorder(groundId,userId,orderTime,price,startTime,duration,payed,checked) values(#{groundId}," +
             "#{userId},#{orderTime},#{price},#{startTime},#{duration},#{payed},#{checked})")
-    PreOrder addPreOrder(PreOrder preOrder);
+    int addPreOrder(PreOrder preOrder);
 
     @Select("select * from preorder where groundId=#{id}")
     List<PreOrder> getPreOrdersByGroundId(Integer id);

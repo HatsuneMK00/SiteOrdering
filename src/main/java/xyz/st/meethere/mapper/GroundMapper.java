@@ -19,12 +19,12 @@ public interface GroundMapper {
     @Options(useGeneratedKeys = true,keyProperty = "groundId")
     @Insert("insert into ground(groundName,photo,pricePerHour,address) values(#{groundName},#{photo},#{pricePerHour}," +
             "#{address})")
-    Ground addGround(Ground ground);
+    int addGround(Ground ground);
 
     @Delete("delete from ground where groundId=#{groundId}")
     int deleteGround(Integer groundId);
 
-    @Update("update ground set groundName=#{groundName},pricePerHour=#{pricePerHour},address=#{address}" +
+    @Update("update ground set groundName=#{groundName},pricePerHour=#{pricePerHour},address=#{address} " +
             "where groundId=#{groundId}")
     int updateGround(Ground ground);
 
