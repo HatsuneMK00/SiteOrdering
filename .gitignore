@@ -34,3 +34,4 @@ build/
 /mvnw.cmd
 /.mvn/
 
+/.idea/$PRODUCT_WORKSPACE_FILE$
