@@ -18,7 +18,6 @@ target/
 /.idea/workspace.xml
 /.idea/inspectionProfiles/
 *.iws
-*.iml
 *.ipr
 
 ### NetBeans ###
