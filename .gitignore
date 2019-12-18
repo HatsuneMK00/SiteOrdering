@@ -14,6 +14,9 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
+/.idea/libraries/
+/.idea/workspace.xml
+/.idea/inspectionProfiles/
 *.iws
 *.iml
 *.ipr
@@ -31,3 +34,4 @@ build/
 /mvnw
 /mvnw.cmd
 /.mvn/
+
