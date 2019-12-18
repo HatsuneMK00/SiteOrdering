@@ -11,6 +11,15 @@ public class PreOrder {
     private String startTime;
     private int duration;
     private int payed;
+    private int checked;
+
+    public int getChecked() {
+        return checked;
+    }
+
+    public void setChecked(int checked) {
+        this.checked = checked;
+    }
 
     public int getPreOrderId() {
         return preOrderId;

@@ -1,9 +1,6 @@
 package xyz.st.meethere.mapper;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import xyz.st.meethere.entity.PreOrder;
 
@@ -16,14 +13,15 @@ public interface OrderMapper {
     List<PreOrder> getPreOrdersByUserId(Integer id);
 
     @Delete("delete from preorder where preOrderId=#{preOrderId}")
-    int deletePreOrder(PreOrder preOrder);
+    int deletePreOrder(Integer preOrderId);
 
     @Update("update preorder set orderTime=#{orderTime},startTime=#{startTime},price=#{price},duration=#{duration} " +
             "where preOrderId=#{preOrderId}")
     int updatePreOrder(PreOrder preOrder);
 
-    @Insert("insert into preorder(groundId,userId,orderTime,price,startTime,duration,payed) values(#{groundId}," +
-            "#{userId},#{orderTime},#{price},#{startTime},#{duration},#{payed})")
+    @Options(useGeneratedKeys = true,keyProperty = "preOrderId")
+    @Insert("insert into preorder(groundId,userId,orderTime,price,startTime,duration,payed,checked) values(#{groundId}," +
+            "#{userId},#{orderTime},#{price},#{startTime},#{duration},#{payed},#{checked})")
     PreOrder addPreOrder(PreOrder preOrder);
 
     @Select("select * from preorder where groundId=#{id}")
