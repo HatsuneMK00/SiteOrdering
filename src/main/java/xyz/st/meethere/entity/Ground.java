@@ -1,5 +1,7 @@
 package xyz.st.meethere.entity;
 
+import java.util.Map;
+
 public class Ground {
     private String groundName;
     private int groundId;
@@ -7,6 +9,25 @@ public class Ground {
     private int pricePerHour;
     private String address;
     private String description;
+
+    public Ground() {
+    }
+
+    public Ground(Map params) {
+        this.groundName = (String) params.get("groundName");
+        this.photo = (String) params.get("photo");
+        this.pricePerHour = (int) params.get("pricePerHour");
+        this.address = (String) params.get("addreses");
+        this.description = (String) params.get("description");
+    }
+
+    public Ground(String groundName, String photo, int pricePerHour, String address, String description) {
+        this.groundName = groundName;
+        this.photo = photo;
+        this.pricePerHour = pricePerHour;
+        this.address = address;
+        this.description = description;
+    }
 
     public String getDescription() {
         return description;
