@@ -26,6 +26,8 @@ public interface OrderMapper {
 
     @Select("select * from preorder where groundId=#{id}")
     List<PreOrder> getPreOrdersByGroundId(Integer id);
+    @Select("select * from preorder where userId=#{uid} and preOrderId=#{oid}")
+    PreOrder getAPreOrderOfUser(Integer uid,Integer oid);
 
     // 管理员订单管理
 //    添加上降序获取功能
