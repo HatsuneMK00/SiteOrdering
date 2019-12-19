@@ -1,16 +1,22 @@
 package xyz.st.meethere.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Service;
 import xyz.st.meethere.entity.Ground;
 import xyz.st.meethere.mapper.GroundMapper;
 
+import java.io.File;
 import java.util.List;
 
 @Service
 public class GroundService {
     @Autowired
     GroundMapper groundMapper;
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     public List<Ground> getAllGrounds() {
         return groundMapper.getAllGrounds();
@@ -21,6 +27,13 @@ public class GroundService {
     }
 
     public int addGround(Ground ground) {
+        /*
+        * 把图片路径封装成前端可以直接使用的形式
+        * */
+        String filename = ground.getPhoto();
+        String[] temp = filename.split("/");
+        filename = "/" + temp[temp.length - 2] + "/" + temp[temp.length - 1];
+        ground.setPhoto(filename);
         return groundMapper.addGround(ground);
     }
 
@@ -29,10 +42,18 @@ public class GroundService {
     }
 
     public int deleteGround(Integer id) {
+        String filename = groundMapper.getImagePathByGroundId(id);
+        filename = new ApplicationHome(getClass()).getSource().getPath() + filename;
+        File file = new File(filename);
+        if (file.delete()) {
+            logger.info("删除场馆文件成功，场馆id: " + id);
+        } else {
+            logger.warn("删除场馆文件失败，文件名: " + filename);
+        }
         return groundMapper.deleteGround(id);
     }
 
-    public boolean verifyGround(Ground ground){
+    public boolean verifyGround(Ground ground) {
         boolean verified = true;
         if (ground.getGroundName() == null || ground.getGroundName().equals(""))
             verified = false;
@@ -40,7 +61,7 @@ public class GroundService {
             verified = false;
         if (ground.getPricePerHour() <= 0)
             verified = false;
-        return verified;
+        return !verified;
     }
 }
 

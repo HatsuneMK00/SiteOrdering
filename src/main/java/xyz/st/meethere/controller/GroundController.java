@@ -10,10 +10,7 @@ import xyz.st.meethere.exception.FileException;
 import xyz.st.meethere.service.FileService;
 import xyz.st.meethere.service.GroundService;
 
-import javax.validation.constraints.NotNull;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /*
@@ -73,7 +70,7 @@ public class GroundController {
         /*
         * 有效性检查
         * */
-        if (!groundService.verifyGround(ground)) {
+        if (groundService.verifyGround(ground)) {
             ResponseMsg responseMsg = new ResponseMsg();
             responseMsg.setStatus(500);
             return responseMsg;
@@ -105,7 +102,7 @@ public class GroundController {
         /*
          * 有效性检查
          * */
-        if (!groundService.verifyGround(ground)) {
+        if (groundService.verifyGround(ground)) {
             ResponseMsg responseMsg = new ResponseMsg();
             responseMsg.setStatus(500);
             return responseMsg;

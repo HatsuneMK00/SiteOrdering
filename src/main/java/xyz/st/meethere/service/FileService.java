@@ -13,7 +13,7 @@ public class FileService {
     private final String uploadPath;
 
     public FileService() {
-        uploadPath = new ApplicationHome(getClass()).getSource().getParentFile().getPath();
+        uploadPath = new ApplicationHome(getClass()).getSource().getPath() + "/static/images/";
     }
 
     public String storeFile(MultipartFile file) throws FileException {
