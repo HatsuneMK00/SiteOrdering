@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.st.meethere.entity.Ground;
 import xyz.st.meethere.entity.ResponseMsg;
+import xyz.st.meethere.exception.FileException;
+import xyz.st.meethere.service.FileService;
 import xyz.st.meethere.service.GroundService;
 
 import javax.validation.constraints.NotNull;
@@ -24,6 +26,8 @@ import java.util.Map;
 public class GroundController {
     @Autowired
     GroundService groundService;
+    @Autowired
+    FileService fileService;
 
     @ApiOperation(value="获取所有场馆信息")
     @GetMapping("/ground")
@@ -75,6 +79,16 @@ public class GroundController {
             return responseMsg;
         }
 
+        /*
+        * 封装图片路径
+        * */
+        String storeFile;
+        try {
+            storeFile = fileService.storeFile(file);
+            ground.setPhoto(storeFile);
+        } catch (FileException e) {
+            e.printStackTrace();
+        }
         int result = groundService.addGround(ground);
         ResponseMsg responseMsg = new ResponseMsg();
         if (result == 1)
@@ -88,6 +102,15 @@ public class GroundController {
     @ApiOperation(value = "对现有场馆信息进行编辑")
     @PutMapping("/ground")
     ResponseMsg updateGround(@RequestBody Ground ground){
+        /*
+         * 有效性检查
+         * */
+        if (!groundService.verifyGround(ground)) {
+            ResponseMsg responseMsg = new ResponseMsg();
+            responseMsg.setStatus(500);
+            return responseMsg;
+        }
+
         int result = groundService.updateGround(ground);
         ResponseMsg responseMsg = new ResponseMsg();
         if (result == 1)

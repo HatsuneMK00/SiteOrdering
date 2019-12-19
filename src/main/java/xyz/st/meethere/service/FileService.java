@@ -9,11 +9,11 @@ import java.io.File;
 import java.nio.file.Path;
 
 @Service
-public class fileService {
+public class FileService {
     private final String uploadPath;
 
-    public fileService() {
-        uploadPath = new ApplicationHome().getSource().getParentFile().getPath();
+    public FileService() {
+        uploadPath = new ApplicationHome(getClass()).getSource().getParentFile().getPath();
     }
 
     public String storeFile(MultipartFile file) throws FileException {
