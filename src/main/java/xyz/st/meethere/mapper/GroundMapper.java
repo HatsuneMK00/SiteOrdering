@@ -30,4 +30,7 @@ public interface GroundMapper {
 
     @Update("update ground set photo=#{photo} where groundId=#{groundId}")
     int updateGroundPhoto(Ground ground);
+
+    @Select("select photo from ground where groundId=#{groundId}")
+    String getImagePathByGroundId(Integer groundId);
 }
