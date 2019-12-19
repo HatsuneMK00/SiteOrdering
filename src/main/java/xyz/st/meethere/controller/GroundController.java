@@ -3,10 +3,12 @@ package xyz.st.meethere.controller;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import xyz.st.meethere.entity.Ground;
 import xyz.st.meethere.entity.ResponseMsg;
 import xyz.st.meethere.service.GroundService;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,16 +53,27 @@ public class GroundController {
 
 
     /*
-    * 这边还没有写photo的存储逻辑
+    * 这个POST应该是用表单提交的
     * */
     @ApiOperation(value = "增加一个场馆信息")
     @PostMapping("/ground")
-    ResponseMsg addGround(@RequestBody Map params){
-        Ground ground = new Ground(params);
+    ResponseMsg addGround(
+            @RequestParam("groundName") String groundName,
+            @RequestParam("pricePerHour") int pricePerHour,
+            @RequestParam("address") String address,
+            @RequestParam("description") String description,
+            @RequestParam("image")MultipartFile file
+            ){
 
+        Ground ground = new Ground(groundName, pricePerHour, address, description);
         /*
         * 有效性检查
         * */
+        if (!groundService.verifyGround(ground)) {
+            ResponseMsg responseMsg = new ResponseMsg();
+            responseMsg.setStatus(500);
+            return responseMsg;
+        }
 
         int result = groundService.addGround(ground);
         ResponseMsg responseMsg = new ResponseMsg();
@@ -74,10 +87,7 @@ public class GroundController {
 
     @ApiOperation(value = "对现有场馆信息进行编辑")
     @PutMapping("/ground")
-    ResponseMsg updateGround(@RequestBody Map params){
-        Ground ground = new Ground(params);
-        ground.setGroundId((Integer) params.get("groundId"));
-
+    ResponseMsg updateGround(@RequestBody Ground ground){
         int result = groundService.updateGround(ground);
         ResponseMsg responseMsg = new ResponseMsg();
         if (result == 1)

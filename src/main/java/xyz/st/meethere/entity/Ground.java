@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Map;
 
-@ApiModel(value = "场馆实体类")
+@ApiModel(value = "Ground")
 public class Ground {
     @ApiModelProperty("场馆名字")
     private String groundName;
@@ -23,17 +23,8 @@ public class Ground {
     public Ground() {
     }
 
-    public Ground(Map params) {
-        this.groundName = (String) params.get("groundName");
-        this.photo = (String) params.get("photo");
-        this.pricePerHour = (int) params.get("pricePerHour");
-        this.address = (String) params.get("addreses");
-        this.description = (String) params.get("description");
-    }
-
-    public Ground(String groundName, String photo, int pricePerHour, String address, String description) {
+    public Ground(String groundName, int pricePerHour, String address, String description) {
         this.groundName = groundName;
-        this.photo = photo;
         this.pricePerHour = pricePerHour;
         this.address = address;
         this.description = description;

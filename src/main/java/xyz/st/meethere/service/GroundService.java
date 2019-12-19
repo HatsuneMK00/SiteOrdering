@@ -31,5 +31,16 @@ public class GroundService {
     public int deleteGround(Integer id) {
         return groundMapper.deleteGround(id);
     }
+
+    public boolean verifyGround(Ground ground){
+        boolean verified = true;
+        if (ground.getGroundName() == null || ground.getGroundName().equals(""))
+            verified = false;
+        if (ground.getAddress() == null || ground.getAddress().equals(""))
+            verified = false;
+        if (ground.getPricePerHour() <= 0)
+            verified = false;
+        return verified;
+    }
 }
 
