@@ -11,6 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/*
+* GroundController 和 NewsController用了两种不同的传参和返回值方式
+* GroundController中使用了ResponseMsg，里面有状态码，可能会方便测试一些
+* NewsController中直接使用的Model对象，在api文档中会更加好看一些(也没多好看)
+* */
 @RestController
 @ResponseBody
 public class GroundController {
@@ -43,6 +49,10 @@ public class GroundController {
         return responseMsg;
     }
 
+
+    /*
+    * 这边还没有写photo的存储逻辑
+    * */
     @ApiOperation(value = "增加一个场馆信息")
     @PostMapping("/ground")
     ResponseMsg addGround(@RequestBody Map params){
