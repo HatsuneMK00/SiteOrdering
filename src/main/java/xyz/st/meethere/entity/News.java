@@ -1,11 +1,19 @@
 package xyz.st.meethere.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.sql.Timestamp;
 
+@ApiModel("News")
 public class News {
+    @ApiModelProperty("新闻标题")
     private String title;
+    @ApiModelProperty("新闻正文")
     private String content;
+    @ApiModelProperty("新闻时间，不需要填写")
     private Timestamp date;
+    @ApiModelProperty("新闻id，数据库中的主键，POST时不需要填写，UPDATE时需要填写")
     private int newsId;
 
     public String getTitle() {
