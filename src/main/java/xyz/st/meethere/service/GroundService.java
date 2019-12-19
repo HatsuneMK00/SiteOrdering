@@ -31,6 +31,7 @@ public class GroundService {
         * 把图片路径封装成前端可以直接使用的形式
         * */
         String filename = ground.getPhoto();
+
         String[] temp = filename.split("/");
         filename = "/" + temp[temp.length - 2] + "/" + temp[temp.length - 1];
         ground.setPhoto(filename);
@@ -43,7 +44,7 @@ public class GroundService {
 
     public int deleteGround(Integer id) {
         String filename = groundMapper.getImagePathByGroundId(id);
-        filename = new ApplicationHome(getClass()).getSource().getPath() + filename;
+        filename = new ApplicationHome(getClass()).getSource().getParentFile().getPath() +  filename;
         File file = new File(filename);
         if (file.delete()) {
             logger.info("删除场馆文件成功，场馆id: " + id);
