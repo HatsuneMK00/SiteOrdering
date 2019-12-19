@@ -43,6 +43,10 @@ public class GroundController {
         return responseMsg;
     }
 
+
+    /*
+    * 这边还没有写photo的存储逻辑
+    * */
     @ApiOperation(value = "增加一个场馆信息")
     @PostMapping("/ground")
     ResponseMsg addGround(@RequestBody Map params){
