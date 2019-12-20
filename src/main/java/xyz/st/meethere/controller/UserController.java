@@ -17,6 +17,7 @@ import java.util.Map;
 // user表以userId为主键
 // userName为登陆的的主键，数据库中设置UNIQEUE索引
 @RestController
+@ResponseBody
 @RequestMapping("/user")
 public class UserController {
     @Autowired
@@ -72,7 +73,7 @@ public class UserController {
     }
 
     @ApiOperation("通过email userName password注册")
-    @PutMapping("/register")
+    @PostMapping("/register")
     ResponseMsg registerUser(@RequestBody Map params){
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         if(!(params.containsKey("email")&&params.containsKey("userName")&&params.containsKey("password"))){
@@ -111,7 +112,7 @@ public class UserController {
     }
 
     @ApiOperation("修改用户信息，使用userId识别用户")
-    @PostMapping("/update")
+    @PutMapping("/update")
     ResponseMsg updateById(@RequestBody Map params){
         ResponseMsg msg = new ResponseMsg();
         msg.setStatus(404);
@@ -131,7 +132,7 @@ public class UserController {
     /*
     * 个人信息头像管理
     * */
-    @ResponseBody
+    @ApiOperation("更新用户头像")
     @PostMapping("/profilePic")
     ResponseMsg updateProfilePic(@RequestParam("image")MultipartFile file, @RequestParam("userId")Integer id){
         /*
