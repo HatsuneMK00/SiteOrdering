@@ -36,18 +36,18 @@ public class UserController {
         return msg;
     }
 
-    @ResponseBody
-    @ApiOperation("通过userID查找用户")
-    @GetMapping("/user/{userId}")
-    ResponseMsg getUserById(@PathVariable("userId") int userId){
-        ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
-        User user = userService.getUserById(userId);
-        if(user != null){
-            msg.setStatus(200);
-        }
-        msg.getResponseMap().put("result",user);
-        return msg;
-    }
+//    @ResponseBody
+//    @ApiOperation("通过userID查找用户")
+//    @GetMapping("/user/{userId}")
+//    ResponseMsg getUserById(@PathVariable("userId") int userId){
+//        ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
+//        User user = userService.getUserById(userId);
+//        if(user != null){
+//            msg.setStatus(200);
+//        }
+//        msg.getResponseMap().put("result",user);
+//        return msg;
+//    }
 
     @ResponseBody
     @ApiOperation("查找所有用户")
