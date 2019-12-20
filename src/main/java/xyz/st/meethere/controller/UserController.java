@@ -17,16 +17,15 @@ import java.util.Map;
 // user表以userId为主键
 // userName为登陆的的主键，数据库中设置UNIQEUE索引
 @RestController
-@ResponseBody
-@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
     private FileService fileService;
 
+    @ResponseBody
     @ApiOperation("通过userName查找用户，用户名Unique")
-    @GetMapping("/getByName/{userName}")
+    @GetMapping("/user/{userName}")
     ResponseMsg getUserByName(@PathVariable("userName") String userName){
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         User user = userService.getUserByName(userName);
@@ -37,8 +36,9 @@ public class UserController {
         return msg;
     }
 
+    @ResponseBody
     @ApiOperation("通过userID查找用户")
-    @GetMapping("/getById/{userId}")
+    @GetMapping("/user/{userId}")
     ResponseMsg getUserById(@PathVariable("userId") int userId){
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         User user = userService.getUserById(userId);
@@ -49,8 +49,9 @@ public class UserController {
         return msg;
     }
 
+    @ResponseBody
     @ApiOperation("查找所有用户")
-    @GetMapping("/traverseUser")
+    @GetMapping("/user")
     ResponseMsg traverseUser(){
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         List<User> user = userService.traverseUser();
@@ -62,7 +63,7 @@ public class UserController {
     }
 
     @ApiOperation("通过userName和password登陆")
-    @GetMapping("/login")
+    @PostMapping("/login")
     ResponseMsg loginUser(@RequestParam("userName") String userName,@RequestParam("password") String password){
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         boolean isPwdCorrect=userService.checkUserPassword(userName, password);
@@ -89,8 +90,9 @@ public class UserController {
         return msg;
     }
 
+    @ResponseBody
     @ApiOperation("通过userId删除")
-    @DeleteMapping("/deleteById/{userId}")
+    @DeleteMapping("/user/{userId}")
     ResponseMsg deleteUser(@PathVariable("userId") int userId){
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         int registerStatus=userService.deleteUserById(userId);
@@ -100,6 +102,7 @@ public class UserController {
         return msg;
     }
 
+    @ResponseBody
     @ApiOperation("发送邮件给email，用户userName")
     @GetMapping("/email")
     ResponseMsg emailUser(@RequestParam("email") String email,@RequestParam("userName") String userName){
@@ -111,6 +114,7 @@ public class UserController {
         return msg;
     }
 
+    @ResponseBody
     @ApiOperation("修改用户信息，使用userId识别用户")
     @PutMapping("/update")
     ResponseMsg updateById(@RequestBody Map params){
@@ -132,6 +136,7 @@ public class UserController {
     /*
     * 个人信息头像管理
     * */
+    @ResponseBody
     @ApiOperation("更新用户头像")
     @PostMapping("/profilePic")
     ResponseMsg updateProfilePic(@RequestParam("image")MultipartFile file, @RequestParam("userId")Integer id){
