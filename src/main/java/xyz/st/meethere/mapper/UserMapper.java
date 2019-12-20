@@ -34,6 +34,9 @@ public interface UserMapper {
     int updateUser(User user);
 
     @Delete("delete from user where userId=#{userId} and authority=0")
-    int deleteUserById(int userId);
+    int deleteUserById(Integer userId);
+
+    @Update("update user set profilePic=#{profilePic} where userId=#{userId}")
+    int updateUserProfilePicByUserId(Integer userId, String profilePic);
 
 }
