@@ -1,10 +1,8 @@
 package xyz.st.meethere.config;
 
-import org.springframework.boot.system.ApplicationHome;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import xyz.st.meethere.service.FileService;
 
 @Configuration
 public class MyWebMvcConfig implements WebMvcConfigurer {
