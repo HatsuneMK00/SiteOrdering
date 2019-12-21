@@ -132,6 +132,7 @@ public class UserController {
         int ret = userService.updateUserByModel(user);
         if(ret>0) {
             msg.setStatus(200);
+            msg.getResponseMap().put("user",user);
         }
         return msg;
     }
@@ -151,6 +152,7 @@ public class UserController {
         int ret = userService.updateUserByModel(user);
         if(ret>0) {
             msg.setStatus(200);
+            msg.getResponseMap().put("user",user);
         }
         return msg;
     }
