@@ -5,10 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import xyz.st.meethere.config.MyWebMvcConfig;
 import xyz.st.meethere.exception.FileException;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 @Service
 public class FileService {
@@ -17,7 +21,7 @@ public class FileService {
     Logger logger = LoggerFactory.getLogger(getClass());
 
     public FileService() {
-        uploadPath = new ApplicationHome(getClass()).getSource().getParentFile().getPath() + "/images/";
+        uploadPath = MyWebMvcConfig.imageToStorage;
     }
 
     public String storeFile(MultipartFile file) throws FileException {
@@ -38,7 +42,17 @@ public class FileService {
                     logger.warn("创建文件上传目录失败" + uploadPath);
                 }
             }
-            fileName = uploadPath + fileName;
+            SimpleDateFormat simpleDateFormat;
+            simpleDateFormat = new SimpleDateFormat("ddHHssSSS");
+
+            // Requiring distinctive name -> random generator
+            Date date = new Date();
+            String str = simpleDateFormat.format(date);
+            Random random = new Random();
+            int img_ran = random.nextInt() * (99999 - 10000 + 1) + 10000;// 获取5位随机数
+
+            String intervalName = img_ran + "" + str;
+            fileName = uploadPath + intervalName +fileName;
             logger.info("uploadPath: " + uploadPath);
             logger.info("filename: " + fileName);
 

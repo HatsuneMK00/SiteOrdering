@@ -1,20 +1,31 @@
 package xyz.st.meethere.service;
 
+import com.google.common.reflect.ClassPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.system.ApplicationHome;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import xyz.st.meethere.config.MyWebMvcConfig;
 import xyz.st.meethere.entity.User;
 import xyz.st.meethere.mapper.UserMapper;
 
 import java.io.File;
+import java.net.InetAddress;
 import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     private UserMapper userMapper;
+
+    private String server = MyWebMvcConfig.server;
+
+    private String port   = MyWebMvcConfig.port;
+
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -72,17 +83,15 @@ public class UserService {
     }
 
     public int updateUserProfilePicByUserId(String profilePic, int userId) {
-        /*
-        * 封装可以用来直接访问的url进数据库
-        * */
         String[] temp = profilePic.split("/");
-        profilePic = "/" + temp[temp.length - 2] + "/" + temp[temp.length - 1];
-        int result = userMapper.updateUserProfilePicByUserId(userId, profilePic);
+
+        // Default server regarded as [localhost]
+        String profile_url=server+":"+port+ "/images/";
+        profile_url = profile_url + temp[temp.length - 1];
+        int result = userMapper.updateUserProfilePicByUserId(userId, profile_url);
         if (result == 1)
             return 200;
         else
             return 500;
     }
-
-
 }

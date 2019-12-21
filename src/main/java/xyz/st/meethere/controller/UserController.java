@@ -25,8 +25,8 @@ public class UserController {
 
     @ResponseBody
     @ApiOperation("通过userName查找用户，用户名Unique")
-    @GetMapping("/user/{userName}")
-    ResponseMsg getUserByName(@PathVariable("userName") String userName){
+    @GetMapping("/user/getByName")
+    ResponseMsg getUserByName(@RequestParam("userName") String userName){
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         User user = userService.getUserByName(userName);
         if(user != null){
@@ -36,22 +36,22 @@ public class UserController {
         return msg;
     }
 
-//    @ResponseBody
-//    @ApiOperation("通过userID查找用户")
-//    @GetMapping("/user/{userId}")
-//    ResponseMsg getUserById(@PathVariable("userId") int userId){
-//        ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
-//        User user = userService.getUserById(userId);
-//        if(user != null){
-//            msg.setStatus(200);
-//        }
-//        msg.getResponseMap().put("result",user);
-//        return msg;
-//    }
+    @ResponseBody
+    @ApiOperation("通过userId查找用户")
+    @GetMapping("/user/getById")
+    ResponseMsg getUserById(@RequestParam("userId") int userId){
+        ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
+        User user = userService.getUserById(userId);
+        if(user != null){
+            msg.setStatus(200);
+        }
+        msg.getResponseMap().put("result",user);
+        return msg;
+    }
 
     @ResponseBody
     @ApiOperation("查找所有用户")
-    @GetMapping("/user")
+    @GetMapping("/user/getAll")
     ResponseMsg traverseUser(){
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         List<User> user = userService.traverseUser();
@@ -62,8 +62,9 @@ public class UserController {
         return msg;
     }
 
+    @ResponseBody
     @ApiOperation("通过userName和password登陆")
-    @PostMapping("/login")
+    @GetMapping("/user/enter")
     ResponseMsg loginUser(@RequestParam("userName") String userName,@RequestParam("password") String password){
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         boolean isPwdCorrect=userService.checkUserPassword(userName, password);
@@ -73,8 +74,9 @@ public class UserController {
         return msg;
     }
 
+    @ResponseBody
     @ApiOperation("通过email userName password注册")
-    @PostMapping("/register")
+    @PutMapping("/user/register")
     ResponseMsg registerUser(@RequestBody Map params){
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         if(!(params.containsKey("email")&&params.containsKey("userName")&&params.containsKey("password"))){
@@ -85,6 +87,7 @@ public class UserController {
         String password = params.get("password").toString();
         int registerStatus=userService.addUser(email, userName, password);
         if(registerStatus>0){
+            emailUser(email, userName);
             msg.setStatus(200);
         }
         return msg;
@@ -92,8 +95,8 @@ public class UserController {
 
     @ResponseBody
     @ApiOperation("通过userId删除")
-    @DeleteMapping("/user/{userId}")
-    ResponseMsg deleteUser(@PathVariable("userId") int userId){
+    @DeleteMapping("/user/deleteById")
+    ResponseMsg deleteUser(@RequestParam("userId") int userId){
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         int registerStatus=userService.deleteUserById(userId);
         if(registerStatus>0){
@@ -104,7 +107,7 @@ public class UserController {
 
     @ResponseBody
     @ApiOperation("发送邮件给email，用户userName")
-    @GetMapping("/email")
+    @GetMapping("/user/email")
     ResponseMsg emailUser(@RequestParam("email") String email,@RequestParam("userName") String userName){
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         boolean emailStatus=new MailService().sendmail(email,userName);
@@ -116,7 +119,7 @@ public class UserController {
 
     @ResponseBody
     @ApiOperation("修改用户信息，使用userId识别用户")
-    @PutMapping("/update")
+    @PostMapping("/user/updateById")
     ResponseMsg updateById(@RequestBody Map params){
         ResponseMsg msg = new ResponseMsg();
         msg.setStatus(404);
@@ -133,12 +136,31 @@ public class UserController {
         return msg;
     }
 
+    @ResponseBody
+    @ApiOperation("修改用户信息，使用userName识别用户")
+    @PostMapping("/user/updateByName")
+    ResponseMsg updateByName(@RequestBody Map params){
+        ResponseMsg msg = new ResponseMsg();
+        msg.setStatus(404);
+        if(!(params.containsKey("userName"))){
+            return msg;
+        }
+        User user=userService.getUserByName((String)params.get("userName"));
+        if(user==null) return msg;
+        user.updateUser(params);
+        int ret = userService.updateUserByModel(user);
+        if(ret>0) {
+            msg.setStatus(200);
+        }
+        return msg;
+    }
+
     /*
     * 个人信息头像管理
     * */
     @ResponseBody
     @ApiOperation("更新用户头像")
-    @PostMapping("/profilePic")
+    @PostMapping("/user/profilePic")
     ResponseMsg updateProfilePic(@RequestParam("image")MultipartFile file, @RequestParam("userId")Integer id){
         /*
          * 封装图片路径

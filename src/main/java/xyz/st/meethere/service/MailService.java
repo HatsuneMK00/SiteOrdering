@@ -70,7 +70,7 @@ public class MailService {
         String MailSubject="MeetHere - Application Received";
         String MailBCopyTo="";
         String MailCopyTo="";
-        String MailBody="<h1>Welcome to use Car Management System. Dear "+username+",<br />" +
+        String MailBody="<h1>Welcome to use Meethere System. Dear "+username+",<br />" +
                 "<br />"+"Congratulations,you have registered successfully</h1>";
         String SMTPHost = "smtp.qq.com";
         String Port="25";
