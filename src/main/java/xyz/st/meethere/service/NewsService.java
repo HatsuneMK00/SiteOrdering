@@ -34,7 +34,7 @@ public class NewsService {
     }
 
     private void setNewsDate(News news){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         news.setDate(Timestamp.valueOf(simpleDateFormat.format(new Date())));
     }
 }

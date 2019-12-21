@@ -2,7 +2,9 @@ package xyz.st.meethere.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+import xyz.st.meethere.entity.Ground;
 import xyz.st.meethere.entity.PreOrder;
+import xyz.st.meethere.entity.User;
 
 import java.util.List;
 
@@ -23,7 +25,12 @@ public interface OrderMapper {
     @Insert("insert into preorder(groundId,userId,orderTime,price,startTime,duration,payed,checked) values(#{groundId}," +
             "#{userId},#{orderTime},#{price},#{startTime},#{duration},#{payed},#{checked})")
     int addPreOrder(PreOrder preOrder);
-
+    @Select("select * from user where userId = #{id}")
+    User checkUserExistence(Integer id);
+    @Select("select * from ground where groundId = #{id}")
+    Ground checkGroundExistence(Integer id);
+    @Select("select pricePerHour from ground where groundId=#{gid}")
+    Integer getGroundPrice(Integer gid);
     @Select("select * from preorder where groundId=#{id}")
     List<PreOrder> getPreOrdersByGroundId(Integer id);
     @Select("select * from preorder where userId=#{uid} and preOrderId=#{oid}")
