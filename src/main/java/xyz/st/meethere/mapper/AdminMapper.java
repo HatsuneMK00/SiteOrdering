@@ -1,10 +1,12 @@
 package xyz.st.meethere.mapper;
 
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 import xyz.st.meethere.entity.User;
 
 import java.util.List;
 
+@Repository
 public interface AdminMapper {
     @Select("select * from user where userName=#{userName} and authority=1")
     User getAdminByName(String userName);
