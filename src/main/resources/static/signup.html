@@ -1,0 +1,116 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登陆和注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords"
+          content="Internship Sign In & Sign Up Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    }
+    </script>
+    <!-- Custom Theme files -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/snow.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+
+</head>
+<body>
+<div class="snow-container">
+    <div class="snow foreground"></div>
+    <div class="snow foreground layered"></div>
+    <div class="snow middleground"></div>
+    <div class="snow middleground layered"></div>
+    <div class="snow background"></div>
+    <div class="snow background layered"></div>
+</div>
+
+<div class="top-buttons-agileinfo">
+    <a href="index.html">登录</a><a href="signup.html" class="active">注册</a>
+</div>
+
+
+<h1> 登陆和注册</h1>
+<div class="main-agileits">
+    <!--form-stars-here-->
+    <div class="form-w3-agile">
+        <h2 class="sub-agileits-w3layouts">注册</h2>
+        <form>
+            <input type="email" class="user" name="Username" placeholder="用户名" required=""/>
+            <input type="password" class="password" name="Password" placeholder="密码" required=""/>
+            <input type="email" name="email" class="email" placeholder="邮箱地址（必填）" required=""/>
+            <div class="submit-w3l">
+                <input type="submit" class="submit" value="注册">
+            </div>
+        </form>
+    </div>
+</div>
+<!--//form-ends-here-->
+
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
+<!--获取网站根目录的js-->
+<script type="text/javascript" src="js/getRootPath.js"></script>
+
+
+<script type="text/javascript">
+
+    var baseUrl =getRootPath_web();
+    $(".submit").click(function () {
+        $.ajax({
+            url: baseUrl + "user/sendEmail",
+            type: "get",
+            dataType: "json",
+            data: {email: $(".email").val(), username: $(".user").val()},
+            success: function (data) {
+                var code = data.code;
+                /*alert(code);*/
+                if (code === "200") {
+                    alert("已发送邮件");
+                    alert($(".user").val());
+                    $.ajax({
+                        url: baseUrl + "user/userRegister",
+                        type: "get",
+                        dataType: "json",
+                        data: {username: $(".user").val(), password: $(".password").val(), email: $(".email").val()},
+                        success: function (data) {
+                            var code = data.code;
+                            /*alert(code);*/
+                            if (code === "200") {
+                                alert("注册成功");
+                                $.cookie('username',$(".user").val());
+                                /*alert($.cookie('username'));*/
+                                $(window).attr('location',baseUrl+"user_main_page.html");
+                            } else {
+                                alert("注册失败");
+                            }
+                        },
+                        error: function () {
+                            alert("注册失败,检查一下网络吧");
+                        }
+                    });
+                } else {
+                    alert("不合法的邮箱地址");
+                }
+            },
+            error: function () {
+                alert("发送邮件失败,检查一下网络吧");
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

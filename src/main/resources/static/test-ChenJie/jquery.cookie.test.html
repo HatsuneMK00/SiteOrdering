@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery插件cookie插件学习</title>
+    <script src="../js/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+</head>
+<body>
+<p>
+    信息记录：<input type="text" id="msg" value=""/> <input type="button" value="记住当前信息" id="sure"/>
+    
+</p>
+<p id="demo">demo</p>
+
+
+<!--获取网站根目录的js-->
+<script type="text/javascript" src="../js/getRootPath.js"></script>
+
+
+<script type="text/javascript">
+    $(function () {
+        var urlBase = getRootPath_web();
+        alert("jQuery.cookie");
+        if (!$.cookie("username")) {
+            alert("未登陆");
+            $(window).attr('location',urlBase+"index.html");
+        } else {
+            alert("path 2");
+            $("#msg").val($.cookie("msg"));
+            $("#demo").innerText = "有用户的cookie";
+        }
+        $("#sure").click(function () {
+            $.cookie("msg", $("#msg").val(), {path: "/", expires: 7, secure: true})
+        })
+    })
+</script>
+</body>
+</html>

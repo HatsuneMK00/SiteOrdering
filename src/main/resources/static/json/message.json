@@ -1,0 +1,13 @@
+[{
+    "msgId" : "1111",
+    "userface" : "../../image/userface1.jpg",
+    "userName" : "小王",
+    "userAsk" : "腿哥你好，请问你这个模版用的是什么框架啊？",
+    "askTime" : "2017-12-22 12:50",
+    "msgReply" : [{
+        "userface" : "../../image/face.jpg",
+        "userName" : "请叫我腿哥",
+        "userAsk" : "用的layui",
+        "askTime" : "2017-12-22 13:50"
+    }]
+}]
