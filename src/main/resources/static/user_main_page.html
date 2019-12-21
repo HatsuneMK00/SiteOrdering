@@ -145,13 +145,14 @@
             $(".userName").text(name);
 
             $.ajax({
-                url:baseUrl + "user/" + name,
+                url:baseUrl + "user/getByName",
                 type:"get",
                 dataType:"json",
                 data:{userName:name},
                 success:function(data){
                     if(data.status === 200){
                         $(".userMoney").text("余额："+data.responseMap.result.balance);
+                        $.cookie('userId', data.responseMap.result.userId);
                     }
                 },
                 error:function(){

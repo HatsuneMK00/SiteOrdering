@@ -80,16 +80,16 @@
             //以管理员身份登录
             if ($('#admin').is(':checked')) {
                 $.ajax({
-                    url: baseUrl + "user/enter",
+                    url: baseUrl + "admin/enter",
                     type: "get",
                     dataType: "json",
                     data: {userName: $(".user").val(), password: $(".password").val()},
                     success: function (data) {
                         var code = data.status;
-                        alert(code);
+                        // alert(code);
                         var newURL;
-                        if (code === "200") {
-                            $.cookie('username', $(".user").val());
+                        if (code === 200) {
+                            $.cookie('userName', $(".user").val());
                             newURL = baseUrl + "admin_main_page.html";
                             $(window).attr('location', newURL);
                         } else {
@@ -115,6 +115,7 @@
                         var code = data.status;
                         var newURL;
                         if (code === 200) {
+                            // alert("hello")
                             $.cookie('userName', $(".user").val());
                             newURL = baseUrl + "user_main_page.html";
                             $(window).attr('location', newURL);
