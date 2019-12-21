@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ViewController {
-//    @GetMapping("/index")
-//    String index(){
-//        return "index";
-//    }
+    @GetMapping("/hello")
+    String hello(){
+        return "hello";
+    }
 }
