@@ -69,14 +69,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     var baseUrl =getRootPath_web();
     $(".submit").click(function () {
-        $.ajaxSetup({
-            contentType : 'application/json;charset=UTF-8'
-        });
         $.ajax({
             url: baseUrl + "user/register",
             type: "PUT",
             dataType: "json",
-            data: {email: $(".email").val(), userName: $(".user").val(), password: $(".password").val()},
+            contentType : 'application/json;charset=UTF-8',
+            data: JSON.stringify({email: $(".email").val(), userName: $(".user").val(), password: $(".password").val()}),
             success: function (data) {
                 var code = data.status;
                 alert(code);
