@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>车辆与车位管理系统（普通用户）</title>
+    <title>MeetHere（普通用户）</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -32,7 +32,7 @@
     <!-- 顶部 -->
     <div class="layui-header header">
         <div class="layui-main">
-            <a href="#" class="logo">车辆与车位管理系统（普通用户）</a>
+            <a href="#" class="logo">MeetHere（普通用户）</a>
             <!-- 搜索 -->
             <!--<div class="layui-form component">-->
                 <!--<select name="modules" lay-verify="required" lay-search="">-->
@@ -84,7 +84,7 @@
                                 </li>-->
                 <li class="layui-nav-item" pc>
                     <a href="javascript:;">
-                        <img src="images/userface1.jpg" class="layui-circle" width="35" height="35">
+                        <img src="image/userface1.jpg" class="layui-circle" width="35" height="35">
                         <cite class="userName"></cite><!--这里会显示用户名-->
                     </a>
 
@@ -108,7 +108,7 @@
     <!-- 左侧导航 -->
     <div class="layui-side layui-bg-black">
         <div class="user-photo">
-            <a class="img" title="我的头像"><img src="images/userface1.jpg"></a>
+            <a class="img" title="我的头像"><img src="image/userface1.jpg"></a>
             <!--这里的userName的class可以通过JQuery来从服务端读取已登录的用户的名字-->
             <p>你好！<span class="userName"></span>&nbsp;<span class="userMoney"></span></p>
         </div>
@@ -140,55 +140,27 @@
     $(document).ready(
         function () {
             var baseUrl = getRootPath_web();
-            if (!$.cookie('username')) {
-                /*没有登陆，请先登陆*/
-                $(window).attr('location', baseUrl);
-            } else {
-                /*已经登陆，直接修改html页面*/
-                /*因为这里是普通用户界面*/
-                /*如果这个用户是一个普通用户，那么可以进入这个界面*/
-                /*如果是管理员，那么去登陆界面*/
-                var name = $.cookie('username');
-                $.ajax(
-                    {
-                        url: baseUrl + "userAll/checkUser",
-                        type: "get",
-                        dataType: "json",
-                        data: {username: $.cookie('username')},
-                        async: false,
-                        success: function (data) {
-                            if (data.code == "2") {
-                                /*是普通用户*/
-                                $(".userName").text($.cookie('username'));
-                                $.ajax({
-                                    url:baseUrl + "user/getUserByName",
-                                    type:"get",
-                                    dataType:"json",
-                                    data:{username:name},
-                                    success:function(data){
-                                        if(data.code==="200"){
-                                            var userBean = data.data;
-                                            $(".userMoney").text("余额："+userBean.money);
-                                        }
-                                    },
-                                    error:function(){
+            var name = $.cookie('userName');
 
-                                    }
-                                });
-                            }
-                            else {
-                                /*是管理员用户以及数据库错误*/
-                                $(window).attr('location', baseUrl);
-                            }
-                        },
-                        error: function () {
-                            alert("登录失败,检查一下网络吧");
-                        }
+            $(".userName").text(name);
+
+            $.ajax({
+                url:baseUrl + "user/" + name,
+                type:"get",
+                dataType:"json",
+                data:{userName:name},
+                success:function(data){
+                    if(data.status === 200){
+                        $(".userMoney").text("余额："+data.responseMap.result.balance);
                     }
-                );
+                },
+                error:function(){
+                    alert("不太对");
+                }
+                });
             }
-        }
     )
+
 </script>
 
 </body>

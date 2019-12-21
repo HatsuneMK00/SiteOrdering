@@ -37,7 +37,7 @@
 <div class="top-buttons-agileinfo">
     <a href="index.html" class="active">登录</a><a href="signup.html">注册</a>
 </div>
-<h1>车辆与车位管理系统
+<h1>MeetHere
 </h1>
 <div class="main-agileits">
     <!--form-stars-here-->
@@ -80,7 +80,7 @@
             //以管理员身份登录
             if ($('#admin').is(':checked')) {
                 $.ajax({
-                    url: baseUrl + "login",
+                    url: baseUrl + "user/enter",
                     type: "get",
                     dataType: "json",
                     data: {userName: $(".user").val(), password: $(".password").val()},
@@ -107,16 +107,15 @@
             if ($('#user').is(':checked')) {
                 // do something
                 $.ajax({
-                    url: baseUrl + "login",
-                    type: "post",
+                    url: baseUrl + "user/enter",
+                    type: "get",
                     dataType: "json",
                     data: {userName: $(".user").val(), password: $(".password").val()},
                     success: function (data) {
                         var code = data.status;
-                        alert()
                         var newURL;
-                        if (code === "200") {
-                            $.cookie('username', $(".user").val());
+                        if (code === 200) {
+                            $.cookie('userName', $(".user").val());
                             newURL = baseUrl + "user_main_page.html";
                             $(window).attr('location', newURL);
                         } else {

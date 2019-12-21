@@ -69,44 +69,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     var baseUrl =getRootPath_web();
     $(".submit").click(function () {
+        $.ajaxSetup({
+            contentType : 'application/json;charset=UTF-8'
+        });
         $.ajax({
-            url: baseUrl + "user/sendEmail",
-            type: "get",
+            url: baseUrl + "user/register",
+            type: "PUT",
             dataType: "json",
-            data: {email: $(".email").val(), username: $(".user").val()},
+            data: {email: $(".email").val(), userName: $(".user").val(), password: $(".password").val()},
             success: function (data) {
-                var code = data.code;
-                /*alert(code);*/
-                if (code === "200") {
-                    alert("已发送邮件");
-                    alert($(".user").val());
-                    $.ajax({
-                        url: baseUrl + "user/userRegister",
-                        type: "get",
-                        dataType: "json",
-                        data: {username: $(".user").val(), password: $(".password").val(), email: $(".email").val()},
-                        success: function (data) {
-                            var code = data.code;
-                            /*alert(code);*/
-                            if (code === "200") {
-                                alert("注册成功");
-                                $.cookie('username',$(".user").val());
-                                /*alert($.cookie('username'));*/
-                                $(window).attr('location',baseUrl+"user_main_page.html");
-                            } else {
-                                alert("注册失败");
-                            }
-                        },
-                        error: function () {
-                            alert("注册失败,检查一下网络吧");
-                        }
-                    });
+                var code = data.status;
+                alert(code);
+                if (code === 200) {
+                    alert("注册成功");
+                    $.cookie('userName',$(".user").val());
+                    // alert($.cookie('username'));
+                    $(window).attr('location',baseUrl+"user_main_page.html");
                 } else {
-                    alert("不合法的邮箱地址");
+                    alert("注册失败");
                 }
             },
             error: function () {
-                alert("发送邮件失败,检查一下网络吧");
+                alert("注册失败,检查一下网络吧");
             }
         });
     });
