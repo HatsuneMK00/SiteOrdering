@@ -78,6 +78,7 @@ public class UserController {
     @ApiOperation("通过email userName password注册")
     @PutMapping("/user/register")
     ResponseMsg registerUser(@RequestBody Map params){
+        System.out.println("executed");
         ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
         if(!(params.containsKey("email")&&params.containsKey("userName")&&params.containsKey("password"))){
             return msg;
