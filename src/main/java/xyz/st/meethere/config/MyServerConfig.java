@@ -17,6 +17,11 @@ public class MyServerConfig {
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
+    /*
+    * 使用构造函数的自动注入
+    * 可以自己控制自动注入和构造函数的执行顺序
+    * 让自动注入先于构造函数中的调用
+    * */
     @Autowired
     public MyServerConfig(Environment environment) {
         port = environment.getProperty("local.server.port");
