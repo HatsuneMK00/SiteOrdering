@@ -86,7 +86,6 @@
                     data: {userName: $(".user").val(), password: $(".password").val()},
                     success: function (data) {
                         var code = data.status;
-                        // alert(code);
                         var newURL;
                         if (code === 200) {
                             $.cookie('userName', $(".user").val());
@@ -105,7 +104,6 @@
 
             //以普通用户身份登录
             if ($('#user').is(':checked')) {
-                // do something
                 $.ajax({
                     url: baseUrl + "user/enter",
                     type: "get",
@@ -115,7 +113,6 @@
                         var code = data.status;
                         var newURL;
                         if (code === 200) {
-                            // alert("hello")
                             $.cookie('userName', $(".user").val());
                             newURL = baseUrl + "user_main_page.html";
                             $(window).attr('location', newURL);
