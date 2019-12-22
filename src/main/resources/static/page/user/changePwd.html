@@ -47,7 +47,7 @@
     <div class="layui-form-item">
         <div class="layui-input-block">
             <!--<button class="layui-btn" lay-submit="" lay-filter="changePwd" onclick="changeUserPassword()">立即修改</button>-->
-            <button class="layui-btn" onclick="changeUserPassword()">立即修改</button>
+            <button type="button" class="layui-btn" onclick="changeUserPassword()">立即修改</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -70,7 +70,7 @@
             type: "get",
             dataType: "json",
             data: {userName: $.cookie('userName')},
-            async:false,
+            // async:false,
             success: function (data) {
                 if (data.status === 200) {
                     // console.log("1");
@@ -82,10 +82,11 @@
                         dataType: "json",
                         contentType : 'application/json;charset=UTF-8',
                         data: JSON.stringify({userId: user_id, password: user_password}),
-                        async: false,
+                        // async: false,
                         success: function (data) {
                             if (data.status === 200) {
                                 alert("密码修改成功！");
+                                window.location.reload();
 
                             } else {
                                 alert("密码修改失败！");
