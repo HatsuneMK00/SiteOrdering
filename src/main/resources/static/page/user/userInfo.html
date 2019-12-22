@@ -82,8 +82,8 @@
         </div>
     </div>
     <div class="user_right">
-        <input type="file" name="dddd" class="layui-upload-file" lay-title="掐指一算，我要换一个头像了">
-        <img src="" class="layui-circle" id="userFace">
+        <input type="file" name="image" class="layui-upload-file" lay-title="换一个头像">
+        <img src="" class="layui-circle" id="userFace" alt="not found">
     </div>
     <div class="layui-form-item" style="margin-left: 5%;">
         <div class="layui-input-block">
@@ -93,19 +93,35 @@
         </div>
     </div>
 </form>
+<!--获取网站根目录的js-->
+<script type="text/javascript" src="../../js/getRootPath.js"></script>
+
 <script type="text/javascript" src="../../layui/layui.js"></script>
-<script type="text/javascript" src="address.js"></script>
-<script type="text/javascript" src="user.js"></script>
+<!--<script type="text/javascript" src="address.js"></script>-->
+<!--<script type="text/javascript" src="user.js"></script>-->
 
 <script type="text/javascript" src="../../js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.cookie.js"></script>
 
-<!--获取网站根目录的js-->
-<script type="text/javascript" src="../../js/getRootPath.js"></script>
-
 <script type="text/javascript">
+    //头像加载模块
+    var profile_url="";
+    layui.config({
+        base : "../../js/"
+    }).use(['form','layer','upload'],function(){
+
+        var baseUrl = getRootPath_web();
+        layui.upload({
+            mehtod:"post",
+            url : baseUrl+'file/uploadImage',
+            success: function(res){
+                profile_url=res.responseMap.url;
+                $("#userFace").attr("src",profile_url);
+            }
+        });
+    });
+
     function submit_user_info() {
-        // alert("hello");
         var baseUrl = getRootPath_web();
         var user_id = -1;
         var user_email;
@@ -124,19 +140,31 @@
             });
             user_email = $(".userEmail").val();
             user_description = $(".userSelfdescription").val();
+            var json_data=JSON.stringify({userId: user_id, email: user_email, description: user_description});
+            if(profile_url!==""){
+                json_data=JSON.stringify({userId: user_id, email: user_email, description: user_description,profilePic:profile_url});
+            }
+
             $.ajax({
                 url: baseUrl + "user/updateById",
                 type: "post",
                 dataType: "json",
                 contentType: 'application/json;charset=UTF-8',
-                data: JSON.stringify({userId: user_id, email: user_email, description: user_description}),
+                data: json_data,
+                async:false,
                 success: function (data) {
-                    window.location.reload();
+                    if(profile_url!==""){
+                        profile_url="";
+                        parent.location.reload();
+                    }else{
+                        window.location.reload();
+                    }
                 },
                 error: function () {
                 }
             });
-        }else if(user_authority === "true"){
+        }
+        else if(user_authority === "true"){
             $.ajax({
                 url: baseUrl + "admin/getByName",
                 type: "get",
@@ -149,25 +177,40 @@
             });
             user_email = $(".userEmail").val();
             user_description = $(".userSelfdescription").val();
+
+            var json_data=JSON.stringify({userId: user_id, email: user_email, description: user_description});
+            if(profile_url!==""){
+                json_data=JSON.stringify({userId: user_id, email: user_email, description: user_description,profilePic:profile_url});
+            }
             $.ajax({
                 url: baseUrl + "admin/updateById",
                 type: "post",
                 dataType: "json",
                 contentType: 'application/json;charset=UTF-8',
-                data: JSON.stringify({userId: user_id, email: user_email, description: user_description}),
+                data: json_data,
+                async:false,
                 success: function (data) {
-                    window.location.reload();
+                    if(profile_url!==""){
+                        profile_url="";
+                        parent.location.reload();
+                    }else{
+                        window.location.reload();
+                    }
                 },
                 error: function () {
                 }
             });
         }
 
+
     }
 </script>
 
 <script type="text/javascript">
     $(document).ready(function () {
+        //设置默认头像
+        $("#userFace").attr("src","../../image/face.jpg");
+
         var baseUrl = getRootPath_web();
         var name = $.cookie('userName');
         var userAuthority = $.cookie('authority');
@@ -184,6 +227,9 @@
                             $(".userEmail").val(data.responseMap.result.email);
                             if (data.responseMap.result.description !== "") {
                                 $(".userSelfdescription").val(data.responseMap.result.description);
+                            }
+                            if (data.responseMap.result.profilePic !== "") {
+                                $("#userFace").attr("src",data.responseMap.result.profilePic);
                             }
                         } else {
                             alert("DataBase error.");
@@ -207,6 +253,9 @@
                             $(".userEmail").val(data.responseMap.result.email);
                             if (data.responseMap.result.description !== "") {
                                 $(".userSelfdescription").val(data.responseMap.result.description);
+                            }
+                            if (data.responseMap.result.profilePic !== "") {
+                                $("#userFace").attr("src",data.responseMap.result.profilePic);
                             }
                         } else {
                             alert("DataBase error.");

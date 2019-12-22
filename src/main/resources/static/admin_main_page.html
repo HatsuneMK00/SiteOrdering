@@ -55,7 +55,7 @@
                                 </li>-->
                 <li class="layui-nav-item" pc>
                     <a href="javascript:;">
-                        <img src="image/userface1.jpg" class="layui-circle" width="35" height="35">
+                        <img class="layui-circle" width="35" height="35" id="userFace1">
                         <cite class="userName"></cite>
                     </a>
 
@@ -78,7 +78,7 @@
     <!-- 左侧导航 -->
     <div class="layui-side layui-bg-black">
         <div class="user-photo">
-            <a class="img" title="我的头像"><img src="image/userface2.jpg"></a>
+            <a class="img" title="我的头像"><img id="userFace2"></a>
             <!--这里的userName的class可以通过JQuery来从服务端读取已登录的用户的名字-->
             <p>管理员：<span class="userName"></span></p>
         </div>
@@ -110,6 +110,10 @@
 <script type="text/javascript">
     $(document).ready(
         function () {
+            //设置默认头像
+            $("#userFace1").attr("src","image/face.jpg");
+            $("#userFace2").attr("src","image/face.jpg");
+
             var baseUrl =getRootPath_web();
 
             if (!$.cookie('userName')) {
@@ -128,12 +132,17 @@
                         if (data.status === 200 && data.responseMap.result.authority === true) {
                             /*是管理员*/
                             $(".userName").text($.cookie('userName'));
+                            if (data.responseMap.result.profilePic !== "") {
+                                $("#userFace1").attr("src",data.responseMap.result.profilePic);
+                                $("#userFace2").attr("src",data.responseMap.result.profilePic);
+                            }
 
                             $.cookie('userId', data.responseMap.result.userId);
                             $.cookie('authority', data.responseMap.result.authority);
                         }
                         else {
                             /*普通用户以及数据库错误*/
+                            alert("获取管理员信息失败");
                             $(window).attr('location', baseUrl);
                         }
                     },
