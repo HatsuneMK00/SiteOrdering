@@ -112,8 +112,7 @@
         function () {
             var nothing;
             var baseUrl =getRootPath_web();
-            var name = $.cookie('userName');
-            $(".userName").text(name);
+
             if (!$.cookie('userName')) {
                 /*没有登陆，请先登陆*/
                 $(window).attr('location', baseUrl);

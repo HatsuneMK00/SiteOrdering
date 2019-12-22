@@ -63,39 +63,42 @@
 
 <script type="text/javascript">
     function changeUserPassword() {
+        // console.log("hello");
         var urlBase = getRootPath_web();
         $.ajax({
             url: urlBase + "user/getByName",
             type: "get",
             dataType: "json",
             data: {userName: $.cookie('userName')},
-            /*async:false,*/
+            async:false,
             success: function (data) {
                 if (data.status === 200) {
-
+                    // console.log("1");
                     var user_id = data.responseMap.result.userId;
                     var user_password = $("#newPwd").val();
                     $.ajax({
                         url: urlBase + "user/updateById",
                         type: "post",
                         dataType: "json",
-                        data: {userId: user_id, password: user_password},
+                        contentType : 'application/json;charset=UTF-8',
+                        data: JSON.stringify({userId: user_id, password: user_password}),
                         async: false,
                         success: function (data) {
                             if (data.status === 200) {
-                                alert("密码修改成功");
+                                alert("密码修改成功！");
+
                             } else {
-                                alert("Database error.");
+                                alert("密码修改失败！");
                             }
                         },
                         error: function () {
-                            alert("Database error");
+                            alert("链接失败！");
                         }
                     });
                 }
             },
             error: function () {
-				alert("nmsl");
+                alert("fail");
             }
         });
     }
@@ -106,7 +109,7 @@
         function () {
             var baseUrl = getRootPath_web();
             if (!$.cookie('userName')) {
-                /*没有登陆，请先登陆*/alert("没有你");
+                /*没有登陆，请先登陆*/
                 $(window).attr('location', baseUrl);
             } else {
                 /*已经登陆，直接修改html页面*/
@@ -125,10 +128,9 @@
                             if (data.responseMap.result.authority === false) {
                                 /*是普通用户*/
                                 $(".userName").val($.cookie('userName'));
-
-
                             } else {
                                 /*是管理员用户以及数据库错误*/
+                                console.log("error");
                                 $(window).attr('location', baseUrl);
                             }
                         },
