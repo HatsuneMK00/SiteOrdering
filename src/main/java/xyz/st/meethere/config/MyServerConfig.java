@@ -24,8 +24,8 @@ public class MyServerConfig {
     * */
     @Autowired
     public MyServerConfig(Environment environment) {
-        port = environment.getProperty("local.server.port");
-
+//        port = environment.getProperty("local.server.port");
+        port="8080";
         try {
             server = InetAddress.getLocalHost().getHostAddress();
             if (server.startsWith("192.168"))
