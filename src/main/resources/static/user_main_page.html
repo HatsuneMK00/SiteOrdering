@@ -140,25 +140,31 @@
     $(document).ready(
         function () {
             var baseUrl = getRootPath_web();
-            var name = $.cookie('userName');
 
-            $(".userName").text(name);
+            if (!$.cookie('userName')) {
+                /*没有登陆，请先登陆*/
+                $(window).attr('location', baseUrl);
+            }else{
+                var name = $.cookie('userName');
+                $.ajax({
+                    url: baseUrl + "user/getByName",
+                    type: "get",
+                    dataType: "json",
+                    data: {userName: name},
+                    success: function (data) {
+                        if (data.status === 200) {
+                            $(".userName").text(name);
+                            $(".userMoney").text("余额：" + data.responseMap.result.balance);
 
-            $.ajax({
-                url: baseUrl + "user/getByName",
-                type: "get",
-                dataType: "json",
-                data: {userName: name},
-                success: function (data) {
-                    if (data.status === 200) {
-                        $(".userMoney").text("余额：" + data.responseMap.result.balance);
-                        $.cookie('userId', data.responseMap.result.userId);
+                            $.cookie('userId', data.responseMap.result.userId);
+                            $.cookie('authority', data.responseMap.result.authority);
+                        }
+                    },
+                    error: function () {
+                        alert("登录失败,检查一下网络吧");
                     }
-                },
-                error: function () {
-                    alert("显示失败");
-                }
-            });
+                });
+            }
         }
     )
 
