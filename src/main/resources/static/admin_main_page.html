@@ -94,7 +94,7 @@
             </ul>
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
-                    <iframe src="page/muban/CarIndexMuBan/index.html"></iframe>
+                    <iframe src="page/muban/MeethereIndex/index.html"></iframe>
                 </div>
             </div>
         </div>
@@ -110,40 +110,37 @@
 <script type="text/javascript">
     $(document).ready(
         function () {
-            var nothing;
             var baseUrl =getRootPath_web();
 
             if (!$.cookie('userName')) {
                 /*没有登陆，请先登陆*/
                 $(window).attr('location', baseUrl);
             } else {
-                /*已经登陆，直接修改html页面*/
-                /*因为这里是管理员界面*/
                 /*如果这个用户是一个普通用户，那么就要跳转到登陆界面*/
                 /*如果是管理员，那么才可以进入这个界面*/
                 var name = $.cookie('userName');
-                /* $.ajax的语法一定要搞清楚，不然会出神bug */
-                $.ajax(
-                    {
-                        url: baseUrl + "admin/getByName",
-                        type: "get",
-                        dataType: "json",
-                        data: {userName: name},
-                        success: function (data) {
-                            if (data.reponseMap.result.authority === true) {
-                                /*是管理员*/
-                                $(".userName").text($.cookie('userName'));
-                            }
-                            else {
-                                /*普通用户以及数据库错误*/
-                                $(window).attr('location', baseUrl);
-                            }
-                        },
-                        error: function () {
-                            alert("登录失败,检查一下网络吧");
+                $.ajax({
+                    url: baseUrl + "admin/getByName",
+                    type: "get",
+                    dataType: "json",
+                    data: {userName: name},
+                    success: function (data) {
+                        if (data.status === 200 && data.responseMap.result.authority === true) {
+                            /*是管理员*/
+                            $(".userName").text($.cookie('userName'));
+
+                            $.cookie('userId', data.responseMap.result.userId);
+                            $.cookie('authority', data.responseMap.result.authority);
                         }
+                        else {
+                            /*普通用户以及数据库错误*/
+                            $(window).attr('location', baseUrl);
+                        }
+                    },
+                    error: function () {
+                        alert("登录失败,检查一下网络吧");
                     }
-                )
+                })
             }
         }
     )
