@@ -18,7 +18,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
             <div class="layui-input-block">
-                <input type="text" value="" disabled class="layui-input layui-disabled userName">
+                <input type="text"  disabled class="layui-input layui-disabled userName">
             </div>
         </div>
 
@@ -70,7 +70,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">邮箱</label>
             <div class="layui-input-block">
-                <input type="text" value="" placeholder="请输入邮箱" lay-verify="required|email"
+                <input type="text"  placeholder="请输入邮箱" lay-verify="required|email"
                        class="layui-input userEmail">
             </div>
         </div>
@@ -88,8 +88,8 @@
     <div class="layui-form-item" style="margin-left: 5%;">
         <div class="layui-input-block">
             <!--<button class="layui-btn" lay-submit="" lay-filter="changeUser" onclick="submit_user_info()">立即提交</button>-->
-            <button class="layui-btn"  onclick="submit_user_info()">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <button  class="layui-btn" onclick="submit_user_info()">立即提交</button>
+            <button class="layui-btn layui-btn-primary" >重置</button>
         </div>
     </div>
 </form>
@@ -99,63 +99,127 @@
 
 <script type="text/javascript" src="../../js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.cookie.js"></script>
+
+<!--获取网站根目录的js-->
+<script type="text/javascript" src="../../js/getRootPath.js"></script>
+
 <script type="text/javascript">
     function submit_user_info() {
+        // alert("hello");
         var baseUrl = getRootPath_web();
-        var user_id=-1;
+        var user_id = -1;
         var user_email;
         var user_description;
-        $.ajax({
-            url: baseUrl + "user/getUserByName",
-            type: "get",
-            dataType: "json",
-            data: {username: $.cookie('username')},
-            async:false,
-            success: function (data) {
-                var userBean = data.data;
-                user_id = userBean.id;
-            }
-        });
-        user_email = $(".userEmail").val();
-        user_description = $(".userSelfdescription").val();
-        $.ajax({
-            url: baseUrl + "user/userUpdate",
-            type: "get",
-            dataType: "json",
-            data: {id: user_id, email: user_email, description: user_description},
-            success: function(data){window.location.reload();},
-            error: function(){}
-        });
+        var user_authority = $.cookie('authority');
+        if(user_authority === "false"){
+            $.ajax({
+                url: baseUrl + "user/getByName",
+                type: "get",
+                dataType: "json",
+                data: {userName: $.cookie('userName')},
+                async:false,
+                success: function (data) {
+                    user_id = data.responseMap.result.userId;
+                }
+            });
+            user_email = $(".userEmail").val();
+            user_description = $(".userSelfdescription").val();
+            $.ajax({
+                url: baseUrl + "user/updateById",
+                type: "post",
+                dataType: "json",
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify({userId: user_id, email: user_email, description: user_description}),
+                success: function (data) {
+                    window.location.reload();
+                },
+                error: function () {
+                }
+            });
+        }else if(user_authority === "true"){
+            $.ajax({
+                url: baseUrl + "admin/getByName",
+                type: "get",
+                dataType: "json",
+                data: {userName: $.cookie('userName')},
+                async:false,
+                success: function (data) {
+                    user_id = data.responseMap.result.userId;
+                }
+            });
+            user_email = $(".userEmail").val();
+            user_description = $(".userSelfdescription").val();
+            $.ajax({
+                url: baseUrl + "admin/updateById",
+                type: "post",
+                dataType: "json",
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify({userId: user_id, email: user_email, description: user_description}),
+                success: function (data) {
+                    window.location.reload();
+                },
+                error: function () {
+                }
+            });
+        }
+
     }
 </script>
-<script type="text/javascript" src="../../js/getRootPath.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         var baseUrl = getRootPath_web();
-        $(".userName").val($.cookie('username'));
-        $.ajax(
-            {
-                url: baseUrl + "user/getUserByName",
-                type: "get",
-                dataType: "json",
-                data: {username: $.cookie('username')},
-                success: function (data) {
-                    if (data.code === "200") {
-                        $(".userEmail").val(data.data.email);
-                        if (data.data.description != "") {
-                            $(".userSelfdescription").val(data.data.description);
+        var name = $.cookie('userName');
+        var userAuthority = $.cookie('authority');
+        $(".userName").val(name);
+        if(userAuthority === "true"){
+            $.ajax(
+                {
+                    url: baseUrl + "admin/getByName",
+                    type: "get",
+                    dataType: "json",
+                    data: {userName: name},
+                    success: function (data) {
+                        if (data.status === 200) {
+                            $(".userEmail").val(data.responseMap.result.email);
+                            if (data.responseMap.result.description !== "") {
+                                $(".userSelfdescription").val(data.responseMap.result.description);
+                            }
+                        } else {
+                            alert("DataBase error.");
                         }
+                    },
+                    error: function () {
+                        alert("Error: Database error.");
+                        $(window).attr('location', baseUrl);
                     }
-                    else {
-                        alert("DataBase error.");
-                    }
-                },
-                error: function () {
-                    alert("Error: Database error.");
-                    $(window).attr('location', baseUrl);
                 }
-            }
-        );
+            );
+        }else if(userAuthority === "false"){
+            $.ajax(
+                {
+                    url: baseUrl + "user/getByName",
+                    type: "get",
+                    dataType: "json",
+                    data: {userName: name},
+                    success: function (data) {
+                        if (data.status === 200) {
+                            $(".userEmail").val(data.responseMap.result.email);
+                            if (data.responseMap.result.description !== "") {
+                                $(".userSelfdescription").val(data.responseMap.result.description);
+                            }
+                        } else {
+                            alert("DataBase error.");
+                        }
+                    },
+                    error: function () {
+                        alert("Error: Database error.");
+                        $(window).attr('location', baseUrl);
+                    }
+                }
+            );
+        }
+
     });
 </script>
 
