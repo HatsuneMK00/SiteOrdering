@@ -125,12 +125,11 @@
                     dataType: "json",
                     data: {userName: name},
                     success: function (data) {
-                        if (data.status === 200 && data.reponseMap.result.authority === true) {
+                        if (data.status === 200 && data.responseMap.result.authority === true) {
                             /*是管理员*/
                             $(".userName").text($.cookie('userName'));
 
                             $.cookie('userId', data.responseMap.result.userId);
-                            console.log(data.responseMap.result.authority);
                             $.cookie('authority', data.responseMap.result.authority);
                         }
                         else {

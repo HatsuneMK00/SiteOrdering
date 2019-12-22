@@ -81,7 +81,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 if (code === 200) {
                     alert("注册成功");
                     $.cookie('userName',$(".user").val());
-                    // alert($.cookie('username'));
                     $(window).attr('location',baseUrl+"user_main_page.html");
                 } else {
                     alert("注册失败");

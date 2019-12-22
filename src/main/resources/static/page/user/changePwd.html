@@ -48,7 +48,7 @@
         <div class="layui-input-block">
             <!--<button class="layui-btn" lay-submit="" lay-filter="changePwd" onclick="changeUserPassword()">立即修改</button>-->
             <button type="button" class="layui-btn" onclick="changeUserPassword()">立即修改</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <button type="button" class="layui-btn layui-btn-primary" onclick="resetShowName()">重置</button>
         </div>
     </div>
 </form>
@@ -62,87 +62,89 @@
 <script type="text/javascript" src="../../js/getRootPath.js"></script>
 
 <script type="text/javascript">
-    function changeUserPassword() {
-        // console.log("hello");
-        var urlBase = getRootPath_web();
-        $.ajax({
-            url: urlBase + "user/getByName",
-            type: "get",
-            dataType: "json",
-            data: {userName: $.cookie('userName')},
-            // async:false,
-            success: function (data) {
-                if (data.status === 200) {
-                    // console.log("1");
-                    var user_id = data.responseMap.result.userId;
-                    var user_password = $("#newPwd").val();
-                    $.ajax({
-                        url: urlBase + "user/updateById",
-                        type: "post",
-                        dataType: "json",
-                        contentType : 'application/json;charset=UTF-8',
-                        data: JSON.stringify({userId: user_id, password: user_password}),
-                        // async: false,
-                        success: function (data) {
-                            if (data.status === 200) {
-                                alert("密码修改成功！");
-                                window.location.reload();
-
-                            } else {
-                                alert("密码修改失败！");
-                            }
-                        },
-                        error: function () {
-                            alert("链接失败！");
-                        }
-                    });
-                }
-            },
-            error: function () {
-                alert("fail");
-            }
-        });
-    }
-</script>
-
-<script type="text/javascript">
+    var user_info;
+    var authority_in_cookie;
     $(document).ready(
         function () {
             var baseUrl = getRootPath_web();
+
+            authority_in_cookie = $.cookie('authority');
+            var request_url= baseUrl+"user/getByName";
+
+            if(authority_in_cookie === "true"){
+                request_url= baseUrl+"admin/getByName";
+            }
+
             if (!$.cookie('userName')) {
                 /*没有登陆，请先登陆*/
                 $(window).attr('location', baseUrl);
             } else {
-                /*已经登陆，直接修改html页面*/
-                /*因为这里是普通用户界面*/
-                /*如果这个用户是一个普通用户，那么可以进入这个界面*/
-                /*如果是管理员，那么去登陆界面*/
+                //页面复用
+                //根据userName来获取用户信息
+                //判断是普通用户还是管理员
                 var name = $.cookie('userName');
                 $.ajax(
                     {
-                        url: baseUrl + "user/getByName",
+                        url: request_url,
                         type: "get",
                         dataType: "json",
                         data: {userName: $.cookie('userName')},
                         async: false,
                         success: function (data) {
-                            if (data.responseMap.result.authority === false) {
+                            user_info = data;
+                            if (user_info.responseMap.result.authority === false) {
                                 /*是普通用户*/
-                                $(".userName").val($.cookie('userName'));
+                                $(".userName").val(user_info.responseMap.result.userName);
                             } else {
-                                /*是管理员用户以及数据库错误*/
-                                console.log("error");
-                                $(window).attr('location', baseUrl);
+                                /*是管理员*/
+                                $(".userName").val(user_info.responseMap.result.userName);
                             }
                         },
                         error: function () {
                             alert("登录失败,检查一下网络吧");
+                            $(window).attr('location', baseUrl);
                         }
                     }
                 );
             }
         }
-    )
+    );
+    function changeUserPassword() {
+        var urlBase = getRootPath_web();
+        var user_id = user_info.responseMap.result.userId;
+        var user_password = $("#newPwd").val();
+
+        authority_in_cookie = user_info.responseMap.result.authority;
+        var request_url= urlBase+"user/updateById";
+        if(authority_in_cookie === true)
+        {
+            request_url=urlBase+"admin/updateById";
+        }
+        console.log(request_url);
+
+        $.ajax({
+            url: request_url,
+            type: "post",
+            dataType: "json",
+            contentType : 'application/json;charset=UTF-8',
+            data: JSON.stringify({userId: user_id, password: user_password}),
+            // async: false,
+            success: function (data) {
+                if (data.status === 200) {
+                    alert("密码修改成功！");
+                    window.location.reload();
+                } else {
+                    alert("密码修改失败！");
+                }
+            },
+            error: function () {
+                alert("链接失败！");
+            }
+        });
+    };
+    function resetShowName() {
+        window.location.reload();
+    }
 </script>
 
 
