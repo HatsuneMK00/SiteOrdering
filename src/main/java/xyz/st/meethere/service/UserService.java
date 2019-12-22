@@ -1,20 +1,15 @@
 package xyz.st.meethere.service;
 
-import com.google.common.reflect.ClassPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.system.ApplicationHome;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import xyz.st.meethere.config.MyWebMvcConfig;
+import xyz.st.meethere.config.MyServerConfig;
 import xyz.st.meethere.entity.User;
 import xyz.st.meethere.mapper.UserMapper;
 
 import java.io.File;
-import java.net.InetAddress;
 import java.util.List;
 
 @Service
@@ -22,9 +17,9 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    private String server = MyWebMvcConfig.server;
+    private String server = MyServerConfig.server;
 
-    private String port   = MyWebMvcConfig.port;
+    private String port   = MyServerConfig.port;
 
 
     Logger logger = LoggerFactory.getLogger(getClass());

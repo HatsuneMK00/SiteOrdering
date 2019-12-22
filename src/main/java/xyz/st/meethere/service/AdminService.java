@@ -2,7 +2,7 @@ package xyz.st.meethere.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xyz.st.meethere.config.MyWebMvcConfig;
+import xyz.st.meethere.config.MyServerConfig;
 import xyz.st.meethere.entity.User;
 import xyz.st.meethere.mapper.AdminMapper;
 
@@ -11,8 +11,9 @@ public class AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
-    private String server = MyWebMvcConfig.server;
-    private String port   = MyWebMvcConfig.port;
+
+    private String server = MyServerConfig.server;
+    private String port   = MyServerConfig.port;
 
     public User getAdminByName(String userName) {
         User user = adminMapper.getAdminByName(userName);

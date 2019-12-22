@@ -8,8 +8,6 @@ import xyz.st.meethere.service.FileService;
 
 @Configuration
 public class MyWebMvcConfig implements WebMvcConfigurer {
-    public static String server="localhost";
-    public static String port="8080";
     public static String imageToStorage = new ApplicationHome(FileService.class).getSource().getParentFile().getPath() + "/images/";
 
 
