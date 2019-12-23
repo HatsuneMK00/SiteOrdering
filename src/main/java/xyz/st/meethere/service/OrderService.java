@@ -61,7 +61,11 @@ public class OrderService {
         }
         return false;
     }
-    public List<List> getOrderTime(Integer gid){
+    public List<List> getOrderTime(Integer gid) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.0");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        Calendar calendar = Calendar.getInstance();
+        Date date = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
         ArrayList<String> orderTimes = new ArrayList<>();
         ArrayList<Integer> durations = new ArrayList<>();
         List<PreOrder> preOrders = orderMapper.getPreOrdersByGroundId(gid);
@@ -71,9 +75,20 @@ public class OrderService {
                 return o1.getStartTime().compareTo(o2.getStartTime());
             }
         });
+        boolean flag = false;
         for(PreOrder preOrder : preOrders){
-            orderTimes.add(preOrder.getStartTime());
-            durations.add(preOrder.getDuration());
+            if(!flag){
+                Date temp = simpleDateFormat.parse(preOrder.getStartTime());
+                calendar.setTime(temp);
+                calendar.add(Calendar.HOUR_OF_DAY,preOrder.getDuration());
+                Date tempAfter = calendar.getTime();
+                if((date.after(temp)&&date.before(tempAfter))||date.equals(temp)||date.before(temp))
+                    flag=true;
+            }
+            if(flag){
+                orderTimes.add(preOrder.getStartTime());
+                durations.add(preOrder.getDuration());
+            }
         }
         ArrayList<List> lists = new ArrayList<>();
         lists.add(orderTimes);
