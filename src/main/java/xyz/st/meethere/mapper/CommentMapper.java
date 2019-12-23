@@ -9,17 +9,20 @@ import java.util.List;
 
 @Repository
 public interface CommentMapper {
+    @Select("select * from comment where commentId=#{commentId}")
+    Comment getCommentsByCommentId(Integer commentId);
+
     @Select("select * from comment where groundId=#{groundId}")
     List<Comment> getCommentsByGroundId(Integer groundId);
 
     @Select("select * from comment where userId=#{userId}")
     List<Comment> getCommentsByUserId(Integer userId);
 
-    @Delete("delete from comment where groundId=#{groundId} and userId=#{userId}")
-    int deleteCommentOfUserIdOnGroundId(Integer userId, Integer groundId);
+    @Delete("delete from comment where commentId=#{commentId}")
+    int deleteComment(Integer commentId);
 
-    @Update("update comment set date=#{date},content=#{content} where groundId=#{groundId} and userId=#{userId}")
-    int updateCommentOfUserIdOnGroundId(Integer userId, Integer groundId);
+    @Update("update comment set date=#{date},content=#{content},checked=#{checked} where commentId=#{commentId}")
+    int updateComment(Comment comment);
 
     @Options(useGeneratedKeys = true,keyProperty = "commentId")
     @Insert("insert into comment(userId,groundId,date,content,checked) values(#{userId},#{groundId},#{date},#{content},#{checked})")
