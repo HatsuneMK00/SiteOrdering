@@ -36,5 +36,4 @@ public class MyServerConfig {
             server = "localhost";
         }
     }
-
 }
