@@ -88,7 +88,7 @@ public class OrderController {
     }
     @ApiOperation("获取某场地在目前时间之后所有预约单的开始时间和持续时间，并按开始时间升序排序")
     @GetMapping("/order/ground/{groundId}/orderTime")
-    ResponseMsg getGroundOrderTime(@PathVariable("groundId") Integer gid){
+    ResponseMsg getGroundOrderTime(@PathVariable("groundId") Integer gid) throws ParseException {
         ResponseMsg responseMsg = new ResponseMsg();
         if(!orderService.checkGroundExistence(gid)){
             responseMsg.setStatus(404);
