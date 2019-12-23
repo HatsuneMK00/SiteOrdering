@@ -33,12 +33,12 @@ layui.config({
     var user_id = 0;
     $.ajax({
         /*这种方法貌似是异步的。user_id不能立刻地就带到下一个$.ajax()里面去*/
-        url: baseUrl + "user/getUserByName",
+        url: baseUrl + "user/getByName",
         type: "get",
         dataType: "json",
-        data: {username: $.cookie('username')},
+        data: {username: $.cookie('userName')},
         success: function (data) {
-            if (data.code === "200") {
+            if (data.code === 200) {
                 var userBean = data.data;
                 user_id = userBean.id;
                 //加载页面数据

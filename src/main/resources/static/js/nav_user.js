@@ -10,7 +10,7 @@ var navs = [{
     "href": "page/user/userInfo.html",
     "spread": false
 }, {
-    "title": "租入订单",
+    "title": "预约订单",
     "icon": "icon-computer",
     "href": "page/main.html",
     "spread": false,
