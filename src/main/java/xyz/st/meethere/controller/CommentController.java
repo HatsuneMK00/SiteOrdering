@@ -1,13 +1,12 @@
 package xyz.st.meethere.controller;
 
+import io.swagger.models.Response;
 import io.swagger.models.auth.In;
+import org.apache.ibatis.annotations.Update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xyz.st.meethere.entity.Comment;
 import xyz.st.meethere.entity.ResponseMsg;
 import xyz.st.meethere.service.CommentService;
@@ -65,5 +64,39 @@ public class CommentController {
             logger.error(e.getMessage(),e);
         }
         return responseMsg;
+    }
+
+    @DeleteMapping("/comment/{commentId}")
+    ResponseMsg deleteComment(@PathVariable("commentId") Integer id){
+        ResponseMsg responseMsg = new ResponseMsg();
+        Comment comment = commentService.getCommentByCommentId(id);
+        int retVal = commentService.deleteComment(id);
+        if (retVal == 1){
+            responseMsg.setStatus(200);
+            responseMsg.getResponseMap().put("result", comment);
+        } else {
+            if (comment == null){
+                responseMsg.setStatus(404);
+            } else {
+                responseMsg.setStatus(500);
+            }
+        }
+        return responseMsg;
+    }
+
+    @PutMapping("/comment")
+    ResponseMsg deleteComment(@RequestBody Comment comment){
+        ResponseMsg responseMsg = new ResponseMsg();
+        int retVal = commentService.updateComment(comment);
+        /*
+        * 这个返回回去的comment里面的值应该是更新过了的
+        * */
+        if (retVal == 1) {
+            responseMsg.setStatus(200);
+            responseMsg.getResponseMap().put("result",comment);
+        } else {
+
+        }
+        return null;
     }
 }

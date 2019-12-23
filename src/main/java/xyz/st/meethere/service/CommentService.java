@@ -26,6 +26,10 @@ public class CommentService {
         return commentMapper.getAllCheckedComments();
     }
 
+    public Comment getCommentByCommentId(Integer id){
+        return commentMapper.getCommentsByCommentId(id);
+    }
+
     public List<Comment> getCommentsByGroundId(Integer id){
         return commentMapper.getCommentsByGroundId(id);
     }
@@ -41,8 +45,7 @@ public class CommentService {
         return commentMapper.addCommentOfUserIdOnGroundId(comment);
     }
 
-    public int updateComment(Integer commentId){
-        Comment comment = commentMapper.getCommentsByCommentId(commentId);
+    public int updateComment(Comment comment){
         setCommentDate(comment);
         comment.setChecked(0);
         return commentMapper.updateComment(comment);
