@@ -160,7 +160,6 @@
                             $(".userName").text(name);
                             $(".userMoney").text("余额：" + data.responseMap.result.balance);
                             if (data.responseMap.result.profilePic !== "") {
-                                console.log(data.responseMap.result.profilePic);
                                 $("#userFace1").attr("src",data.responseMap.result.profilePic);
                                 $("#userFace2").attr("src",data.responseMap.result.profilePic);
                             }
