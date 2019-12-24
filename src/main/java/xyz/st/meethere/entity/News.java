@@ -16,6 +16,13 @@ public class News {
     @ApiModelProperty("新闻id，数据库中的主键，POST时不需要填写，UPDATE时需要填写")
     private int newsId;
 
+    public News(String title, String content, Timestamp date, int newsId) {
+        this.title = title;
+        this.content = content;
+        this.date = date;
+        this.newsId = newsId;
+    }
+
     public String getTitle() {
         return title;
     }
