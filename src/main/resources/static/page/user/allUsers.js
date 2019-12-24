@@ -9,25 +9,7 @@ layui.config({
 	//加载页面数据
 	var usersData = '';
 	var baseUrl = getRootPath_web();
-	$.ajax({
-		url: baseUrl + "user/getAll",
-		type: "get",
-		dataType: "json",
-		success: function (data) {
-			if (data.status === 200) {
-				usersData=data.responseMap.result;
-				usersList(usersData);
-			}
-			else{
-				alert("获取用户信息失败");
-				$(window).attr('location', baseUrl);
-			}
-		},
-		error: function () {
-			alert("检查一下网络吧");
-			$(window).attr('location', baseUrl);
-		}
-	});
+	refreshUserLists();
 
 	//查询
 	var filteredUsersData='';
@@ -118,34 +100,81 @@ layui.config({
 
 	//批量删除
 	$(".batchDel").click(function(){
-
+		var $checked = $('.users_content').find('input[type="checkbox"][name="checked"]:checked');
+		if ($checked.length > 0) {
+			layer.confirm('确定删除？',{icon:3, title:'提示信息'},function(index){
+				var ids=[];
+				for(var i=0;i<$checked.length;i++){
+					ids.push(parseInt($checked[i].parentNode.parentNode.children[1].innerHTML));
+				}
+				console.log(ids);
+				$.ajax({
+					url: baseUrl + "user/deleteByBatch",
+					type: "delete",
+					dataType: "json",
+					contentType: 'application/json;charset=UTF-8',
+					data:JSON.stringify({userId:ids}),
+					async:false,
+					success: function (data) {
+						if (data.status === 200) {
+							refreshUserLists();
+						}
+						else{
+							alert("用户删除失败");
+						}
+					},
+					error: function () {
+						alert("检查一下网络吧");
+						window.location.reload();
+					}
+				});
+				layer.close(index);
+			});
+		} else {
+			layer.msg("请选择需要审核的文章");
+		}
 		}
 	);
 
 	// 提交编辑内容
-	$("body").on("click",".users_edit",function(){  //编辑
-		var $checkbox = $('.news_list tbody input[type="checkbox"][name="checked"]');
-		var $checked = $('.news_list tbody input[type="checkbox"][name="checked"]:checked');
-		if ($checkbox.is(":checked")) {
-			var index = layer.msg('审核中，请稍候', {icon: 16, time: false, shade: 0.8});
-			setTimeout(function () {
-				for (var j = 0; j < $checked.length; j++) {
-					for (var i = 0; i < parkingLotData.length; i++) {
-						if (parkingLotData[i].newsId == $checked.eq(j).parents("tr").find(".news_del").attr("data-id")) {
-							//修改列表中的文字
-							$checked.eq(j).parents("tr").find("td:eq(3)").text("审核通过").removeAttr("style");
-							//将选中状态删除
-							$checked.eq(j).parents("tr").find('input[type="checkbox"][name="checked"]').prop("checked", false);
-							form.render();
+	$("body").on("click",".users_edit",function(data){  //编辑
+		var _this = $(this);
+		layer.confirm('确定修改此用户？',{icon:3, title:'提示信息'},function(index){
+			for(var i=0;i<usersData.length;i++){
+				if(usersData[i].userId == _this.attr("data-id")){
+					console.log(_this.parents("tr").find("td:eq(1)"));
+					var toUpdate = JSON.stringify({
+						userId:  _this.parents("tr").find("td:eq(1)").text(),
+						password: _this.parents("tr").find("td:eq(3)").find("input[name='password']").val(),
+						email: _this.parents("tr").find("td:eq(4)").find("input[name='email']").val(),
+						description: _this.parents("tr").find("td:eq(5)").find("input[name='description']").val(),
+					});
+
+					$.ajax({
+						url: baseUrl + "user/updateById",
+						type: "post",
+						dataType: "json",
+						contentType: 'application/json;charset=UTF-8',
+						data:toUpdate,
+						async:false,
+						success: function (data) {
+							if (data.status === 200) {
+								refreshUserLists();
+							}
+							else{
+								alert("用户删除失败");
+							}
+						},
+						error: function () {
+							alert("检查一下网络吧");
+							window.location.reload();
 						}
-					}
+					});
+
 				}
-				layer.close(index);
-				layer.msg("审核成功");
-			}, 2000);
-		} else {
-			layer.msg("请选择需要审核的文章");
-		}
+			}
+			layer.close(index);
+		});
 	})
 
 	// 删除
@@ -155,9 +184,10 @@ layui.config({
 			//_this.parents("tr").remove();
 			for(var i=0;i<usersData.length;i++){
 				if(usersData[i].userId == _this.attr("data-id")){
+
 					$.ajax({
 						url: baseUrl + "user/deleteById",
-						type: "DELETE",
+						type: "delete",
 						dataType: "json",
 						data:{userId:usersData[i].userId},
 						async:false,
@@ -194,11 +224,11 @@ layui.config({
 			    	+  '<td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose"></td>'
 					+  '<td>'+currData[i].userId+'</td>'
 			    	+  '<td>'+currData[i].userName+'</td>'
-					+'<td><input type="text" name="" placeholder="用户未填写密码" value="'+currData[i].password+'" autocomplete="off" class="layui-input"></td>'
-					+'<td><input type="text" name="" placeholder="用户未填写邮件" value="'+currData[i].email+'" autocomplete="off" class="layui-input"></td>'
-					+'<td><input type="text" name="" placeholder="用户未填写描述" value="'+currData[i].description+'" autocomplete="off" class="layui-input"></td>'
+					+'<td><input type="text" name="password" placeholder="用户未填写密码" value="'+currData[i].password+'" autocomplete="off" class="layui-input"></td>'
+					+'<td><input type="text" name="email" placeholder="用户未填写邮件" value="'+currData[i].email+'" autocomplete="off" class="layui-input"></td>'
+					+'<td><input type="text" name="description" placeholder="用户未填写描述" value="'+currData[i].description+'" autocomplete="off" class="layui-input"></td>'
 			    	+  '<td>'
-					+    '<a class="layui-btn layui-btn-mini users_edit"><i class="iconfont icon-edit"></i> 编辑</a>'
+					+    '<a class="layui-btn layui-btn-mini users_edit" data-id="'+currData[i].userId+'"><i class="iconfont icon-edit"></i> 提交</a>'
 					+    '<a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="'+currData[i].userId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
 			        +  '</td>'
 			    	+'</tr>';
@@ -222,5 +252,26 @@ layui.config({
 			}
 		})
 	}
-        
+
+	function refreshUserLists(){
+		$.ajax({
+			url: baseUrl + "user/getAll",
+			type: "get",
+			dataType: "json",
+			success: function (data) {
+				if (data.status === 200) {
+					usersData=data.responseMap.result;
+					usersList(usersData);
+				}
+				else{
+					alert("获取用户信息失败");
+					$(window).attr('location', baseUrl);
+				}
+			},
+			error: function () {
+				alert("检查一下网络吧");
+				$(window).attr('location', baseUrl);
+			}
+		});
+	}
 })

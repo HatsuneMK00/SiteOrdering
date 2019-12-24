@@ -1,6 +1,7 @@
 package xyz.st.meethere.controller;
 
 import io.swagger.annotations.ApiOperation;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -105,6 +106,20 @@ public class UserController {
         }
         return msg;
     }
+
+    @ResponseBody
+    @ApiOperation("通过userId的数组删除")
+    @DeleteMapping("/user/deleteByBatch")
+    ResponseMsg deleteUser(@RequestBody Map params){
+        ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
+        List<Integer> ids = (List<Integer>)params.get("userId");
+        for(Integer id:ids){
+            deleteUser(id);
+        }
+        msg.setStatus(200);
+        return msg;
+    }
+
 
     @ResponseBody
     @ApiOperation("发送邮件给email，用户userName")
