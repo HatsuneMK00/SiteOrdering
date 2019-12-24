@@ -22,6 +22,20 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @ApiOperation(value = "获取所有订单")
+    @GetMapping("/order")
+    ResponseMsg getOrders(){
+        ResponseMsg responseMsg = new ResponseMsg();
+        responseMsg.setStatus(404);
+        List<PreOrder> preOrders = orderService.getOrders();
+        if(preOrders==null){
+            return responseMsg;
+        }
+        responseMsg.setStatus(200);
+        responseMsg.getResponseMap().put("result",preOrders);
+        return responseMsg;
+    }
+
     @ApiOperation(value = "获取用户的所有订单",notes = "如果返回404，则用户不存在")
     @GetMapping("/order/user/{userid}/order")
     ResponseMsg getOrdersOfUSer(@PathVariable("userid") Integer id){
