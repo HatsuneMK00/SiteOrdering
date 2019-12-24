@@ -25,7 +25,8 @@ public class NewsController {
     ResponseMsg getAllNews() {
         ResponseMsg responseMsg = new ResponseMsg();
         List<News> news = newsService.getAllNews();
-        if (news.size() == 0)
+//        FIXME: 当返回null时为404，返回空时为200
+        if (news == null)
             responseMsg.setStatus(404);
         else {
             responseMsg.setStatus(200);

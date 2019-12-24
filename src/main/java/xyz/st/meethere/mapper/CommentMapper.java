@@ -28,15 +28,18 @@ public interface CommentMapper {
     @Insert("insert into comment(userId,groundId,date,content,checked) values(#{userId},#{groundId},#{date},#{content},#{checked})")
     int addCommentOfUserIdOnGroundId(Comment comment);
 
+    /*
+     * 管理员操作
+     * -1表示不通过的订单
+     * 0表示未审核的订单
+     * 1表示通过的订单
+     * */
     @Update("update comment set checked=1 where commentId=#{id}")
     int updateCommentSetChecked(Integer id);
 
-    @Update("update comment set checked=0 where commentId=#{id}")
+    @Update("update comment set checked=-1 where commentId=#{id}")
     int updateCommentSetUnchecked(Integer id);
 
-    /*
-    * 管理员操作
-    * */
     @Select("select * from comment where checked=0")
     List<Comment> getAllUncheckedComments();
 

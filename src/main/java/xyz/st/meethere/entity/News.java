@@ -23,6 +23,9 @@ public class News {
         this.newsId = newsId;
     }
 
+    public News() {
+    }
+
     public String getTitle() {
         return title;
     }
