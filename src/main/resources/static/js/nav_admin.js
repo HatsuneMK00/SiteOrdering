@@ -23,8 +23,13 @@ var navs = [
         "icon": "icon-computer",
         "href": "page/broadcast/admin_broadcast.html",
         "spread": false
+    },
+    {
+        "title": "订单管理",
+        "icon": "icon-computer",
+        "href": "page/order/admin_order.html",
+        "spread": false
     }
-
 
     // {
     // "title": "停车位信息管理",
@@ -36,11 +41,6 @@ var navs = [
     // "title": "车辆求租信息审核",
     // "icon": "icon-computer",
     // "href": "page/car/admin_car_rent_in.jsp",
-    // "spread": false
-    // }, {
-    // "title": "车辆出租信息审核",
-    // "icon": "icon-computer",
-    // "href": "page/car/admin_car_rent_out.jsp",
     // "spread": false
     // },
     // {

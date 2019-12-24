@@ -10,6 +10,8 @@ import xyz.st.meethere.entity.Ground;
 import xyz.st.meethere.entity.PreOrder;
 import xyz.st.meethere.entity.ResponseMsg;
 import xyz.st.meethere.entity.User;
+import xyz.st.meethere.service.AdminService;
+import xyz.st.meethere.service.GroundService;
 import xyz.st.meethere.service.OrderService;
 import xyz.st.meethere.service.UserService;
 
@@ -21,13 +23,42 @@ import java.util.List;
 public class OrderController {
     @Autowired
     OrderService orderService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    AdminService adminService;
+    @Autowired
+    GroundService groundService;
 
-    @ApiOperation(value = "获取所有订单")
+    @ApiOperation(value = "获取所有订单, 包括用户的信息和场地的信息")
     @GetMapping("/order")
     ResponseMsg getOrders(){
         ResponseMsg responseMsg = new ResponseMsg();
         responseMsg.setStatus(404);
         List<PreOrder> preOrders = orderService.getOrders();
+        List<User> users = userService.traverseUserWOAuthority();
+        List<Ground> grounds = groundService.getAllGrounds();
+
+        // TODO: 这里应该用外键优化或者map做数据预处理优化的，但是懒得写了
+        for(PreOrder order: preOrders){
+            int userId=order.getUserId();
+            int groundId=order.getGroundId();
+            order.setUserName("");
+            order.setGroundName("");
+            for(User user:users){
+                if(user.getUserId() == userId){
+                    order.setUserName(user.getUserName());
+                    break;
+                }
+            }
+            for(Ground ground:grounds){
+                if(ground.getGroundId()==groundId){
+                    order.setGroundName(ground.getGroundName());
+                    break;
+                }
+            }
+        }
+
         if(preOrders==null){
             return responseMsg;
         }
@@ -63,6 +94,7 @@ public class OrderController {
         responseMsg.getResponseMap().put("result",preOrder);
         return responseMsg;
     }
+
     @ApiOperation(value = "新增用户订单",notes = "若返回510则说明用户输入的开始时间和duration与该场地现有预约单冲突")
     @PostMapping("/order/user/{userid}/order")
     ResponseMsg addAnOrder(
@@ -100,6 +132,7 @@ public class OrderController {
         else responseMsg.setStatus(500);
         return responseMsg;
     }
+
     @ApiOperation("获取某场地在目前时间之后所有预约单的开始时间和持续时间，并按开始时间升序排序")
     @GetMapping("/order/ground/{groundId}/orderTime")
     ResponseMsg getGroundOrderTime(@PathVariable("groundId") Integer gid) throws ParseException {
@@ -113,6 +146,7 @@ public class OrderController {
         responseMsg.getResponseMap().put("result",lists);
         return responseMsg;
     }
+
     @ApiOperation("获取某场地的所有订单")
     @GetMapping("/order/ground/{groundId}/order")
     ResponseMsg getGroundOrders(@PathVariable("groundId") Integer gid){

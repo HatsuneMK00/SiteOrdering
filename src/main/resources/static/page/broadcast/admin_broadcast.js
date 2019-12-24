@@ -137,11 +137,13 @@ layui.config({
             var currData = data.concat().splice(curr*nums-nums, nums);
             if(currData.length != 0){
                 for(var i=0;i<currData.length;i++){
+                    var t=new Date(currData[i].date);
                     dataHtml += '<tr>'
                         +  '<td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose"></td>'
                         +  '<td>'+currData[i].title+'</td>'
                         +  '<td>'+currData[i].content+'</td>'
-                        +  '<td>'+new Date(currData[i].date)+'</td>'
+                        +  '<td>'+t.getFullYear()+"年"+t.getMonth()+"月"+t.getDay()+"日 "
+                        +   t.getHours()+":"+t.getMinutes()+'</td>'
                         +  '<td>'
                         +    '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+currData[i].newsId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
                         +  '</td>'

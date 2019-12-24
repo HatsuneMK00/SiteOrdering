@@ -38,6 +38,10 @@ public class UserService {
         return userMapper.getAllUser();
     }
 
+    public List<User> traverseUserWOAuthority() {
+        return userMapper.getAllUserWOAuthority();
+    }
+
     public boolean checkUserPassword(String name, String pwd) {
         User user = userMapper.getUserByName(name);
         if (user != null && user.getPassword().equals(pwd))
