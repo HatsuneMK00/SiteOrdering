@@ -9,7 +9,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.event.annotation.AfterTestClass;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import xyz.st.meethere.entity.News;
@@ -224,11 +223,22 @@ public class NewsControllerTest {
     }
 
     @Test
+    public void get_null_when_get_all_news() throws Exception {
+        when(newsService.getAllNews()).thenReturn(null);
+        mockMvc.perform(get("/news"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+        verify(newsService).getAllNews();
+        verifyNoMoreInteractions(newsService);
+    }
+
+    @Test
     public void get_nothing_when_get_all_news() throws Exception {
         when(newsService.getAllNews()).thenReturn(new ArrayList<>());
         mockMvc.perform(get("/news"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value(404));
+                .andExpect(jsonPath("$.status").value(200))
+                .andExpect(jsonPath("$.responseMap.result").exists());
         verify(newsService).getAllNews();
         verifyNoMoreInteractions(newsService);
     }

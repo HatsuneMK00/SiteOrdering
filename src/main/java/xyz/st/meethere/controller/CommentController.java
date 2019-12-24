@@ -17,8 +17,12 @@ import java.util.List;
 @RestController
 @ResponseBody
 public class CommentController {
-    @Autowired
+    final
     CommentService commentService;
+
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
+    }
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -123,13 +127,13 @@ public class CommentController {
         return responseMsg;
     }
 
-    @PutMapping("/check/{commentId}")
+    @PutMapping("/comment/check/{commentId}")
     ResponseMsg checkComment(@PathVariable("commentId") Integer commentId) {
         int retVal = commentService.checkComment(commentId);
         return getResponseMsg(commentId, retVal);
     }
 
-    @PutMapping("/uncheck/{commentId}")
+    @PutMapping("/comment/uncheck/{commentId}")
     ResponseMsg uncheckComment(@PathVariable("commentId") Integer commentId){
         int retVal = commentService.uncheckComment(commentId);
         return getResponseMsg(commentId, retVal);
