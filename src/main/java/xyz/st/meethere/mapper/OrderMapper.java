@@ -1,5 +1,6 @@
 package xyz.st.meethere.mapper;
 
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import xyz.st.meethere.entity.Ground;
@@ -35,9 +36,16 @@ public interface OrderMapper {
     List<PreOrder> getPreOrdersByGroundId(Integer id);
     @Select("select * from preorder where userId=#{uid} and preOrderId=#{oid}")
     PreOrder getAPreOrderOfUser(Integer uid,Integer oid);
-
     // 管理员订单管理
 //    添加上降序获取功能
+    @Select("select * from preorder where preOrderId=#{pid}")
+    PreOrder getPreOrderByPid(Integer pid);
     @Select("select * from preorder")
     List<PreOrder> getAllPreOrders();
+    @Select("select * from preorder where checked = 0")
+    List<PreOrder> getAllUncheckedOrders();
+    @Update("update preorder set checked= 1 where preOrderId = #{id}")
+    int checkPreOrder(Integer id);
+    @Update("update preorder set checked= -1 where preOrderId = #{id}")
+    int checkPreOrderFail(Integer id);
 }

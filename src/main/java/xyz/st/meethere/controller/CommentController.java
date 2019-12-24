@@ -112,7 +112,7 @@ public class CommentController {
     /*
      * 管理员用
      * */
-    @GetMapping("/uncheckedComment")
+    @GetMapping("/comment/uncheckedComment")
     ResponseMsg getAllUncheckedComment() {
         ResponseMsg responseMsg = new ResponseMsg();
         List<Comment> comments = null;
