@@ -10,50 +10,14 @@ var navs = [{
     "href": "page/user/userInfo.html",
     "spread": false
 }, {
-    "title": "预约订单",
+    "title": "预约的场馆",
     "icon": "icon-computer",
-    "href": "page/main.html",
-    "spread": false,
-    "children": [
-        {
-            "title": "租入的车",
-            "icon": "icon-computer",
-            "href": "page/car/my_rent_in_cars.jsp",
-            "spread": false,
-        }, {
-            "title": "租入的车位",
-            "icon": "icon-computer",
-            "href": "page/parking/my_rent_in_parking_lot.jsp",
-            "spread": false,
-        }
-    ]
-}, {
-    "title": "租出订单",
-    "icon": "icon-computer",
-    "href": "",
-    "spread": false,
-    "children": [
-        {
-            "title": "租出订单",
-            "icon": "icon-computer",
-            "href": "page/car/my_rent_out_car_list.jsp",
-            "spread": false,
-        }
-    ]
-}, {
-    "title": "发布车辆出租信息",
-    "icon": "icon-computer",
-    "href": "page/car/car_rent_out.html",
+    "href": "page/car/my_rent_in_cars.html",
     "spread": false
 }, {
-    "title": "我要租车",
+    "title": "我要预约",
     "icon": "icon-computer",
-    "href": 'page/car/car_rent_in.jsp',
-    "spread": false
-}, {
-    "title": "我要租车位",
-    "icon": "icon-computer",
-    "href": "page/parking/parkingLot.jsp",
+    "href": 'page/car/car_rent_in.html',
     "spread": false
 }, {
     "title": "留言",
@@ -65,4 +29,4 @@ var navs = [{
     "icon": "icon-computer",
     "href": "page/message/user_broadcast.jsp",
     "spread": false
-}]
+}];

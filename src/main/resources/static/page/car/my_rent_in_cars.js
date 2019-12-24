@@ -36,15 +36,13 @@ layui.config({
         url: baseUrl + "user/getByName",
         type: "get",
         dataType: "json",
-        data: {username: $.cookie('userName')},
+        data: {userName: $.cookie('userName')},
         success: function (data) {
-            if (data.code === 200) {
-                var userBean = data.data;
-                user_id = userBean.id;
+            if (data.status === 200) {
+                user_id = data.responseMap.result.id;
                 //加载页面数据
-                var carsData = '';
-                $.get(baseUrl + "carout/myInOrder?receiverId=" + user_id, function (data) {
-                    var carsData = data.data;
+                $.get(baseUrl + "order/user/" + user_id + "/order", function (data) {
+                    var carsData = data;
                     //执行加载数据的方法
                     newsList(carsData);
                 })
@@ -91,22 +89,26 @@ layui.config({
 
     function newsList(that) {
         //渲染数据
+        var currData;
         function renderDate(data, curr) {
             var dataHtml = '';
             if (!that) {
-                currData = carsData.concat().splice(curr * nums - nums, nums);
+                //currData = carsData.concat().splice(curr * nums - nums, nums);
             } else {
                 currData = that.concat().splice(curr * nums - nums, nums);
             }
-            if (currData.length != 0) {
+            if (currData.length !== 0) {
                 for (var i = 0; i < currData.length; i++) {
                     dataHtml += '<tr>'
                         + '<td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose"></td>'
-                        + '<td align="left" class="car_id">' + currData[i].id + '</td>'
-                        + '<td align="left" class="car_id">' + currData[i].car_id + '</td>'
-                        + '<td align="left" class="car_id">' + currData[i].carName + '</td>'
-                        + '<td >' + currData[i].sender_id + '</td>'
-                        + '<td >' + currData[i].senderName + '</td>';
+                        + '<td align="left" class="car_id">' + currData[i].preOrderId + '</td>'
+                        + '<td align="left" class="car_id">' + currData[i].groundId + '</td>'
+                        + '<td align="left" class="car_id">' + currData[i].userId + '</td>'
+                        + '<td >' + currData[i].orderTime + '</td>'
+                        + '<td >' + currData[i].price + '</td>'
+                        + '<td >' + currData[i].startTime + '</td>'
+                        + '<td >' + currData[i].duration + '</td>'
+                        + '<td >' + currData[i].checked + '</td>'
                     dataHtml += '<td>' + currData[i].status + '</td>';
                     dataHtml +=
                         '<td>'
@@ -121,8 +123,9 @@ layui.config({
         }
 
         //分页
-        var nums = 8; //每页出现的数据量
-        if (that) {
+        var nums = 9; //每页出现的数据量
+        var carsData;
+        if (that) {p
             carsData = that;
         }
         laypage({
