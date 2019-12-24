@@ -107,7 +107,6 @@ layui.config({
 				for(var i=0;i<$checked.length;i++){
 					ids.push(parseInt($checked[i].parentNode.parentNode.children[1].innerHTML));
 				}
-				console.log(ids);
 				$.ajax({
 					url: baseUrl + "user/deleteByBatch",
 					type: "delete",
@@ -142,7 +141,6 @@ layui.config({
 		layer.confirm('确定修改此用户？',{icon:3, title:'提示信息'},function(index){
 			for(var i=0;i<usersData.length;i++){
 				if(usersData[i].userId == _this.attr("data-id")){
-					console.log(_this.parents("tr").find("td:eq(1)"));
 					var toUpdate = JSON.stringify({
 						userId:  _this.parents("tr").find("td:eq(1)").text(),
 						password: _this.parents("tr").find("td:eq(3)").find("input[name='password']").val(),
