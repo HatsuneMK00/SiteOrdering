@@ -3,10 +3,28 @@ package xyz.st.meethere.entity;
 import java.sql.Timestamp;
 
 public class Comment {
+    private int commentId;
     private int userId;
     private int groundId;
     private Timestamp date;
     private String content;
+    private int checked;
+
+    public int getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
+
+    public int getChecked() {
+        return checked;
+    }
+
+    public void setChecked(int checked) {
+        this.checked = checked;
+    }
 
     public int getUserId() {
         return userId;

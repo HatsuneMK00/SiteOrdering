@@ -13,15 +13,20 @@ import java.util.List;
 @ResponseBody
 public class NewsController {
 
-    @Autowired
+    final
     NewsService newsService;
+
+    public NewsController(NewsService newsService) {
+        this.newsService = newsService;
+    }
 
     @ApiOperation("获取所有新闻")
     @GetMapping("/news")
     ResponseMsg getAllNews() {
         ResponseMsg responseMsg = new ResponseMsg();
         List<News> news = newsService.getAllNews();
-        if (news.size() == 0)
+//        FIXME: 当返回null时为404，返回空时为200
+        if (news == null)
             responseMsg.setStatus(404);
         else {
             responseMsg.setStatus(200);
@@ -68,7 +73,21 @@ public class NewsController {
         } else {
             responseMsg.setStatus(500);
         }
-        responseMsg.getResponseMap().put("result",news);
+        responseMsg.getResponseMap().put("result", news);
+        return responseMsg;
+    }
+
+    @ApiOperation("根据newsId获取一个新闻")
+    @GetMapping("/news/{newsId}")
+    ResponseMsg getNewsByNewsId(@PathVariable("newsId") Integer id) {
+        News news = newsService.getNewsByNewsId(id);
+        ResponseMsg responseMsg = new ResponseMsg();
+        if (news != null) {
+            responseMsg.setStatus(200);
+            responseMsg.getResponseMap().put("result", news);
+        } else {
+            responseMsg.setStatus(404);
+        }
         return responseMsg;
     }
 }

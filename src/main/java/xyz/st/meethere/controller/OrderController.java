@@ -12,6 +12,7 @@ import xyz.st.meethere.entity.ResponseMsg;
 import xyz.st.meethere.entity.User;
 import xyz.st.meethere.service.AdminService;
 import xyz.st.meethere.service.GroundService;
+import xyz.st.meethere.entity.*;
 import xyz.st.meethere.service.OrderService;
 import xyz.st.meethere.service.UserService;
 
@@ -146,8 +147,7 @@ public class OrderController {
         responseMsg.getResponseMap().put("result",lists);
         return responseMsg;
     }
-
-    @ApiOperation("获取某场地的所有订单")
+    @ApiOperation(value = "获取某场地的所有订单",notes = "若返回404则表明场地不存在")
     @GetMapping("/order/ground/{groundId}/order")
     ResponseMsg getGroundOrders(@PathVariable("groundId") Integer gid){
         ResponseMsg responseMsg = new ResponseMsg();
@@ -160,4 +160,40 @@ public class OrderController {
         return responseMsg;
     }
 
+    //管理员用接口
+    @ApiOperation("获取所有未审核订单")
+    @GetMapping("/order/uncheckedOrder")
+    ResponseMsg getAllUncheckedComment() {
+        ResponseMsg responseMsg = new ResponseMsg();
+        List<PreOrder> orders = null;
+        orders = orderService.getUncheckedOrders();
+        responseMsg.getResponseMap().put("result", orders);
+        responseMsg.setStatus(200);
+        return responseMsg;
+    }
+    @ApiOperation("将指定订单审核状态标记为通过")
+    @PutMapping("/order/check/{pid}")
+    ResponseMsg checkOrder(@PathVariable("pid") Integer pid){
+        ResponseMsg responseMsg = new ResponseMsg();
+        if(!orderService.checkPreOrderExistence(pid)){
+            responseMsg.setStatus(404);
+            return responseMsg;
+        }
+        responseMsg.setStatus(200);
+        responseMsg.getResponseMap().put("result",orderService.checkPreOrder(pid));
+        return responseMsg;
+    }
+
+    @ApiOperation("将指定订单审核状态标记为未通过")
+    @PutMapping("/order/uncheck/{pid}")
+    ResponseMsg uncheckOrder(@PathVariable("pid") Integer pid){
+        ResponseMsg responseMsg = new ResponseMsg();
+        if(!orderService.checkPreOrderExistence(pid)){
+            responseMsg.setStatus(404);
+            return responseMsg;
+        }
+        responseMsg.setStatus(200);
+        responseMsg.getResponseMap().put("result",orderService.checkPreOrderFail(pid));
+        return responseMsg;
+    }
 }

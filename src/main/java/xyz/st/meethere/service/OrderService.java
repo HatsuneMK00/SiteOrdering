@@ -40,6 +40,7 @@ public class OrderService {
     public boolean checkUserExistence(Integer uid){
         return orderMapper.checkUserExistence(uid) != null;
     }
+    public boolean checkPreOrderExistence(Integer pid){ return orderMapper.getPreOrderByPid(pid) != null;}
     public boolean validatePreOrder(Integer gid, String startTime,Integer duration) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.0");
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
@@ -95,6 +96,18 @@ public class OrderService {
         lists.add(durations);
         return lists;
     }
+
+    public  List<PreOrder> getUncheckedOrders(){
+        return orderMapper.getAllUncheckedOrders();
+    }
+    public int checkPreOrder(Integer id){
+        return orderMapper.checkPreOrder(id);
+    }
+
+    public int checkPreOrderFail(Integer id){
+        return orderMapper.checkPreOrderFail(id);
+    }
+
     public Integer getGroundPrice(Integer gid){
         return orderMapper.getGroundPrice(gid);
     }
