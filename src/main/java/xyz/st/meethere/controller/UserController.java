@@ -127,7 +127,7 @@ public class UserController {
         if(!(params.containsKey("userId"))){
             return msg;
         }
-        User user=userService.getUserById((int)params.get("userId"));
+        User user=userService.getUserById(Integer.valueOf(params.get("userId").toString()));
         if(user==null) return msg;
         user.updateUser(params);
         int ret = userService.updateUserByModel(user);

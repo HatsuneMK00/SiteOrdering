@@ -27,7 +27,7 @@ public class User {
 
     public void updateUser(Map params) {
         if(params.containsKey("userId"))
-            this.userId = (int) params.get("userId");
+            this.userId = Integer.valueOf(params.get("userId").toString());
         if(params.containsKey("userName"))
             this.userName = (String) params.get("userName");
         if(params.containsKey("password"))
