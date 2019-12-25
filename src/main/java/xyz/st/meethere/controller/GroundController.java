@@ -21,10 +21,15 @@ import java.util.List;
 @RestController
 @ResponseBody
 public class GroundController {
-    @Autowired
+    final
     GroundService groundService;
-    @Autowired
+    final
     FileService fileService;
+
+    public GroundController(GroundService groundService, FileService fileService) {
+        this.groundService = groundService;
+        this.fileService = fileService;
+    }
 
     @ApiOperation(value = "获取所有场馆信息")
     @GetMapping("/ground")

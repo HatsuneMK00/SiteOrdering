@@ -1,12 +1,7 @@
 package xyz.st.meethere.controller;
 
-import io.swagger.models.Response;
-import io.swagger.models.auth.In;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xyz.st.meethere.entity.Comment;
 import xyz.st.meethere.entity.ResponseMsg;
