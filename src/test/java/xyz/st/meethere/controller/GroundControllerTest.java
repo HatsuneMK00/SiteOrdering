@@ -45,7 +45,7 @@ class GroundControllerTest {
     void setUp() {
         groundService = mock(GroundService.class);
         fileService = mock(FileService.class);
-        mockMvc = MockMvcBuilders.standaloneSetup(new GroundController(groundService,fileService)).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new GroundController(groundService, fileService)).build();
     }
 
     @Test
@@ -71,21 +71,31 @@ class GroundControllerTest {
         mockMvc.perform(get("/ground"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
-                .andExpect(jsonPath("$.resonseMap.result").isArray())
+                .andExpect(jsonPath("$.responseMap.result").exists())
                 .andExpect(jsonPath("$.responseMap.result[0].groundId").value(1))
                 .andExpect(jsonPath("$.responseMap.result[1].groundId").value(2));
         verify(groundService).getAllGrounds();
-        verifyNoMoreInteractions();
+        verifyNoMoreInteractions(groundService);
     }
 
     @Test
-    public void get_null_when_get_all_grounds(){
+    public void get_null_when_get_all_grounds() throws Exception {
         when(groundService.getAllGrounds()).thenReturn(null);
+
+        mockMvc.perform(get("/ground"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+        verify(groundService).getAllGrounds();
     }
 
     @Test
-    public void get_nothing_when_get_all_grounds(){
+    public void get_nothing_when_get_all_grounds() throws Exception {
+        when(groundService.getAllGrounds()).thenReturn(new ArrayList<>());
 
+        mockMvc.perform(get("/ground"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200));
+        verify(groundService).getAllGrounds();
     }
 
     @Test
@@ -106,8 +116,14 @@ class GroundControllerTest {
     }
 
     @Test
-    public void ground_not_exist_when_get_ground_by_groundId(){
+    public void ground_not_exist_when_get_ground_by_groundId() throws Exception {
+        when(groundService.getGroundById(1)).thenReturn(null);
 
+        mockMvc.perform(get("/ground/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404))
+                .andExpect(jsonPath("$.responseMap.result").doesNotExist());
+        verify(groundService).getGroundById(1);
     }
 
     @Test
@@ -125,11 +141,11 @@ class GroundControllerTest {
         when(groundService.addGround(any(Ground.class))).thenReturn(1);
 
         mockMvc.perform(multipart("/ground")
-                .file(new MockMultipartFile("image","image.png","image/png","this is image".getBytes()))
-                .param("groundName","test ground")
-                .param("pricePerHour","10")
-                .param("address","the address")
-                .param("description","the description"))
+                .file(new MockMultipartFile("image", "image.png", "image/png", "this is image".getBytes()))
+                .param("groundName", "test ground")
+                .param("pricePerHour", "10")
+                .param("address", "the address")
+                .param("description", "the description"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.responseMap.result").exists());
@@ -140,13 +156,37 @@ class GroundControllerTest {
     }
 
     @Test
-    public void no_image_when_add_a_ground(){
-
+    public void no_image_when_add_a_ground() throws Exception {
+        mockMvc.perform(multipart("/ground")
+                .param("groundName", "test ground")
+                .param("pricePerHour", "10")
+                .param("address", "the address")
+                .param("description", "the description"))
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
-    public void no_enough_params_when_add_a_ground(){
+    public void ground_param_not_verified_when_add_a_ground() throws Exception {
+        Ground ground = new Ground(
+                "ground 1",
+                1,
+                null,
+                10,
+                "ground address",
+                "this is a test ground"
+        );
+        when(groundService.verifyGround(any(Ground.class))).thenReturn(true);
 
+        mockMvc.perform(multipart("/ground")
+                .file(new MockMultipartFile("image", "image.png", "image/png", "this is image".getBytes()))
+                .param("groundName", "test ground")
+                .param("pricePerHour", "10")
+                .param("address", "the address")
+                .param("description", "the description"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(500));
+        verify(groundService).verifyGround(any());
+        verifyNoMoreInteractions(groundService);
     }
 
     @Test
@@ -178,22 +218,70 @@ class GroundControllerTest {
     }
 
     @Test
-    public void ground_not_exist_when_update_a_ground(){
+    public void ground_not_exist_when_update_a_ground() throws Exception {
+        when(groundService.updateGround(any())).thenReturn(0);
+        when(groundService.verifyGround(any())).thenReturn(false);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(new Ground());
+
+        mockMvc.perform(put("/ground")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+        InOrder order = inOrder(groundService);
+        order.verify(groundService).verifyGround(any());
+        order.verify(groundService).updateGround(any());
+    }
+
+    @Test
+    public void ground_param_not_verified_when_update_a_ground() throws Exception {
+        when(groundService.verifyGround(any())).thenReturn(true);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(new Ground());
+
+        mockMvc.perform(put("/ground")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(500));
+        verify(groundService).verifyGround(any());
+        verifyNoMoreInteractions(groundService);
     }
 
     @Test
     public void happy_path_when_delete_a_ground() throws Exception {
         when(groundService.deleteGround(1)).thenReturn(1);
+        Ground ground = new Ground(
+                "ground 1",
+                1,
+                null,
+                10,
+                "ground address",
+                "this is a test ground"
+        );
+        when(groundService.getGroundById(1)).thenReturn(ground);
         mockMvc.perform(delete("/ground/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.responseMap.result").exists());
-        verify(groundService).deleteGround(1);
+        InOrder order = inOrder(groundService);
+        order.verify(groundService).getGroundById(1);
+        order.verify(groundService).deleteGround(1);
     }
 
     @Test
-    public void ground_not_exist_when_delete_a_ground(){
+    public void ground_not_exist_when_delete_a_ground() throws Exception {
+        when(groundService.deleteGround(1)).thenReturn(0);
 
+        mockMvc.perform(delete("/ground/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+
+        verify(groundService).deleteGround(1);
     }
 }

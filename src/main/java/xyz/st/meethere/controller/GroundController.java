@@ -36,7 +36,8 @@ public class GroundController {
     ResponseMsg getAllGroundsInfo() {
         List<Ground> grounds = groundService.getAllGrounds();
         ResponseMsg responseMsg = new ResponseMsg();
-        if (grounds.size() == 0)
+//        FIXME: 只有grounds为null时返回404
+        if (grounds == null)
             responseMsg.setStatus(404);
         else {
             responseMsg.getResponseMap().put("result", grounds);
@@ -117,21 +118,30 @@ public class GroundController {
         int result = groundService.updateGround(ground);
         ResponseMsg responseMsg = new ResponseMsg();
         if (result == 1)
-            responseMsg.setStatus(200);
+            {
+                responseMsg.setStatus(200);
+//                FIXME:需要返回更新后的内容
+                responseMsg.getResponseMap().put("result",ground);
+            }
         else
-            responseMsg.setStatus(500);
+//            FIXME: 没有找到该ground时返回404
+            responseMsg.setStatus(404);
         return responseMsg;
     }
 
     @ApiOperation(value = "删除一个场馆")
     @DeleteMapping("/ground/{groundId}")
     ResponseMsg deleteGround(@PathVariable("groundId") Integer groundId) {
+        Ground ground = groundService.getGroundById(groundId);
         int result = groundService.deleteGround(groundId);
         ResponseMsg responseMsg = new ResponseMsg();
+//        FIXME:删除时需要返回被删除内容
+        responseMsg.getResponseMap().put("result", ground);
         if (result == 1)
             responseMsg.setStatus(200);
         else
-            responseMsg.setStatus(500);
+//            FIXME:没有找到删除对象返回404
+            responseMsg.setStatus(404);
         return responseMsg;
     }
 }
