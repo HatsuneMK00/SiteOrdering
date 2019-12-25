@@ -30,6 +30,15 @@ public class Ground {
         this.description = description;
     }
 
+    public Ground(String groundName, int groundId, String photo, int pricePerHour, String address, String description) {
+        this.groundName = groundName;
+        this.groundId = groundId;
+        this.photo = photo;
+        this.pricePerHour = pricePerHour;
+        this.address = address;
+        this.description = description;
+    }
+
     public String getDescription() {
         return description;
     }
