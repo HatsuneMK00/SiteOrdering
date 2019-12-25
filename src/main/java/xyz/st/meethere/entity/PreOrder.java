@@ -13,6 +13,25 @@ public class PreOrder {
     private int payed;
     private int checked;
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getGroundName() {
+        return groundName;
+    }
+
+    public void setGroundName(String groundName) {
+        this.groundName = groundName;
+    }
+
+    private String userName;
+    private String groundName;
+
     public int getChecked() {
         return checked;
     }
