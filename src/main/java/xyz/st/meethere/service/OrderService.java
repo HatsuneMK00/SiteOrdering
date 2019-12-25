@@ -116,4 +116,8 @@ public class OrderService {
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         preOrder.setOrderTime(Timestamp.valueOf(simpleDateFormat.format(new Date())));
     }
+
+    public List<PreOrder> getOrders() {
+        return orderMapper.getAllPreOrders();
+    }
 }

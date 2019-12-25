@@ -39,4 +39,6 @@ public interface UserMapper {
     @Update("update user set profilePic=#{profilePic} where userId=#{userId}")
     int updateUserProfilePicByUserId(Integer userId, String profilePic);
 
+    @Select("select * from user")
+    List<User> getAllUserWOAuthority();
 }
