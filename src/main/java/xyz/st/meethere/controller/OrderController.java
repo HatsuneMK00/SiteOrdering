@@ -125,8 +125,8 @@ public class OrderController {
     }
 
     @ApiOperation("删除用户指定订单")
-    @DeleteMapping("/order/user/{userid}/order/{orderid}")
-    ResponseMsg deleteOrder(@PathVariable("userid")Integer uid,@PathVariable("orderid") Integer oid){
+    @DeleteMapping("/order/{orderid}")
+    ResponseMsg deleteOrder(@PathVariable("orderid") Integer oid){
         ResponseMsg responseMsg = new ResponseMsg();
         if(orderService.deletePreOrder(oid)==1)
             responseMsg.setStatus(200);

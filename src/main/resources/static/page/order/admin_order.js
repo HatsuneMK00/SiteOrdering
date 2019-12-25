@@ -24,51 +24,20 @@ layui.config({
             var index = layer.msg('查询中，请稍候',{icon: 16,time:false,shade:0.8});
             setTimeout(function(){
                 $.ajax({
-                    url :  baseUrl+"carout/orderTraversal",
-                    type : "get",
+                    url :  baseUrl+"order/search",
+                    type : "post",
                     dataType : "json",
+                    contentType : 'application/json;charset=UTF-8',
+                    data: JSON.stringify({content:$(".search_input").val()}),
                     success : function(data){
-
-                        newsData = data.data;
-                        var selectStr = $(".search_input").val();
-                        for(var i=0;i<newsData.length;i++){
-                            var newsStr = newsData[i];
-                            function changeStr(data){
-                                var dataStr = '';
-                                var showNum = data.split(eval("/"+selectStr+"/ig")).length - 1;
-                                if(showNum > 1){
-                                    for (var j=0;j<showNum;j++) {
-                                        dataStr += data.split(eval("/"+selectStr+"/ig"))[j] + "<i style='color:#03c339;font-weight:bold;'>" + selectStr + "</i>";
-                                    }
-                                    dataStr += data.split(eval("/"+selectStr+"/ig"))[showNum];
-                                    return dataStr;
-                                }else{
-                                    dataStr = data.split(eval("/"+selectStr+"/ig"))[0] + "<i style='color:#03c339;font-weight:bold;'>" + selectStr + "</i>" + data.split(eval("/"+selectStr+"/ig"))[1];
-                                    return dataStr;
-                                }
-                            }
-                            if(newsStr.carName.indexOf(selectStr) > -1){
-                                newsStr["carName"] = changeStr(newsStr.carName);
-                            }
-                            // if(newsStr.senderName.indexOf(selectStr) > -1){
-                            //     newsStr["senderName"] = changeStr(newsStr.senderName);
-                            // }
-                            // if(newsStr.receiverName.indexOf(selectStr) > -1){
-                            //     newsStr["receiverName"] = changeStr(newsStr.receiverName);
-                            // }
-                            if(newsStr.carName.indexOf(selectStr)>-1 ){
-                                newArray1.push(newsStr);
-                            }
-                        }
-                        newsData = newArray1;
+                        newsData = data.responseMap.result;
                         newsList(newsData);
                     }
                 });
-
                 layer.close(index);
-            },2000);
+            },1000);
         }else{
-            layer.msg("请输入需要查询的内容");
+            newsList(newsData);
         }
     });
 
@@ -93,45 +62,84 @@ layui.config({
         form.render('checkbox');
     })
 
-    //是否展示
-    form.on('switch(isShow)', function(data){
-        var index = layer.msg('修改中，请稍候',{icon: 16,time:false,shade:0.8});
-        setTimeout(function(){
-            layer.close(index);
-            layer.msg("展示状态修改成功！");
-        },2000);
-    })
-
-    //收藏.
-    $("body").on("click",".news_collect",function(){
+    //通过
+    $("body").on("click",".news_pass",function(){
 
         var _this = $(this);
 
-        layer.confirm('审核此信息？',{icon:3, title:'提示信息'},function(index){
+        layer.confirm('通过此订单？',{icon:3, title:'提示信息'},function(index){
 
             //_this.parents("tr").remove();
             for(var i=0;i<newsData.length;i++){
-                if(newsData[i].id == _this.attr("data-id")){
+                if(newsData[i].preOrderId == _this.attr("data-id")){
+
                     $.ajax({
-                        url : baseUrl+"carout/orderPass",
-                        type : "get",
-                        data:{id:newsData[i].id  },
+                        url : baseUrl+'order/check/'+newsData[i].preOrderId,
+                        type : "PUT",
                         dataType : "json",
+                        contentType : 'application/json;charset=UTF-8',
+                        async:false,
                         success : function(data){
-                            linksData = data.data;
-                            //alert(data);
-                            if(data.code=="200"){
+                            if(data.status===200){
+                                console.log(newsData[i]);
+                                newsData[i].checked="1";
                                 layer.msg("审核成功");
-                                window.location.reload();
+                                newsList(newsData);
+
                             }else{
                                 layer.msg("审核失败");
+                                newsList(newsData);
                             }
                         },
                         error:function () {
-                            layer.msg("操作失败>_<检查一下网络吧");
+                            layer.msg("检查一下网络吧");
+                            window.location.reload();
                         }
                     });
-                    // newsData.splice(i,1);
+                    newsList(newsData);
+                }
+            }
+
+            layer.close(index);
+            //$(this).html("<i class='iconfont icon-star'></i> 已审核");
+        });
+
+    });
+
+    //不通过
+    $("body").on("click",".news_reject",function(){
+
+        var _this = $(this);
+
+        layer.confirm('拒绝此订单？',{icon:3, title:'提示信息'},function(index){
+
+            //_this.parents("tr").remove();
+            for(var i=0;i<newsData.length;i++){
+                if(newsData[i].preOrderId == _this.attr("data-id")){
+
+                    $.ajax({
+                        url : baseUrl+'order/uncheck/'+newsData[i].preOrderId,
+                        type : "PUT",
+                        dataType : "json",
+                        contentType : 'application/json;charset=UTF-8',
+                        async:false,
+                        success : function(data){
+                            if(data.status===200){
+                                console.log(newsData[i]);
+                                newsData[i].checked="-1";
+                                layer.msg("审核成功");
+                                newsList(newsData);
+
+                            }else{
+                                layer.msg("审核失败");
+                                newsList(newsData);
+                            }
+                        },
+                        error:function () {
+                            layer.msg("检查一下网络吧");
+                            window.location.reload();
+                        }
+                    });
                     newsList(newsData);
                 }
             }
@@ -144,37 +152,39 @@ layui.config({
 
     //删除
     $("body").on("click",".news_del",function(){
+
         var _this = $(this);
 
-        layer.confirm('不通过此信息？',{icon:3, title:'提示信息'},function(index){
+        layer.confirm('删除此订单？',{icon:3, title:'提示信息'},function(index){
 
             //_this.parents("tr").remove();
             for(var i=0;i<newsData.length;i++){
-                if(newsData[i].id == _this.attr("data-id")){
+                if(newsData[i].preOrderId == _this.attr("data-id")){
+
                     $.ajax({
-                        url : baseUrl+"carout/orderBan",
-                        type : "get",
-                        data:{id:newsData[i].id  },
-                        dataType : "json",
+                        url : baseUrl+'order/'+newsData[i].preOrderId,
+                        type : "delete",
+                        async:false,
                         success : function(data){
-                            linksData = data.data;
-                            //alert(data);
-                            if(data.code=="200"){
-                                layer.msg("不通过成功");
-                                window.location.reload();
+                            if(data.status===200){
+                                newsData.splice(i,1);
+                                layer.msg("删除成功");
+                                newsList(newsData);
+
                             }else{
-                                layer.msg("不通过失败");
+                                layer.msg("删除失败");
+                                newsList(newsData);
                             }
                         },
                         error:function () {
-                            layer.msg("操作失败>_<检查一下网络吧");
+                            layer.msg("检查一下网络吧");
+                            window.location.reload();
                         }
                     });
-                    // newsData.splice(i,1);
-                    //window.location.reload();
                     newsList(newsData);
                 }
             }
+
             layer.close(index);
             //$(this).html("<i class='iconfont icon-star'></i> 已审核");
         });
@@ -191,11 +201,8 @@ layui.config({
                 for(var i=0;i<currData.length;i++){
                     var startTime=new Date(currData[i].startTime);
                     var interVal=startTime.getTime();
-                    console.log(interVal);
                     interVal+=3600000*currData[i].duration;
-                    console.log(interVal);
                     var endTime=new Date(interVal);
-                    console.log(endTime);
                     var orderTime=new Date(currData[i].orderTime);
                     var payed= (currData[i].payed===0)?"未支付":"已支付"
                     dataHtml += '<tr>'
@@ -222,9 +229,9 @@ layui.config({
 
                     if(currData[i].checked == "0"){
                         dataHtml += '<td>'
-                            +  '<a class="layui-btn layui-btn-normal layui-btn-mini news_pass" data-id="'+data[i].id+'"><i class="layui-icon">&#xe600;</i> 通过</a>'
-                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_reject" data-id="'+data[i].id+'"><i class="layui-icon">&#xe640;</i> 不通过</a>'
-                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+data[i].id+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
+                            +  '<a class="layui-btn layui-btn-normal layui-btn-mini news_pass" data-id="'+data[i].preOrderId+'"><i class="layui-icon">&#xe600;</i> 通过</a>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_reject" data-id="'+data[i].preOrderId+'"><i class="layui-icon">&#xe640;</i> 不通过</a>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+data[i].preOrderId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
                             +'</td>'
                             +'</tr>';
                     }else{
@@ -237,8 +244,8 @@ layui.config({
                             txt= '未通过';
                         }
                         dataHtml += '<td>'
-                            +  '<a class="layui-btn layui-btn-disabled layui-btn-mini " data-id="'+data[i].id+'"><i class="layui-icon">&#xe600;</i>'+ txt+'</a>'
-                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+data[i].id+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
+                            +  '<a class="layui-btn layui-btn-disabled layui-btn-mini " data-id="'+data[i].preOrderId+'"><i class="layui-icon">&#xe600;</i>'+ txt+'</a>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+data[i].preOrderId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
                             +'</td>'
                             +'</tr>';
                     }
