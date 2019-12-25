@@ -28,14 +28,13 @@ public class CommentController {
     ResponseMsg getAllComments() {
         ResponseMsg responseMsg = new ResponseMsg();
         List<Comment> comments = null;
-        try {
-            comments = commentService.getAllCheckComments();
-            responseMsg.getResponseMap().put("result", comments);
+        comments = commentService.getAllCheckComments();
+        // FIXME: 当结果为null时返回404
+        if (comments == null)
+            responseMsg.setStatus(404);
+        else
             responseMsg.setStatus(200);
-        } catch (Exception e) {
-            responseMsg.setStatus(500);
-            logger.error(e.getMessage(), e);
-        }
+        responseMsg.getResponseMap().put("result", comments);
         return responseMsg;
     }
 
@@ -43,14 +42,13 @@ public class CommentController {
     ResponseMsg getCommentsByUserId(@PathVariable("userId") Integer id) {
         ResponseMsg responseMsg = new ResponseMsg();
         List<Comment> comments = null;
-        try {
-            comments = commentService.getCommentsByUserId(id);
-            responseMsg.getResponseMap().put("result", comments);
+        comments = commentService.getCommentsByUserId(id);
+        // FIXME: 当结果为null时返回404
+        if (comments == null)
+            responseMsg.setStatus(404);
+        else
             responseMsg.setStatus(200);
-        } catch (Exception e) {
-            responseMsg.setStatus(500);
-            logger.error(e.getMessage(), e);
-        }
+        responseMsg.getResponseMap().put("result", comments);
         return responseMsg;
     }
 
@@ -58,14 +56,13 @@ public class CommentController {
     ResponseMsg getCommentsByGroundId(@PathVariable("groundId") Integer id) {
         ResponseMsg responseMsg = new ResponseMsg();
         List<Comment> comments = null;
-        try {
-            comments = commentService.getCommentsByGroundId(id);
-            responseMsg.getResponseMap().put("result", comments);
+        comments = commentService.getCommentsByGroundId(id);
+        // FIXME: 当结果为null时返回404
+        if (comments == null)
+            responseMsg.setStatus(404);
+        else
             responseMsg.setStatus(200);
-        } catch (Exception e) {
-            responseMsg.setStatus(500);
-            logger.error(e.getMessage(), e);
-        }
+        responseMsg.getResponseMap().put("result", comments);
         return responseMsg;
     }
 

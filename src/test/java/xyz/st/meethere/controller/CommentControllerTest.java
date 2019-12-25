@@ -223,7 +223,7 @@ public class CommentControllerTest {
         when(commentService.getCommentByCommentId(commentId)).thenReturn(null);
         mockMvc.perform(delete("/comment/" + commentId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value(500));
+                .andExpect(jsonPath("$.status").value(404));
         InOrder order = inOrder(commentService);
         order.verify(commentService).getCommentByCommentId(commentId);
         order.verify(commentService).deleteComment(commentId);
@@ -270,7 +270,7 @@ public class CommentControllerTest {
         ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
         String requestJson = objectWriter.writeValueAsString(new Comment());
 
-        mockMvc.perform(put("comment")
+        mockMvc.perform(put("/comment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson))
                 .andExpect(status().isOk())
@@ -362,6 +362,15 @@ public class CommentControllerTest {
     @Test
     public void happy_path_when_admin_check_a_comment() throws Exception {
         when(commentService.checkComment(1)).thenReturn(1);
+        Comment retComment = new Comment(
+                1,
+                1,
+                1,
+                null,
+                "this is comment 1",
+                1
+        );
+        when(commentService.getCommentByCommentId(1)).thenReturn(retComment);
         mockMvc.perform(put("/comment/check/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseMap.result").exists())
@@ -385,6 +394,15 @@ public class CommentControllerTest {
     @Test
     public void happy_path_when_admin_uncheck_a_comment() throws Exception {
         when(commentService.uncheckComment(1)).thenReturn(1);
+        Comment retComment = new Comment(
+                1,
+                1,
+                1,
+                null,
+                "this is comment 1",
+                1
+        );
+        when(commentService.getCommentByCommentId(1)).thenReturn(retComment);
         mockMvc.perform(put("/comment/uncheck/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.responseMap.result").exists())
@@ -401,7 +419,7 @@ public class CommentControllerTest {
         mockMvc.perform(put("/comment/uncheck/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(404));
-        verify(commentService).checkComment(1);
+        verify(commentService).uncheckComment(1);
         verifyNoMoreInteractions(commentService);
     }
 }
