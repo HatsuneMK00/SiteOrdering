@@ -73,54 +73,54 @@ layui.config({
 
     // 操作
     // 租用场地
-    // $("body").on("click", ".cars_buy", function () {
-    //     //先通过cookie的username获得用户名
-    //     //然后获得用户id
-    //     var car_id = Number($(this).parent().prev().prev().prev().prev().prev().prev().html());
-    //     $.ajax({
-    //         url: baseUrl + "user/getByName",
-    //         type: "get",
-    //         dataType: "json",
-    //         data: {userName: $.cookie('userName')},
-    //         success: function (data) {
-    //             if (data.status === 200) {
-    //                 /*alert("p100");*/
-    //                 var userId = data.responmseMap.result.userId;
-    //
-    //                 /*alert("当前用户id:" + userId);
-    //                 alert(typeof userId);*/
-    //                 $.ajax({
-    //                     url: baseUrl + "order/user/"+ userId +"/order",
-    //                     type: "post",
-    //                     dataType: "json",
-    //                     data: {groundId: car_id, receiver_id: userId},
-    //                     success: function (data) {
-    //                         /*alert("p1");
-    //                         alert(data.code);*/
-    //                         if (data.code === "200") {
-    //                             alert("您已成功租用ID为" +car_id+ "的汽车。在‘租入订单’-‘租入的车’页面中刷新就可以看到");
-    //                             //刷新页面
-    //                             window.location.reload()
-    //                         } else {
-    //                             /*alert("else clause");*/
-    //                             alert("database error");
-    //                         }
-    //                     },
-    //                     error: function () {
-    //                         /*alert("p2");*/
-    //                         alert("database error1");
-    //                     }
-    //
-    //                 });
-    //             } else {
-    //                 alert("database error2");
-    //             }
-    //         },
-    //         error: function () {
-    //             alert("database error3");
-    //         }
-    //     });
-    // });
+    $("body").on("click", ".preorder_ground", function () {
+        //先通过cookie的username获得用户名
+        //然后获得用户id
+        var ground_id = Number($(this).parent().prev().prev().prev().prev().html());
+        $.ajax({
+            url: baseUrl + "user/getByName",
+            type: "get",
+            dataType: "json",
+            data: {userName: $.cookie('userName')},
+            success: function (data) {
+                if (data.status === 200) {
+                    /*alert("p100");*/
+                    var user_id = data.responmseMap.result.userId;
+
+                    /*alert("当前用户id:" + userId);
+                    alert(typeof userId);*/
+                    $.ajax({
+                        url: baseUrl + "order/user/"+ userId +"/order",
+                        type: "post",
+                        dataType: "json",
+                        data: {groundId: ground_id, userId: user_id},
+                        success: function (data) {
+                            /*alert("p1");
+                            alert(data.code);*/
+                            if (data.code === "200") {
+                                alert("您已成功租用ID为" +car_id+ "的汽车。在‘租入订单’-‘租入的车’页面中刷新就可以看到");
+                                //刷新页面
+                                window.location.reload()
+                            } else {
+                                /*alert("else clause");*/
+                                alert("database error");
+                            }
+                        },
+                        error: function () {
+                            /*alert("p2");*/
+                            alert("database error1");
+                        }
+
+                    });
+                } else {
+                    alert("database error2");
+                }
+            },
+            error: function () {
+                alert("database error3");
+            }
+        });
+    });
 
     //渲染数据函数
     function newsList(that) {
@@ -137,7 +137,7 @@ layui.config({
                         + '<td>' + currData[i].address + '</td>'
                         + '<td>' + currData[i].description + '</td>'
                         + '<td>'
-                        +       '<a class="layui-btn layui-btn-mini cars_buy"><i class="iconfont icon-edit"></i> 预约</a>'
+                        +       '<a class="layui-btn layui-btn-mini preorder_ground"><i class="iconfont icon-edit"></i> 预约</a>'
                         + '</td>'
                         + '</tr>';
                 }
