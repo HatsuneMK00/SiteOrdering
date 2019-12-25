@@ -1,5 +1,6 @@
 package xyz.st.meethere.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.jupiter.api.BeforeEach;
@@ -229,7 +230,178 @@ public class CommentControllerTest {
     }
 
     @Test
-    public void happy_path_when_update_a_comment(){
+    public void happy_path_when_update_a_comment() throws Exception {
+        Comment comment = new Comment(
+                1,
+                1,
+                1,
+                null,
+                "this is comment 1",
+                0
+        );
+        when(commentService.updateComment(any(Comment.class))).thenReturn(1);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(comment);
+
+        mockMvc.perform(put("/comment")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200))
+                .andExpect(jsonPath("$.responseMap.result.commentId").value(1));
+        ArgumentCaptor<Comment> commentArgumentCaptor = ArgumentCaptor.forClass(Comment.class);
+        verify(commentService).updateComment(commentArgumentCaptor.capture());
+        Comment actualArgComment = commentArgumentCaptor.getValue();
+
+        assertAll(
+                ()->assertEquals(comment.getCommentId(),actualArgComment.getCommentId()),
+                () -> assertEquals(comment.getGroundId(),actualArgComment.getGroundId()),
+                () -> assertEquals(comment.getUserId(),actualArgComment.getUserId())
+        );
+    }
+
+    @Test
+    public void comment_doesnt_exist_when_update_a_news() throws Exception {
+        when(commentService.updateComment(any(Comment.class))).thenReturn(0);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(new Comment());
+
+        mockMvc.perform(put("comment")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(500));
+        verify(commentService).updateComment(any(Comment.class));
+        verifyNoMoreInteractions(commentService);
+    }
+
+    @Test
+    public void happy_path_when_add_a_comment() throws Exception {
+        when(commentService.addComment(any(Comment.class))).thenReturn(1);
+
+        Comment comment = new Comment(
+                1,
+                1,
+                1,
+                null,
+                "this is comment 1",
+                0
+        );
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(comment);
+
+        mockMvc.perform(post("/comment")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200))
+                .andExpect(jsonPath("$.responseMap.result.commentId").value(1));
+        ArgumentCaptor<Comment> commentArgumentCaptor = ArgumentCaptor.forClass(Comment.class);
+        verify(commentService).addComment(commentArgumentCaptor.capture());
+        Comment actualArgComment = commentArgumentCaptor.getValue();
+
+        assertAll(
+                ()->assertEquals(comment.getCommentId(),actualArgComment.getCommentId()),
+                () -> assertEquals(comment.getGroundId(),actualArgComment.getGroundId()),
+                () -> assertEquals(comment.getUserId(),actualArgComment.getUserId())
+        );
+    }
+
+    @Test
+    public void nothing_passed_when_add_a_comment() throws Exception {
+        when(commentService.addComment(any(Comment.class))).thenReturn(0);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(new Comment());
+
+        mockMvc.perform(post("/comment")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(500));
+        verify(commentService).addComment(any(Comment.class));
+        verifyNoMoreInteractions(commentService);
+    }
+
+    @Test
+    public void happy_path_when_get_all_unchecked_comment() throws Exception {
+        List<Comment> retComments = new ArrayList<>();
+        retComments.add(new Comment(
+                1,
+                1,
+                1,
+                null,
+                "this is comment 1",
+                0
+        ));
+        retComments.add(new Comment(
+                2,
+                2,
+                1,
+                null,
+                "this is comment 2",
+                0
+        ));
+        when(commentService.getAllUncheckComments()).thenReturn(retComments);
+
+        mockMvc.perform(get("/comment/uncheckedComment"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.responseMap.result[0].checked").value(0))
+                .andExpect(jsonPath("$.responseMap.result[1].checked").value(0));
+        verify(commentService).getAllUncheckComments();
+        verifyNoMoreInteractions(commentService);
+    }
+
+    @Test
+    public void happy_path_when_admin_check_a_comment() throws Exception {
+        when(commentService.checkComment(1)).thenReturn(1);
+        mockMvc.perform(put("/comment/check/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.responseMap.result").exists())
+                .andExpect(jsonPath("$.status").value(200))
+                .andExpect(jsonPath("$.responseMap.result.commentId").value(1));
+        InOrder order = inOrder(commentService);
+        order.verify(commentService).checkComment(1);
+        order.verify(commentService).getCommentByCommentId(1);
+    }
+
+    @Test
+    public void comment_doesnt_exist_when_admin_check_a_comment() throws Exception {
+        when(commentService.checkComment(1)).thenReturn(0);
+        mockMvc.perform(put("/comment/check/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+        verify(commentService).checkComment(1);
+        verifyNoMoreInteractions(commentService);
+    }
+
+    @Test
+    public void happy_path_when_admin_uncheck_a_comment() throws Exception {
+        when(commentService.uncheckComment(1)).thenReturn(1);
+        mockMvc.perform(put("/comment/uncheck/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.responseMap.result").exists())
+                .andExpect(jsonPath("$.status").value(200))
+                .andExpect(jsonPath("$.responseMap.result.commentId").value(1));
+        InOrder order = inOrder(commentService);
+        order.verify(commentService).uncheckComment(1);
+        order.verify(commentService).getCommentByCommentId(1);
+    }
+
+    @Test
+    public void comment_doesnt_exist_when_admin_uncheck_a_comment() throws Exception {
+        when(commentService.uncheckComment(1)).thenReturn(0);
+        mockMvc.perform(put("/comment/uncheck/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+        verify(commentService).checkComment(1);
+        verifyNoMoreInteractions(commentService);
     }
 }

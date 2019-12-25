@@ -104,6 +104,18 @@ public class CommentController {
         return responseMsg;
     }
 
+    @PostMapping("/comment")
+    ResponseMsg addComment(@RequestBody Comment comment){
+        int result = commentService.addComment(comment);
+        ResponseMsg responseMsg = new ResponseMsg();
+        if (result == 1)
+            responseMsg.setStatus(200);
+        else
+            responseMsg.setStatus(500);
+        responseMsg.getResponseMap().put("result",comment);
+        return responseMsg;
+    }
+
     /*
      * 管理员用
      * */
@@ -111,14 +123,9 @@ public class CommentController {
     ResponseMsg getAllUncheckedComment() {
         ResponseMsg responseMsg = new ResponseMsg();
         List<Comment> comments = null;
-        try {
-            comments = commentService.getAllUncheckComments();
-            responseMsg.getResponseMap().put("result", comments);
-            responseMsg.setStatus(200);
-        } catch (Exception e) {
-            responseMsg.setStatus(500);
-            logger.error(e.getMessage(), e);
-        }
+        comments = commentService.getAllUncheckComments();
+        responseMsg.getResponseMap().put("result", comments);
+        responseMsg.setStatus(200);
         return responseMsg;
     }
 
@@ -145,7 +152,7 @@ public class CommentController {
             Comment comment = commentService.getCommentByCommentId(commentId);
             responseMsg.getResponseMap().put("result",comment);
         } else {
-            responseMsg.setStatus(500);
+            responseMsg.setStatus(404);
         }
         return responseMsg;
     }
