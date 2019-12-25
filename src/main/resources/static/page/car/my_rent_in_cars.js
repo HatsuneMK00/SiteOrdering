@@ -24,7 +24,7 @@ layui.config({
                 user_id = data.responseMap.result.userId;
                 //加载页面数据
                 $.ajax({
-                    url: baseUrl + "order/user/" + userId + "/order",
+                    url: baseUrl + "order/user/" + user_id + "/preOrder",
                     type: "get",
                     dataType: "json",
                     data: {userId: user_id},

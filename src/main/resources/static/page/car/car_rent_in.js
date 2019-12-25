@@ -90,7 +90,7 @@ layui.config({
                     /*alert("当前用户id:" + userId);
                     alert(typeof userId);*/
                     $.ajax({
-                        url: baseUrl + "order/user/"+ userId +"/order",
+                        url: baseUrl + "order/user/"+ user_id +"/order",
                         type: "post",
                         dataType: "json",
                         data: {groundId: ground_id, userId: user_id},
