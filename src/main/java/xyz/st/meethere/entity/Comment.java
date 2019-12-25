@@ -10,6 +10,18 @@ public class Comment {
     private String content;
     private int checked;
 
+    public Comment(int commentId, int userId, int groundId, Timestamp date, String content, int checked) {
+        this.commentId = commentId;
+        this.userId = userId;
+        this.groundId = groundId;
+        this.date = date;
+        this.content = content;
+        this.checked = checked;
+    }
+
+    public Comment() {
+    }
+
     public int getCommentId() {
         return commentId;
     }

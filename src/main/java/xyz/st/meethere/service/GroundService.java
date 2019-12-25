@@ -13,8 +13,12 @@ import java.util.List;
 
 @Service
 public class GroundService {
-    @Autowired
+    final
     GroundMapper groundMapper;
+
+    public GroundService(GroundMapper groundMapper) {
+        this.groundMapper = groundMapper;
+    }
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
