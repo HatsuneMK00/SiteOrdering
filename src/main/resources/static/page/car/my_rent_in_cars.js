@@ -9,130 +9,117 @@ layui.config({
         layer = parent.layer === undefined ? layui.layer : parent.layer,
         laypage = layui.laypage,
         $ = layui.jquery;
-    //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
-    var curWwwPath = window.document.location.href;
-    //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
-    var pathName = window.document.location.pathname;
-    var pos;
-    if (pathName.length > 1) {
-        pos = curWwwPath.indexOf(pathName);
-    }
-    else {
-        pos = -1;
-    }
-    //获取主机地址，如： http://localhost:8083
-    var localhostPath;
-    if (pos > 0) {
-        localhostPath = curWwwPath.substring(0, pos) + "/";
-    }
-    else {
-        localhostPath = curWwwPath;
-    }
-    var baseUrl = localhostPath;
+
+    var baseUrl = getRootPath_web();
 
     var user_id = 0;
+    //加载页面数据——所有该用户的预约信息
     $.ajax({
-        /*这种方法貌似是异步的。user_id不能立刻地就带到下一个$.ajax()里面去*/
         url: baseUrl + "user/getByName",
         type: "get",
         dataType: "json",
         data: {userName: $.cookie('userName')},
         success: function (data) {
             if (data.status === 200) {
-                user_id = data.responseMap.result.id;
+                user_id = data.responseMap.result.userId;
                 //加载页面数据
-                $.get(baseUrl + "order/user/" + user_id + "/order", function (data) {
-                    var carsData = data;
-                    //执行加载数据的方法
-                    newsList(carsData);
-                })
+                $.ajax({
+                    url: baseUrl + "order/user/" + userId + "/order",
+                    type: "get",
+                    dataType: "json",
+                    data: {userId: user_id},
+                    success: function (data) {
+                        if(data.status === 200){
+                            newsList(data.responseMap.result);
+                        }
+                        else{
+                            alert("获取用户信息失败");
+                            $(window).attr('location', baseUrl);
+                        }
+
+                    },
+                    error: function (data) {
+                        alert("检查一下网络吧");
+                        $(window).attr('location', baseUrl);
+                    }
+                });
             }
             else {
-                alert("DataBase Error. 102");
+                alert("用户不存在");
+                $(window).attr('location', baseUrl);
             }
         },
         error: function () {
-            alert("Database error . 101");
+            alert("检查一下网络吧");
+            $(window).attr('location', baseUrl);
         }
     });
 
     //操作
     //还车
-    $("body").on("click", ".cars_return", function () {
-        //已经获得了用户id，然后获得car_id
-        //然后carout/orderReturn归还这辆车
-        var car_id = Number($(this).parent().prev().prev().prev().prev().prev().prev().html());
-        $.ajax({
-            url: baseUrl + "carout/orderReturn",
-            type: "get",
-            dataType: "json",
-            data: {id: car_id, receiver_id: user_id},
-            success: function (data) {
-                /*alert("p1");
-                alert(data.code);*/
-                if (data.code === "200") {
-                    alert("您已成功归还ID为" + car_id + "的汽车");
-                    //刷新页面
-                    window.location.reload()
-                } else {
-                    /*alert("else clause");*/
-                    alert("database error");
-                }
-            },
-            error: function () {
-                /*alert("p2");*/
-                alert("database error1");
-            }
+    // $("body").on("click", ".cars_return", function () {
+    //     //已经获得了用户id，然后获得car_id
+    //     //然后carout/orderReturn归还这辆车
+    //     var car_id = Number($(this).parent().prev().prev().prev().prev().prev().prev().html());
+    //     $.ajax({
+    //         url: baseUrl + "carout/orderReturn",
+    //         type: "get",
+    //         dataType: "json",
+    //         data: {id: car_id, receiver_id: user_id},
+    //         success: function (data) {
+    //             /*alert("p1");
+    //             alert(data.code);*/
+    //             if (data.code === "200") {
+    //                 alert("您已成功归还ID为" + car_id + "的汽车");
+    //                 //刷新页面
+    //                 window.location.reload()
+    //             } else {
+    //                 /*alert("else clause");*/
+    //                 alert("database error");
+    //             }
+    //         },
+    //         error: function () {
+    //             /*alert("p2");*/
+    //             alert("database error1");
+    //         }
+    //
+    //     });
+    // });
 
-        });
-    });
 
+    //渲染数据函数
     function newsList(that) {
-        //渲染数据
-        var currData;
+
         function renderDate(data, curr) {
             var dataHtml = '';
-            if (!that) {
-                //currData = carsData.concat().splice(curr * nums - nums, nums);
-            } else {
-                currData = that.concat().splice(curr * nums - nums, nums);
-            }
+            var currData = data.concat().splice(curr * nums - nums, nums);;
             if (currData.length !== 0) {
                 for (var i = 0; i < currData.length; i++) {
                     dataHtml += '<tr>'
                         + '<td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose"></td>'
-                        + '<td align="left" class="car_id">' + currData[i].preOrderId + '</td>'
-                        + '<td align="left" class="car_id">' + currData[i].groundId + '</td>'
-                        + '<td align="left" class="car_id">' + currData[i].userId + '</td>'
+                        + '<td >' + currData[i].preOrderId + '</td>'
+                        + '<td >' + currData[i].groundId + '</td>'
+                        + '<td >' + currData[i].userId + '</td>'
                         + '<td >' + currData[i].orderTime + '</td>'
                         + '<td >' + currData[i].price + '</td>'
                         + '<td >' + currData[i].startTime + '</td>'
                         + '<td >' + currData[i].duration + '</td>'
                         + '<td >' + currData[i].checked + '</td>'
-                    dataHtml += '<td>' + currData[i].status + '</td>';
-                    dataHtml +=
-                        '<td>'
-                        + '<a class="layui-btn layui-btn-mini cars_return"><i class="iconfont icon-edit"></i> 还车</a>'
-                        + '</td>'
                         + '</tr>';
                 }
             } else {
-                dataHtml = '<tr><td colspan="8">暂无数据</td></tr>';
+                dataHtml = '<tr><td colspan="9">暂无数据</td></tr>';
             }
             return dataHtml;
         }
 
         //分页
         var nums = 9; //每页出现的数据量
-        var carsData;
-        if (that) {p
-            carsData = that;
-        }
         laypage({
             cont: "page",
-            pages: Math.ceil(carsData.length / nums),
+            pages: Math.ceil(that.length / nums),
             jump: function (obj) {
-                $(".cars_content").html(renderDate(carsData, obj.curr));
+                $(".cars_content").html(renderDate(that, obj.curr));
                 $('.cars_list thead input[type="checkbox"]').prop("checked", false);
                 form.render();
             }
