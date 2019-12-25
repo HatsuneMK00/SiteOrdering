@@ -35,3 +35,4 @@ build/
 /.mvn/
 
 /.idea/$PRODUCT_WORKSPACE_FILE$
+/.idea/misc.xml
