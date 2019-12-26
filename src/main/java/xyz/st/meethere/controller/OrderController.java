@@ -172,6 +172,38 @@ public class OrderController {
         return responseMsg;
     }
 
+    @ApiOperation(value = "新增管理员订单，用来限制场地的可用时间", notes = "若返回510则说明管理员输入的开始时间和duration与该场地现有预约单冲突")
+    @PostMapping("/order/admin/{userId}/order")
+    ResponseMsg addAnOrderByAdmin(
+            @RequestParam("groundId") Integer gid,
+            @PathVariable("userId") Integer uid,
+            @RequestParam("startTime") String startTime,
+            @RequestParam("duration") Integer duration
+    ) {
+        ResponseMsg responseMsg = new ResponseMsg();
+        if (orderService.validatePreOrder(gid, startTime, duration)) {
+            responseMsg.setStatus(510);
+            return responseMsg;
+        }
+        PreOrder preOrder = new PreOrder();
+        preOrder.setGroundId(gid);
+        preOrder.setUserId(uid);
+        preOrder.setStartTime(startTime);
+        preOrder.setDuration(duration);
+        preOrder.setPrice(duration * orderService.getGroundPrice(gid));
+        //确保订单生效
+        preOrder.setPayed(1);
+        preOrder.setChecked(1);
+        if (orderService.addPreOrder(preOrder) == 1) {
+            responseMsg.setStatus(200);
+            responseMsg.getResponseMap().put("result", preOrder);
+            return responseMsg;
+        }
+        responseMsg.setStatus(500);
+        return responseMsg;
+    }
+
+
     @ApiOperation("删除用户指定订单")
     @DeleteMapping("/order/{preOrderId}")
     ResponseMsg deleteOrder(@PathVariable("preOrderId") Integer oid) {

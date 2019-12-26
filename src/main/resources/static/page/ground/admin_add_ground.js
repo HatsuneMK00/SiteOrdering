@@ -11,6 +11,12 @@ layui.config({
     $("#photo").attr("src",static_url);
 
     var this_url="";
+    var userId = parseInt($.cookie('userId'));
+    if(isNaN(userId)){
+        alert("请登陆");
+        layer.closeAll("iframe");
+    }
+
 
     var baseUrl = getRootPath_web();
     layui.upload({
@@ -31,10 +37,12 @@ layui.config({
                 dates[i].setMinutes(0);
                 dates[i].setSeconds(0);
             }
-            var date1=new Date(Date.now()); var duration1 = Math.ceil((dates[0] - Date.now())/3600000);
+            var date1=new Date(Date.now());
             date1=new Date(date1);
             date1.setMinutes(0);
             date1.setSeconds(0);
+            var duration1 = Math.ceil((dates[0] - Date.now())/3600000);
+
             if(duration1<0){
                 alert("时间范围异常");
                 return;
@@ -60,6 +68,8 @@ layui.config({
                 async:false,
                 success : function(data){
                     if(data.status===200){
+                        occupy(date1,duration1,data.responseMap.result.groundId);
+                        occupy(date2,duration2,data.responseMap.result.groundId);
                         top.layer.msg("场地添加成功！");
                         layer.closeAll("iframe");
                         parent.location.reload();
@@ -73,6 +83,43 @@ layui.config({
             });
         }
     );
+
+    //占用场地的时间
+    function occupy(t,d,gid){
+        function pad(num, n) {
+            return Array(n>num?(n-(''+num).length+1):0).join(0)+num;
+        }
+
+        // time formatting to "yyyy-MM-dd HH:mm:ss.0"
+        var tt=t.getFullYear()+'-'+t.getMonth()+'-'+t.getDay()+' '+
+            t.getHours()+':'+t.getMinutes()+':'+t.getSeconds()+'.0'
+        console.log(tt);
+
+        $.ajax({
+            url: baseUrl + "order/admin/"+userId+"/order",
+            type: "post",
+            dataType: "json",
+            contentType: 'application/json;charset=UTF-8',
+            data: {
+                groundId:gid,
+                startTime:tt,
+                duration:d
+            },
+            async:false,
+            success : function(data){
+                if(data.status===200){
+                    top.layer.msg("场地添加成功！");
+                    layer.closeAll("iframe");
+                    parent.location.reload();
+                }else{
+                    alert("场地添加失败");
+                }
+            },
+            error:function () {
+                alert("检查一下网络吧");
+            }
+        });
+    }
 
     //重置表格
     $(".ground_reset").click(function(){
