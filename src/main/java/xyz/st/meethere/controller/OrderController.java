@@ -69,8 +69,8 @@ public class OrderController {
     }
 
     @ApiOperation(value = "获取用户的所有订单",notes = "如果返回404，则用户不存在")
-    @GetMapping("/order/user/{userid}/order")
-    ResponseMsg getOrdersOfUSer(@PathVariable("userid") Integer id){
+    @GetMapping("/order/user/{userId}/preOrder")
+    ResponseMsg getOrdersOfUSer(@PathVariable("userId") Integer id){
         ResponseMsg responseMsg = new ResponseMsg();
         if(!orderService.checkUserExistence(id)){
             responseMsg.setStatus(404);
@@ -83,8 +83,8 @@ public class OrderController {
     }
 
     @ApiOperation("获取某用户指定订单")
-    @GetMapping("/order/user/{userid}/order/{orderid}")
-    ResponseMsg getOrderByIdOfUSer(@PathVariable("userid") Integer uid,@PathVariable("orderid") Integer oid){
+    @GetMapping("/order/user/{userId}/order/{preOrderId}")
+    ResponseMsg getOrderByIdOfUSer(@PathVariable("userId") Integer uid,@PathVariable("orderid") Integer oid){
         PreOrder preOrder = orderService.getPreOrder(uid, oid);
         ResponseMsg responseMsg = new ResponseMsg();
         if(preOrder==null){
@@ -97,10 +97,10 @@ public class OrderController {
     }
 
     @ApiOperation(value = "新增用户订单",notes = "若返回510则说明用户输入的开始时间和duration与该场地现有预约单冲突")
-    @PostMapping("/order/user/{userid}/order")
+    @PostMapping("/order/user/{userId}/order")
     ResponseMsg addAnOrder(
             @RequestParam("groundId")  Integer gid,
-            @PathVariable("userid") Integer uid,
+            @PathVariable("userId") Integer uid,
             @RequestParam("startTime") String startTime,
             @RequestParam("duration") Integer duration
             ) throws ParseException {
@@ -125,8 +125,8 @@ public class OrderController {
     }
 
     @ApiOperation("删除用户指定订单")
-    @DeleteMapping("/order/{orderid}")
-    ResponseMsg deleteOrder(@PathVariable("orderid") Integer oid){
+    @DeleteMapping("/order/{preOrderId}")
+    ResponseMsg deleteOrder(@PathVariable("preOrderId") Integer oid){
         ResponseMsg responseMsg = new ResponseMsg();
         if(orderService.deletePreOrder(oid)==1)
             responseMsg.setStatus(200);
@@ -172,8 +172,8 @@ public class OrderController {
         return responseMsg;
     }
     @ApiOperation("将指定订单审核状态标记为通过")
-    @PutMapping("/order/check/{pid}")
-    ResponseMsg checkOrder(@PathVariable("pid") Integer pid){
+    @PutMapping("/order/check/{preOrderId}")
+    ResponseMsg checkOrder(@PathVariable("preOrderId") Integer pid){
         ResponseMsg responseMsg = new ResponseMsg();
         if(!orderService.checkPreOrderExistence(pid)){
             responseMsg.setStatus(404);
@@ -185,8 +185,8 @@ public class OrderController {
     }
 
     @ApiOperation("将指定订单审核状态标记为未通过")
-    @PutMapping("/order/uncheck/{pid}")
-    ResponseMsg uncheckOrder(@PathVariable("pid") Integer pid){
+    @PutMapping("/order/uncheck/{preOrderId}")
+    ResponseMsg uncheckOrder(@PathVariable("preOrderId") Integer pid){
         ResponseMsg responseMsg = new ResponseMsg();
         if(!orderService.checkPreOrderExistence(pid)){
             responseMsg.setStatus(404);
