@@ -63,8 +63,3 @@ layui.config({
     );
 
 });
-
-
-laydate.render({
-    elem: '#date' //指定元素
-});

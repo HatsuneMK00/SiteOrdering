@@ -43,6 +43,7 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">开放时间</label>
+            <input type="text" class="demo-input" placeholder="请选择日期时间段" id="date">
         </div>
 
 
@@ -59,14 +60,25 @@
         </div>
     </div>
 
-    <input type="text" id="date">
 </form>
+<script src="../../laydate/laydate.js"></script>
+<script>
+    lay('#version').html('-v'+ laydate.v);
+
+    //执行一个laydate实例
+    //日期时间范围
+    laydate.render({
+        elem: '#date'
+        ,type: 'datetime'
+        ,range: true
+    });
+</script>
+
 <script type="text/javascript" src="../../layui/layui.js"></script>
 <script type="text/javascript" src="../../js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.cookie.js"></script>
 <!--获取根路径-->
 <script type="text/javascript" src="../../js/getRootPath.js"></script>
-<script type="text/javascript" src="../../js/laydate.js"></script>
 <script type="text/javascript" src="admin_add_ground.js"></script>
 </body>
 </html>
