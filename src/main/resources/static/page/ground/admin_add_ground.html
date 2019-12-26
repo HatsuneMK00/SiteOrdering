@@ -41,10 +41,16 @@
                 <textarea placeholder="请输入描述" class="layui-textarea description" value=""></textarea>
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">开放时间</label>
+        </div>
+
+
     </div>
     <div class="user_right">
+        <img src="" class="layui-box" id="photo" alt="not uploaded" width="100%" height="auto">
+        <br>
         <input type="file" name="image" class="layui-upload-file" lay-title="上传场地图片">
-        <img src="" class="layui-circle" id="photo" alt="not uploaded">
     </div>
     <div class="layui-form-item" style="margin-left: 5%;">
         <div class="layui-input-block">
@@ -52,19 +58,15 @@
             <a class="layui-btn layui-btn-primary ground_reset">重置</a>
         </div>
     </div>
+
+    <input type="text" id="date">
 </form>
 <script type="text/javascript" src="../../layui/layui.js"></script>
 <script type="text/javascript" src="../../js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.cookie.js"></script>
 <!--获取根路径-->
 <script type="text/javascript" src="../../js/getRootPath.js"></script>
+<script type="text/javascript" src="../../js/laydate.js"></script>
 <script type="text/javascript" src="admin_add_ground.js"></script>
 </body>
 </html>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        //设置默认头像
-        $("#photo").attr("src","../../image/upload.jpg");
-    });
-</script>

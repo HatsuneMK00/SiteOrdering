@@ -42,6 +42,13 @@ public class GroundService {
         return groundMapper.addGround(ground);
     }
 
+    public int addGroundWOFileOperation(Ground ground) {
+        /*
+         * 把图片路径封装成前端可以直接使用的形式
+         * */
+        return groundMapper.addGround(ground);
+    }
+
     public int updateGround(Ground ground) {
         return groundMapper.updateGround(ground);
     }

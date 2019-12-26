@@ -102,6 +102,33 @@ public class GroundController {
         return responseMsg;
     }
 
+    /*
+     * 这个POST应该是用表单提交的
+     * */
+    @ApiOperation(value = "增加一个场馆信息, 直接提供图片的url")
+    @PostMapping("/groundWOFileOperation")
+    ResponseMsg addGround(@RequestBody Ground ground
+    ) {
+        /*
+         * 有效性检查
+         * */
+        if (groundService.verifyGround(ground)) {
+            ResponseMsg responseMsg = new ResponseMsg();
+            responseMsg.setStatus(500);
+            return responseMsg;
+        }
+
+        int result = groundService.addGroundWOFileOperation(ground);
+        ResponseMsg responseMsg = new ResponseMsg();
+        if (result == 1)
+            responseMsg.setStatus(200);
+        else
+            responseMsg.setStatus(500);
+        responseMsg.getResponseMap().put("result", ground);
+        return responseMsg;
+    }
+
+
     @ApiOperation(value = "对现有场馆信息进行编辑")
     @PutMapping("/ground")
     ResponseMsg updateGround(@RequestBody Ground ground) {
