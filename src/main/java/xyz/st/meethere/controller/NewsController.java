@@ -8,6 +8,7 @@ import xyz.st.meethere.entity.ResponseMsg;
 import xyz.st.meethere.service.NewsService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @ResponseBody
@@ -75,6 +76,24 @@ public class NewsController {
         }
         responseMsg.getResponseMap().put("result", news);
         return responseMsg;
+    }
+
+    @ResponseBody
+    @ApiOperation("通过newsId批量删除新闻")
+    @DeleteMapping("/news/deleteByBatch")
+    ResponseMsg deleteNewsByBatch(@RequestBody Map<String,List<Integer>> data) {
+        ResponseMsg msg = new ResponseMsg();
+        List<Integer> ids = data.get("ids");
+        msg.setStatus(200);
+        ResponseMsg tempMsg;
+        for (Integer id : ids) {
+            tempMsg = deleteNews(id);
+            if (tempMsg.getStatus() == 404 && msg.getStatus() != 404){
+                msg.setStatus(404);
+            }
+        }
+        msg.setStatus(200);
+        return msg;
     }
 
     @ApiOperation("根据newsId获取一个新闻")

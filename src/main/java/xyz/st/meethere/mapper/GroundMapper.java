@@ -15,6 +15,9 @@ public interface GroundMapper {
     @Select("select * from ground where groundId=#{id}")
     Ground getGroundByGroundId(Integer id);
 
+    @Select("select * from ground where groundName like CONCAT('%',#{matchParam},'%')")
+    List<Ground> getGroundsByGroundNameMatch(String matchParam);
+
     //    管理员场馆操作
     @Options(useGeneratedKeys = true,keyProperty = "groundId")
     @Insert("insert into ground(groundName,photo,pricePerHour,address) values(#{groundName},#{photo},#{pricePerHour}," +

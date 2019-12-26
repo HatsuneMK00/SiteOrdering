@@ -29,6 +29,10 @@ public class CommentService {
     public List<Comment> getAllComments() {
         return commentMapper.getAllComments();
     }
+    
+    public List<Comment> getCommentsByMatch(String matchParam){
+        return commentMapper.getCommentByContentMatch(matchParam);
+    }
 
     public Comment getCommentByCommentId(Integer id){
         return commentMapper.getCommentsByCommentId(id);

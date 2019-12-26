@@ -5,7 +5,9 @@ import java.sql.Timestamp;
 public class Comment {
     private int commentId;
     private int userId;
+    private String userName;
     private int groundId;
+    private String groundName;
     private Timestamp date;
     private String content;
     private int checked;
@@ -20,6 +22,22 @@ public class Comment {
     }
 
     public Comment() {
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getGroundName() {
+        return groundName;
+    }
+
+    public void setGroundName(String groundName) {
+        this.groundName = groundName;
     }
 
     public int getCommentId() {
