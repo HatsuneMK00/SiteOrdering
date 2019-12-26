@@ -5,7 +5,6 @@ layui.config({
     layer = parent.layer === undefined ? layui.layer : parent.layer,
     laypage = layui.laypage,
     layedit = layui.layedit,
-    laydate = layui.laydate,
     $ = layui.jquery;
 
     var static_url="../../image/upload.jpg";
@@ -25,6 +24,25 @@ layui.config({
 
     //提交一个场地
     $(".ground_add").click(function(){
+            //忽略秒和分
+            var dates=$("input:text[name='date']").val().split("~");
+            for(var i=0;i<2;i++){
+                dates[i]=new Date(dates[i]);
+                dates[i].setMinutes(0);
+                dates[i].setSeconds(0);
+            }
+            var date1=new Date(Date.now()); var duration1 = Math.ceil((dates[0] - Date.now())/3600000);
+            date1=new Date(date1);
+            date1.setMinutes(0);
+            date1.setSeconds(0);
+            if(duration1<0){
+                alert("时间范围异常");
+                return;
+            }
+            var date2=dates[1]; var duration2 = 876000;
+
+            console.log(date1.toString()+":持续"+duration1);
+            console.log(date2.toString()+":持续"+duration2);
 
             var name = $(".groundName").val();
             var add = $(".address").val();

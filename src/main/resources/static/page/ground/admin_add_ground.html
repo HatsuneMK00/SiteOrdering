@@ -10,6 +10,11 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="../../css/user.css" media="all" />
+
+    <style>
+        body{padding: 20px;}
+        .date-input{padding-left: 10px; height: 38px; min-width: 262px; line-height: 38px; border: 1px solid #e6e6e6;  background-color: #fff;  border-radius: 2px;}
+    </style>
 </head>
 <body class="childrenBody">
 <form class="layui-form">
@@ -20,6 +25,11 @@
                 <input type="text"  placeholder="名称" lay-verify="required"
                        class="layui-input groundName">
             </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">时间</label>
+            <input type="text" class="date-input" placeholder="请选择日期时间段"  name="date" id="date">
+<!--            <div class="date-input" placeholder="请选择日期时间段"  name="date" id="date"></div>-->
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">地点</label>
@@ -41,11 +51,6 @@
                 <textarea placeholder="请输入描述" class="layui-textarea description" value=""></textarea>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">开放时间</label>
-            <input type="text" class="demo-input" placeholder="请选择日期时间段" id="date">
-        </div>
-
 
     </div>
     <div class="user_right">
@@ -70,7 +75,8 @@
     laydate.render({
         elem: '#date'
         ,type: 'datetime'
-        ,range: true
+        ,range: '~'
+        ,trigger: 'click'
     });
 </script>
 
