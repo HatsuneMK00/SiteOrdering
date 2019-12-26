@@ -57,7 +57,9 @@ public interface OrderMapper {
             " on ground.groundId=preorder.groundId")
     List<PreOrder> getAllPreOrders();
 
-    @Select("select * from preorder where checked = 0")
+    @Select("select preorder.userId, preorder.groundId, groundName, userName, preOrderId, orderTime, price, " +
+            "startTime, duration, payed, checked from (preorder join user on preorder.userId=user.userId) join ground" +
+            " on ground.groundId=preorder.groundId where checked = 0 or checked=-1")
     List<PreOrder> getAllUncheckedOrders();
 
     @Update("update preorder set checked= 1 where preOrderId = #{id}")

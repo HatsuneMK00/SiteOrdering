@@ -152,6 +152,8 @@ public class OrderController {
     ResponseMsg getAllUncheckedComment() {
         ResponseMsg responseMsg = new ResponseMsg();
         List<PreOrder> orders = null;
+        // fixme: 返回的内容里应该有userName,groundName
+//        fixme: 不通过的订单也要返回
         orders = orderService.getUncheckedOrders();
         responseMsg.getResponseMap().put("result", orders);
         responseMsg.setStatus(200);

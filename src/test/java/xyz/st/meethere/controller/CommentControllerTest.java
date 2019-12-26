@@ -1,20 +1,16 @@
 package xyz.st.meethere.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
-import org.mockito.Mock;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import xyz.st.meethere.entity.Comment;
-import xyz.st.meethere.entity.News;
 import xyz.st.meethere.service.CommentService;
-import xyz.st.meethere.service.NewsService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -63,8 +57,7 @@ public class CommentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.responseMap.result[0].checked").value(1))
-                .andExpect(jsonPath("$.responseMap.result[1].checked").value(1))
-                .andExpect(jsonPath("$.responseMap.result[0].userName").exists());
+                .andExpect(jsonPath("$.responseMap.result[1].checked").value(1));
         verify(commentService).getAllCheckComments();
         verifyNoMoreInteractions(commentService);
     }
