@@ -14,10 +14,13 @@ import java.util.Map;
 
 @RestController
 public class AdminController {
-    @Autowired
-    private AdminService adminService;
-    @Autowired
-    private FileService fileService;
+    private final AdminService adminService;
+    private final FileService fileService;
+
+    public AdminController(AdminService adminService, FileService fileService) {
+        this.adminService = adminService;
+        this.fileService = fileService;
+    }
 
 //    @ResponseBody
 //    @ApiOperation("通过userName查找管理员")
