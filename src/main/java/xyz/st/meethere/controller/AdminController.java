@@ -19,18 +19,18 @@ public class AdminController {
     @Autowired
     private FileService fileService;
 
-    @ResponseBody
-    @ApiOperation("通过userName查找管理员")
-    @GetMapping("/admin/getByName")
-    ResponseMsg getUserByName(@RequestParam("userName") String userName){
-        ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
-        User user = adminService.getAdminByName(userName);
-        if(user != null){
-            msg.setStatus(200);
-        }
-        msg.getResponseMap().put("result",user);
-        return msg;
-    }
+//    @ResponseBody
+//    @ApiOperation("通过userName查找管理员")
+//    @GetMapping("/admin/getByName")
+//    ResponseMsg getUserByName(@RequestParam("userName") String userName){
+//        ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
+//        User user = adminService.getAdminByName(userName);
+//        if(user != null){
+//            msg.setStatus(200);
+//        }
+//        msg.getResponseMap().put("result",user);
+//        return msg;
+//    }
 
     @ResponseBody
     @ApiOperation("通过userId查找管理员")
@@ -77,25 +77,25 @@ public class AdminController {
         return msg;
     }
 
-    @ResponseBody
-    @ApiOperation("修改管理员信息，使用userName识别管理员")
-    @PostMapping("/admin/updateByName")
-    ResponseMsg updateByName(@RequestBody Map params){
-        ResponseMsg msg = new ResponseMsg();
-        msg.setStatus(404);
-        if(!(params.containsKey("userName"))){
-            return msg;
-        }
-        User user=adminService.getAdminByName((String)params.get("userName"));
-        if(user==null) return msg;
-        user.updateUser(params);
-        int ret = adminService.updateAdminByModel(user);
-        if(ret>0) {
-            msg.setStatus(200);
-            msg.getResponseMap().put("user",user);
-        }
-        return msg;
-    }
+//    @ResponseBody
+//    @ApiOperation("修改管理员信息，使用userName识别管理员")
+//    @PostMapping("/admin/updateByName")
+//    ResponseMsg updateByName(@RequestBody Map params){
+//        ResponseMsg msg = new ResponseMsg();
+//        msg.setStatus(404);
+//        if(!(params.containsKey("userName"))){
+//            return msg;
+//        }
+//        User user=adminService.getAdminByName((String)params.get("userName"));
+//        if(user==null) return msg;
+//        user.updateUser(params);
+//        int ret = adminService.updateAdminByModel(user);
+//        if(ret>0) {
+//            msg.setStatus(200);
+//            msg.getResponseMap().put("user",user);
+//        }
+//        return msg;
+//    }
 
     /*
      * 个人信息头像管理
