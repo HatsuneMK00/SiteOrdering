@@ -1,14 +1,23 @@
 layui.config({
-    base : "js/"
-}).use(['form','layer','jquery','layedit','laydate'],function(){
+    base : "../../js/"
+}).use(['form','layer','jquery','layedit','laydate','upload'],function(){
     var form = layui.form(),
-        layer = parent.layer === undefined ? layui.layer : parent.layer,
-        laypage = layui.laypage,
-        layedit = layui.layedit,
-        laydate = layui.laydate,
-        $ = layui.jquery;
+    layer = parent.layer === undefined ? layui.layer : parent.layer,
+    laypage = layui.laypage,
+    layedit = layui.layedit,
+    laydate = layui.laydate,
+    $ = layui.jquery;
 
     var baseUrl = getRootPath_web();
+    layui.upload({
+        mehtod:"post",
+        url : baseUrl+'file/uploadImage',
+        success: function(res){
+            url=res.responseMap.url;
+            $("#photo").attr("src",url);
+        }
+    });
+
     //创建一个编辑器
     // var editIndex = layedit.build('news_content');
     // var addNewsArray = [],addNews;
