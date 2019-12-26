@@ -63,7 +63,8 @@ public class CommentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.responseMap.result[0].checked").value(1))
-                .andExpect(jsonPath("$.responseMap.result[1].checked").value(1));
+                .andExpect(jsonPath("$.responseMap.result[1].checked").value(1))
+                .andExpect(jsonPath("$.responseMap.result[0].userName").exists());
         verify(commentService).getAllCheckComments();
         verifyNoMoreInteractions(commentService);
     }

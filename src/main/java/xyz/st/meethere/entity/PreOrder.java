@@ -12,6 +12,8 @@ public class PreOrder {
     private int duration;
     private int payed;
     private int checked;
+    private String userName;
+    private String groundName;
 
     public String getUserName() {
         return userName;
@@ -29,8 +31,7 @@ public class PreOrder {
         this.groundName = groundName;
     }
 
-    private String userName;
-    private String groundName;
+
 
     public int getChecked() {
         return checked;

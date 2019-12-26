@@ -9,13 +9,19 @@ import java.util.List;
 
 @Repository
 public interface CommentMapper {
-    @Select("select * from comment where commentId=#{commentId}")
+    @Select("select comment.userId, comment.groundId, groundName, userName, commentId, date, content, checked from " +
+            "(comment join user on comment.userId=user.userId) join ground on ground.groundId=comment.groundId where " +
+            "commentId=#{commentId}")
     Comment getCommentsByCommentId(Integer commentId);
 
-    @Select("select * from comment where groundId=#{groundId}")
+    @Select("select comment.userId, comment.groundId, groundName, userName, commentId, date, content, checked from " +
+            "(comment join user on comment.userId=user.userId) JOIN ground on ground.groundId=comment.groundId where " +
+            "comment.groundId=#{groundId}")
     List<Comment> getCommentsByGroundId(Integer groundId);
 
-    @Select("select * from comment where userId=#{userId}")
+    @Select("select comment.userId, comment.groundId, groundName, userName, commentId, date, content, checked from " +
+            "(comment join user on comment.userId=user.userId) JOIN ground on ground.groundId=comment.groundId where " +
+            "comment.userId=#{userId}")
     List<Comment> getCommentsByUserId(Integer userId);
 
     @Delete("delete from comment where commentId=#{commentId}")
@@ -24,8 +30,9 @@ public interface CommentMapper {
     @Update("update comment set date=#{date},content=#{content},checked=#{checked} where commentId=#{commentId}")
     int updateComment(Comment comment);
 
-    @Options(useGeneratedKeys = true,keyProperty = "commentId")
-    @Insert("insert into comment(userId,groundId,date,content,checked) values(#{userId},#{groundId},#{date},#{content},#{checked})")
+    @Options(useGeneratedKeys = true, keyProperty = "commentId")
+    @Insert("insert into comment(userId,groundId,date,content,checked) values(#{userId},#{groundId},#{date}," +
+            "#{content},#{checked})")
     int addCommentOfUserIdOnGroundId(Comment comment);
 
     /*
@@ -40,7 +47,7 @@ public interface CommentMapper {
     @Update("update comment set checked=-1 where commentId=#{id}")
     int updateCommentSetUnchecked(Integer id);
 
-    @Select("select * from comment where checked=0")
+    @Select("select * from comment where checked=0 or checked=-1")
     List<Comment> getAllUncheckedComments();
 
     @Select("select * from comment where checked=1")

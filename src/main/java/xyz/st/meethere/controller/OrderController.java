@@ -44,33 +44,9 @@ public class OrderController {
     ResponseMsg getOrders(){
         ResponseMsg responseMsg = new ResponseMsg();
         responseMsg.setStatus(404);
+        // fixme: 返回的内容里应该有userName,groundName
         List<PreOrder> preOrders = orderService.getOrders();
-        List<User> users = userService.traverseUserWOAuthority();
-        List<Ground> grounds = groundService.getAllGrounds();
 
-        // TODO: 这里应该用外键优化或者map做数据预处理优化的，但是懒得写了
-        for(PreOrder order: preOrders){
-            int userId=order.getUserId();
-            int groundId=order.getGroundId();
-            order.setUserName("");
-            order.setGroundName("");
-            for(User user:users){
-                if(user.getUserId() == userId){
-                    order.setUserName(user.getUserName());
-                    break;
-                }
-            }
-            for(Ground ground:grounds){
-                if(ground.getGroundId()==groundId){
-                    order.setGroundName(ground.getGroundName());
-                    break;
-                }
-            }
-        }
-
-        if(preOrders==null){
-            return responseMsg;
-        }
         responseMsg.setStatus(200);
         responseMsg.getResponseMap().put("result",preOrders);
         return responseMsg;
@@ -84,6 +60,7 @@ public class OrderController {
             responseMsg.setStatus(404);
             return responseMsg;
         }
+        // fixme: 返回的内容里应该有userName,groundName
         List<PreOrder> preOrders = orderService.getAllPreOrdersOfUser(id);
         responseMsg.setStatus(200);
         responseMsg.getResponseMap().put("result",preOrders);
@@ -93,6 +70,7 @@ public class OrderController {
     @ApiOperation("获取某用户指定订单")
     @GetMapping("/order/user/{userId}/order/{preOrderId}")
     ResponseMsg getOrderByIdOfUSer(@PathVariable("userId") Integer uid,@PathVariable("orderid") Integer oid){
+        // fixme: 返回的内容里应该有userName,groundName
         PreOrder preOrder = orderService.getPreOrder(uid, oid);
         ResponseMsg responseMsg = new ResponseMsg();
         if(preOrder==null){

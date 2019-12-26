@@ -28,6 +28,7 @@ public class CommentController {
     ResponseMsg getAllComments() {
         ResponseMsg responseMsg = new ResponseMsg();
         List<Comment> comments = null;
+//        FIXME: 返回内容里需要有userName，groundName
         comments = commentService.getAllCheckComments();
         // FIXME: 当结果为null时返回404
         if (comments == null)
@@ -42,6 +43,7 @@ public class CommentController {
     ResponseMsg getCommentsByUserId(@PathVariable("userId") Integer id) {
         ResponseMsg responseMsg = new ResponseMsg();
         List<Comment> comments = null;
+        //        FIXME: 返回内容里需要有userName，groundName
         comments = commentService.getCommentsByUserId(id);
         // FIXME: 当结果为null时返回404
         if (comments == null)
@@ -56,6 +58,7 @@ public class CommentController {
     ResponseMsg getCommentsByGroundId(@PathVariable("groundId") Integer id) {
         ResponseMsg responseMsg = new ResponseMsg();
         List<Comment> comments = null;
+        //        FIXME: 返回内容里需要有userName，groundName
         comments = commentService.getCommentsByGroundId(id);
         // FIXME: 当结果为null时返回404
         if (comments == null)
