@@ -1,5 +1,6 @@
 package xyz.st.meethere.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -85,6 +86,19 @@ public class CommentController {
             }
         }
         return responseMsg;
+    }
+
+    @ResponseBody
+    @ApiOperation("通过commentId批量删除新闻")
+    @DeleteMapping("/comment/deleteByBatch")
+    ResponseMsg deleteCommentByBatch(@RequestBody List<Integer> ids) {
+        ResponseMsg msg = new ResponseMsg();
+        msg.setStatus(404);
+        for (Integer id : ids) {
+            deleteComment(id);
+        }
+        msg.setStatus(200);
+        return msg;
     }
 
     @PutMapping("/comment")

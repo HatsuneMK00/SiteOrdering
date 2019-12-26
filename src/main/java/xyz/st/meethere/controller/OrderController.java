@@ -41,57 +41,57 @@ public class OrderController {
 
     @ApiOperation(value = "获取所有订单, 包括用户的信息和场地的信息")
     @GetMapping("/order")
-    ResponseMsg getOrders(){
+    ResponseMsg getOrders() {
         ResponseMsg responseMsg = new ResponseMsg();
         responseMsg.setStatus(404);
         // fixme: 返回的内容里应该有userName,groundName
         List<PreOrder> preOrders = orderService.getOrders();
 
         responseMsg.setStatus(200);
-        responseMsg.getResponseMap().put("result",preOrders);
+        responseMsg.getResponseMap().put("result", preOrders);
         return responseMsg;
     }
 
-    @ApiOperation(value = "获取用户的所有订单",notes = "如果返回404，则用户不存在")
+    @ApiOperation(value = "获取用户的所有订单", notes = "如果返回404，则用户不存在")
     @GetMapping("/order/user/{userId}/preOrder")
-    ResponseMsg getOrdersOfUSer(@PathVariable("userId") Integer id){
+    ResponseMsg getOrdersOfUSer(@PathVariable("userId") Integer id) {
         ResponseMsg responseMsg = new ResponseMsg();
-        if(!orderService.checkUserExistence(id)){
+        if (!orderService.checkUserExistence(id)) {
             responseMsg.setStatus(404);
             return responseMsg;
         }
         // fixme: 返回的内容里应该有userName,groundName
         List<PreOrder> preOrders = orderService.getAllPreOrdersOfUser(id);
         responseMsg.setStatus(200);
-        responseMsg.getResponseMap().put("result",preOrders);
+        responseMsg.getResponseMap().put("result", preOrders);
         return responseMsg;
     }
 
     @ApiOperation("获取某用户指定订单")
     @GetMapping("/order/user/{userId}/order/{preOrderId}")
-    ResponseMsg getOrderByIdOfUSer(@PathVariable("userId") Integer uid,@PathVariable("orderid") Integer oid){
+    ResponseMsg getOrderByIdOfUSer(@PathVariable("userId") Integer uid, @PathVariable("orderid") Integer oid) {
         // fixme: 返回的内容里应该有userName,groundName
         PreOrder preOrder = orderService.getPreOrder(uid, oid);
         ResponseMsg responseMsg = new ResponseMsg();
-        if(preOrder==null){
+        if (preOrder == null) {
             responseMsg.setStatus(404);
             return responseMsg;
         }
         responseMsg.setStatus(200);
-        responseMsg.getResponseMap().put("result",preOrder);
+        responseMsg.getResponseMap().put("result", preOrder);
         return responseMsg;
     }
 
-    @ApiOperation(value = "新增用户订单",notes = "若返回510则说明用户输入的开始时间和duration与该场地现有预约单冲突")
+    @ApiOperation(value = "新增用户订单", notes = "若返回510则说明用户输入的开始时间和duration与该场地现有预约单冲突")
     @PostMapping("/order/user/{userId}/order")
     ResponseMsg addAnOrder(
-            @RequestParam("groundId")  Integer gid,
+            @RequestParam("groundId") Integer gid,
             @PathVariable("userId") Integer uid,
             @RequestParam("startTime") String startTime,
             @RequestParam("duration") Integer duration
-            ){
+    ) {
         ResponseMsg responseMsg = new ResponseMsg();
-        if(orderService.validatePreOrder(gid, startTime, duration)){
+        if (orderService.validatePreOrder(gid, startTime, duration)) {
             responseMsg.setStatus(510);
             return responseMsg;
         }
@@ -100,49 +100,63 @@ public class OrderController {
         preOrder.setUserId(uid);
         preOrder.setStartTime(startTime);
         preOrder.setDuration(duration);
-        preOrder.setPrice(duration*orderService.getGroundPrice(gid));
-        if(orderService.addPreOrder(preOrder) == 1){
+        preOrder.setPrice(duration * orderService.getGroundPrice(gid));
+        if (orderService.addPreOrder(preOrder) == 1) {
             responseMsg.setStatus(200);
-            responseMsg.getResponseMap().put("result",preOrder);
+            responseMsg.getResponseMap().put("result", preOrder);
             return responseMsg;
         }
         responseMsg.setStatus(500);
-        return  responseMsg;
+        return responseMsg;
     }
 
     @ApiOperation("删除用户指定订单")
     @DeleteMapping("/order/{preOrderId}")
-    ResponseMsg deleteOrder(@PathVariable("preOrderId") Integer oid){
+    ResponseMsg deleteOrder(@PathVariable("preOrderId") Integer oid) {
         ResponseMsg responseMsg = new ResponseMsg();
-        if(orderService.deletePreOrder(oid)==1)
+        if (orderService.deletePreOrder(oid) == 1)
             responseMsg.setStatus(200);
         else responseMsg.setStatus(500);
         return responseMsg;
+    }
+
+    @ResponseBody
+    @ApiOperation("通过preOrderId批量删除新闻")
+    @DeleteMapping("/order/deleteByBatch")
+    ResponseMsg deleteOrderByBatch(@RequestBody List<Integer> ids) {
+        ResponseMsg msg = new ResponseMsg();
+        msg.setStatus(404);
+        for (Integer id : ids) {
+            deleteOrder(id);
+        }
+        msg.setStatus(200);
+        return msg;
     }
 
     @ApiOperation("获取某场地在目前时间之后所有预约单的开始时间和持续时间，并按开始时间升序排序")
     @GetMapping("/order/ground/{groundId}/orderTime")
     ResponseMsg getGroundOrderTime(@PathVariable("groundId") Integer gid) {
         ResponseMsg responseMsg = new ResponseMsg();
-        if(!orderService.checkGroundExistence(gid)){
+        if (!orderService.checkGroundExistence(gid)) {
             responseMsg.setStatus(404);
             return responseMsg;
         }
         List<List> lists = orderService.getOrderTime(gid);
         responseMsg.setStatus(200);
-        responseMsg.getResponseMap().put("result",lists);
+        responseMsg.getResponseMap().put("result", lists);
         return responseMsg;
     }
-    @ApiOperation(value = "获取某场地的所有订单",notes = "若返回404则表明场地不存在")
+
+    @ApiOperation(value = "获取某场地的所有订单", notes = "若返回404则表明场地不存在")
     @GetMapping("/order/ground/{groundId}/order")
-    ResponseMsg getGroundOrders(@PathVariable("groundId") Integer gid){
+    ResponseMsg getGroundOrders(@PathVariable("groundId") Integer gid) {
         ResponseMsg responseMsg = new ResponseMsg();
-        if(!orderService.checkGroundExistence(gid)){
+        if (!orderService.checkGroundExistence(gid)) {
             responseMsg.setStatus(404);
             return responseMsg;
         }
         responseMsg.setStatus(200);
-        responseMsg.getResponseMap().put("result",orderService.getGroundOrders(gid));
+        responseMsg.getResponseMap().put("result", orderService.getGroundOrders(gid));
         return responseMsg;
     }
 
@@ -159,29 +173,30 @@ public class OrderController {
         responseMsg.setStatus(200);
         return responseMsg;
     }
+
     @ApiOperation("将指定订单审核状态标记为通过")
     @PutMapping("/order/check/{preOrderId}")
-    ResponseMsg checkOrder(@PathVariable("preOrderId") Integer pid){
+    ResponseMsg checkOrder(@PathVariable("preOrderId") Integer pid) {
         ResponseMsg responseMsg = new ResponseMsg();
-        if(!orderService.checkPreOrderExistence(pid)){
+        if (!orderService.checkPreOrderExistence(pid)) {
             responseMsg.setStatus(404);
             return responseMsg;
         }
         responseMsg.setStatus(200);
-        responseMsg.getResponseMap().put("result",orderService.checkPreOrder(pid));
+        responseMsg.getResponseMap().put("result", orderService.checkPreOrder(pid));
         return responseMsg;
     }
 
     @ApiOperation("将指定订单审核状态标记为未通过")
     @PutMapping("/order/uncheck/{preOrderId}")
-    ResponseMsg uncheckOrder(@PathVariable("preOrderId") Integer pid){
+    ResponseMsg uncheckOrder(@PathVariable("preOrderId") Integer pid) {
         ResponseMsg responseMsg = new ResponseMsg();
-        if(!orderService.checkPreOrderExistence(pid)){
+        if (!orderService.checkPreOrderExistence(pid)) {
             responseMsg.setStatus(404);
             return responseMsg;
         }
         responseMsg.setStatus(200);
-        responseMsg.getResponseMap().put("result",orderService.checkPreOrderFail(pid));
+        responseMsg.getResponseMap().put("result", orderService.checkPreOrderFail(pid));
         return responseMsg;
     }
 }

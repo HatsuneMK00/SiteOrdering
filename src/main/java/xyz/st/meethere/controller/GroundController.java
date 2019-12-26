@@ -144,4 +144,17 @@ public class GroundController {
             responseMsg.setStatus(404);
         return responseMsg;
     }
+
+    @ResponseBody
+    @ApiOperation("通过groundId批量删除新闻")
+    @DeleteMapping("/ground/deleteByBatch")
+    ResponseMsg deleteGroundByBatch(@RequestBody List<Integer> ids) {
+        ResponseMsg msg = new ResponseMsg();
+        msg.setStatus(404);
+        for (Integer id : ids) {
+            deleteGround(id);
+        }
+        msg.setStatus(200);
+        return msg;
+    }
 }
