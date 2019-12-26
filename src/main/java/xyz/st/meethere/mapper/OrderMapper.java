@@ -1,12 +1,15 @@
 package xyz.st.meethere.mapper;
 
 import io.swagger.models.auth.In;
+import javafx.util.converter.TimeStringConverter;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import xyz.st.meethere.entity.Ground;
 import xyz.st.meethere.entity.PreOrder;
 import xyz.st.meethere.entity.User;
 
+import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -16,6 +19,11 @@ public interface OrderMapper {
             "startTime, duration, payed, checked from (preorder join user on preorder.userId=user.userId) join ground" +
             " on ground.groundId=preorder.groundId where preorder.userId=#{id}")
     List<PreOrder> getPreOrdersByUserId(Integer id);
+
+    @Select("select preorder.userId, preorder.groundId, groundName, userName, preOrderId, orderTime, price, " +
+            "startTime, duration, payed, checked from (preorder join user on preorder.userId=user.userId) join ground" +
+            " on ground.groundId=preorder.groundId where startTime between #{start} and #{end}")
+    List<PreOrder> getPreOrderBetweenTimeDuration(Timestamp start, Timestamp end);
 
     @Delete("delete from preorder where preOrderId=#{preOrderId}")
     int deletePreOrder(Integer preOrderId);
@@ -39,7 +47,9 @@ public interface OrderMapper {
     @Select("select pricePerHour from ground where groundId=#{gid}")
     Integer getGroundPrice(Integer gid);
 
-    @Select("select * from preorder where groundId=#{id}")
+    @Select("select preorder.userId, preorder.groundId, groundName, userName, preOrderId, orderTime, price, " +
+            "startTime, duration, payed, checked from (preorder join user on preorder.userId=user.userId) join ground" +
+            " on ground.groundId=preorder.groundId where preorder.groundId=#{id}")
     List<PreOrder> getPreOrdersByGroundId(Integer id);
 
     @Select("select preorder.userId, preorder.groundId, groundName, userName, preOrderId, orderTime, price, " +

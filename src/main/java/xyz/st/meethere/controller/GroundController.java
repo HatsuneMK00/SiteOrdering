@@ -11,6 +11,7 @@ import xyz.st.meethere.exception.FileException;
 import xyz.st.meethere.service.FileService;
 import xyz.st.meethere.service.GroundService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -119,13 +120,11 @@ public class GroundController {
 
         int result = groundService.updateGround(ground);
         ResponseMsg responseMsg = new ResponseMsg();
-        if (result == 1)
-            {
-                responseMsg.setStatus(200);
+        if (result == 1) {
+            responseMsg.setStatus(200);
 //                FIXME:需要返回更新后的内容
-                responseMsg.getResponseMap().put("result",ground);
-            }
-        else
+            responseMsg.getResponseMap().put("result", ground);
+        } else
 //            FIXME: 没有找到该ground时返回404
             responseMsg.setStatus(404);
         return responseMsg;
@@ -150,17 +149,57 @@ public class GroundController {
     @ResponseBody
     @ApiOperation("通过groundId批量删除新闻")
     @DeleteMapping("/ground/deleteByBatch")
-    ResponseMsg deleteGroundByBatch(@RequestBody Map<String,List<Integer>> data) {
+    ResponseMsg deleteGroundByBatch(@RequestBody Map<String, List<Integer>> data) {
         ResponseMsg msg = new ResponseMsg();
         List<Integer> ids = data.get("ids");
         ResponseMsg tempMsg;
         msg.setStatus(200);
         for (Integer id : ids) {
             tempMsg = deleteGround(id);
-            if (tempMsg.getStatus() == 404 && msg.getStatus() != 404){
+            if (tempMsg.getStatus() == 404 && msg.getStatus() != 404) {
                 msg.setStatus(404);
             }
         }
         return msg;
+    }
+
+    /*
+     * 支持3种搜索方式：
+     * 1. 纯文字: 标题匹配
+     * 2. "gid:"开头: 返回对应gid的Ground
+     *   例如: gid: 1,2,3,4,5
+     * 3. 搜索内容为空: 返回全部
+     *
+     * */
+    @ResponseBody
+    @ApiOperation("通过搜索返回对应ground")
+    @GetMapping("/ground/match")
+//        TODO: 感觉这些逻辑都应该在Service层里面，而不是在Controller里
+    ResponseMsg getGroundByMatch(@RequestBody Map<String,String> params) {
+        String searchParam = params.get("match");
+        if (searchParam.equals("")) {
+            return getAllGroundsInfo();
+        } else if (searchParam.startsWith("gid:")) {
+            String param = searchParam.split(":")[1];
+            String[] ids = param.split(",");
+            ResponseMsg responseMsg = new ResponseMsg();
+            responseMsg.setStatus(200);
+            ArrayList<Ground> retGround = new ArrayList<>();
+            for (String id : ids) {
+                retGround.add(groundService.getGroundById(Integer.valueOf(id.trim())));
+            }
+            if (retGround.size() == 0)
+                responseMsg.setStatus(404);
+            responseMsg.getResponseMap().put("result",retGround);
+            return responseMsg;
+        } else {
+            List<Ground> grounds = groundService.getGroundsByMatch(searchParam);
+            ResponseMsg responseMsg = new ResponseMsg();
+            responseMsg.setStatus(200);
+            if (grounds.size() == 0)
+                responseMsg.setStatus(404);
+            responseMsg.getResponseMap().put("result", grounds);
+            return responseMsg;
+        }
     }
 }

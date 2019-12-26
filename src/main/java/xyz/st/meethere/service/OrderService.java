@@ -29,6 +29,13 @@ public class OrderService {
         return orderMapper.getAPreOrderOfUser(uid, oid);
     }
 
+    public List<PreOrder> getPreOrderByTimeMatch(String time){
+        System.out.println(time + " 00:00:00.000");
+        Timestamp startTime = Timestamp.valueOf(time + " 00:00:00");
+        Timestamp endTime = Timestamp.valueOf(time + " 23:59:59");
+        return orderMapper.getPreOrderBetweenTimeDuration(startTime,endTime);
+    }
+
     public int addPreOrder(PreOrder preOrder) {
         setDate(preOrder);
         return orderMapper.addPreOrder(preOrder);

@@ -1,22 +1,16 @@
 package xyz.st.meethere.controller;
 
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
-import org.hibernate.validator.internal.engine.messageinterpolation.InterpolationTerm;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.ParameterResolutionDelegate;
 import org.springframework.web.bind.annotation.*;
-import xyz.st.meethere.entity.Ground;
+import xyz.st.meethere.entity.Comment;
 import xyz.st.meethere.entity.PreOrder;
 import xyz.st.meethere.entity.ResponseMsg;
-import xyz.st.meethere.entity.User;
 import xyz.st.meethere.service.AdminService;
 import xyz.st.meethere.service.GroundService;
-import xyz.st.meethere.entity.*;
 import xyz.st.meethere.service.OrderService;
 import xyz.st.meethere.service.UserService;
 
-import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +45,63 @@ public class OrderController {
         responseMsg.setStatus(200);
         responseMsg.getResponseMap().put("result", preOrders);
         return responseMsg;
+    }
+
+    /*
+     * 支持4种搜索方式：
+     * 1. "time:"开头: 返回当天的所有订单
+     *   例如: time: 2019-12-23
+     * 2. "gid:"开头: 返回对应gid的订单
+     *   例如: gid: 1,2,3,4,5
+     * 3. "uid:"开头: 返回对应uid的订单
+     * 4. 搜索内容为空: 返回全部
+     *
+     * */
+    @GetMapping("/order/match")
+    ResponseMsg getOrderByTimeMatch(@RequestBody Map<String,String> params) {
+        String searchParam = params.get("match");
+        if (searchParam.equals("")) {
+            return getOrders();
+        } else if (searchParam.startsWith("gid:")) {
+            String param = searchParam.split(":")[1];
+            String[] ids = param.split(",");
+            ResponseMsg responseMsg = new ResponseMsg();
+            responseMsg.setStatus(200);
+            ArrayList<List<PreOrder>> retGround = new ArrayList<>();
+            for (String id : ids) {
+                retGround.add(orderService.getGroundOrders(Integer.valueOf(id.trim())));
+            }
+            if (retGround.size() == 0)
+                responseMsg.setStatus(404);
+            responseMsg.getResponseMap().put("result", retGround);
+            return responseMsg;
+        } else if (searchParam.startsWith("uid:")) {
+            String param = searchParam.split(":")[1];
+            String[] ids = param.split(",");
+            ResponseMsg responseMsg = new ResponseMsg();
+            responseMsg.setStatus(200);
+            ArrayList<List<PreOrder>> retGround = new ArrayList<>();
+            for (String id : ids) {
+                retGround.add(orderService.getAllPreOrdersOfUser(Integer.valueOf(id.trim())));
+            }
+            if (retGround.size() == 0)
+                responseMsg.setStatus(404);
+            responseMsg.getResponseMap().put("result", retGround);
+            return responseMsg;
+        } else if (searchParam.startsWith("time:")){
+            String time = searchParam.split(":")[1].trim();
+            List<PreOrder> orders = orderService.getPreOrderByTimeMatch(time);
+            ResponseMsg responseMsg = new ResponseMsg();
+            responseMsg.setStatus(200);
+            if (orders.size() == 0)
+                responseMsg.setStatus(404);
+            responseMsg.getResponseMap().put("result",orders);
+            return responseMsg;
+        } else {
+            ResponseMsg responseMsg = new ResponseMsg();
+            responseMsg.setStatus(500);
+            return responseMsg;
+        }
     }
 
     @ApiOperation(value = "获取用户的所有订单", notes = "如果返回404，则用户不存在")

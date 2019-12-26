@@ -30,6 +30,10 @@ public class GroundService {
         return groundMapper.getGroundByGroundId(id);
     }
 
+    public List<Ground> getGroundsByMatch(String matchParam){
+        return groundMapper.getGroundsByGroundNameMatch(matchParam);
+    }
+
     public int addGround(Ground ground) {
         /*
         * 把图片路径封装成前端可以直接使用的形式

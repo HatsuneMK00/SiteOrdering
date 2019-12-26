@@ -4,6 +4,7 @@ import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import xyz.st.meethere.entity.Comment;
+import xyz.st.meethere.entity.Ground;
 
 import java.util.List;
 
@@ -23,6 +24,11 @@ public interface CommentMapper {
             "(comment join user on comment.userId=user.userId) JOIN ground on ground.groundId=comment.groundId where " +
             "comment.userId=#{userId}")
     List<Comment> getCommentsByUserId(Integer userId);
+
+    @Select("select comment.userId, comment.groundId, groundName, userName, commentId, date, content, checked from " +
+            "(comment join user on comment.userId=user.userId) JOIN ground on ground.groundId=comment.groundId where " +
+            "content like CONCAT('%',#{matchParam},'%')")
+    List<Comment> getCommentByContentMatch(String matchParam);
 
     @Delete("delete from comment where commentId=#{commentId}")
     int deleteComment(Integer commentId);

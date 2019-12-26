@@ -36,3 +36,4 @@ build/
 
 /.idea/$PRODUCT_WORKSPACE_FILE$
 /.idea/misc.xml
+src/main/resources/static/images/
