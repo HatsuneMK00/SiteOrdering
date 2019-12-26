@@ -1,6 +1,6 @@
 package xyz.st.meethere.controller;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 import xyz.st.meethere.entity.Comment;
 import xyz.st.meethere.entity.PreOrder;
@@ -58,6 +58,16 @@ public class OrderController {
      *
      * */
     @GetMapping("/order/match")
+    @ApiOperation("通过搜索内容获取订单")
+//    没啥用
+    @ApiParam(
+            examples = @Example(value = {
+                    @ExampleProperty(value = "{\"match\": \"time: 2019-12-23\"}"),
+                    @ExampleProperty(value = "{\"match\": \"uid: 1\"}"),
+                    @ExampleProperty(value = "{\"match\": \"gid: 1\"}"),
+                    @ExampleProperty(value = "{\"match\": \"\"}")
+            })
+    )
     ResponseMsg getOrderByTimeMatch(@RequestBody Map<String,String> params) {
         String searchParam = params.get("match");
         if (searchParam.equals("")) {
