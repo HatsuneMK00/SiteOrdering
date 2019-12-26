@@ -57,7 +57,7 @@ public class OrderController {
      * 4. 搜索内容为空: 返回全部
      *
      * */
-    @GetMapping("/order/match")
+    @PostMapping("/order/match")
     @ApiOperation("通过搜索内容获取订单")
 //    没啥用
     @ApiParam(

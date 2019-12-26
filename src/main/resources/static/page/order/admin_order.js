@@ -5,8 +5,8 @@ layui.config({
     layer = parent.layer === undefined ? layui.layer : parent.layer,
     laypage = layui.laypage,
     $ = layui.jquery;
-
     var baseUrl = getRootPath_web();
+
     //加载页面数据
     var newsData = [];
     refreshList();
@@ -16,22 +16,41 @@ layui.config({
         var newArray1 = [];
         if($(".search_input").val() != ''){
             var index = layer.msg('查询中，请稍候',{icon: 16,time:false,shade:0.8});
+            var matchStr = $(".search_input").val();
             setTimeout(function(){
                 $.ajax({
-                    url :  baseUrl+"order/search",
+                    url :  baseUrl+"order/match",
                     type : "post",
                     dataType : "json",
-                    contentType : 'application/json;charset=UTF-8',
-                    data: JSON.stringify({content:$(".search_input").val()}),
+                    contentType : 'application/json; charset=UTF-8',
+                    data: JSON.stringify({match:matchStr}),
+                    async:false,
                     success : function(data){
-                        newsData = data.responseMap.result;
-                        newsList(newsData);
+                        if(data.status==200){
+                            newsData=data.responseMap.result;
+                            newsList(newsData);
+                        }
+                        else if(data.status==500){
+                            layer.msg("错误的请求");
+                        }
+                        else{
+                            layer.msg("无结果");
+                            newsData = data.responseMap.result;
+                            newsList(newsData);
+                        }
+
+                    },
+                    error: function () {
+                        layer.msg("检查一下网络吧");
+                        newsData=[];
+                        newsList([]);
                     }
+
                 });
                 layer.close(index);
             },1000);
         }else{
-            newsList(newsData);
+            refreshList();
         }
     });
 
@@ -58,12 +77,8 @@ layui.config({
 
     //通过
     $("body").on("click",".news_pass",function(){
-
         var _this = $(this);
-
         layer.confirm('通过此订单？',{icon:3, title:'提示信息'},function(index){
-
-            //_this.parents("tr").remove();
             for(var i=0;i<newsData.length;i++){
                 if(newsData[i].preOrderId == _this.attr("data-id")){
 
@@ -95,19 +110,13 @@ layui.config({
             }
 
             layer.close(index);
-            //$(this).html("<i class='iconfont icon-star'></i> 已审核");
         });
-
     });
 
     //不通过
     $("body").on("click",".news_reject",function(){
-
         var _this = $(this);
-
         layer.confirm('拒绝此订单？',{icon:3, title:'提示信息'},function(index){
-
-            //_this.parents("tr").remove();
             for(var i=0;i<newsData.length;i++){
                 if(newsData[i].preOrderId == _this.attr("data-id")){
 
@@ -119,7 +128,6 @@ layui.config({
                         async:false,
                         success : function(data){
                             if(data.status===200){
-                                console.log(newsData[i]);
                                 newsData[i].checked="-1";
                                 layer.msg("审核成功");
                                 newsList(newsData);
@@ -139,19 +147,14 @@ layui.config({
             }
 
             layer.close(index);
-            //$(this).html("<i class='iconfont icon-star'></i> 已审核");
         });
 
     });
 
     //删除
     $("body").on("click",".news_del",function(){
-
         var _this = $(this);
-
         layer.confirm('删除此订单？',{icon:3, title:'提示信息'},function(index){
-
-            //_this.parents("tr").remove();
             for(var i=0;i<newsData.length;i++){
                 if(newsData[i].preOrderId == _this.attr("data-id")){
 
@@ -180,17 +183,15 @@ layui.config({
             }
 
             layer.close(index);
-            //$(this).html("<i class='iconfont icon-star'></i> 已审核");
         });
     });
 
+    //渲染数据
     function newsList(that){
-        //渲染数据
         function renderDate(data,curr){
             var dataHtml = '';
             var currData;
             currData = that.concat().splice(curr*nums-nums, nums);
-
             if(currData.length !== 0){
                 for(var i=0;i<currData.length;i++){
                     var groundName = (currData[i].groundName==null)?'':currData[i].groundName;
@@ -200,7 +201,7 @@ layui.config({
                     interVal+=3600000*currData[i].duration;
                     var endTime=new Date(interVal);
                     var orderTime=new Date(currData[i].orderTime);
-                    var payed= (currData[i].payed===0)?"未支付":"已支付"
+                    var payed= (currData[i].payed===0)?"未支付":"已支付";
                     dataHtml += '<tr>'
                         +'<td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose"></td>'
                         +'<td>'+currData[i].preOrderId+'</td>'
@@ -208,14 +209,9 @@ layui.config({
                         +'<td>'+groundName+'</td>'
                         +'<td>'+currData[i].userId+'</td>'
                         +'<td>'+userName+'</td>'
-                        // 时间格式化
                         +  '<td>'+fromDateToChineseString(orderTime)+'</td>'
-
                         +'<td>'+currData[i].price+'</td>'
-
-                        //时间格式化
-                        +  '<td>'+fromDateToChineseString(startTime)+"<br>|<br>"+
-                        //时间格式化
+                        +  '<td>'+fromDateToChineseString(startTime)+'<br>|<br>'
                         +  fromDateToChineseString(endTime)+'</td>'
                         +'<td>'+payed+'</td>'
                     ;
@@ -263,6 +259,7 @@ layui.config({
         })
     }
 
+    //请求数据
     function refreshList(){
         $.ajax({
             url: baseUrl + "order",
