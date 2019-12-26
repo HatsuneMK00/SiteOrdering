@@ -1,6 +1,7 @@
 package xyz.st.meethere.controller;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,7 @@ import xyz.st.meethere.service.FileService;
 import xyz.st.meethere.service.GroundService;
 
 import java.util.List;
+import java.util.Map;
 
 
 /*
@@ -148,13 +150,17 @@ public class GroundController {
     @ResponseBody
     @ApiOperation("通过groundId批量删除新闻")
     @DeleteMapping("/ground/deleteByBatch")
-    ResponseMsg deleteGroundByBatch(@RequestBody List<Integer> ids) {
+    ResponseMsg deleteGroundByBatch(@RequestBody Map<String,List<Integer>> data) {
         ResponseMsg msg = new ResponseMsg();
-        msg.setStatus(404);
-        for (Integer id : ids) {
-            deleteGround(id);
-        }
+        List<Integer> ids = data.get("ids");
+        ResponseMsg tempMsg;
         msg.setStatus(200);
+        for (Integer id : ids) {
+            tempMsg = deleteGround(id);
+            if (tempMsg.getStatus() == 404 && msg.getStatus() != 404){
+                msg.setStatus(404);
+            }
+        }
         return msg;
     }
 }

@@ -81,11 +81,16 @@ public class NewsController {
     @ResponseBody
     @ApiOperation("通过newsId批量删除新闻")
     @DeleteMapping("/news/deleteByBatch")
-    ResponseMsg deleteNewsByBatch(@RequestBody List<Integer> ids) {
+    ResponseMsg deleteNewsByBatch(@RequestBody Map<String,List<Integer>> data) {
         ResponseMsg msg = new ResponseMsg();
-        msg.setStatus(404);
+        List<Integer> ids = data.get("ids");
+        msg.setStatus(200);
+        ResponseMsg tempMsg;
         for (Integer id : ids) {
-            deleteNews(id);
+            tempMsg = deleteNews(id);
+            if (tempMsg.getStatus() == 404 && msg.getStatus() != 404){
+                msg.setStatus(404);
+            }
         }
         msg.setStatus(200);
         return msg;

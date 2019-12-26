@@ -9,6 +9,7 @@ import xyz.st.meethere.entity.ResponseMsg;
 import xyz.st.meethere.service.CommentService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @ResponseBody
@@ -91,11 +92,16 @@ public class CommentController {
     @ResponseBody
     @ApiOperation("通过commentId批量删除新闻")
     @DeleteMapping("/comment/deleteByBatch")
-    ResponseMsg deleteCommentByBatch(@RequestBody List<Integer> ids) {
+    ResponseMsg deleteCommentByBatch(@RequestBody Map<String,List<Integer>> data) {
         ResponseMsg msg = new ResponseMsg();
-        msg.setStatus(404);
+        List<Integer> ids = data.get("ids");
+        msg.setStatus(200);
+        ResponseMsg tempMsg;
         for (Integer id : ids) {
-            deleteComment(id);
+            tempMsg = deleteComment(id);
+            if (tempMsg.getStatus() == 404 && msg.getStatus() != 404){
+                msg.setStatus(404);
+            }
         }
         msg.setStatus(200);
         return msg;

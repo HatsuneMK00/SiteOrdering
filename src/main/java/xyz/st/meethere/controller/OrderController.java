@@ -18,6 +18,7 @@ import xyz.st.meethere.service.UserService;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @ResponseBody
@@ -123,11 +124,16 @@ public class OrderController {
     @ResponseBody
     @ApiOperation("通过preOrderId批量删除新闻")
     @DeleteMapping("/order/deleteByBatch")
-    ResponseMsg deleteOrderByBatch(@RequestBody List<Integer> ids) {
+    ResponseMsg deleteOrderByBatch(@RequestBody Map<String,List<Integer>> data) {
         ResponseMsg msg = new ResponseMsg();
-        msg.setStatus(404);
+        List<Integer> ids = data.get("ids");
+        msg.setStatus(200);
+        ResponseMsg tempMsg;
         for (Integer id : ids) {
-            deleteOrder(id);
+            tempMsg = deleteOrder(id);
+            if (tempMsg.getStatus() == 404 && msg.getStatus() != 404){
+                msg.setStatus(404);
+            }
         }
         msg.setStatus(200);
         return msg;
