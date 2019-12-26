@@ -1,7 +1,6 @@
 package xyz.st.meethere.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,10 +18,13 @@ import java.util.Map;
 // userName为登陆的的主键，数据库中设置UNIQEUE索引
 @RestController
 public class UserController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private FileService fileService;
+    private final UserService userService;
+    private final FileService fileService;
+
+    public UserController(UserService userService, FileService fileService) {
+        this.userService = userService;
+        this.fileService = fileService;
+    }
 
     @ResponseBody
     @ApiOperation("通过userName查找用户，用户名Unique")
@@ -148,14 +150,18 @@ public class UserController {
     @ResponseBody
     @ApiOperation("修改用户信息，使用userId识别用户")
     @PostMapping("/user/updateById")
-    ResponseMsg updateById(@RequestBody Map params) {
+    ResponseMsg updateById(@RequestBody Map<String, Integer> params) {
         ResponseMsg msg = new ResponseMsg();
-        msg.setStatus(404);
+//        FIXME: 参数传递错误应该返回400
+        msg.setStatus(400);
         if (!(params.containsKey("userId"))) {
             return msg;
         }
-        User user = userService.getUserById(Integer.valueOf(params.get("userId").toString()));
-        if (user == null) return msg;
+        User user = userService.getUserById(params.get("userId"));
+        if (user == null) {
+            msg.setStatus(404);
+            return msg;
+        }
         user.updateUser(params);
         int ret = userService.updateUserByModel(user);
         if (ret > 0) {

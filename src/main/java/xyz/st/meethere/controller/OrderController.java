@@ -2,7 +2,6 @@ package xyz.st.meethere.controller;
 
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
-import xyz.st.meethere.entity.Comment;
 import xyz.st.meethere.entity.PreOrder;
 import xyz.st.meethere.entity.ResponseMsg;
 import xyz.st.meethere.service.AdminService;
