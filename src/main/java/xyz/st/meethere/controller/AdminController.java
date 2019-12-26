@@ -35,23 +35,25 @@ public class AdminController {
     @ResponseBody
     @ApiOperation("通过userId查找管理员")
     @GetMapping("/admin/getById")
-    ResponseMsg getUserById(@RequestParam("userId") int userId){
-        ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
+    ResponseMsg getUserById(@RequestParam("userId") int userId) {
+        ResponseMsg msg = new ResponseMsg();
+        msg.setStatus(404);
         User user = adminService.getAdminById(userId);
-        if(user != null){
+        if (user != null) {
             msg.setStatus(200);
         }
-        msg.getResponseMap().put("result",user);
+        msg.getResponseMap().put("result", user);
         return msg;
     }
 
     @ResponseBody
     @ApiOperation("通过userName和password登陆")
     @GetMapping("/admin/enter")
-    ResponseMsg loginAdmin(@RequestParam("userName") String userName,@RequestParam("password") String password){
-        ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
-        boolean isPwdCorrect=adminService.checkAdminPassword(userName, password);
-        if(isPwdCorrect){
+    ResponseMsg loginAdmin(@RequestParam("userName") String userName, @RequestParam("password") String password) {
+        ResponseMsg msg = new ResponseMsg();
+        msg.setStatus(404);
+        boolean isPwdCorrect = adminService.checkAdminPassword(userName, password);
+        if (isPwdCorrect) {
             msg.setStatus(200);
         }
         return msg;
@@ -60,19 +62,25 @@ public class AdminController {
     @ResponseBody
     @ApiOperation("修改管理员信息，使用userId识别管理员")
     @PostMapping("/admin/updateById")
-    ResponseMsg updateById(@RequestBody Map params){
+//    FIXME:参数接受的方法最好改成PathVariable或者RequestParam
+    ResponseMsg updateById(@RequestBody Map<String, Integer> params) {
         ResponseMsg msg = new ResponseMsg();
-        msg.setStatus(404);
-        if(!(params.containsKey("userId"))){
+//        FIXME:参数传递错误返回400
+        msg.setStatus(400);
+        if (!(params.containsKey("userId"))) {
             return msg;
         }
-        User user=adminService.getAdminById((int)params.get("userId"));
-        if(user==null) return msg;
+        User user = adminService.getAdminById(params.get("userId"));
+        if (user == null) {
+            msg.setStatus(404);
+            return msg;
+        } ;
         user.updateUser(params);
         int ret = adminService.updateAdminByModel(user);
-        if(ret>0) {
+        if (ret > 0) {
             msg.setStatus(200);
-            msg.getResponseMap().put("user",user);
+            //        FIXME: 统一返回值名称
+            msg.getResponseMap().put("user", user);
         }
         return msg;
     }
@@ -103,7 +111,7 @@ public class AdminController {
     @ResponseBody
     @ApiOperation("更新管理员头像")
     @PostMapping("/admin/profilePic")
-    ResponseMsg updateProfilePic(@RequestParam("image") MultipartFile file, @RequestParam("userId")Integer id){
+    ResponseMsg updateProfilePic(@RequestParam("image") MultipartFile file, @RequestParam("userId") Integer id) {
         /*
          * 封装图片路径
          * */
@@ -114,11 +122,12 @@ public class AdminController {
             e.printStackTrace();
         }
         assert storeFile != null;
-        int result = adminService.updateAdminProfilePicByAdminId(storeFile,id);
+        int result = adminService.updateAdminProfilePicByAdminId(storeFile, id);
         User user = adminService.getAdminById(id);
         ResponseMsg responseMsg = new ResponseMsg();
         responseMsg.setStatus(result);
-        responseMsg.getResponseMap().put("user",user);
+//        FIXME:统一返回内容名称
+        responseMsg.getResponseMap().put("user", user);
 
         return responseMsg;
     }
