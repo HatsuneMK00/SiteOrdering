@@ -122,6 +122,21 @@ public class CommentController {
         return responseMsg;
     }
 
+    @GetMapping("/comment/allComment")
+    ResponseMsg getAllComment() {
+        ResponseMsg responseMsg = new ResponseMsg();
+        List<Comment> comments = null;
+        try {
+            comments = commentService.getAllComments();
+            responseMsg.getResponseMap().put("result", comments);
+            responseMsg.setStatus(200);
+        } catch (Exception e) {
+            responseMsg.setStatus(500);
+            logger.error(e.getMessage(), e);
+        }
+        return responseMsg;
+    }
+
     @PutMapping("/comment/check/{commentId}")
     ResponseMsg checkComment(@PathVariable("commentId") Integer commentId) {
         int retVal = commentService.checkComment(commentId);

@@ -2,9 +2,9 @@ layui.config({
     base : "js/"
 }).use(['form','layer','jquery','laypage'],function(){
     var form = layui.form(),
-    layer = parent.layer === undefined ? layui.layer : parent.layer,
-    laypage = layui.laypage,
-    $ = layui.jquery;
+        layer = parent.layer === undefined ? layui.layer : parent.layer,
+        laypage = layui.laypage,
+        $ = layui.jquery;
 
     var baseUrl = getRootPath_web();
     //加载页面数据
@@ -18,7 +18,7 @@ layui.config({
             var index = layer.msg('查询中，请稍候',{icon: 16,time:false,shade:0.8});
             setTimeout(function(){
                 $.ajax({
-                    url :  baseUrl+"order/search",
+                    url :  baseUrl+"comment/search",
                     type : "post",
                     dataType : "json",
                     contentType : 'application/json;charset=UTF-8',
@@ -61,14 +61,14 @@ layui.config({
 
         var _this = $(this);
 
-        layer.confirm('通过此订单？',{icon:3, title:'提示信息'},function(index){
+        layer.confirm('通过此评论？',{icon:3, title:'提示信息'},function(index){
 
             //_this.parents("tr").remove();
             for(var i=0;i<newsData.length;i++){
-                if(newsData[i].preOrderId == _this.attr("data-id")){
+                if(newsData[i].commentId == _this.attr("data-id")){
 
                     $.ajax({
-                        url : baseUrl+'order/check/'+newsData[i].preOrderId,
+                        url : baseUrl+'comment/check/'+newsData[i].commentId,
                         type : "PUT",
                         dataType : "json",
                         contentType : 'application/json;charset=UTF-8',
@@ -105,14 +105,14 @@ layui.config({
 
         var _this = $(this);
 
-        layer.confirm('拒绝此订单？',{icon:3, title:'提示信息'},function(index){
+        layer.confirm('拒绝此评论？',{icon:3, title:'提示信息'},function(index){
 
             //_this.parents("tr").remove();
             for(var i=0;i<newsData.length;i++){
-                if(newsData[i].preOrderId == _this.attr("data-id")){
+                if(newsData[i].commentId == _this.attr("data-id")){
 
                     $.ajax({
-                        url : baseUrl+'order/uncheck/'+newsData[i].preOrderId,
+                        url : baseUrl+'comment/uncheck/'+newsData[i].commentId,
                         type : "PUT",
                         dataType : "json",
                         contentType : 'application/json;charset=UTF-8',
@@ -149,14 +149,12 @@ layui.config({
 
         var _this = $(this);
 
-        layer.confirm('删除此订单？',{icon:3, title:'提示信息'},function(index){
-
-            //_this.parents("tr").remove();
+        layer.confirm('删除此评论？',{icon:3, title:'提示信息'},function(index){
             for(var i=0;i<newsData.length;i++){
-                if(newsData[i].preOrderId == _this.attr("data-id")){
+                if(newsData[i].commentId == _this.attr("data-id")){
 
                     $.ajax({
-                        url : baseUrl+'order/'+newsData[i].preOrderId,
+                        url : baseUrl+'comment/'+newsData[i].commentId,
                         type : "delete",
                         async:false,
                         success : function(data){
@@ -190,20 +188,15 @@ layui.config({
             var dataHtml = '';
             var currData;
             currData = that.concat().splice(curr*nums-nums, nums);
-
             if(currData.length !== 0){
                 for(var i=0;i<currData.length;i++){
                     var groundName = (currData[i].groundName==null)?'':currData[i].groundName;
                     var userName = (currData[i].userName==null)?'':currData[i].userName;
-                    var startTime=new Date(currData[i].startTime);
-                    var interVal=startTime.getTime();
-                    interVal+=3600000*currData[i].duration;
-                    var endTime=new Date(interVal);
-                    var orderTime=new Date(currData[i].orderTime);
-                    var payed= (currData[i].payed===0)?"未支付":"已支付"
+                    var orderTime=new Date(currData[i].date);
                     dataHtml += '<tr>'
                         +'<td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose"></td>'
-                        +'<td>'+currData[i].preOrderId+'</td>'
+                        +'<td>'+currData[i].commentId+'</td>'
+                        +'<td>'+currData[i].content+'</td>'
                         +'<td>'+currData[i].groundId+'</td>'
                         +'<td>'+groundName+'</td>'
                         +'<td>'+currData[i].userId+'</td>'
@@ -211,23 +204,13 @@ layui.config({
                         // 时间格式化
                         +  '<td>'+orderTime.getFullYear()+"年"+orderTime.getMonth()+"月"+orderTime.getDay()+"日 "
                         +   orderTime.getHours()+":"+orderTime.getMinutes()+'</td>'
-
-                        +'<td>'+currData[i].price+'</td>'
-
-                        //时间格式化
-                        +  '<td>'+startTime.getFullYear()+"年"+startTime.getMonth()+"月"+startTime.getDay()+"日 "
-                        +   startTime.getHours()+":"+startTime.getMinutes()+"<br>|<br>"+
-                        //时间格式化
-                        +  endTime.getFullYear()+"年"+endTime.getMonth()+"月"+endTime.getDay()+"日 "
-                        +   endTime.getHours()+":"+endTime.getMinutes()+'</td>'
-                        +'<td>'+payed+'</td>'
                     ;
 
                     if(currData[i].checked == "0"){
                         dataHtml += '<td>'
-                            +  '<a class="layui-btn layui-btn-normal layui-btn-mini news_pass" data-id="'+data[i].preOrderId+'"><i class="layui-icon">&#xe600;</i> 通过</a>'
-                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_reject" data-id="'+data[i].preOrderId+'"><i class="layui-icon">&#xe640;</i> 不通过</a>'
-                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+data[i].preOrderId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
+                            +  '<a class="layui-btn layui-btn-normal layui-btn-mini news_pass" data-id="'+data[i].commentId+'"><i class="layui-icon">&#xe600;</i> 通过</a>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_reject" data-id="'+data[i].commentId+'"><i class="layui-icon">&#xe640;</i> 不通过</a>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+data[i].commentId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
                             +'</td>'
                             +'</tr>';
                     }else{
@@ -240,8 +223,8 @@ layui.config({
                             txt= '未通过';
                         }
                         dataHtml += '<td>'
-                            +  '<a class="layui-btn layui-btn-disabled layui-btn-mini " data-id="'+data[i].preOrderId+'"><i class="layui-icon">&#xe600;</i>'+ txt+'</a>'
-                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+data[i].preOrderId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
+                            +  '<a class="layui-btn layui-btn-disabled layui-btn-mini " data-id="'+data[i].commentId+'"><i class="layui-icon">&#xe600;</i>'+ txt+'</a>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+data[i].commentId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
                             +'</td>'
                             +'</tr>';
                     }
@@ -268,7 +251,7 @@ layui.config({
 
     function refreshList(){
         $.ajax({
-            url: baseUrl + "order",
+            url: baseUrl + "comment/allComment",
             type: "get",
             dataType: "json",
             success: function (data) {
@@ -277,7 +260,7 @@ layui.config({
                     newsList(newsData);
                 }
                 else{
-                    alert("获取订单失败");
+                    alert("获取评论失败");
                     newsList([]);
                 }
             },

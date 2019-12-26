@@ -26,6 +26,10 @@ public class CommentService {
         return commentMapper.getAllCheckedComments();
     }
 
+    public List<Comment> getAllComments() {
+        return commentMapper.getAllComments();
+    }
+
     public Comment getCommentByCommentId(Integer id){
         return commentMapper.getCommentsByCommentId(id);
     }
@@ -67,4 +71,5 @@ public class CommentService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         comment.setDate(Timestamp.valueOf(simpleDateFormat.format(new Date())));
     }
+
 }

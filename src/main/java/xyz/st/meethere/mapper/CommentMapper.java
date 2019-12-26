@@ -45,4 +45,7 @@ public interface CommentMapper {
 
     @Select("select * from comment where checked=1")
     List<Comment> getAllCheckedComments();
+
+    @Select("select * from comment")
+    List<Comment> getAllComments();
 }
