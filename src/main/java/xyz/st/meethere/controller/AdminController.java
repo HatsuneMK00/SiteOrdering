@@ -1,7 +1,6 @@
 package xyz.st.meethere.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.st.meethere.entity.ResponseMsg;
@@ -77,7 +76,8 @@ public class AdminController {
         if (user == null) {
             msg.setStatus(404);
             return msg;
-        } ;
+        }
+        ;
         user.updateUser(params);
         int ret = adminService.updateAdminByModel(user);
         if (ret > 0) {
@@ -114,17 +114,12 @@ public class AdminController {
     @ResponseBody
     @ApiOperation("更新管理员头像")
     @PostMapping("/admin/profilePic")
-    ResponseMsg updateProfilePic(@RequestParam("image") MultipartFile file, @RequestParam("userId") Integer id) {
+    ResponseMsg updateProfilePic(@RequestParam("image") MultipartFile file, @RequestParam("userId") Integer id) throws FileException {
         /*
          * 封装图片路径
          * */
         String storeFile = null;
-        try {
-            storeFile = fileService.storeFile(file);
-        } catch (FileException e) {
-            e.printStackTrace();
-        }
-        assert storeFile != null;
+        storeFile = fileService.storeFile(file);
         int result = adminService.updateAdminProfilePicByAdminId(storeFile, id);
         User user = adminService.getAdminById(id);
         ResponseMsg responseMsg = new ResponseMsg();
