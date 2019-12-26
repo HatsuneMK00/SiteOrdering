@@ -16,24 +16,81 @@ layui.config({
         var newArray1 = [];
         if($(".search_input").val() != ''){
             var index = layer.msg('查询中，请稍候',{icon: 16,time:false,shade:0.8});
+            var matchStr = $(".search_input").val();
             setTimeout(function(){
                 $.ajax({
-                    url :  baseUrl+"comment/search",
+                    url :  baseUrl+"comment/match",
                     type : "post",
                     dataType : "json",
-                    contentType : 'application/json;charset=UTF-8',
-                    data: JSON.stringify({content:$(".search_input").val()}),
+                    contentType : 'application/json; charset=UTF-8',
+                    data: JSON.stringify({match:matchStr}),
+                    async:false,
                     success : function(data){
-                        newsData = data.responseMap.result;
-                        newsList(newsData);
+                        if(data.status==200){
+                            newsData=data.responseMap.result;
+                            newsList(newsData);
+                        }
+                        else if(data.status==500){
+                            layer.msg("错误的请求");
+                        }
+                        else{
+                            layer.msg("无结果");
+                            newsData = data.responseMap.result;
+                            newsList(newsData);
+                        }
+
+                    },
+                    error: function () {
+                        layer.msg("检查一下网络吧");
+                        newsData=[];
+                        newsList([]);
                     }
+
                 });
                 layer.close(index);
             },1000);
         }else{
-            newsList(newsData);
+            refreshList();
         }
     });
+
+    //批量删除
+    $(".batchDel").click(function(){
+            var $checked = $('.news_content').find('input[type="checkbox"][name="checked"]:checked');
+            if ($checked.length > 0) {
+                layer.confirm('确定删除？',{icon:3, title:'提示信息'},function(index){
+                    var ids=[];
+                    for(var i=0;i<$checked.length;i++){
+                        ids.push(parseInt($checked[i].parentNode.parentNode.children[1].innerHTML));
+                    }
+                    $.ajax({
+                        url: baseUrl + "comment/deleteByBatch",
+                        type: "delete",
+                        dataType: "json",
+                        contentType: 'application/json;charset=UTF-8',
+                        data:JSON.stringify({ids:ids}),
+                        async:false,
+                        success: function (data) {
+                            if (data.status === 200) {
+                                layer.msg("评论删除成功")
+                                window.location.reload();
+                            }
+                            else{
+                                layer.msg("评论删除失败");
+                            }
+                        },
+                        error: function () {
+                            layer.msg("检查一下网络吧");
+                            window.location.reload();
+                        }
+                    });
+                    layer.close(index);
+                });
+            } else {
+                layer.msg("请选择需要审核的文章");
+            }
+        }
+    );
 
     //全选
     form.on('checkbox(allChoose)', function(data){
@@ -259,12 +316,12 @@ layui.config({
                     newsList(newsData);
                 }
                 else{
-                    alert("获取评论失败");
+                    layer.msg("获取评论失败");
                     newsList([]);
                 }
             },
             error: function () {
-                alert("检查一下网络吧");
+                layer.msg("检查一下网络吧");
                 newsList([]);
             }
         });

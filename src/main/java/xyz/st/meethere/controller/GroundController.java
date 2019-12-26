@@ -200,7 +200,7 @@ public class GroundController {
      * */
     @ResponseBody
     @ApiOperation("通过搜索返回对应ground")
-    @GetMapping("/ground/match")
+    @PostMapping("/ground/match")
 //        TODO: 感觉这些逻辑都应该在Service层里面，而不是在Controller里
     ResponseMsg getGroundByMatch(@RequestBody Map<String,String> params) {
         String searchParam = params.get("match");

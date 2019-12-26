@@ -84,7 +84,7 @@ public class CommentController {
      * */
     @ResponseBody
     @ApiOperation("通过搜索返回对应comment")
-    @GetMapping("/comment/match")
+    @PostMapping("/comment/match")
 //        TODO: 感觉这些逻辑都应该在Service层里面，而不是在Controller里
     ResponseMsg getCommentByMatch(@RequestBody Map<String, String> params) {
         String searchParam = params.get("match");

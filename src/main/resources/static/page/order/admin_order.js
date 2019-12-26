@@ -54,6 +54,44 @@ layui.config({
         }
     });
 
+    //批量删除
+    $(".batchDel").click(function(){
+            var $checked = $('.news_content').find('input[type="checkbox"][name="checked"]:checked');
+            if ($checked.length > 0) {
+                layer.confirm('确定删除？',{icon:3, title:'提示信息'},function(index){
+                    var ids=[];
+                    for(var i=0;i<$checked.length;i++){
+                        ids.push(parseInt($checked[i].parentNode.parentNode.children[1].innerHTML));
+                    }
+                    $.ajax({
+                        url: baseUrl + "order/deleteByBatch",
+                        type: "delete",
+                        dataType: "json",
+                        contentType: 'application/json;charset=UTF-8',
+                        data:JSON.stringify({ids:ids}),
+                        async:false,
+                        success: function (data) {
+                            if (data.status === 200) {
+                                layer.msg("订单删除成功")
+                                refreshUserLists();
+                            }
+                            else{
+                                layer.msg("订单删除失败");
+                            }
+                        },
+                        error: function () {
+                            layer.msg("检查一下网络吧");
+                            window.location.reload();
+                        }
+                    });
+                    layer.close(index);
+                });
+            } else {
+                layer.msg("请选择需要审核的文章");
+            }
+        }
+    );
+
     //全选
     form.on('checkbox(allChoose)', function(data){
         var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]:not([name="show"])');
@@ -267,16 +305,17 @@ layui.config({
             dataType: "json",
             success: function (data) {
                 if (data.status === 200) {
+                    layer.msg("获取订单");
                     newsData=data.responseMap.result;
                     newsList(newsData);
                 }
                 else{
-                    alert("获取订单失败");
+                    layer.msg("获取订单失败");
                     newsList([]);
                 }
             },
             error: function () {
-                alert("检查一下网络吧");
+                layer.msg("检查一下网络吧");
                 newsList([]);
             }
         });
