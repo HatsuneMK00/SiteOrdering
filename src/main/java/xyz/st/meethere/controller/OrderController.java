@@ -22,14 +22,22 @@ import java.util.List;
 @RestController
 @ResponseBody
 public class OrderController {
-    @Autowired
+    final
     OrderService orderService;
-    @Autowired
+    final
     UserService userService;
-    @Autowired
+    final
     AdminService adminService;
-    @Autowired
+    final
     GroundService groundService;
+
+    public OrderController(OrderService orderService, UserService userService, AdminService adminService,
+                           GroundService groundService) {
+        this.orderService = orderService;
+        this.userService = userService;
+        this.adminService = adminService;
+        this.groundService = groundService;
+    }
 
     @ApiOperation(value = "获取所有订单, 包括用户的信息和场地的信息")
     @GetMapping("/order")
@@ -103,7 +111,7 @@ public class OrderController {
             @PathVariable("userId") Integer uid,
             @RequestParam("startTime") String startTime,
             @RequestParam("duration") Integer duration
-            ) throws ParseException {
+            ){
         ResponseMsg responseMsg = new ResponseMsg();
         if(orderService.validatePreOrder(gid, startTime, duration)){
             responseMsg.setStatus(510);
@@ -136,7 +144,7 @@ public class OrderController {
 
     @ApiOperation("获取某场地在目前时间之后所有预约单的开始时间和持续时间，并按开始时间升序排序")
     @GetMapping("/order/ground/{groundId}/orderTime")
-    ResponseMsg getGroundOrderTime(@PathVariable("groundId") Integer gid) throws ParseException {
+    ResponseMsg getGroundOrderTime(@PathVariable("groundId") Integer gid) {
         ResponseMsg responseMsg = new ResponseMsg();
         if(!orderService.checkGroundExistence(gid)){
             responseMsg.setStatus(404);

@@ -1,6 +1,8 @@
 package xyz.st.meethere.service;
 
 import io.swagger.models.auth.In;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.st.meethere.entity.PreOrder;
@@ -16,57 +18,84 @@ import java.util.*;
 public class OrderService {
     @Autowired
     OrderMapper orderMapper;
-    public List<PreOrder> getAllPreOrdersOfUser(Integer id){
+
+    Logger logger = LoggerFactory.getLogger(getClass());
+
+    public List<PreOrder> getAllPreOrdersOfUser(Integer id) {
         return orderMapper.getPreOrdersByUserId(id);
     }
-    public PreOrder getPreOrder(Integer uid,Integer oid){
-        return orderMapper.getAPreOrderOfUser(uid,oid);
+
+    public PreOrder getPreOrder(Integer uid, Integer oid) {
+        return orderMapper.getAPreOrderOfUser(uid, oid);
     }
 
-    public int addPreOrder(PreOrder preOrder){
+    public int addPreOrder(PreOrder preOrder) {
         setDate(preOrder);
         return orderMapper.addPreOrder(preOrder);
     }
-    public int deletePreOrder(Integer oid){
+
+    public int deletePreOrder(Integer oid) {
         return orderMapper.deletePreOrder(oid);
     }
-    public List<PreOrder> getGroundOrders(Integer gid){
-        List<PreOrder> orders =  orderMapper.getPreOrdersByGroundId(gid);
+
+    public List<PreOrder> getGroundOrders(Integer gid) {
+        List<PreOrder> orders = orderMapper.getPreOrdersByGroundId(gid);
         return orders;
     }
-    public boolean checkGroundExistence(Integer gid){
+
+    public boolean checkGroundExistence(Integer gid) {
         return orderMapper.checkGroundExistence(gid) != null;
     }
-    public boolean checkUserExistence(Integer uid){
+
+    public boolean checkUserExistence(Integer uid) {
         return orderMapper.checkUserExistence(uid) != null;
     }
-    public boolean checkPreOrderExistence(Integer pid){ return orderMapper.getPreOrderByPid(pid) != null;}
-    public boolean validatePreOrder(Integer gid, String startTime,Integer duration) throws ParseException {
+
+    public boolean checkPreOrderExistence(Integer pid) {
+        return orderMapper.getPreOrderByPid(pid) != null;
+    }
+
+    public boolean validatePreOrder(Integer gid, String startTime, Integer duration){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.0");
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         Calendar calendar = Calendar.getInstance();
-        Date date = simpleDateFormat.parse(startTime);
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(startTime);
+        } catch (ParseException e) {
+            logger.error(e.getMessage(), e);
+        }
         calendar.setTime(date);
-        calendar.add(Calendar.HOUR_OF_DAY,duration);
+        calendar.add(Calendar.HOUR_OF_DAY, duration);
         Date dateAfter = calendar.getTime();
         Date temp = null;
-        for(PreOrder preOrder : orderMapper.getPreOrdersByGroundId(gid)){
-            temp = simpleDateFormat.parse(preOrder.getStartTime());
+        for (PreOrder preOrder : orderMapper.getPreOrdersByGroundId(gid)) {
+            try {
+                temp = simpleDateFormat.parse(preOrder.getStartTime());
+            } catch (ParseException e) {
+                logger.error(e.getMessage(), e);
+            }
             calendar.setTime(temp);
-            calendar.add(Calendar.HOUR_OF_DAY,preOrder.getDuration());
+            calendar.add(Calendar.HOUR_OF_DAY, preOrder.getDuration());
             Date tempAfter = calendar.getTime();
-            if((date.after(temp)&&date.before(tempAfter))||date.equals(temp))
+            if ((date.after(temp) && date.before(tempAfter)) || date.equals(temp))
                 return true;
-            if((dateAfter.after(temp)&&dateAfter.before(tempAfter))||dateAfter.equals(tempAfter))
+            if ((dateAfter.after(temp) && dateAfter.before(tempAfter)) || dateAfter.equals(tempAfter))
                 return true;
         }
         return false;
     }
-    public List<List> getOrderTime(Integer gid) throws ParseException {
+
+    public List<List> getOrderTime(Integer gid) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.0");
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         Calendar calendar = Calendar.getInstance();
-        Date date = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+        } catch (ParseException e) {
+            logger.error(e.getMessage(), e);
+        }
         ArrayList<String> orderTimes = new ArrayList<>();
         ArrayList<Integer> durations = new ArrayList<>();
         List<PreOrder> preOrders = orderMapper.getPreOrdersByGroundId(gid);
@@ -77,16 +106,21 @@ public class OrderService {
             }
         });
         boolean flag = false;
-        for(PreOrder preOrder : preOrders){
-            if(!flag){
-                Date temp = simpleDateFormat.parse(preOrder.getStartTime());
+        for (PreOrder preOrder : preOrders) {
+            if (!flag) {
+                Date temp = null;
+                try {
+                    temp = simpleDateFormat.parse(preOrder.getStartTime());
+                } catch (ParseException e) {
+                    logger.error(e.getMessage(), e);
+                }
                 calendar.setTime(temp);
-                calendar.add(Calendar.HOUR_OF_DAY,preOrder.getDuration());
+                calendar.add(Calendar.HOUR_OF_DAY, preOrder.getDuration());
                 Date tempAfter = calendar.getTime();
-                if((date.after(temp)&&date.before(tempAfter))||date.equals(temp)||date.before(temp))
-                    flag=true;
+                if ((date.after(temp) && date.before(tempAfter)) || date.equals(temp) || date.before(temp))
+                    flag = true;
             }
-            if(flag){
+            if (flag) {
                 orderTimes.add(preOrder.getStartTime());
                 durations.add(preOrder.getDuration());
             }
@@ -97,21 +131,23 @@ public class OrderService {
         return lists;
     }
 
-    public  List<PreOrder> getUncheckedOrders(){
+    public List<PreOrder> getUncheckedOrders() {
         return orderMapper.getAllUncheckedOrders();
     }
-    public int checkPreOrder(Integer id){
+
+    public int checkPreOrder(Integer id) {
         return orderMapper.checkPreOrder(id);
     }
 
-    public int checkPreOrderFail(Integer id){
+    public int checkPreOrderFail(Integer id) {
         return orderMapper.checkPreOrderFail(id);
     }
 
-    public Integer getGroundPrice(Integer gid){
+    public Integer getGroundPrice(Integer gid) {
         return orderMapper.getGroundPrice(gid);
     }
-    public void setDate(PreOrder preOrder){
+
+    public void setDate(PreOrder preOrder) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         preOrder.setOrderTime(Timestamp.valueOf(simpleDateFormat.format(new Date())));
