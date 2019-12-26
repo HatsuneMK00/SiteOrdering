@@ -60,7 +60,7 @@ public class CommentController {
         List<Comment> comments = null;
         //        FIXME: 返回内容里需要有userName，groundName
         comments = commentService.getCommentsByGroundId(id);
-        // FIXME: 当结果为null时返回404
+        // FIXME: 当场馆不存在时返回404 场馆存在不论有没有留言都返回200
         if (comments == null)
             responseMsg.setStatus(404);
         else
