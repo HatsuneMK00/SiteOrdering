@@ -78,17 +78,17 @@ layui.config({
     //删除
     $("body").on("click",".news_del",function(){
         var _this = $(this);
-        layer.confirm('删除此新闻？',{icon:3, title:'提示信息'},function(index){
-            //_this.parents("tr").remove();
+        layer.confirm('删除此场地？',{icon:3, title:'提示信息'},function(index){
             for(var i=0;i<newsData.length;i++){
-                if(newsData[i].newsId == _this.attr("data-id")){
+                if(newsData[i].groundId == _this.attr("data-id")){
                     $.ajax({
-                        url : baseUrl+"news/"+newsData[i].newsId,
+                        url : baseUrl+"ground/"+newsData[i].groundId,
                         type : "delete",
                         async:false,
                         success : function(data){
                             if(data.status=200)
                             {
+                                layer.msg("删除场地成功");
                                 newsData.splice(i,1);
                                 newsList(newsData);
                             }
@@ -127,7 +127,7 @@ layui.config({
                          +'"'+         currData[i].photo                  +'"'
                         +  ' alt="未添加图片"></img></td>'
                         +  '<td>'
-                        +    '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+currData[i].newsId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
+                        +    '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+currData[i].groundId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
                         +  '</td>'
                         +'</tr>';
                 }
