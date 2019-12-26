@@ -6,8 +6,6 @@ layui.config({
     laypage = layui.laypage,
     $ = layui.jquery;
 
-console.log("111111111111111111111111111");
-
     //加载页面数据
     var newsData = '';
     var baseUrl = getRootPath_web();
@@ -155,7 +153,6 @@ console.log("111111111111111111111111111");
     }
 
     function refreshNewsLists(){
-        console.log("refreshing");
         $.ajax({
             url: baseUrl + "ground",
             type: "get",
