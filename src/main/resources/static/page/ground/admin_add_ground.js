@@ -84,27 +84,15 @@ layui.config({
         }
     );
 
+
     //占用场地的时间
     function occupy(t,d,gid){
-        function pad(num, n) {
-            return Array(n>num?(n-(''+num).length+1):0).join(0)+num;
-        }
-
-        // time formatting to "yyyy-MM-dd HH:mm:ss.0"
-        var tt=t.getFullYear()+'-'+t.getMonth()+'-'+t.getDate()+' '+
-            t.getHours()+':'+t.getMinutes()+':'+t.getSeconds()+'.0'
-        console.log(tt);
-
+        var tt=fromDateToString(t);
         $.ajax({
             url: baseUrl + "order/admin/"+userId+"/order",
             type: "post",
             dataType: "json",
-            contentType: 'application/json;charset=UTF-8',
-            data: {
-                groundId:gid,
-                startTime:tt,
-                duration:d
-            },
+            data: {groundId:gid,startTime:tt,duration:d},
             async:false,
             success : function(data){
                 if(data.status===200){

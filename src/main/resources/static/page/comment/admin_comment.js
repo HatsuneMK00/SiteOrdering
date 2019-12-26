@@ -202,8 +202,7 @@ layui.config({
                         +'<td>'+currData[i].userId+'</td>'
                         +'<td>'+userName+'</td>'
                         // 时间格式化
-                        +  '<td>'+orderTime.getFullYear()+"年"+orderTime.getMonth()+"月"+orderTime.getDate()+"日 "
-                        +   orderTime.getHours()+":"+orderTime.getMinutes()+'</td>'
+                        +  '<td>'+fromDateToChineseString(orderTime)+'</td>'
                     ;
 
                     if(currData[i].checked == "0"){

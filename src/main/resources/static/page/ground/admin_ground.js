@@ -126,8 +126,7 @@ layui.config({
                         +  '<td >'+'<img width="100%" class="layui-box" id="photo" src='
                          +'"'+         currData[i].photo                  +'"'
                         +  ' alt="未添加图片"></img></td>'
-                        +  '<td>' 
-                        +    '<a class="layui-btn layui-btn-danger layui-btn-mini news_edit" data-id="'+currData[i].newsId+'"><i class="layui-icon">&#xe640;</i> 编辑</a>'
+                        +  '<td>'
                         +    '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+currData[i].newsId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
                         +  '</td>'
                         +'</tr>';
