@@ -209,16 +209,16 @@ layui.config({
                         +'<td>'+currData[i].userId+'</td>'
                         +'<td>'+userName+'</td>'
                         // 时间格式化
-                        +  '<td>'+orderTime.getFullYear()+"年"+orderTime.getMonth()+"月"+orderTime.getDay()+"日 "
+                        +  '<td>'+orderTime.getFullYear()+"年"+orderTime.getMonth()+"月"+orderTime.getDate()+"日 "
                         +   orderTime.getHours()+":"+orderTime.getMinutes()+'</td>'
 
                         +'<td>'+currData[i].price+'</td>'
 
                         //时间格式化
-                        +  '<td>'+startTime.getFullYear()+"年"+startTime.getMonth()+"月"+startTime.getDay()+"日 "
+                        +  '<td>'+startTime.getFullYear()+"年"+startTime.getMonth()+"月"+startTime.getDate()+"日 "
                         +   startTime.getHours()+":"+startTime.getMinutes()+"<br>|<br>"+
                         //时间格式化
-                        +  endTime.getFullYear()+"年"+endTime.getMonth()+"月"+endTime.getDay()+"日 "
+                        +  endTime.getFullYear()+"年"+endTime.getMonth()+"月"+endTime.getDate()+"日 "
                         +   endTime.getHours()+":"+endTime.getMinutes()+'</td>'
                         +'<td>'+payed+'</td>'
                     ;

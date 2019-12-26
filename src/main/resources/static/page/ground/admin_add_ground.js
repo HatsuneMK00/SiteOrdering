@@ -91,7 +91,7 @@ layui.config({
         }
 
         // time formatting to "yyyy-MM-dd HH:mm:ss.0"
-        var tt=t.getFullYear()+'-'+t.getMonth()+'-'+t.getDay()+' '+
+        var tt=t.getFullYear()+'-'+t.getMonth()+'-'+t.getDate()+' '+
             t.getHours()+':'+t.getMinutes()+':'+t.getSeconds()+'.0'
         console.log(tt);
 
