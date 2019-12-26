@@ -123,6 +123,8 @@ public class CommentController {
     ResponseMsg getAllUncheckedComment() {
         ResponseMsg responseMsg = new ResponseMsg();
         List<Comment> comments = null;
+//        fixme:返回的内容中要有userName,groundName
+//        fixme:不通过的留言也要返回
         comments = commentService.getAllUncheckComments();
         responseMsg.getResponseMap().put("result", comments);
         responseMsg.setStatus(200);
