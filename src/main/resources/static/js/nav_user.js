@@ -12,21 +12,16 @@ var navs = [{
 }, {
     "title": "预约的场馆",
     "icon": "icon-computer",
-    "href": "page/car/my_rent_in_cars.html",
+    "href": "page/ground/my_rent_in_grounds.html",
     "spread": false
 }, {
     "title": "我要预约",
     "icon": "icon-computer",
-    "href": 'page/car/car_rent_in.html',
-    "spread": false
-}, {
-    "title": "留言",
-    "icon": "icon-computer",
-    "href": "page/message/message.html",
+    "href": 'page/ground/user_rent_in.html',
     "spread": false
 }, {
     "title": "来自管理员的公告",
     "icon": "icon-computer",
-    "href": "page/message/user_broadcast.jsp",
+    "href": "page/message/user_broadcast.html",
     "spread": false
 }];

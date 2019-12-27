@@ -95,12 +95,52 @@ layui.config({
             }
         })
         //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
-        $(window).resize(function(){
+        $(window).resize(function() {
+            layui.layer.full(index);
+        })
+        layui.layer.full(index);
+    });
+    //跳转到查看评论的专用页面
+    $("body").on("click", ".watch_comment", function () {
+        var ground_id = Number($(this).parent().prev().prev().prev().prev().html());
+        $.cookie('groundId', ground_id);
+        var index = layui.layer.open({
+            title : "场馆评论",
+            type : 2,
+            content : "comment.html",
+            success : function(layero, index){
+                layui.layer.tips('点击此处返回场馆列表', '.layui-layer-setwin .layui-layer-close', {
+                    tips: 3
+                });
+            }
+        })
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function() {
             layui.layer.full(index);
         })
         layui.layer.full(index);
     });
 
+    //跳转到评论的专用页面
+    $("body").on("click", ".make_comment", function () {
+        var ground_id = Number($(this).parent().prev().prev().prev().prev().html());
+        $.cookie('groundId', ground_id);
+        var index = layui.layer.open({
+            title : "对场馆进行评论",
+            type : 2,
+            content : "make_comment.html",
+            success : function(layero, index){
+                layui.layer.tips('点击此处返回场馆列表', '.layui-layer-setwin .layui-layer-close', {
+                    tips: 3
+                });
+            }
+        })
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function() {
+            layui.layer.full(index);
+        })
+        layui.layer.full(index);
+    });
     //渲染数据函数
     function newsList(that) {
         function renderDate(data, curr) {
@@ -116,7 +156,9 @@ layui.config({
                         + '<td>' + currData[i].address + '</td>'
                         + '<td>' + currData[i].description + '</td>'
                         + '<td>'
-                        +       '<a class="layui-btn layui-btn-mini preorder_ground"><i class="iconfont icon-edit"></i> 预约</a>'
+                        +  '<a class="layui-btn layui-btn-normal layui-btn-mini preorder_ground" data-id="'+data[i].commentId+'"><i class="layui-icon">&#xe698;</i> 预约</a>'
+                        +  '<a class="layui-btn layui-btn-warm layui-btn-mini watch_comment" data-id="'+data[i].commentId+'"><i class="layui-icon">&#xe63a;</i> 查看评论</a>'
+                        +  '<a class="layui-btn layui-btn-mini make_comment" data-id="'+data[i].commentId+'"><i class="layui-icon">&#xe642;</i> 发表评论</a>'
                         + '</td>'
                         + '</tr>';
                 }

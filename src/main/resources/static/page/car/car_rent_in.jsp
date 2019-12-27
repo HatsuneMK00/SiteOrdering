@@ -70,6 +70,6 @@
 <script type="text/javascript" src="../../js/jquery.cookie.js"></script>
 <!--获取根路径-->
 <script type="text/javascript" src="../../js/getRootPath.js"></script>
-<script type="text/javascript" src="car_rent_in.js"></script>
+<script type="text/javascript" src="../ground/user_rent_in.js"></script>
 </body>
 </html>
