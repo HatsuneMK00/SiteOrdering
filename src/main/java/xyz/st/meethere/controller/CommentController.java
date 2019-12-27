@@ -50,7 +50,7 @@ public class CommentController {
         //        FIXME: 返回内容里需要有userName，groundName
         comments = commentService.getCommentsByUserId(id);
         // FIXME: 当结果为null时返回404
-        if (comments == null)
+        if (comments == null || comments.size() == 0)
             responseMsg.setStatus(404);
         else
             responseMsg.setStatus(200);
