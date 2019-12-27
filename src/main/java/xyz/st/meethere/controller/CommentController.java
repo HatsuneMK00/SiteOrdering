@@ -111,7 +111,7 @@ public class CommentController {
             responseMsg.setStatus(200);
             ArrayList<Comment> retComment = new ArrayList<>();
             for (String id : ids) {
-                retComment.addAll(commentService.getCommentsByGroundId(Integer.valueOf(id.trim())));
+                retComment.addAll(commentService.getCommentsByUserId(Integer.valueOf(id.trim())));
             }
             if (retComment.size() == 0)
                 responseMsg.setStatus(404);

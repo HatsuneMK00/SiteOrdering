@@ -20,8 +20,8 @@ public interface GroundMapper {
 
     //    管理员场馆操作
     @Options(useGeneratedKeys = true,keyProperty = "groundId")
-    @Insert("insert into ground(groundName,photo,pricePerHour,address) values(#{groundName},#{photo},#{pricePerHour}," +
-            "#{address})")
+    @Insert("insert into ground(groundName,photo,pricePerHour,address,description) values(#{groundName},#{photo},#{pricePerHour}," +
+            "#{address},#{description})")
     int addGround(Ground ground);
 
     @Delete("delete from ground where groundId=#{groundId}")

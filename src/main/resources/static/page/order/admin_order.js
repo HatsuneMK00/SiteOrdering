@@ -73,7 +73,7 @@ layui.config({
                         success: function (data) {
                             if (data.status === 200) {
                                 layer.msg("订单删除成功")
-                                refreshUserLists();
+                                refreshList();
                             }
                             else{
                                 layer.msg("订单删除失败");
