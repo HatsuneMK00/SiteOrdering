@@ -41,6 +41,6 @@ public class MyServerConfig implements ApplicationListener<WebServerInitializedE
     @Override
     public void onApplicationEvent(WebServerInitializedEvent webServerInitializedEvent) {
         port = String.valueOf(webServerInitializedEvent.getWebServer().getPort());
-        logger.info("port: " + port);
+        logger.info("port: " + MyServerConfig.port);
     }
 }

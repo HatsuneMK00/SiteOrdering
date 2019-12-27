@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import xyz.st.meethere.config.MyServerConfig;
 import xyz.st.meethere.entity.ResponseMsg;
 import xyz.st.meethere.entity.User;
 import xyz.st.meethere.exception.FileException;
@@ -215,6 +216,7 @@ public class UserController {
             e.printStackTrace();
         }
         assert storeFile != null;
+//        System.out.println(MyServerConfig.port);
         int result = userService.updateUserProfilePicByUserId(storeFile, id);
         User user = userService.getUserById(id);
         ResponseMsg responseMsg = new ResponseMsg();

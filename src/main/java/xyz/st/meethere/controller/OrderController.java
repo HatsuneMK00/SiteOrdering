@@ -215,7 +215,7 @@ public class OrderController {
     }
 
     @ResponseBody
-    @ApiOperation("通过preOrderId批量删除新闻")
+    @ApiOperation("通过preOrderId批量删除订单")
     @DeleteMapping("/order/deleteByBatch")
     ResponseMsg deleteOrderByBatch(@RequestBody Map<String,List<Integer>> data) {
         ResponseMsg msg = new ResponseMsg();
@@ -224,8 +224,9 @@ public class OrderController {
         ResponseMsg tempMsg;
         for (Integer id : ids) {
             tempMsg = deleteOrder(id);
-            if (tempMsg.getStatus() == 404 && msg.getStatus() != 404){
-                msg.setStatus(404);
+            if (tempMsg.getStatus() == 500 && msg.getStatus() != 500){
+                msg.setStatus(500);
+                return msg;
             }
         }
         msg.setStatus(200);
@@ -288,7 +289,7 @@ public class OrderController {
 
     @ApiOperation("将指定订单审核状态标记为未通过")
     @PutMapping("/order/uncheck/{preOrderId}")
-    ResponseMsg uncheckOrder(@PathVariable("preOrderId") Integer pid) {
+     ResponseMsg uncheckOrder(@PathVariable("preOrderId") Integer pid) {
         ResponseMsg responseMsg = new ResponseMsg();
         if (!orderService.checkPreOrderExistence(pid)) {
             responseMsg.setStatus(404);
