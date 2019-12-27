@@ -39,9 +39,11 @@ layui.config({
             }
             var date1=new Date(Date.now());
             date1=new Date(date1);
+            date1.setHours(0);
             date1.setMinutes(0);
             date1.setSeconds(0);
-            var duration1 = Math.ceil((dates[0] - Date.now())/3600000);
+
+            var duration1 = Math.ceil((dates[0] - date1.getTime())/3600000);
 
             if(duration1<0){
                 layer.msg("时间范围异常");
