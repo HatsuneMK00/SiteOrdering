@@ -307,7 +307,7 @@ layui.config({
 
     function refreshList(){
         $.ajax({
-            url: baseUrl + "comment/allComment",
+            url: baseUrl + "comment",
             type: "get",
             dataType: "json",
             success: function (data) {
