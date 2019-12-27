@@ -41,4 +41,8 @@ public class NewsService {
     public News getNewsByNewsId(Integer id) {
         return newsMapper.getNewsByNewsId(id);
     }
+
+    public boolean hasAllRequiredContent(News news) {
+        return news.getContent() != null && news.getTitle() != null && !news.getContent().equals("") && !news.getTitle().equals("");
+    }
 }
