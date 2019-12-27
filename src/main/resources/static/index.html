@@ -45,8 +45,8 @@
         <h2 class="sub-agileits-w3layouts">登录</h2>
         <form method="post">
             <!--下面的这个input是一个神级的bug，type如果不是email就会崩溃-->
-            <input class="user" type="email" name="Eamil" placeholder="用户" required=""/>
-            <input class="password" type="password" name="Password" placeholder="密码" required=""/>
+            <input class="user" type="email" name="Eamil" placeholder="用户" required="" layui-verify="required|email"/>
+            <input class="password" type="password" name="Password" placeholder="密码" required="" layui-verify="required"/>
             <a href="#" class="forgot-w3layouts">忘记密码 ?</a>
             <div class="submit-w3l">
                 <input type="submit" class="submit" value="登录">
@@ -83,7 +83,8 @@
                         var code = data.status;
                         var newURL;
                         if (code === 200) {
-                            $.cookie('userName', $(".user").val());
+                            $.cookie('userId', data.responseMap.result.userId);
+                            $.cookie('userName', data.responseMap.result.userName);
                             newURL = baseUrl + "admin_main_page.html";
                             $(window).attr('location', newURL);
                         } else {

@@ -30,6 +30,10 @@ public class GroundService {
         return groundMapper.getGroundByGroundId(id);
     }
 
+    public List<Ground> getGroundsByMatch(String matchParam){
+        return groundMapper.getGroundsByGroundNameMatch(matchParam);
+    }
+
     public int addGround(Ground ground) {
         /*
         * 把图片路径封装成前端可以直接使用的形式
@@ -39,6 +43,13 @@ public class GroundService {
         String[] temp = filename.split("/");
         filename = "/" + temp[temp.length - 2] + "/" + temp[temp.length - 1];
         ground.setPhoto(filename);
+        return groundMapper.addGround(ground);
+    }
+
+    public int addGroundWOFileOperation(Ground ground) {
+        /*
+         * 把图片路径封装成前端可以直接使用的形式
+         * */
         return groundMapper.addGround(ground);
     }
 

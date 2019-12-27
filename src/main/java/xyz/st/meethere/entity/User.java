@@ -8,39 +8,53 @@ import java.util.Map;
 @ApiModel("用户Model")
 public class User {
     @ApiModelProperty("用户id")
-    private int userId=0;
+    private int userId = 0;
     @ApiModelProperty("用户名字-唯一")
-    private String userName="";
+    private String userName = "";
     @ApiModelProperty("用户密码")
-    private String password="";
+    private String password = "";
     @ApiModelProperty("用户email")
-    private String email="";
+    private String email = "";
     @ApiModelProperty("用户签名")
-    private String description="";
+    private String description = "";
     @ApiModelProperty("用户头像")
-    private String profilePic="";
+    private String profilePic = "";
     @ApiModelProperty("用户余额")
-    private int balance=0;
+    private int balance = 0;
     @ApiModelProperty("是否是管理员")
-    private boolean authority=false;
-    public User(){}
+    private boolean authority = false;
+
+    public User() {
+    }
+
+    public User(int userId, String userName, String password, String email, String description, String profilePic,
+                int balance, boolean authority) {
+        this.userId = userId;
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.description = description;
+        this.profilePic = profilePic;
+        this.balance = balance;
+        this.authority = authority;
+    }
 
     public void updateUser(Map params) {
-        if(params.containsKey("userId"))
+        if (params.containsKey("userId"))
             this.userId = Integer.valueOf(params.get("userId").toString());
-        if(params.containsKey("userName"))
+        if (params.containsKey("userName"))
             this.userName = (String) params.get("userName");
-        if(params.containsKey("password"))
+        if (params.containsKey("password"))
             this.password = (String) params.get("password");
-        if(params.containsKey("email"))
+        if (params.containsKey("email"))
             this.email = (String) params.get("email");
-        if(params.containsKey("description"))
+        if (params.containsKey("description"))
             this.description = (String) params.get("description");
-        if(params.containsKey("profilePic"))
+        if (params.containsKey("profilePic"))
             this.profilePic = (String) params.get("profilePic");
-        if(params.containsKey("balance"))
+        if (params.containsKey("balance"))
             this.balance = (int) params.get("balance");
-        if(params.containsKey("authority"))
+        if (params.containsKey("authority"))
             this.authority = (boolean) params.get("authority");
 
     }

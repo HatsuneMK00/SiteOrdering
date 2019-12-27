@@ -35,7 +35,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">新密码</label>
         <div class="layui-input-block">
-            <input type="password" placeholder="请输入新密码" id="newPwd" class="layui-input pwd userPassword">
+            <input type="password" placeholder="请输入新密码" id="newPwd" class="layui-input pwd userPassword" layui-verify="required">
         </div>
     </div>
     <!--		<div class="layui-form-item">
@@ -72,7 +72,7 @@
             var request_url= baseUrl+"user/getByName";
 
             if(authority_in_cookie === "true"){
-                request_url= baseUrl+"admin/getByName";
+                request_url= baseUrl+"admin/getById";
             }
 
             if (!$.cookie('userName')) {
@@ -83,12 +83,17 @@
                 //根据userName来获取用户信息
                 //判断是普通用户还是管理员
                 var name = $.cookie('userName');
+                var id = $.cookie('userId');
+                var req = {userName: name};
+                if(authority_in_cookie === "true"){
+                    req = {userId: id};
+                }
                 $.ajax(
                     {
                         url: request_url,
                         type: "get",
                         dataType: "json",
-                        data: {userName: $.cookie('userName')},
+                        data: req,
                         async: false,
                         success: function (data) {
                             user_info = data;

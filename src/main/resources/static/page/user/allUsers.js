@@ -119,11 +119,11 @@ layui.config({
 							refreshUserLists();
 						}
 						else{
-							alert("用户删除失败");
+							layer.msg("用户删除失败");
 						}
 					},
 					error: function () {
-						alert("检查一下网络吧");
+						layer.msg("检查一下网络吧");
 						window.location.reload();
 					}
 				});
@@ -157,14 +157,15 @@ layui.config({
 						async:false,
 						success: function (data) {
 							if (data.status === 200) {
+								layer.msg("用户修改")
 								refreshUserLists();
 							}
 							else{
-								alert("用户删除失败");
+								layer.msg("用户修改失败");
 							}
 						},
 						error: function () {
-							alert("检查一下网络吧");
+							layer.msg("检查一下网络吧");
 							window.location.reload();
 						}
 					});
@@ -195,11 +196,11 @@ layui.config({
 								usersList(usersData);
 							}
 							else{
-								alert("用户删除失败");
+								layer.msg("用户删除失败");
 							}
 						},
 						error: function () {
-							alert("检查一下网络吧");
+							layer.msg("检查一下网络吧");
 							window.location.reload();
 						}
 					});
@@ -262,12 +263,12 @@ layui.config({
 					usersList(usersData);
 				}
 				else{
-					alert("获取用户信息失败");
+					layer.msg("获取用户信息失败");
 					$(window).attr('location', baseUrl);
 				}
 			},
 			error: function () {
-				alert("检查一下网络吧");
+				layer.msg("检查一下网络吧");
 				$(window).attr('location', baseUrl);
 			}
 		});

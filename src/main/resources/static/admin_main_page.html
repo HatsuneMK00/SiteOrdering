@@ -116,18 +116,18 @@
 
             var baseUrl =getRootPath_web();
 
-            if (!$.cookie('userName')) {
+            if (!$.cookie('userId')) {
                 /*没有登陆，请先登陆*/
                 $(window).attr('location', baseUrl);
             } else {
                 /*如果这个用户是一个普通用户，那么就要跳转到登陆界面*/
                 /*如果是管理员，那么才可以进入这个界面*/
-                var name = $.cookie('userName');
+                var id = $.cookie('userId');
                 $.ajax({
-                    url: baseUrl + "admin/getByName",
+                    url: baseUrl + "admin/getById",
                     type: "get",
                     dataType: "json",
-                    data: {userName: name},
+                    data: {userId: id},
                     success: function (data) {
                         if (data.status === 200 && data.responseMap.result.authority === true) {
                             /*是管理员*/

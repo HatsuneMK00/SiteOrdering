@@ -1,22 +1,20 @@
 package xyz.st.meethere.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.st.meethere.config.MyServerConfig;
 import xyz.st.meethere.entity.ResponseMsg;
-import xyz.st.meethere.entity.User;
 import xyz.st.meethere.exception.FileException;
-import xyz.st.meethere.service.AdminService;
 import xyz.st.meethere.service.FileService;
-
-import java.util.Map;
 
 @RestController
 public class FileController {
-    @Autowired
-    private FileService fileService;
+    private final FileService fileService;
+
+    public FileController(FileService fileService) {
+        this.fileService = fileService;
+    }
 
 
     /*

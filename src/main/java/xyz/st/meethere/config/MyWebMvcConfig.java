@@ -21,7 +21,7 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
         // remote directory
         //.addResourceLocations("file:/root/meethere/images/");
 
-        System.out.println(imageToStorage);
+//        System.out.println(imageToStorage);
         // TOOD: after deploying on server, check [local dynamic directory] == [remote directory]
         // 因为我们需要从 ip:8080/images/xxx.jpg访问的图片与从FileService中存储的绝对路径
     }
