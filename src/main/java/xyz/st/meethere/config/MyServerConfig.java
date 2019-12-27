@@ -36,6 +36,7 @@ public class MyServerConfig implements ApplicationListener<WebServerInitializedE
             logger.error(e.getMessage(),e);
             server = "localhost";
         }
+//        server="47.101.217.16";
     }
 
     @Override
