@@ -74,16 +74,8 @@ public class AdminController {
         ResponseMsg msg = new ResponseMsg();
 //        FIXME:参数传递错误返回400
         msg.setStatus(400);
-        if (!(params.containsKey("userId"))) {
+        if (!(params.containsKey("userId")) || !(params.containsKey("email")) || !(params.containsKey("description"))) {
             return msg;
-        }
-        else{
-            try{
-                Integer.parseInt(params.get("userId").toString());
-            }
-            catch (Exception e){
-                return msg;
-            }
         }
 
         User user = adminService.getAdminById(Integer.parseInt((params.get("userId").toString())));
@@ -91,7 +83,6 @@ public class AdminController {
             msg.setStatus(404);
             return msg;
         }
-        ;
         user.updateUser(params);
         int ret = adminService.updateAdminByModel(user);
         if (ret > 0) {
