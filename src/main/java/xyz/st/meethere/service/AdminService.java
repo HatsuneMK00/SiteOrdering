@@ -11,25 +11,17 @@ public class AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
-
-    private String server = MyServerConfig.server;
-    private String port   = MyServerConfig.port;
-
     public User getAdminByName(String userName) {
-        User user = adminMapper.getAdminByName(userName);
-        return user;
+        return adminMapper.getAdminByName(userName);
     }
 
     public User getAdminById(int userId) {
-        User user = adminMapper.getAdminById(userId);
-        return user;
+        return adminMapper.getAdminById(userId);
     }
 
     public boolean checkAdminPassword(String name, String pwd) {
         User user = adminMapper.getAdminByName(name);
-        if (user != null && user.getPassword().equals(pwd))
-            return true;
-        return false;
+        return user != null && user.getPassword().equals(pwd);
     }
 
     public int updateAdminByModel(User user) {
@@ -42,7 +34,7 @@ public class AdminService {
         String[] temp = profilePic.split("/");
 
         // Default server regarded as [localhost]
-        String profile_url=server+":"+port+ "/images/";
+        String profile_url = MyServerConfig.server + ":" + MyServerConfig.port + "/images/";
         profile_url = profile_url + temp[temp.length - 1];
         int result = adminMapper.updateAdminProfilePicByAdminId(userId, profile_url);
         if (result == 1)
