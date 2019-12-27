@@ -11,6 +11,7 @@ layui.config({
     $('.userName').val($.cookie('userName'));
     $('.groundId').val($.cookie('groundId'));
     var user_id = parseInt($.cookie('userId'));
+    var ground_id = parseInt($.cookie('groundId'));
     $.ajax({
         url: baseUrl + "ground/" + $.cookie('groundId'),
         type: "get",
@@ -37,7 +38,7 @@ layui.config({
             type: "post",
             dataType: "json",
             contentType : 'application/json;charset=UTF-8',
-            data: JSON.stringify({content: comment}),
+            data: JSON.stringify({userId: user_id,groundId:ground_id,content: comment}),
             async:false,
             success : function(data){
                 if(data.status===200){
