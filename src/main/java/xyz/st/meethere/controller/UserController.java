@@ -154,16 +154,8 @@ public class UserController {
         ResponseMsg msg = new ResponseMsg();
 //        FIXME: 参数传递错误应该返回400
         msg.setStatus(400);
-        if (!(params.containsKey("userId"))) {
+        if (!(params.containsKey("userId")) || !(params.containsKey("email")) || !(params.containsKey("description"))) {
             return msg;
-        }
-        else{
-            try{
-                Integer.parseInt(params.get("userId").toString());
-            }
-            catch (Exception e){
-                return msg;
-            }
         }
         User user = userService.getUserById(Integer.parseInt((params.get("userId").toString())));
         if (user == null) {
@@ -179,25 +171,25 @@ public class UserController {
         return msg;
     }
 
-    @ResponseBody
-    @ApiOperation("修改用户信息，使用userName识别用户")
-    @PostMapping("/user/updateByName")
-    ResponseMsg updateByName(@RequestBody Map params) {
-        ResponseMsg msg = new ResponseMsg();
-        msg.setStatus(404);
-        if (!(params.containsKey("userName"))) {
-            return msg;
-        }
-        User user = userService.getUserByName((String) params.get("userName"));
-        if (user == null) return msg;
-        user.updateUser(params);
-        int ret = userService.updateUserByModel(user);
-        if (ret > 0) {
-            msg.setStatus(200);
-            msg.getResponseMap().put("user", user);
-        }
-        return msg;
-    }
+//    @ResponseBody
+//    @ApiOperation("修改用户信息，使用userName识别用户")
+//    @PostMapping("/user/updateByName")
+//    ResponseMsg updateByName(@RequestBody Map params) {
+//        ResponseMsg msg = new ResponseMsg();
+//        msg.setStatus(404);
+//        if (!(params.containsKey("userName"))) {
+//            return msg;
+//        }
+//        User user = userService.getUserByName((String) params.get("userName"));
+//        if (user == null) return msg;
+//        user.updateUser(params);
+//        int ret = userService.updateUserByModel(user);
+//        if (ret > 0) {
+//            msg.setStatus(200);
+//            msg.getResponseMap().put("user", user);
+//        }
+//        return msg;
+//    }
 
     /*
      * 个人信息头像管理

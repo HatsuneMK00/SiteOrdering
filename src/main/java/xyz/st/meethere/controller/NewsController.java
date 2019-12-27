@@ -1,7 +1,6 @@
 package xyz.st.meethere.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xyz.st.meethere.entity.News;
 import xyz.st.meethere.entity.ResponseMsg;
@@ -39,8 +38,13 @@ public class NewsController {
     @ApiOperation("添加一条新闻")
     @PostMapping("/news")
     ResponseMsg addNews(@RequestBody News news) {
-        int result = newsService.addNews(news);
         ResponseMsg responseMsg = new ResponseMsg();
+        if (newsService.hasAllRequiredContent(news)) {
+            responseMsg.setStatus(400);
+            return responseMsg;
+        }
+        int result = newsService.addNews(news);
+
         if (result == 1) {
             responseMsg.setStatus(200);
         } else {

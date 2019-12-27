@@ -57,10 +57,10 @@ public class AdminController {
         boolean isPwdCorrect = adminService.checkAdminPassword(userName, password);
         if (isPwdCorrect) {
             User user = adminService.getAdminByName(userName);
-            if(user != null){
+            if (user != null) {
                 msg.setStatus(200);
             }
-            msg.getResponseMap().put("result",user);
+            msg.getResponseMap().put("result", user);
             return msg;
         }
         return msg;
@@ -74,16 +74,8 @@ public class AdminController {
         ResponseMsg msg = new ResponseMsg();
 //        FIXME:参数传递错误返回400
         msg.setStatus(400);
-        if (!(params.containsKey("userId"))) {
+        if (!(params.containsKey("userId")) || !(params.containsKey("email")) || !(params.containsKey("description"))) {
             return msg;
-        }
-        else{
-            try{
-                Integer.parseInt(params.get("userId").toString());
-            }
-            catch (Exception e){
-                return msg;
-            }
         }
 
         User user = adminService.getAdminById(Integer.parseInt((params.get("userId").toString())));
@@ -91,13 +83,14 @@ public class AdminController {
             msg.setStatus(404);
             return msg;
         }
-        ;
         user.updateUser(params);
         int ret = adminService.updateAdminByModel(user);
         if (ret > 0) {
             msg.setStatus(200);
             //        FIXME: 统一返回值名称
             msg.getResponseMap().put("user", user);
+        } else {
+            msg.setStatus(500);
         }
         return msg;
     }
