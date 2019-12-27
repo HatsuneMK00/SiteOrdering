@@ -1,25 +1,19 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
 <html>
 <head>
     <title>登陆和注册</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords"
-          content="Internship Sign In & Sign Up Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements"/>
-    <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
+<!--    <meta name="keywords"-->
+<!--          content="Internship Sign In & Sign Up Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements"/>-->
+<!--    <script type="application/x-javascript"> addEventListener("load", function () {-->
+<!--        setTimeout(hideURLbar, 0);-->
+<!--    }, false);-->
 
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    }
-    </script>
+<!--    function hideURLbar() {-->
+<!--        window.scrollTo(0, 1);-->
+<!--    }-->
+<!--    </script>-->
     <!-- Custom Theme files -->
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
     <link href="css/snow.css" rel="stylesheet" type="text/css" media="all"/>
@@ -75,13 +69,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             dataType: "json",
             contentType : 'application/json;charset=UTF-8',
             data: JSON.stringify({email: $(".email").val(), userName: $(".user").val(), password: $(".password").val()}),
+            async:false,
             success: function (data) {
                 var code = data.status;
-                alert(code);
                 if (code === 200) {
                     alert("注册成功");
                     $.cookie('userName',$(".user").val());
-                    $(window).attr('location',baseUrl+"user_main_page.html");
+                    var new_url=baseUrl+"user_main_page.html";
+                    $(window).open( new_url);
                 } else {
                     alert("注册失败");
                 }
