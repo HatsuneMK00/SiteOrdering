@@ -11,6 +11,7 @@ layui.config({
 
     var baseUrl = getRootPath_web();
 
+
     //加载页面数据——所有的场地信息
     $.ajax({
         url: baseUrl + "ground",
@@ -73,53 +74,31 @@ layui.config({
 
     // 操作
     // 租用场地
+    //获取场地ID
+    // function get_ground_id(){
+    //
+    //     return ground_id;
+    // }
+
+    //跳转到租用场地的专用页面
     $("body").on("click", ".preorder_ground", function () {
-        //先通过cookie的username获得用户名
-        //然后获得用户id
         var ground_id = Number($(this).parent().prev().prev().prev().prev().html());
-        $.ajax({
-            url: baseUrl + "user/getByName",
-            type: "get",
-            dataType: "json",
-            data: {userName: $.cookie('userName')},
-            success: function (data) {
-                if (data.status === 200) {
-                    /*alert("p100");*/
-                    var user_id = data.responmseMap.result.userId;
-
-                    /*alert("当前用户id:" + userId);
-                    alert(typeof userId);*/
-                    $.ajax({
-                        url: baseUrl + "order/user/"+ user_id +"/order",
-                        type: "post",
-                        dataType: "json",
-                        data: {groundId: ground_id, userId: user_id},
-                        success: function (data) {
-                            /*alert("p1");
-                            alert(data.code);*/
-                            if (data.code === "200") {
-                                alert("您已成功租用ID为" +car_id+ "的汽车。在‘租入订单’-‘租入的车’页面中刷新就可以看到");
-                                //刷新页面
-                                window.location.reload()
-                            } else {
-                                /*alert("else clause");*/
-                                alert("database error");
-                            }
-                        },
-                        error: function () {
-                            /*alert("p2");*/
-                            alert("database error1");
-                        }
-
-                    });
-                } else {
-                    alert("database error2");
-                }
-            },
-            error: function () {
-                alert("database error3");
+        $.cookie('groundId', ground_id);
+        var index = layui.layer.open({
+            title : "预约场馆",
+            type : 2,
+            content : "preorder.html",
+            success : function(layero, index){
+                layui.layer.tips('点击此处返回场馆列表', '.layui-layer-setwin .layui-layer-close', {
+                    tips: 3
+                });
             }
-        });
+        })
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function(){
+            layui.layer.full(index);
+        })
+        layui.layer.full(index);
     });
 
     //渲染数据函数
@@ -132,7 +111,7 @@ layui.config({
                     dataHtml += '<tr>'
                         + '<td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose"></td>'
                         + '<td>'+currData[i].groundName+'</td>'
-                        + '<td>'+currData[i].groundId+'</td>'
+                        + '<td id="ground_id_i_need">'+currData[i].groundId+'</td>'
                         + '<td>' + currData[i].pricePerHour + '</td>'
                         + '<td>' + currData[i].address + '</td>'
                         + '<td>' + currData[i].description + '</td>'
