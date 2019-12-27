@@ -157,11 +157,11 @@ layui.config({
 						async:false,
 						success: function (data) {
 							if (data.status === 200) {
-								layer.msg("用户删除")
+								layer.msg("用户修改")
 								refreshUserLists();
 							}
 							else{
-								layer.msg("用户删除失败");
+								layer.msg("用户修改失败");
 							}
 						},
 						error: function () {
