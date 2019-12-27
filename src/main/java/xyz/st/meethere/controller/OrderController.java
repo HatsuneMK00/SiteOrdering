@@ -76,26 +76,27 @@ public class OrderController {
             String[] ids = param.split(",");
             ResponseMsg responseMsg = new ResponseMsg();
             responseMsg.setStatus(200);
-            ArrayList<List<PreOrder>> retGround = new ArrayList<>();
+            ArrayList<PreOrder> retOrder = new ArrayList<>();
             for (String id : ids) {
-                retGround.add(orderService.getGroundOrders(Integer.valueOf(id.trim())));
+//                FIXME: 返回的内容应该是一层的数组
+                retOrder.addAll(orderService.getGroundOrders(Integer.valueOf(id.trim())));
             }
-            if (retGround.size() == 0)
+            if (retOrder.size() == 0)
                 responseMsg.setStatus(404);
-            responseMsg.getResponseMap().put("result", retGround);
+            responseMsg.getResponseMap().put("result", retOrder);
             return responseMsg;
         } else if (searchParam.startsWith("uid:")) {
             String param = searchParam.split(":")[1];
             String[] ids = param.split(",");
             ResponseMsg responseMsg = new ResponseMsg();
             responseMsg.setStatus(200);
-            ArrayList<List<PreOrder>> retGround = new ArrayList<>();
+            ArrayList<PreOrder> retOrder = new ArrayList<>();
             for (String id : ids) {
-                retGround.add(orderService.getAllPreOrdersOfUser(Integer.valueOf(id.trim())));
+                retOrder.addAll(orderService.getAllPreOrdersOfUser(Integer.valueOf(id.trim())));
             }
-            if (retGround.size() == 0)
+            if (retOrder.size() == 0)
                 responseMsg.setStatus(404);
-            responseMsg.getResponseMap().put("result", retGround);
+            responseMsg.getResponseMap().put("result", retOrder);
             return responseMsg;
         } else if (searchParam.startsWith("time:")){
             String time = searchParam.split(":")[1].trim();

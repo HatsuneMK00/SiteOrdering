@@ -18,8 +18,8 @@
     - 无前缀： 不允许，返回500状态码
 - 返回值（键result对应的值的类型）
     - time: order列表
-    - uid： order的二维数组，其中result[i]为查询uid中的第i+1个uid对应的order列表
-    - gid: 同上
+    - uid： order列表
+    - gid: order列表
     - 空： order列表
 
 #### /ground/match
@@ -45,7 +45,7 @@
     - 空： 全部
     - 无前缀： 与留言内容进行匹配
 - 返回值（键result对应的值的类型）
-    - uid: comment的二维数组，其中result[i]表示第i+1个用户的留言列表
-    - gid: 同上
+    - uid: comment列表
+    - gid: comment列表
     - 空： comment列表
     - 无前缀： comment列表

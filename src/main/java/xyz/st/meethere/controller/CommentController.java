@@ -95,26 +95,27 @@ public class CommentController {
             String[] ids = param.split(",");
             ResponseMsg responseMsg = new ResponseMsg();
             responseMsg.setStatus(200);
-            ArrayList<List<Comment>> retGround = new ArrayList<>();
+            ArrayList<Comment> retComment = new ArrayList<>();
             for (String id : ids) {
-                retGround.add(commentService.getCommentsByGroundId(Integer.valueOf(id.trim())));
+//                FIXME: 返回内容应该是一层的数组
+                retComment.addAll(commentService.getCommentsByGroundId(Integer.valueOf(id.trim())));
             }
-            if (retGround.size() == 0)
+            if (retComment.size() == 0)
                 responseMsg.setStatus(404);
-            responseMsg.getResponseMap().put("result", retGround);
+            responseMsg.getResponseMap().put("result", retComment);
             return responseMsg;
         } else if (searchParam.startsWith("uid:")) {
             String param = searchParam.split(":")[1];
             String[] ids = param.split(",");
             ResponseMsg responseMsg = new ResponseMsg();
             responseMsg.setStatus(200);
-            ArrayList<List<Comment>> retGround = new ArrayList<>();
+            ArrayList<Comment> retComment = new ArrayList<>();
             for (String id : ids) {
-                retGround.add(commentService.getCommentsByUserId(Integer.valueOf(id.trim())));
+                retComment.addAll(commentService.getCommentsByGroundId(Integer.valueOf(id.trim())));
             }
-            if (retGround.size() == 0)
+            if (retComment.size() == 0)
                 responseMsg.setStatus(404);
-            responseMsg.getResponseMap().put("result", retGround);
+            responseMsg.getResponseMap().put("result", retComment);
             return responseMsg;
         } else {
             List<Comment> grounds = commentService.getCommentsByMatch(searchParam);
