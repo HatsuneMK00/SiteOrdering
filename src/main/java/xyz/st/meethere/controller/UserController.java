@@ -154,16 +154,8 @@ public class UserController {
         ResponseMsg msg = new ResponseMsg();
 //        FIXME: 参数传递错误应该返回400
         msg.setStatus(400);
-        if (!(params.containsKey("userId"))) {
+        if (!(params.containsKey("userId")) || !(params.containsKey("email")) || !(params.containsKey("description"))) {
             return msg;
-        }
-        else{
-            try{
-                Integer.parseInt(params.get("userId").toString());
-            }
-            catch (Exception e){
-                return msg;
-            }
         }
         User user = userService.getUserById(Integer.parseInt((params.get("userId").toString())));
         if (user == null) {
