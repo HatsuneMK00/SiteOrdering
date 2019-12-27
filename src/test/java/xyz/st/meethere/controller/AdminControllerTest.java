@@ -74,7 +74,9 @@ class AdminControllerTest {
 
     @Test
     public void happy_path_when_login_admin() throws Exception {
+        User admin = new User(1, "user1", "123", null, null, null, 100, true);
         when(adminService.checkAdminPassword("user", "123")).thenReturn(true);
+        when(adminService.getAdminByName(anyString())).thenReturn(admin);
         mockMvc.perform(get("/admin/enter")
                 .param("userName","user")
                 .param("password","123"))
@@ -100,8 +102,10 @@ class AdminControllerTest {
         when(adminService.getAdminById(1)).thenReturn(admin);
         when(adminService.updateAdminByModel(admin)).thenReturn(200);
 
-        Map<String, Integer> requestParam = new HashMap<>();
+        Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("userId",1);
+        requestParam.put("email","123@123.com");
+        requestParam.put("description","this is a user");
 
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
@@ -113,6 +117,31 @@ class AdminControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.responseMap.user").isNotEmpty());
+        InOrder order = inOrder(adminService);
+        order.verify(adminService).getAdminById(1);
+        order.verify(adminService).updateAdminByModel(any());
+    }
+
+    @Test
+    public void update_admin_by_model_fail_when_update_admin_by_id() throws Exception {
+        User admin = new User(1, "user1", "123", null, null, null, 100, true);
+        when(adminService.getAdminById(1)).thenReturn(admin);
+        when(adminService.updateAdminByModel(admin)).thenReturn(-1);
+
+        Map<String, Object> requestParam = new HashMap<>();
+        requestParam.put("userId",1);
+        requestParam.put("email","123@123.com");
+        requestParam.put("description","this is a user");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParam);
+
+        mockMvc.perform(post("/admin/updateById")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(500));
         InOrder order = inOrder(adminService);
         order.verify(adminService).getAdminById(1);
         order.verify(adminService).updateAdminByModel(any());
@@ -138,6 +167,28 @@ class AdminControllerTest {
     public void admin_not_exist_when_update_admin_info_by_id() throws Exception {
         when(adminService.getAdminById(1)).thenReturn(null);
 
+        Map<String, Object> requestParam = new HashMap<>();
+        requestParam.put("userId",1);
+        requestParam.put("email","123@123.com");
+        requestParam.put("description","this is a user");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParam);
+
+        mockMvc.perform(post("/admin/updateById")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+        verify(adminService).getAdminById(anyInt());
+        verifyNoMoreInteractions(adminService);
+    }
+
+    @Test
+    public void admin_info_missing_when_update_admin_info_by_id() throws Exception {
+        when(adminService.getAdminById(1)).thenReturn(null);
+
         Map<String, Integer> requestParam = new HashMap<>();
         requestParam.put("userId",1);
 
@@ -149,8 +200,7 @@ class AdminControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value(404));
-        verify(adminService).getAdminById(1);
+                .andExpect(jsonPath("$.status").value(400));
         verifyNoMoreInteractions(adminService);
     }
 

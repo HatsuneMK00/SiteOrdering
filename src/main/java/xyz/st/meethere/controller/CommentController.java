@@ -88,8 +88,22 @@ public class CommentController {
 //        TODO: 感觉这些逻辑都应该在Service层里面，而不是在Controller里
     ResponseMsg getCommentByMatch(@RequestBody Map<String, String> params) {
         String searchParam = params.get("match");
+        int groundId = 0;
+        if (params.containsKey("groundId")) {
+            groundId = Integer.parseInt(params.get("groundId"));
+        }
         if (searchParam.equals("")) {
-            return getAllComments();
+            ResponseMsg responseMsg = getAllComments();
+            List<Comment> comments = (List<Comment>) responseMsg.getResponseMap().get("result");
+            List<Comment> tempComment = new ArrayList<>();
+            for (Comment comment :
+                    comments) {
+                if (groundId == 0 || comment.getGroundId() == groundId)
+                    tempComment.add(comment);
+            }
+            responseMsg.getResponseMap().put("result", tempComment);
+            return responseMsg;
+
         } else if (searchParam.startsWith("gid:")) {
             String param = searchParam.split(":")[1];
             String[] ids = param.split(",");
@@ -98,7 +112,13 @@ public class CommentController {
             ArrayList<Comment> retComment = new ArrayList<>();
             for (String id : ids) {
 //                FIXME: 返回内容应该是一层的数组
-                retComment.addAll(commentService.getCommentsByGroundId(Integer.valueOf(id.trim())));
+                List<Comment> comments = commentService.getCommentsByGroundId(Integer.valueOf(id.trim()));
+                for (Comment comment :
+                        comments) {
+                    if (groundId == 0 || comment.getGroundId() == groundId){
+                        retComment.add(comment);
+                    }
+                }
             }
             if (retComment.size() == 0)
                 responseMsg.setStatus(404);
@@ -111,19 +131,32 @@ public class CommentController {
             responseMsg.setStatus(200);
             ArrayList<Comment> retComment = new ArrayList<>();
             for (String id : ids) {
-                retComment.addAll(commentService.getCommentsByUserId(Integer.valueOf(id.trim())));
+                List<Comment> comments = commentService.getCommentsByGroundId(Integer.valueOf(id.trim()));
+                for (Comment comment :
+                        comments) {
+                    if (groundId == 0 || comment.getGroundId() == groundId){
+                        retComment.add(comment);
+                    }
+                }
             }
             if (retComment.size() == 0)
                 responseMsg.setStatus(404);
             responseMsg.getResponseMap().put("result", retComment);
             return responseMsg;
         } else {
-            List<Comment> grounds = commentService.getCommentsByMatch(searchParam);
+            List<Comment> comments = commentService.getCommentsByMatch(searchParam);
+            List<Comment> retComment = new ArrayList<>();
+            for (Comment comment :
+                    comments) {
+                if (groundId == 0 || comment.getGroundId() == groundId){
+                    retComment.add(comment);
+                }
+            }
             ResponseMsg responseMsg = new ResponseMsg();
             responseMsg.setStatus(200);
-            if (grounds.size() == 0)
+            if (comments.size() == 0)
                 responseMsg.setStatus(404);
-            responseMsg.getResponseMap().put("result", grounds);
+            responseMsg.getResponseMap().put("result", retComment);
             return responseMsg;
         }
     }

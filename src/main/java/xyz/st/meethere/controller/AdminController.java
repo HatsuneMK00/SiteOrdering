@@ -57,10 +57,10 @@ public class AdminController {
         boolean isPwdCorrect = adminService.checkAdminPassword(userName, password);
         if (isPwdCorrect) {
             User user = adminService.getAdminByName(userName);
-            if(user != null){
+            if (user != null) {
                 msg.setStatus(200);
             }
-            msg.getResponseMap().put("result",user);
+            msg.getResponseMap().put("result", user);
             return msg;
         }
         return msg;
@@ -89,6 +89,8 @@ public class AdminController {
             msg.setStatus(200);
             //        FIXME: 统一返回值名称
             msg.getResponseMap().put("user", user);
+        } else {
+            msg.setStatus(500);
         }
         return msg;
     }
