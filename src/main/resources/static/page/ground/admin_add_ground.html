@@ -69,11 +69,13 @@
 <script src="../../laydate/laydate.js"></script>
 <script>
     lay('#version').html('-v'+ laydate.v);
-
+    var now = new Date(Date.now());
+    now.setHours(0);now.setMinutes(0);now.setSeconds(0);
     //执行一个laydate实例
     //日期时间范围
     laydate.render({
         elem: '#date'
+        ,min: now.getTime()
         ,type: 'datetime'
         ,range: '~'
         ,trigger: 'click'
