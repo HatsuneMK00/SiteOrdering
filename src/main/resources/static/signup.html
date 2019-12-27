@@ -2,22 +2,22 @@
 <html>
 <head>
     <title>登陆和注册</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<!--    <meta name="keywords"-->
-<!--          content="Internship Sign In & Sign Up Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements"/>-->
-<!--    <script type="application/x-javascript"> addEventListener("load", function () {-->
-<!--        setTimeout(hideURLbar, 0);-->
-<!--    }, false);-->
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <!--    <meta name="keywords"-->
+    <!--          content="Internship Sign In & Sign Up Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements"/>-->
+    <!--    <script type="application/x-javascript"> addEventListener("load", function () {-->
+    <!--        setTimeout(hideURLbar, 0);-->
+    <!--    }, false);-->
 
-<!--    function hideURLbar() {-->
-<!--        window.scrollTo(0, 1);-->
-<!--    }-->
-<!--    </script>-->
+    <!--    function hideURLbar() {-->
+    <!--        window.scrollTo(0, 1);-->
+    <!--    }-->
+    <!--    </script>-->
     <!-- Custom Theme files -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
-    <link href="css/snow.css" rel="stylesheet" type="text/css" media="all"/>
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css">
+    <link href="css/snow.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="css/style.css" media="all" rel="stylesheet" type="text/css"/>
 
 </head>
 <body>
@@ -31,7 +31,7 @@
 </div>
 
 <div class="top-buttons-agileinfo">
-    <a href="index.html">登录</a><a href="signup.html" class="active">注册</a>
+    <a href="index.html">登录</a><a class="active" href="signup.html">注册</a>
 </div>
 
 
@@ -41,42 +41,48 @@
     <div class="form-w3-agile">
         <h2 class="sub-agileits-w3layouts">注册</h2>
         <form>
-            <input type="text" class="user" name="Username" placeholder="用户名" required="" layui-verify="required"/>
-            <input type="password" class="password" name="Password" placeholder="密码" required="" layui-verify="required"/>
-            <input type="email" name="email" class="email" placeholder="邮箱地址" required="" layui-verify="required|email"/>
+            <input class="user" layui-verify="required" name="Username" placeholder="用户名" required="" type="text"/>
+            <input class="password" layui-verify="required" name="Password" placeholder="密码" required=""
+                   type="password"/>
+            <input class="email" layui-verify="required|email" name="email" placeholder="邮箱地址" required=""
+                   type="email"/>
             <div class="submit-w3l">
-                <input type="submit" class="submit" value="注册">
+                <input class="submit" type="submit" value="注册">
             </div>
         </form>
     </div>
 </div>
 <!--//form-ends-here-->
 
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="js/jquery.cookie.js" type="text/javascript"></script>
 
 <!--获取网站根目录的js-->
-<script type="text/javascript" src="js/getRootPath.js"></script>
+<script src="js/getRootPath.js" type="text/javascript"></script>
 
 
 <script type="text/javascript">
 
-    var baseUrl =getRootPath_web();
+    var baseUrl = getRootPath_web();
     $(".submit").click(function () {
         $.ajax({
             url: baseUrl + "user/register",
             type: "PUT",
             dataType: "json",
-            contentType : 'application/json;charset=UTF-8',
-            data: JSON.stringify({email: $(".email").val(), userName: $(".user").val(), password: $(".password").val()}),
-            async:false,
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify({
+                email: $(".email").val(),
+                userName: $(".user").val(),
+                password: $(".password").val()
+            }),
+            async: false,
             success: function (data) {
                 var code = data.status;
                 if (code === 200) {
                     alert("注册成功");
-                    $.cookie('userName',$(".user").val());
-                    var new_url=baseUrl+"user_main_page.html";
-                    $(window).open( new_url);
+                    $.cookie('userName', $(".user").val());
+                    var new_url = baseUrl + "user_main_page.html";
+                    window.location.replace(new_url)
                 } else {
                     alert("注册失败");
                 }
@@ -85,6 +91,9 @@
                 alert("注册失败,检查一下网络吧");
             }
         });
+        //回调函数的结尾返回false 阻止layui对submit的处理 就不会再提交一遍了
+        //没有办法跳转是因为layui的type=submit默认会想当前url进行一次提交
+        return false;
     });
 </script>
 
