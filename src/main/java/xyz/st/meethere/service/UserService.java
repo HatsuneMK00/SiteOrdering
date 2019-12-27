@@ -14,13 +14,11 @@ import java.util.List;
 
 @Service
 public class UserService {
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
-    private String server = MyServerConfig.server;
-
-    private String port   = MyServerConfig.port;
-
+    public UserService(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -61,10 +59,10 @@ public class UserService {
 
     public int deleteUserById(int userId) {
         /*
-        * 删除用户头像
-        * */
+         * 删除用户头像
+         * */
         String filename = userMapper.getUserById(userId).getProfilePic();
-        filename = new ApplicationHome(getClass()).getSource().getParentFile().getPath() +  filename;
+        filename = new ApplicationHome(getClass()).getSource().getParentFile().getPath() + filename;
         File file = new File(filename);
         if (file.delete()) {
             logger.info("删除用户头像文件成功，用户id: " + userId);
@@ -85,7 +83,11 @@ public class UserService {
         String[] temp = profilePic.split("/");
 
         // Default server regarded as [localhost]
-        String profile_url=server+":"+port+ "/images/";
+
+//        使用私有变量的时候没有赋上值
+//        改为直接使用MyServerConfig中的static属性
+        String profile_url = MyServerConfig.server + ":" + MyServerConfig.port + "/images/";
+        logger.info(MyServerConfig.port);
         profile_url = profile_url + temp[temp.length - 1];
         int result = userMapper.updateUserProfilePicByUserId(userId, profile_url);
         if (result == 1)
