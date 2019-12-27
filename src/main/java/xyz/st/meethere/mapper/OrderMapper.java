@@ -1,7 +1,6 @@
 package xyz.st.meethere.mapper;
 
 import io.swagger.models.auth.In;
-import javafx.util.converter.TimeStringConverter;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import xyz.st.meethere.entity.Ground;
