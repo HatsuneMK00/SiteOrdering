@@ -1,7 +1,3 @@
-/*用来显示我已经租进来的车子，并且具有还车的功能*/
-/**
- * Created by 蛟川小盆友 on 2017/12/6.
- */
 layui.config({
     base: "js/"
 }).use(['form', 'layer', 'jquery', 'laypage'], function () {
@@ -17,6 +13,9 @@ layui.config({
 
     var user_id = 0;
 
+    $("body").on("click",".refresh",function(){
+        refreshList();
+    });
     //删除
     $("body").on("click",".preorder_del",function(){
         var _this = $(this);
@@ -89,8 +88,8 @@ layui.config({
             cont: "page",
             pages: Math.ceil(that.length / nums),
             jump: function (obj) {
-                $(".cars_content").html(renderDate(that, obj.curr));
-                $('.cars_list thead input[type="checkbox"]').prop("checked", false);
+                $(".my_grounds_content").html(renderDate(that, obj.curr));
+                $('.my_grounds_list thead input[type="checkbox"]').prop("checked", false);
                 form.render();
             }
         })

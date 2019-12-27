@@ -21,7 +21,7 @@ layui.config({
             if(data.status===200){
                 $('.groundName').val(data.responseMap.result.groundName);
             }else{
-                layer.msg("没有这个场馆");
+                layer.msg("没有这个场地");
             }
         },
         error:function () {

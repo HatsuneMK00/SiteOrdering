@@ -91,8 +91,8 @@ layui.config({
             cont : "page",
             pages : Math.ceil(that.length/nums),
             jump : function(obj){
-                $(".news_content").html(renderDate(that,obj.curr));
-                $('.news_list thead input[type="checkbox"]').prop("checked",false);
+                $(".comment_content").html(renderDate(that,obj.curr));
+                $('.comment_list thead input[type="checkbox"]').prop("checked",false);
                 form.render();
             }
         })
