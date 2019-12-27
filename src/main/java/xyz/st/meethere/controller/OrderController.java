@@ -130,7 +130,7 @@ public class OrderController {
 
     @ApiOperation("获取某用户指定订单")
     @GetMapping("/order/user/{userId}/order/{preOrderId}")
-    ResponseMsg getOrderByIdOfUSer(@PathVariable("userId") Integer uid, @PathVariable("orderid") Integer oid) {
+    ResponseMsg getOrderByIdOfUSer(@PathVariable("userId") Integer uid, @PathVariable("preOrderId") Integer oid) {
         // fixme: 返回的内容里应该有userName,groundName
         PreOrder preOrder = orderService.getPreOrder(uid, oid);
         ResponseMsg responseMsg = new ResponseMsg();
