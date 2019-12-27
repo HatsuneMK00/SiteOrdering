@@ -61,6 +61,7 @@ public interface CommentMapper {
     @Select("select * from comment where checked=1")
     List<Comment> getAllCheckedComments();
 
-    @Select("select * from comment")
+    @Select("select comment.userId, comment.groundId, groundName, userName, commentId, date, content, checked from " +
+            "(comment join user on comment.userId=user.userId) join ground on ground.groundId=comment.groundId")
     List<Comment> getAllComments();
 }

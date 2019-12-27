@@ -13,7 +13,7 @@ layui.config({
     var this_url="";
     var userId = parseInt($.cookie('userId'));
     if(isNaN(userId)){
-        alert("请登陆");
+        layer.msg("请登陆");
         layer.closeAll("iframe");
     }
 
@@ -44,7 +44,7 @@ layui.config({
             var duration1 = Math.ceil((dates[0] - Date.now())/3600000);
 
             if(duration1<0){
-                alert("时间范围异常");
+                layer.msg("时间范围异常");
                 return;
             }
             var date2=dates[1]; var duration2 = 876000;
@@ -74,11 +74,11 @@ layui.config({
                         layer.closeAll("iframe");
                         parent.location.reload();
                     }else{
-                        alert("场地添加失败");
+                        layer.msg("场地添加失败");
                     }
                 },
                 error:function () {
-                    alert("检查一下网络吧");
+                    layer.msg("检查一下网络吧");
                 }
             });
         }
@@ -100,11 +100,11 @@ layui.config({
                     layer.closeAll("iframe");
                     parent.location.reload();
                 }else{
-                    alert("场地添加失败");
+                    layer.msg("场地添加失败");
                 }
             },
             error:function () {
-                alert("检查一下网络吧");
+                layer.msg("检查一下网络吧");
             }
         });
     }

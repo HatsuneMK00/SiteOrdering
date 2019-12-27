@@ -150,14 +150,22 @@ public class UserController {
     @ResponseBody
     @ApiOperation("修改用户信息，使用userId识别用户")
     @PostMapping("/user/updateById")
-    ResponseMsg updateById(@RequestBody Map<String, Integer> params) {
+    ResponseMsg updateById(@RequestBody Map params) {
         ResponseMsg msg = new ResponseMsg();
 //        FIXME: 参数传递错误应该返回400
         msg.setStatus(400);
         if (!(params.containsKey("userId"))) {
             return msg;
         }
-        User user = userService.getUserById(params.get("userId"));
+        else{
+            try{
+                Integer.parseInt(params.get("userId").toString());
+            }
+            catch (Exception e){
+                return msg;
+            }
+        }
+        User user = userService.getUserById(Integer.parseInt((params.get("userId").toString())));
         if (user == null) {
             msg.setStatus(404);
             return msg;

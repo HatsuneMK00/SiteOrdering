@@ -165,10 +165,10 @@
         }
         else if(user_authority === "true"){
             $.ajax({
-                url: baseUrl + "admin/getByName",
+                url: baseUrl + "admin/getById",
                 type: "get",
                 dataType: "json",
-                data: {userName: $.cookie('userName')},
+                data: {userId: $.cookie('userId')},
                 async:false,
                 success: function (data) {
                     user_id = data.responseMap.result.userId;
@@ -189,6 +189,16 @@
                 data: json_data,
                 async:false,
                 success: function (data) {
+                    if(data.status==200)
+                    {
+                        layer.msg("更新成功");
+                    }
+                    else if(data.status==400){
+                        layer.msg("参数传递错误");
+                    }
+                    else{
+                        layer.msg("更新失败");
+                    }
                     if(profile_url!==""){
                         profile_url="";
                         parent.location.reload();
@@ -212,15 +222,16 @@
 
         var baseUrl = getRootPath_web();
         var name = $.cookie('userName');
+        var id = $.cookie('userId');
         var userAuthority = $.cookie('authority');
         $(".userName").val(name);
         if(userAuthority === "true"){
             $.ajax(
                 {
-                    url: baseUrl + "admin/getByName",
+                    url: baseUrl + "admin/getById",
                     type: "get",
                     dataType: "json",
-                    data: {userName: name},
+                    data: {userId: id},
                     success: function (data) {
                         if (data.status === 200) {
                             $(".userEmail").val(data.responseMap.result.email);

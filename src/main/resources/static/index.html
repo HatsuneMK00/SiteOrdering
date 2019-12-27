@@ -83,7 +83,8 @@
                         var code = data.status;
                         var newURL;
                         if (code === 200) {
-                            $.cookie('userName', $(".user").val());
+                            $.cookie('userId', data.responseMap.result.userId);
+                            $.cookie('userName', data.responseMap.result.userName);
                             newURL = baseUrl + "admin_main_page.html";
                             $(window).attr('location', newURL);
                         } else {

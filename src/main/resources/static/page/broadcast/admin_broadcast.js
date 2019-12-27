@@ -37,14 +37,14 @@ layui.config({
                     }
 
 
-                    if(str.title.indexOf(selectStr) > -1){
+                    if(str.title!=null&&str.title.indexOf(selectStr) > -1){
                         str["title"] = changeStr(str.title);
                     }
-                    if(str.content.indexOf(selectStr) > -1){
+                    if(str.content!=null&&str.content.indexOf(selectStr) > -1){
                         str["title"] = changeStr(str.content);
 
                     }
-                    if(str.title.indexOf(selectStr) > -1 || str.content.indexOf(selectStr) > -1){
+                    if((str.title!=null&&str.content!=null)&&(str.title.indexOf(selectStr) > -1 || str.content.indexOf(selectStr) > -1)){
                         filteredNewsData.push(str);
                     }
 
@@ -58,6 +58,44 @@ layui.config({
             newsList(newsData);
         }
     })
+
+    //批量删除
+    $(".batchDel").click(function(){
+            var $checked = $('.news_content').find('input[type="checkbox"][name="checked"]:checked');
+            if ($checked.length > 0) {
+                layer.confirm('确定删除？',{icon:3, title:'提示信息'},function(index){
+                    var ids=[];
+                    for(var i=0;i<$checked.length;i++){
+                        ids.push(parseInt($checked[i].parentNode.parentNode.children[1].innerHTML));
+                    }
+                    $.ajax({
+                        url: baseUrl + "news/deleteByBatch",
+                        type: "delete",
+                        dataType: "json",
+                        contentType: 'application/json;charset=UTF-8',
+                        data:JSON.stringify({ids:ids}),
+                        async:false,
+                        success: function (data) {
+                            if (data.status === 200) {
+                                layer.msg("评论删除成功")
+                                window.location.reload();
+                            }
+                            else{
+                                layer.msg("评论删除失败");
+                            }
+                        },
+                        error: function () {
+                            layer.msg("检查一下网络吧");
+                            window.location.reload();
+                        }
+                    });
+                    layer.close(index);
+                });
+            } else {
+                layer.msg("请选择需要审核的文章");
+            }
+        }
+    );
 
     //添加停车信息
     $(".newsAdd_btn").click(function(){
@@ -140,6 +178,7 @@ layui.config({
                     var t=new Date(currData[i].date);
                     dataHtml += '<tr>'
                         +  '<td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose"></td>'
+                        +  '<td>'+currData[i].newsId+'</td>'
                         +  '<td>'+currData[i].title+'</td>'
                         +  '<td>'+currData[i].content+'</td>'
                         +  '<td>'+fromDateToChineseString(t)+'</td>'

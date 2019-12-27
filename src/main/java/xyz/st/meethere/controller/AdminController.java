@@ -56,7 +56,12 @@ public class AdminController {
         msg.setStatus(404);
         boolean isPwdCorrect = adminService.checkAdminPassword(userName, password);
         if (isPwdCorrect) {
-            msg.setStatus(200);
+            User user = adminService.getAdminByName(userName);
+            if(user != null){
+                msg.setStatus(200);
+            }
+            msg.getResponseMap().put("result",user);
+            return msg;
         }
         return msg;
     }
@@ -65,14 +70,23 @@ public class AdminController {
     @ApiOperation("修改管理员信息，使用userId识别管理员")
     @PostMapping("/admin/updateById")
 //    FIXME:参数接受的方法最好改成PathVariable或者RequestParam
-    ResponseMsg updateById(@RequestBody Map<String, Integer> params) {
+    ResponseMsg updateById(@RequestBody Map params) {
         ResponseMsg msg = new ResponseMsg();
 //        FIXME:参数传递错误返回400
         msg.setStatus(400);
         if (!(params.containsKey("userId"))) {
             return msg;
         }
-        User user = adminService.getAdminById(params.get("userId"));
+        else{
+            try{
+                Integer.parseInt(params.get("userId").toString());
+            }
+            catch (Exception e){
+                return msg;
+            }
+        }
+
+        User user = adminService.getAdminById(Integer.parseInt((params.get("userId").toString())));
         if (user == null) {
             msg.setStatus(404);
             return msg;
