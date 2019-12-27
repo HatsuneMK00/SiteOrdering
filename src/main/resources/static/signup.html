@@ -91,6 +91,9 @@
                 alert("注册失败,检查一下网络吧");
             }
         });
+        //回调函数的结尾返回false 阻止layui对submit的处理 就不会再提交一遍了
+        //没有办法跳转是因为layui的type=submit默认会想当前url进行一次提交
+        return false;
     });
 </script>
 
