@@ -13,7 +13,7 @@ layui.config({
 
     //查询 
     $(".search_btn").click(function(){
-        alert($.cookie('groundId'));
+        // alert($.cookie('groundId'));
         var newArray1 = [];
         if($(".search_input").val() !== ''){
             var index = layer.msg('查询中，请稍候',{icon: 16,time:false,shade:0.8});
