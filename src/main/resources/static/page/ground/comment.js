@@ -13,7 +13,6 @@ layui.config({
 
     //查询 
     $(".search_btn").click(function(){
-        // alert($.cookie('groundId'));
         var newArray1 = [];
         if($(".search_input").val() !== ''){
             var index = layer.msg('查询中，请稍候',{icon: 16,time:false,shade:0.8});
@@ -24,7 +23,7 @@ layui.config({
                     type : "post",
                     dataType : "json",
                     contentType : 'application/json; charset=UTF-8',
-                    data: JSON.stringify({match:matchStr, groundId: $.cookie('groundId')}),
+                    data: JSON.stringify({match:matchStr, groundId: parseInt($.cookie('groundId'))}),
                     async:false,
                     success : function(data){
                         if(data.status===200){
