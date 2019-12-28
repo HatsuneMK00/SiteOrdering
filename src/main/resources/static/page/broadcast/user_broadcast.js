@@ -83,7 +83,7 @@ layui.config({
         }
 
         //分页渲染
-        var nums = 4; //每页出现的数据量
+        var nums = 12; //每页出现的数据量
         laypage({
             cont : "page",
             pages : Math.ceil(data_param.length/nums),

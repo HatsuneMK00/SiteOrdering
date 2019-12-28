@@ -42,6 +42,10 @@ public class CommentService {
         return commentMapper.getCommentsByGroundId(id);
     }
 
+    public List<Comment> getCheckedCommentsByGroundId(Integer id){
+        return commentMapper.getCheckedCommentsByGroundId(id);
+    }
+
     public List<Comment> getCommentsByUserId(Integer id){
         return commentMapper.getCommentsByUserId(id);
     }

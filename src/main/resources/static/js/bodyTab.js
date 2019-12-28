@@ -122,6 +122,7 @@ layui.define(["element", "jquery"], function (exports) {
 
     Tab.prototype.tabsClose = function(_this){
         var menu = JSON.parse(window.sessionStorage.getItem("menu"));
+        if(menu==null) return;
         for(var i=menu.length;i>0;i--){
             //删除tab后重置session中的menu和curmenu
             liIndex = i;

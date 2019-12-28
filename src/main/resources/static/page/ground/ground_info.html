@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>场地</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../../css/user.css" media="all" />
+
+    <style>
+        body{padding: 20px;}
+        .date-input{padding-left: 10px; height: 38px; min-width: 262px; line-height: 38px; border: 1px solid #e6e6e6;  background-color: #fff;  border-radius: 2px;}
+    </style>
+</head>
+<body class="childrenBody">
+<form class="layui-form">
+    <div class="user_left">
+        <div class="layui-form-item">
+            <label class="layui-form-label">场馆名称</label>
+            <div class="layui-input-block">
+                <input type="text" disabled  placeholder="名称" lay-verify="required"
+                      class="layui-input groundName">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">场馆地点</label>
+            <div class="layui-input-block">
+                <input type="text" disabled  placeholder="地点" lay-verify="required"
+                       class="layui-input address">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">价格/H</label>
+            <div class="layui-input-block">
+                <input type="text" disabled placeholder="价每小时" lay-verify="required|number"
+                       class="layui-input price">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">场馆介绍</label>
+            <div class="layui-input-block">
+                <textarea disabled placeholder="请输入描述" class="layui-textarea description" value=""></textarea>
+            </div>
+        </div>
+
+    </div>
+    <div class="user_right">
+        <img src="" class="layui-box" id="photo" alt="not uploaded" width="100%" height="auto">
+        <br>
+    </div>
+
+</form>
+
+<script type="text/javascript" src="../../layui/layui.js"></script>
+<script type="text/javascript" src="../../js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
+<!--获取根路径-->
+<script type="text/javascript" src="../../js/getRootPath.js"></script>
+<script type="text/javascript" src="../../js/getFormattedDate.js"></script>
+<script type="text/javascript" src="ground_info.js"></script>
+</body>
+</html>

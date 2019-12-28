@@ -163,6 +163,8 @@ public class OrderController {
         preOrder.setStartTime(startTime);
         preOrder.setDuration(duration);
         preOrder.setPrice(duration * orderService.getGroundPrice(gid));
+        preOrder.setPayed(0);
+        preOrder.setChecked(0);
         if (orderService.addPreOrder(preOrder) == 1) {
             responseMsg.setStatus(200);
             responseMsg.getResponseMap().put("result", preOrder);

@@ -257,7 +257,7 @@ layui.config({
                     if(currData[i].checked == "0"){
                         dataHtml += '<td>'
                             +  '<a class="layui-btn layui-btn-normal layui-btn-mini news_pass" data-id="'+currData[i].preOrderId+'"><i class="layui-icon">&#xe600;</i> 通过</a>'
-                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_reject" data-id="'+currData[i].preOrderId+'"><i class="layui-icon">&#xe640;</i> 不通过</a>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_reject" data-id="'+currData[i].preOrderId+'"><i class="layui-icon">&#xe640;</i> 不通</a>'
                             +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+currData[i].preOrderId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
                             +'</td>'
                             +'</tr>';

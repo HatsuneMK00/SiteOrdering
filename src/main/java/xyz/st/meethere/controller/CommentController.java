@@ -63,7 +63,8 @@ public class CommentController {
         ResponseMsg responseMsg = new ResponseMsg();
         List<Comment> comments = null;
         //        FIXME: 返回内容里需要有userName，groundName
-        comments = commentService.getCommentsByGroundId(id);
+        //        FIXME: 给用户用接口，返回已审核过的留言
+        comments = commentService.getCheckedCommentsByGroundId(id);
         // FIXME: 当场馆不存在时返回404 场馆存在不论有没有留言都返回200
         if (comments == null || comments.size() == 0)
             responseMsg.setStatus(404);

@@ -11,48 +11,48 @@ layui.config({
     var newsData = [];
     refreshList();
 
-    //查询 
-    $(".search_btn").click(function(){
-        var newArray1 = [];
-        if($(".search_input").val() !== ''){
-            var index = layer.msg('查询中，请稍候',{icon: 16,time:false,shade:0.8});
-            var matchStr = $(".search_input").val();
-            setTimeout(function(){
-                $.ajax({
-                    url :  baseUrl+"comment/match",
-                    type : "post",
-                    dataType : "json",
-                    contentType : 'application/json; charset=UTF-8',
-                    data: JSON.stringify({match:matchStr, groundId: parseInt($.cookie('groundId'))}),
-                    async:false,
-                    success : function(data){
-                        if(data.status===200){
-                            newsData=data.responseMap.result;
-                            newsList(newsData);
-                        }
-                        else if(data.status===500){
-                            layer.msg("错误的请求");
-                        }
-                        else{
-                            layer.msg("无结果");
-                            newsData = data.responseMap.result;
-                            newsList(newsData);
-                        }
-
-                    },
-                    error: function () {
-                        layer.msg("检查一下网络吧");
-                        newsData=[];
-                        newsList([]);
-                    }
-
-                });
-                layer.close(index);
-            },1000);
-        }else{
-            refreshList();
-        }
-    });
+    // //查询
+    // $(".search_btn").click(function(){
+    //     var newArray1 = [];
+    //     if($(".search_input").val() !== ''){
+    //         var index = layer.msg('查询中，请稍候',{icon: 16,time:false,shade:0.8});
+    //         var matchStr = $(".search_input").val();
+    //         setTimeout(function(){
+    //             $.ajax({
+    //                 url :  baseUrl+"comment/match",
+    //                 type : "post",
+    //                 dataType : "json",
+    //                 contentType : 'application/json; charset=UTF-8',
+    //                 data: JSON.stringify({match:matchStr, groundId: parseInt($.cookie('groundId'))}),
+    //                 async:false,
+    //                 success : function(data){
+    //                     if(data.status===200){
+    //                         newsData=data.responseMap.result;
+    //                         newsList(newsData);
+    //                     }
+    //                     else if(data.status===500){
+    //                         layer.msg("错误的请求");
+    //                     }
+    //                     else{
+    //                         layer.msg("无结果");
+    //                         newsData = data.responseMap.result;
+    //                         newsList(newsData);
+    //                     }
+    //
+    //                 },
+    //                 error: function () {
+    //                     layer.msg("检查一下网络吧");
+    //                     newsData=[];
+    //                     newsList([]);
+    //                 }
+    //
+    //             });
+    //             layer.close(index);
+    //         },1000);
+    //     }else{
+    //         refreshList();
+    //     }
+    // });
 
 
 

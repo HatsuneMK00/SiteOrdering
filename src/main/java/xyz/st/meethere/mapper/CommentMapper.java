@@ -22,6 +22,11 @@ public interface CommentMapper {
 
     @Select("select comment.userId, comment.groundId, groundName, userName, commentId, date, content, checked from " +
             "(comment join user on comment.userId=user.userId) JOIN ground on ground.groundId=comment.groundId where " +
+            "comment.groundId=#{groundId} and checked=1")
+    List<Comment> getCheckedCommentsByGroundId(Integer groundId);
+
+    @Select("select comment.userId, comment.groundId, groundName, userName, commentId, date, content, checked from " +
+            "(comment join user on comment.userId=user.userId) JOIN ground on ground.groundId=comment.groundId where " +
             "comment.userId=#{userId}")
     List<Comment> getCommentsByUserId(Integer userId);
 

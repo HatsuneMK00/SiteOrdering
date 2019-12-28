@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>场地信息总览</title>
+    <title>我预约的场地</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,37 +13,34 @@
     <link rel="stylesheet" href="../../css/news.css" media="all"/>
 </head>
 <body class="childrenBody">
-<blockquote class="layui-elem-quote news_search">
-    <div class="layui-inline">
-        <div class="layui-input-inline">
-            <input type="text" value="" placeholder="输入标题或内容" class="layui-input search_input">
-        </div>
-        <a class="layui-btn search_btn">查询</a>
-    </div>
-</blockquote>
-<div class="layui-form grounds_list">
+
+<div class="layui-form my_grounds_list">
     <table class="layui-table">
         <colgroup>
-            <col width="5%">
-            <col width="15%">
-            <col width="30%">
-            <col width="10%">
+            <col width="6%">
+            <col width="6%">
+            <col width="12%">
             <col width="20%">
             <col width="10%">
+            <col width="20%">
+            <col width="8%">
+            <col width="8%">
             <col width="10%">
         </colgroup>
         <thead>
         <tr>
-            <th>ID</th>
+            <th>订单编号</th>
+            <th>场地编号</th>
             <th>场地名称</th>
-            <th>描述信息</th>
-            <th>每小时价格</th>
-            <th>地址</th>
-            <th>概览</th>
-            <th>操作</th>
+            <th>下单日期</th>
+            <th>订单价格</th>
+            <th>订单开始时间</th>
+            <th>订单时长</th>
+            <th>审核状态</th>
+            <th>操作 <a class="layui-btn layui-btn-mini refresh"><i class="layui-icon">&#x1002;</i>   </a></th>
         </tr>
         </thead>
-        <tbody class="grounds_content"></tbody>
+        <tbody class="my_grounds_content"></tbody>
     </table>
 </div>
 <div id="page"></div>
@@ -52,6 +49,7 @@
 <script type="text/javascript" src="../../js/jquery.cookie.js"></script>
 <!--获取根路径-->
 <script type="text/javascript" src="../../js/getRootPath.js"></script>
-<script type="text/javascript" src="user_rent_in.js"></script>
+<script type="text/javascript" src="../../js/getFormattedDate.js"></script>
+<script type="text/javascript" src="my_rent_in_grounds.js"></script>
 </body>
 </html>

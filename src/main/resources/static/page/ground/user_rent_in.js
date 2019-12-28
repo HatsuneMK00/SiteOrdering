@@ -58,9 +58,9 @@ layui.config({
     //跳转到租用场地的专用页面
     $("body").on("click", ".preorder_ground", function () {
         //获取场地ID
-        var ground_id = Number($(this).parent().prev().prev().prev().prev().prev().prev().html());
+        var _this = $(this);
+        var ground_id = _this.attr("data-id");
         $.cookie('groundId', ground_id);
-
         var index = layui.layer.open({
             title : "预约场馆",
             type : 2,
@@ -77,9 +77,11 @@ layui.config({
         })
         layui.layer.full(index);
     });
+
     //跳转到查看评论的专用页面
     $("body").on("click", ".watch_comment", function () {
-        var ground_id = Number($(this).parent().prev().prev().prev().prev().prev().prev().html());
+        var _this = $(this);
+        var ground_id = _this.attr("data-id");
         $.cookie('groundId', ground_id);
         var index = layui.layer.open({
             title : "场馆评论",
@@ -100,7 +102,8 @@ layui.config({
 
     //跳转到评论的专用页面
     $("body").on("click", ".make_comment", function () {
-        var ground_id = Number($(this).parent().prev().prev().prev().prev().prev().prev().html());
+        var _this = $(this);
+        var ground_id = _this.attr("data-id");
         $.cookie('groundId', ground_id);
         var index = layui.layer.open({
             title : "对场馆进行评论",
@@ -118,6 +121,29 @@ layui.config({
         })
         layui.layer.full(index);
     });
+
+    //跳转到场地查看页面
+    $("body").on("click", ".lookup_ground", function () {
+        var _this = $(this);
+        var ground_id = _this.attr("data-id");
+        $.cookie('groundId', ground_id);
+        var index = layui.layer.open({
+            title : "场馆详细信息",
+            type : 2,
+            content : "ground_info.html",
+            success : function(layero, index){
+                layui.layer.tips('点击此处返回场馆列表', '.layui-layer-setwin .layui-layer-close', {
+                    tips: 3
+                });
+            }
+        })
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function() {
+            layui.layer.full(index);
+        })
+        layui.layer.full(index);
+    });
+
     //渲染数据函数
     function newsList(that) {
         function renderDate(data, curr) {
@@ -129,18 +155,20 @@ layui.config({
                         currData[i].photo=""
                     }
                     dataHtml += '<tr>'
-                        +  '<td>'+currData[i].groundId+'</td>'
-                        +  '<td>'+currData[i].groundName+'</td>'
+                        +  '<td>'
+                        +  '<a class="layui-btn layui-btn-normal layui-btn-mini lookup_ground" data-id='+currData[i].groundId+ ' ><i class="layui-icon">&#xe602;</i>'+currData[i].groundId+'</a>'
+                        +'</td>'
+                        +  '<td>'+currData[i].groundName +'</td>'
                         +  '<td>'+currData[i].description+'</td>'
                         +  '<td>'+currData[i].pricePerHour+'</td>'
                         +  '<td>'+currData[i].address+'</td>'
                         +  '<td >'+'<img width="100%" class="layui-box" id="photo" src='
                         +'"'+         currData[i].photo                  +'"'
                         +  ' alt="未添加图片"></img></td>'
-                        + '<td>'
-                        +  '<a class="layui-btn layui-btn-normal layui-btn-mini preorder_ground" ><i class="layui-icon">&#xe698;</i> 预约</a>'
-                        +  '<a class="layui-btn layui-btn-warm layui-btn-mini watch_comment" ><i class="layui-icon">&#xe63a;</i> 查看评论</a>'
-                        +  '<a class="layui-btn layui-btn-mini make_comment"><i class="layui-icon">&#xe642;</i> 发表评论</a>'
+                        + '<td style="text-align:center;">'
+                            +  '<a class="layui-btn layui-btn-normal layui-btn-mini preorder_ground" data-id='+currData[i].groundId+ ' ><i class="layui-icon">&#xe605;</i> 我要预约</a><br>'
+                            +  '<a class="layui-btn layui-btn-warm layui-btn-mini watch_comment" data-id='+currData[i].groundId+ ' ><i class="layui-icon">&#xe63a;</i> 查看评论</a><br>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini make_comment" data-id='+currData[i].groundId+ ' ><i class="layui-icon">&#xe642;</i> 发布评论</a>'
                         + '</td>'
                         + '</tr>';
                 }

@@ -75,7 +75,6 @@
                 userName: $(".user").val(),
                 password: $(".password").val()
             }),
-            async: false,
             success: function (data) {
                 var code = data.status;
                 if (code === 200) {
