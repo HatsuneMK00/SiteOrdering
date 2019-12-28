@@ -20,14 +20,14 @@
 <body class="childrenBody">
 <form class="layui-form">
     <div class="user_left">
+<!--        <div class="layui-form-item">-->
+<!--            <label class="layui-form-label">用户名</label>-->
+<!--            <div class="layui-input-block">-->
+<!--                <input type="text"  disabled class="layui-input layui-disabled userName">-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="layui-form-item">
-            <label class="layui-form-label">用户名</label>
-            <div class="layui-input-block">
-                <input type="text"  disabled class="layui-input layui-disabled userName">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">场地</label>
+            <label class="layui-form-label">预约场地</label>
             <div class="layui-input-block">
                 <input type="text"  disabled class="layui-input layui-disabled groundId">
             </div>
@@ -39,23 +39,9 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">时间</label>
+            <label class="layui-form-label">预约时间</label>
             <input type="text" class="date-input" placeholder="请选择日期时间段"  name="date" id="date">
-            <!--            <div class="date-input" placeholder="请选择日期时间段"  name="date" id="date"></div>-->
         </div>
-<!--        <div class="layui-form-item">-->
-<!--            <label class="layui-form-label">场馆ID</label>-->
-<!--            <div class="layui-input-block">-->
-<!--                <input type="text"  placeholder="请输入邮箱" lay-verify="required|email"-->
-<!--                       class="layui-input userEmail">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="layui-form-item">-->
-<!--            <label class="layui-form-label">自我评价</label>-->
-<!--            <div class="layui-input-block">-->
-<!--                <textarea placeholder="请输入内容" class="layui-textarea userSelfdescription" value=""></textarea>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
 
     <div class="layui-form-item" style="margin-left: 5%;">
@@ -74,6 +60,7 @@
     //日期时间范围
     laydate.render({
         elem: '#date'
+        ,min: now.getTime()
         ,type: 'datetime'
         ,range: '~'
         ,trigger: 'click'
