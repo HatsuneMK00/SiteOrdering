@@ -74,6 +74,9 @@ public class AdminController {
         ResponseMsg msg = new ResponseMsg();
 //        FIXME:参数传递错误返回400
         msg.setStatus(400);
+        if(!(params.containsKey("userId"))||!(params.containsKey("password"))){
+            return msg;
+        }
         if (!(params.containsKey("userId")) || !(params.containsKey("email")) || !(params.containsKey("description"))) {
             return msg;
         }
