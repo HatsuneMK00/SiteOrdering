@@ -15,6 +15,7 @@ layui.config({
 		$ = layui.jquery;
 		tab = layui.bodyTab();
 
+
 	//锁屏
 	function lockPage(){
 		layer.open({
@@ -149,16 +150,7 @@ function addTab(_this){
 	tab.tabAdd(_this);
 }
 
-//捐赠弹窗
-function donation(){
-	layer.tab({
-		area : ['260px', '367px'],
-		tab : [{
-			title : "微信",
-			content : "<div style='padding:30px;overflow:hidden;background:#d2d0d0;'><img src='image/wechat.jpg'></div>"
-		},{
-			title : "支付宝",
-			content : "<div style='padding:30px;overflow:hidden;background:#d2d0d0;'><img src='image/alipay.jpg'></div>"
-		}]
-	})
+//关闭所有窗口
+function closeAllTabs(_this){
+	tab.tabsClose(_this);
 }
