@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import xyz.st.meethere.entity.User;
 import xyz.st.meethere.exception.FileException;
+import xyz.st.meethere.service.MailService;
 import xyz.st.meethere.service.UserService;
 import xyz.st.meethere.service.FileService;
 
@@ -27,13 +28,14 @@ class UserControllerTest {
 
     private UserService userService;
     private FileService fileService;
+    private MailService mailService;
     private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
         userService = mock(UserService.class);
         fileService = mock(FileService.class);
-        mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService, fileService)).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService, fileService,mailService)).build();
     }
 
 //    @Test

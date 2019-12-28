@@ -21,10 +21,12 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
     private final FileService fileService;
+    private final MailService mailService;
 
-    public UserController(UserService userService, FileService fileService) {
+    public UserController(UserService userService, FileService fileService, MailService mailService) {
         this.userService = userService;
         this.fileService = fileService;
+        this.mailService = mailService;
     }
 
     @ResponseBody
@@ -140,7 +142,7 @@ public class UserController {
     ResponseMsg emailUser(@RequestParam("email") String email, @RequestParam("userName") String userName) {
         ResponseMsg msg = new ResponseMsg();
         msg.setStatus(404);
-        boolean emailStatus = new MailService().sendmail(email, userName);
+        boolean emailStatus = mailService.sendmail(email, userName);
         if (emailStatus) {
             msg.setStatus(200);
         }
