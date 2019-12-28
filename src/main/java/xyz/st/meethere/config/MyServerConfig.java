@@ -31,7 +31,7 @@ public class MyServerConfig implements ApplicationListener<WebServerInitializedE
             server = InetAddress.getLocalHost().getHostAddress();
             if (server.startsWith("192.168"))
                 server = "localhost";
-            logger.info("server ip address: " + server);
+            logger.info("--------------------------------------server ip address: " + server);
         } catch (UnknownHostException e) {
             logger.error(e.getMessage(),e);
             server = "localhost";
@@ -42,6 +42,6 @@ public class MyServerConfig implements ApplicationListener<WebServerInitializedE
     @Override
     public void onApplicationEvent(WebServerInitializedEvent webServerInitializedEvent) {
         port = String.valueOf(webServerInitializedEvent.getWebServer().getPort());
-        logger.info("port: " + MyServerConfig.port);
+        logger.info("------------------------------------------port: " + MyServerConfig.port);
     }
 }

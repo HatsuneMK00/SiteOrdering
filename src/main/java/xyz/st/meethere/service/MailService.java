@@ -73,13 +73,13 @@ public class MailService {
         String MailBody="<h1>Welcome to use Meethere System. Dear "+username+",<br />" +
                 "<br />"+"Congratulations,you have registered successfully</h1>";
         String SMTPHost = "smtp.qq.com";
-        String Port="25";
+        String Port="465";
         String MailUsername = "690385702@qq.com";
         String MailPassword = "duoohfwsnwxjbfji";
         String MailFrom = "690385702@qq.com";
         if(SMTPHost==null||SMTPHost==""||MailUsername==null||MailUsername==""||MailPassword==null||MailPassword==""||MailFrom==null||MailFrom=="")
         {
-            System.out.println("Servlet parameter Wrongs");
+            System.out.println("------------------------------------------------------------------Servlet parameter Wrongs");
         }
         SendMail send=new SendMail(SMTPHost,Port,MailUsername,MailPassword);
         if(send.sendingMimeMail(MailFrom, MailTo, MailCopyTo, MailBCopyTo, MailSubject, MailBody)){
