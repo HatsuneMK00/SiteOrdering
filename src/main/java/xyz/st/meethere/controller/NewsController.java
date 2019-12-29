@@ -39,7 +39,7 @@ public class NewsController {
     @PostMapping("/news")
     ResponseMsg addNews(@RequestBody News news) {
         ResponseMsg responseMsg = new ResponseMsg();
-        if (newsService.hasAllRequiredContent(news)) {
+        if (!newsService.hasAllRequiredContent(news)) {
             responseMsg.setStatus(400);
             return responseMsg;
         }

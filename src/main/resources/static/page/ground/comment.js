@@ -99,7 +99,7 @@ layui.config({
 
     function refreshList(){
         $.ajax({
-            url: baseUrl + "comment/ground/" + $.cookie('groundId'),
+            url: baseUrl + "checkedcomment/ground/" + $.cookie('groundId'),
             type: "get",
             dataType: "json",
             success: function (data) {
