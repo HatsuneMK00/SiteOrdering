@@ -93,6 +93,18 @@ class AdminControllerTest {
     }
 
     @Test
+    public void admin_not_exist_when_login_admin() throws Exception {
+        when(adminService.checkAdminPassword("user1", "123")).thenReturn(true);
+        when(adminService.getAdminByName(anyString())).thenReturn(null);
+        mockMvc.perform(get("/admin/enter")
+                .param("userName","user1")
+                .param("password","123"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+        verify(adminService).checkAdminPassword("user1", "123");
+    }
+
+    @Test
     public void happy_path_when_update_admin_info_by_id() throws Exception {
         User admin = new User(1, "user1", "123", null, null, null, 100, true);
         when(adminService.getAdminById(1)).thenReturn(admin);

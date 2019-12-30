@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import xyz.st.meethere.exception.FileException;
 import xyz.st.meethere.service.FileService;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,4 +50,11 @@ class FileControllerTest {
                 .andExpect(jsonPath("$.status").value(404));
     }
 
+    @Test
+    public void file_exception_happened_when_update_profile_pic() throws Exception {
+        when(fileService.storeFile(any())).thenThrow(new FileException("file exception"));
+
+        mockMvc.perform(multipart("/file/uploadImage")
+                .file(new MockMultipartFile("image", "image.png", "image/png", "this is image".getBytes())));
+    }
 }

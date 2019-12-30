@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mock;
@@ -20,9 +22,8 @@ import xyz.st.meethere.service.FileService;
 import xyz.st.meethere.service.GroundService;
 import xyz.st.meethere.service.NewsService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -283,5 +284,155 @@ class GroundControllerTest {
                 .andExpect(jsonPath("$.status").value(404));
 
         verify(groundService).deleteGround(1);
+    }
+
+    @Test
+    public void happy_path_when_add_ground_file_operation() throws Exception {
+        when(groundService.verifyGround(any(Ground.class))).thenReturn(false);
+        when(groundService.addGroundWOFileOperation(any(Ground.class))).thenReturn(1);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(new Ground());
+
+        mockMvc.perform(post("/groundWOFileOperation")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200));
+        InOrder order = inOrder(groundService);
+        order.verify(groundService).verifyGround(any());
+        order.verify(groundService).addGroundWOFileOperation(any());
+    }
+
+    @Test
+    public void ground_not_valid_when_add_ground_file_operation() throws Exception {
+        when(groundService.verifyGround(any(Ground.class))).thenReturn(true);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(new Ground());
+
+        mockMvc.perform(post("/groundWOFileOperation")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(500));
+        verify(groundService).verifyGround(any());
+    }
+
+    @Test
+    public void add_ground_file_operation_fail_when_add_ground_file_operation() throws Exception {
+        when(groundService.verifyGround(any())).thenReturn(false);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(new Ground());
+
+        mockMvc.perform(post("/groundWOFileOperation")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(500));
+        InOrder order = inOrder(groundService);
+        order.verify(groundService).verifyGround(any());
+        order.verify(groundService).addGroundWOFileOperation(any());
+    }
+
+    @Test
+    public void happy_path_when_delete_ground_by_batch() throws Exception {
+//        when(groundService.getCommentByCommentId(anyInt())).thenReturn(null);
+        when(groundService.deleteGround(anyInt())).thenReturn(1);
+
+        HashMap<String, List<Integer>> requestParams = new HashMap<>();
+        requestParams.put("ids", Arrays.asList(1, 2, 3));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParams);
+
+        mockMvc.perform(delete("/ground/deleteByBatch")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200));
+        verify(groundService, times(3)).deleteGround(anyInt());
+    }
+
+    @Test
+    public void fail_once_when_delete_ground_by_batch() throws Exception {
+        when(groundService.deleteGround(anyInt())).thenReturn(1).thenReturn(0);
+        HashMap<String, List<Integer>> requestParams = new HashMap<>();
+        requestParams.put("ids", Arrays.asList(1, 2, 3));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParams);
+
+        mockMvc.perform(delete("/ground/deleteByBatch")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+        verify(groundService, times(3)).deleteGround(anyInt());
+    }
+
+    @ParameterizedTest
+    @MethodSource("requestParamsProviderHappyPath")
+    public void happy_path_when_get_ground_by_match(Map<String, String> requestParams) throws Exception {
+        List<Ground> retGrounds = new ArrayList<>();
+        retGrounds.add(new Ground(
+                "ground 1",
+                1,
+                null,
+                10,
+                "ground address",
+                "this is a test ground"
+        ));
+        retGrounds.add(new Ground(
+                "ground 2",
+                2,
+                null,
+                10,
+                "ground address",
+                "this is another test ground"
+        ));
+        Ground ground = new Ground(
+                "ground 1",
+                1,
+                null,
+                10,
+                "ground address",
+                "this is a test ground"
+        );
+        when(groundService.getGroundById(anyInt())).thenReturn(ground);
+        when(groundService.getGroundsByMatch(anyString())).thenReturn(retGrounds);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParams);
+
+        mockMvc.perform(post("/ground/match")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200));
+    }
+
+    static Stream<Map<String, String>> requestParamsProviderHappyPath() {
+        HashMap<String, String> map1 = new HashMap<>();
+        map1.put("match", "");
+        HashMap<String, String> map2 = new HashMap<>();
+        map2.put("match", "gid:1");
+        HashMap<String, String> map3 = new HashMap<>();
+        map3.put("match", "hello");
+
+        return Stream.of(map1, map2, map3);
+    }
+
+    @ParameterizedTest
+    @MethodSource("requestParamsProviderHCornerCase")
+    public void corner_case_when_get_ground_by_match(Map<String, String> requestParams) throws Exception {
+
     }
 }

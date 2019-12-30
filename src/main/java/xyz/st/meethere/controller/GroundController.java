@@ -100,8 +100,6 @@ public class GroundController {
         ResponseMsg responseMsg = new ResponseMsg();
         if (result == 1)
             responseMsg.setStatus(200);
-        else
-            responseMsg.setStatus(500);
         responseMsg.getResponseMap().put("result", ground);
         return responseMsg;
     }
@@ -174,7 +172,7 @@ public class GroundController {
     }
 
     @ResponseBody
-    @ApiOperation("通过groundId批量删除新闻")
+    @ApiOperation("通过groundId批量删除场馆")
     @DeleteMapping("/ground/deleteByBatch")
     ResponseMsg deleteGroundByBatch(@RequestBody Map<String, List<Integer>> data) {
         ResponseMsg msg = new ResponseMsg();
