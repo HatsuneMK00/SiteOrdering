@@ -15,6 +15,7 @@ import xyz.st.meethere.service.MailService;
 import xyz.st.meethere.service.UserService;
 import xyz.st.meethere.service.FileService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +36,7 @@ class UserControllerTest {
     void setUp() {
         userService = mock(UserService.class);
         fileService = mock(FileService.class);
+        mailService =
         mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService, fileService,mailService)).build();
     }
 
@@ -182,6 +184,51 @@ class UserControllerTest {
                     .file(new MockMultipartFile("image", "image.png", "image/png", "this is image".getBytes()))
                     .param("userId", "1"));
         });
+    }
+
+    @Test
+    public void happy_path_when_get_all_user() throws Exception {
+        when(userService.traverseUser()).thenReturn(new ArrayList<>());
+
+        mockMvc.perform(get("/user/getAll"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200));
+        verify(userService).traverseUser();
+    }
+
+    @Test
+    public void null_user_when_get_all_user() throws Exception {
+        when(userService.traverseUser()).thenReturn(null);
+
+        mockMvc.perform(get("/user/getAll"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+        verify(userService).traverseUser();
+    }
+
+    @Test
+    public void happy_path_when_register_user() throws Exception {
+        when(userService.addUser(anyString(), anyString(), anyString())).thenReturn(1);
+        HashMap<String, String> requestParams = new HashMap<>();
+        requestParams.put("email","1@1");
+        requestParams.put("userName","name");
+        requestParams.put("password", "123");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParams);
+
+        mockMvc.perform(put("/user/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200));
+        verify(userService).addUser(anyString(),anyString(),anyString());
+    }
+
+    @Test
+    public void param_not_enough_when_rigister_user() throws Exception {
+
     }
 
 }
