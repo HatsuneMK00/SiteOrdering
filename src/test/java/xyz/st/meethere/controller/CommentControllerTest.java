@@ -2,8 +2,12 @@ package xyz.st.meethere.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import io.swagger.models.auth.In;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.springframework.http.MediaType;
@@ -12,13 +16,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import xyz.st.meethere.entity.Comment;
 import xyz.st.meethere.service.CommentService;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.el.ELException;
+import java.util.*;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -416,4 +422,204 @@ public class CommentControllerTest {
         verify(commentService).uncheckComment(1);
         verifyNoMoreInteractions(commentService);
     }
+
+    @Test
+    public void happy_path_when_get_checked_comment_by_ground_id() throws Exception {
+        when(commentService.getCheckedCommentsByGroundId(anyInt())).thenReturn(new ArrayList<>());
+
+        mockMvc.perform(get("/checkedcomment/ground/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200));
+
+        verify(commentService).getCheckedCommentsByGroundId(1);
+    }
+
+    @Test
+    public void comment_not_exist_or_ground_not_exist_when_checked_comment_by_ground_id() throws Exception {
+        when(commentService.getCheckedCommentsByGroundId(anyInt())).thenReturn(null);
+
+        mockMvc.perform(get("/checkedcomment/ground/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+
+        verify(commentService).getCheckedCommentsByGroundId(1);
+    }
+
+    @ParameterizedTest
+    @MethodSource("matchStringProviderHappyPath")
+    public void happy_path_when_get_comment_by_match_without_ground_id(Map<String,String> requestParams) throws Exception{
+        List<Comment> retComments = new ArrayList<>();
+        retComments.add(new Comment(
+                1,
+                1,
+                1,
+                null,
+                "this is comment 1",
+                0
+        ));
+        retComments.add(new Comment(
+                2,
+                2,
+                1,
+                null,
+                "this is comment 2",
+                0
+        ));
+        Comment retComment = new Comment(
+                1,
+                1,
+                1,
+                null,
+                "this is comment 1",
+                1
+        );
+
+        when(commentService.getAllCheckComments()).thenReturn(retComments);
+        when(commentService.getCommentsByGroundId(anyInt())).thenReturn(retComments);
+        when(commentService.getCommentsByUserId(anyInt())).thenReturn(retComments);
+        when(commentService.getCommentsByMatch(anyString())).thenReturn(retComments);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParams);
+
+        mockMvc.perform(post("/comment/match")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200));
+
+    }
+
+    static Stream<Map<String,String>> matchStringProviderHappyPath(){
+        HashMap<String, String> map1 = new HashMap<>();
+        map1.put("match","gid:1");
+        HashMap<String, String> map2 = new HashMap<>();
+        map2.put("match","uid:1");
+        HashMap<String, String> map3 = new HashMap<>();
+        map3.put("match","hello");
+        HashMap<String, String> map4 = new HashMap<>();
+        map4.put("match","");
+        map4.put("groundId","1");
+        return Stream.of(
+                map1,map2,map3,map4
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("matchStringProviderCornerCase")
+    public void corner_case_when_get_comment_by_match_without_ground_id(Map<String,String> requestParams) throws Exception {
+        when(commentService.getAllCheckComments()).thenReturn(new ArrayList<>());
+        when(commentService.getCommentsByGroundId(anyInt())).thenReturn(new ArrayList<>());
+        when(commentService.getCommentsByUserId(anyInt())).thenReturn(new ArrayList<>());
+        when(commentService.getCommentsByMatch(anyString())).thenReturn(new ArrayList<>());
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParams);
+
+        mockMvc.perform(post("/comment/match")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+    }
+
+    static Stream<Map<String,String>> matchStringProviderCornerCase(){
+        HashMap<String, String> map1 = new HashMap<>();
+        map1.put("match","gid:452");
+        HashMap<String, String> map2 = new HashMap<>();
+        map2.put("match","uid:51");
+        HashMap<String, String> map3 = new HashMap<>();
+        map3.put("match","null");
+        HashMap<String, String> map4 = new HashMap<>();
+        map4.put("match","");
+        map4.put("groundId","1");
+        return Stream.of(
+                map1,map2,map3,map4
+        );
+    }
+
+    @Test
+    public void happy_path_when_delete_comment_by_batch() throws Exception {
+        when(commentService.deleteComment(anyInt())).thenReturn(200);
+
+        HashMap<String,List<Integer>> requestParams = new HashMap<>();
+        requestParams.put("ids", Arrays.asList(1, 2, 3));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParams);
+
+        mockMvc.perform(delete("/comment/deleteByBatch")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200));
+        verify(commentService, times(3)).deleteComment(anyInt());
+    }
+
+    @Test
+    public void fail_once_when_delete_comment_by_batch() throws Exception {
+        when(commentService.deleteComment(anyInt())).thenReturn(200).thenReturn(404);
+        HashMap<String,List<Integer>> requestParams = new HashMap<>();
+        requestParams.put("ids", Arrays.asList(1, 2, 3));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParams);
+
+        mockMvc.perform(delete("/comment/deleteByBatch")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+        verify(commentService, times(3)).deleteComment(anyInt());
+    }
+
+    @Test
+    public void happy_path_when_get_all_comment() throws Exception {
+        List<Comment> retComments = new ArrayList<>();
+        retComments.add(new Comment(
+                1,
+                1,
+                1,
+                null,
+                "this is comment 1",
+                0
+        ));
+        retComments.add(new Comment(
+                2,
+                2,
+                1,
+                null,
+                "this is comment 2",
+                0
+        ));
+        Comment retComment = new Comment(
+                1,
+                1,
+                1,
+                null,
+                "this is comment 1",
+                1
+        );
+        when(commentService.getAllComments()).thenReturn(retComments);
+
+        mockMvc.perform(get("/comment/allComment"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200));
+        verify(commentService).getAllComments();
+    }
+
+    @Test
+    public void get_nothing_when_get_all_comment() throws Exception {
+        when(commentService.getAllComments()).thenReturn(new ArrayList<>());
+
+        mockMvc.perform(get("/comment/allComment"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(400));
+        verify(commentService).getAllComments();
+    }
+
 }

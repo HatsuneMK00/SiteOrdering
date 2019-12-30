@@ -43,16 +43,22 @@ public class CommentController {
         return responseMsg;
     }
 
+    /* TODO: 代码有些冗余
+    * 应该把这两个函数实现成返回通过审核的留言？
+    * 现在这两个接口和getCheckedCommentByGroundId有点重复了
+    * */
     @GetMapping("/comment/user/{userId}")
     ResponseMsg getCommentsByUserId(@PathVariable("userId") Integer id) {
         ResponseMsg responseMsg = new ResponseMsg();
         List<Comment> comments = null;
         //        FIXME: 返回内容里需要有userName，groundName
         comments = commentService.getCommentsByUserId(id);
-        // FIXME: 当结果为null时返回404
-        if (comments == null || comments.size() == 0)
+        // FIXME: 当结果为null时返回404 其他情况还是返回200吧
+        if (comments == null)
             responseMsg.setStatus(404);
         else
+//            其实这里不管怎么样都会返回200 因为查不到内容的时候都是返回长度为0的list 不会返回null的
+//        如果为空就不显示吧 不管是用户不存在还是该用户没有comment了
             responseMsg.setStatus(200);
         responseMsg.getResponseMap().put("result", comments);
         return responseMsg;
@@ -66,9 +72,10 @@ public class CommentController {
         //        FIXME: 给用户用接口，返回已审核过的留言
         comments = commentService.getCommentsByGroundId(id);
         // FIXME: 当场馆不存在时返回404 场馆存在不论有没有留言都返回200
-        if (comments == null || comments.size() == 0)
+        if (comments == null)
             responseMsg.setStatus(404);
         else
+//            情况同上
             responseMsg.setStatus(200);
         responseMsg.getResponseMap().put("result", comments);
         return responseMsg;
@@ -82,7 +89,9 @@ public class CommentController {
         //        FIXME: 给用户用接口，返回已审核过的留言
         comments = commentService.getCheckedCommentsByGroundId(id);
         // FIXME: 当场馆不存在时返回404 场馆存在不论有没有留言都返回200
-        if (comments == null || comments.size() == 0)
+
+//          情况同上
+        if (comments == null)
             responseMsg.setStatus(404);
         else
             responseMsg.setStatus(200);
@@ -118,6 +127,8 @@ public class CommentController {
                 if (groundId == 0 || comment.getGroundId() == groundId)
                     tempComment.add(comment);
             }
+            if (tempComment.size() == 0)
+                responseMsg.setStatus(404);
             responseMsg.getResponseMap().put("result", tempComment);
             return responseMsg;
 
@@ -148,7 +159,8 @@ public class CommentController {
             responseMsg.setStatus(200);
             ArrayList<Comment> retComment = new ArrayList<>();
             for (String id : ids) {
-                List<Comment> comments = commentService.getCommentsByGroundId(Integer.valueOf(id.trim()));
+//                FIXME: 这边的函数调错了
+                List<Comment> comments = commentService.getCommentsByUserId(Integer.valueOf(id.trim()));
                 for (Comment comment :
                         comments) {
                     if (groundId == 0 || comment.getGroundId() == groundId){
@@ -187,11 +199,7 @@ public class CommentController {
             responseMsg.setStatus(200);
             responseMsg.getResponseMap().put("result", comment);
         } else {
-            if (comment == null) {
                 responseMsg.setStatus(404);
-            } else {
-                responseMsg.setStatus(500);
-            }
         }
         return responseMsg;
     }
@@ -210,7 +218,8 @@ public class CommentController {
                 msg.setStatus(404);
             }
         }
-        msg.setStatus(200);
+//        FIXME: 这边的赋值是个什么鬼
+//        msg.setStatus(200);
         return msg;
     }
 
@@ -262,14 +271,11 @@ public class CommentController {
     ResponseMsg getAllComment() {
         ResponseMsg responseMsg = new ResponseMsg();
         List<Comment> comments = null;
-        try {
-            comments = commentService.getAllComments();
-            responseMsg.getResponseMap().put("result", comments);
-            responseMsg.setStatus(200);
-        } catch (Exception e) {
-            responseMsg.setStatus(500);
-            logger.error(e.getMessage(), e);
-        }
+        comments = commentService.getAllComments();
+        responseMsg.getResponseMap().put("result", comments);
+        responseMsg.setStatus(200);
+        if (comments.size() == 0)
+            responseMsg.setStatus(404);
         return responseMsg;
     }
 
