@@ -15,6 +15,14 @@ public class PreOrder {
     private String userName;
     private String groundName;
 
+    public PreOrder(int groundId, int userId) {
+        this.groundId = groundId;
+        this.userId = userId;
+    }
+
+    public PreOrder() {
+    }
+
     public String getUserName() {
         return userName;
     }
