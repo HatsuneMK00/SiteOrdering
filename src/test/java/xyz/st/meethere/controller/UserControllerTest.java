@@ -98,8 +98,10 @@ class UserControllerTest {
         when(userService.getUserById(1)).thenReturn(user);
         when(userService.updateUserByModel(user)).thenReturn(200);
 
-        Map<String, Integer> requestParam = new HashMap<>();
+        Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("userId",1);
+        requestParam.put("password","123");
+        requestParam.put("email","1@1.com");
 
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
@@ -136,8 +138,10 @@ class UserControllerTest {
     public void user_not_exist_when_update_user_info_by_id() throws Exception {
         when(userService.getUserById(1)).thenReturn(null);
 
-        Map<String, Integer> requestParam = new HashMap<>();
+        Map<String, Object> requestParam = new HashMap<>();
         requestParam.put("userId",1);
+        requestParam.put("password","123");
+        requestParam.put("email","1@1.com");
 
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();

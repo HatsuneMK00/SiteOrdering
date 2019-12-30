@@ -29,19 +29,19 @@ public class UserController {
         this.mailService = mailService;
     }
 
-    @ResponseBody
-    @ApiOperation("通过userName查找用户，用户名Unique")
-    @GetMapping("/user/getByName")
-    ResponseMsg getUserByName(@RequestParam("userName") String userName) {
-        ResponseMsg msg = new ResponseMsg();
-        msg.setStatus(404);
-        User user = userService.getUserByName(userName);
-        if (user != null) {
-            msg.setStatus(200);
-        }
-        msg.getResponseMap().put("result", user);
-        return msg;
-    }
+//    @ResponseBody
+//    @ApiOperation("通过userName查找用户，用户名Unique")
+//    @GetMapping("/user/getByName")
+//    ResponseMsg getUserByName(@RequestParam("userName") String userName) {
+//        ResponseMsg msg = new ResponseMsg();
+//        msg.setStatus(404);
+//        User user = userService.getUserByName(userName);
+//        if (user != null) {
+//            msg.setStatus(200);
+//        }
+//        msg.getResponseMap().put("result", user);
+//        return msg;
+//    }
 
     @ResponseBody
     @ApiOperation("通过userId查找用户")
