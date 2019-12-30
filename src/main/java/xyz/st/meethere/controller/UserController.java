@@ -29,19 +29,19 @@ public class UserController {
         this.mailService = mailService;
     }
 
-//    @ResponseBody
-//    @ApiOperation("通过userName查找用户，用户名Unique")
-//    @GetMapping("/user/getByName")
-//    ResponseMsg getUserByName(@RequestParam("userName") String userName) {
-//        ResponseMsg msg = new ResponseMsg();
-//        msg.setStatus(404);
-//        User user = userService.getUserByName(userName);
-//        if (user != null) {
-//            msg.setStatus(200);
-//        }
-//        msg.getResponseMap().put("result", user);
-//        return msg;
-//    }
+    @ResponseBody
+    @ApiOperation("通过userName查找用户，用户名Unique")
+    @GetMapping("/user/getByName")
+    ResponseMsg getUserByName(@RequestParam("userName") String userName) {
+        ResponseMsg msg = new ResponseMsg();
+        msg.setStatus(404);
+        User user = userService.getUserByName(userName);
+        if (user != null) {
+            msg.setStatus(200);
+        }
+        msg.getResponseMap().put("result", user);
+        return msg;
+    }
 
     @ResponseBody
     @ApiOperation("通过userId查找用户")
@@ -123,6 +123,7 @@ public class UserController {
     ResponseMsg deleteUser(@RequestBody Map<String, List<Integer>> params) {
         ResponseMsg msg = new ResponseMsg();
         msg.setStatus(200);
+//        FIXME: 这里的参数名称和/ground/deleteByBatch不一致("ids")
         List<Integer> ids = params.get("userId");
         ResponseMsg tempMsg;
         for (Integer id : ids) {
@@ -131,7 +132,6 @@ public class UserController {
                 msg.setStatus(404);
             }
         }
-        msg.setStatus(200);
         return msg;
     }
 
@@ -139,6 +139,7 @@ public class UserController {
     @ResponseBody
     @ApiOperation("发送邮件给email，用户userName")
     @GetMapping("/user/email")
+//    FIXME: 返回值没有使用
     ResponseMsg emailUser(@RequestParam("email") String email, @RequestParam("userName") String userName) {
         ResponseMsg msg = new ResponseMsg();
         msg.setStatus(404);

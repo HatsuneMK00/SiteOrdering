@@ -14,6 +14,8 @@ import xyz.st.meethere.entity.News;
 import xyz.st.meethere.service.NewsService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -92,7 +94,7 @@ public class NewsControllerTest {
         when(newsService.deleteNews(2)).thenReturn(0);
         mockMvc.perform(delete("/news/2"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value(500));
+                .andExpect(jsonPath("$.status").value(404));
         InOrder order = inOrder(newsService);
         order.verify(newsService).getNewsByNewsId(2);
         order.verify(newsService).deleteNews(2);
@@ -157,6 +159,7 @@ public class NewsControllerTest {
     @Test
     public void happy_path_when_add_a_news() throws Exception {
         when(newsService.addNews(any(News.class))).thenReturn(1);
+        when(newsService.hasAllRequiredContent(any())).thenReturn(true);
         News news = new News("test news for update",
                 "this is a news for update test",
                 null,
@@ -166,13 +169,8 @@ public class NewsControllerTest {
         String requestJson = objectWriter.writeValueAsString(news);
         mockMvc.perform(post("/news")
                 .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
                 .content(requestJson))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.responseMap.result.title").value("test news for update"))
-                .andExpect(jsonPath("$.responseMap.result.content")
-                        .value("this is a news for update test"))
-                .andExpect(jsonPath("$.responseMap.result.newsId").value(1))
                 .andExpect(jsonPath("$.status").value(200));
         ArgumentCaptor<News> newsArgumentCaptor = ArgumentCaptor.forClass(News.class);
         verify(newsService).addNews(newsArgumentCaptor.capture());
@@ -187,6 +185,7 @@ public class NewsControllerTest {
     @Test
     public void fail_when_add_a_news() throws Exception {
         when(newsService.addNews(any(News.class))).thenReturn(0);
+        when(newsService.hasAllRequiredContent(any())).thenReturn(true);
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
         String requestJson = objectWriter.writeValueAsString(new News());
@@ -197,6 +196,21 @@ public class NewsControllerTest {
                 .andExpect(jsonPath("$.status").value(500));
 
         verify(newsService).addNews(any(News.class));
+    }
+
+    @Test
+    public void params_not_enough_when_add_a_news() throws Exception{
+        when(newsService.hasAllRequiredContent(any())).thenReturn(false);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(new News());
+        mockMvc.perform(post("/news")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(400));
+        verify(newsService).hasAllRequiredContent(any());
         verifyNoMoreInteractions(newsService);
     }
 
@@ -240,5 +254,41 @@ public class NewsControllerTest {
                 .andExpect(jsonPath("$.responseMap.result").exists());
         verify(newsService).getAllNews();
         verifyNoMoreInteractions(newsService);
+    }
+
+    @Test
+    public void happy_path_when_delete_news_by_batch() throws Exception {
+        when(newsService.deleteNews(anyInt())).thenReturn(1);
+        HashMap<String, List<Integer>> requestParams = new HashMap<>();
+        requestParams.put("ids", Arrays.asList(1, 2, 3));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParams);
+
+        mockMvc.perform(delete("/news/deleteByBatch")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(200));
+        verify(newsService, times(3)).deleteNews(anyInt());
+    }
+
+    @Test
+    public void fail_once_when_delete_news_by_batch() throws Exception {
+        when(newsService.deleteNews(anyInt())).thenReturn(1).thenReturn(0);
+        HashMap<String, List<Integer>> requestParams = new HashMap<>();
+        requestParams.put("ids", Arrays.asList(1, 2, 3));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParams);
+
+        mockMvc.perform(delete("/news/deleteByBatch")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(404));
+        verify(newsService, times(3)).deleteNews(anyInt());
     }
 }

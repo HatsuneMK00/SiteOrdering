@@ -76,7 +76,7 @@ public class NewsController {
         if (result == 1) {
             responseMsg.setStatus(200);
         } else {
-            responseMsg.setStatus(500);
+            responseMsg.setStatus(404);
         }
         responseMsg.getResponseMap().put("result", news);
         return responseMsg;
@@ -96,7 +96,6 @@ public class NewsController {
                 msg.setStatus(404);
             }
         }
-        msg.setStatus(200);
         return msg;
     }
 
