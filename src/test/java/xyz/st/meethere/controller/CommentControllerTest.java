@@ -27,6 +27,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class CommentControllerTest {
 
@@ -36,7 +37,7 @@ public class CommentControllerTest {
     @BeforeEach
     void setUp() {
         commentService = mock(CommentService.class);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(new CommentController(commentService)).build();
+        this.mockMvc = standaloneSetup(new CommentController(commentService)).build();
     }
 
     @Test
@@ -542,7 +543,8 @@ public class CommentControllerTest {
 
     @Test
     public void happy_path_when_delete_comment_by_batch() throws Exception {
-        when(commentService.deleteComment(anyInt())).thenReturn(200);
+        when(commentService.getCommentByCommentId(anyInt())).thenReturn(null);
+        when(commentService.deleteComment(anyInt())).thenReturn(1);
 
         HashMap<String,List<Integer>> requestParams = new HashMap<>();
         requestParams.put("ids", Arrays.asList(1, 2, 3));
@@ -561,7 +563,7 @@ public class CommentControllerTest {
 
     @Test
     public void fail_once_when_delete_comment_by_batch() throws Exception {
-        when(commentService.deleteComment(anyInt())).thenReturn(200).thenReturn(404);
+        when(commentService.deleteComment(anyInt())).thenReturn(1).thenReturn(0);
         HashMap<String,List<Integer>> requestParams = new HashMap<>();
         requestParams.put("ids", Arrays.asList(1, 2, 3));
 
@@ -618,7 +620,7 @@ public class CommentControllerTest {
 
         mockMvc.perform(get("/comment/allComment"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value(400));
+                .andExpect(jsonPath("$.status").value(404));
         verify(commentService).getAllComments();
     }
 
