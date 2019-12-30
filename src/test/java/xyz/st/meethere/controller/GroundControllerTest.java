@@ -1,40 +1,28 @@
 package xyz.st.meethere.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
-import org.mockito.Mock;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import xyz.st.meethere.entity.Comment;
 import xyz.st.meethere.entity.Ground;
-import xyz.st.meethere.entity.News;
 import xyz.st.meethere.exception.FileException;
 import xyz.st.meethere.service.FileService;
 import xyz.st.meethere.service.GroundService;
-import xyz.st.meethere.service.NewsService;
 
 import java.util.*;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GroundControllerTest {
 
@@ -188,6 +176,19 @@ class GroundControllerTest {
                 .andExpect(jsonPath("$.status").value(500));
         verify(groundService).verifyGround(any());
         verifyNoMoreInteractions(groundService);
+    }
+
+    @Test
+    public void image_save_fail_when_add_a_ground() throws Exception {
+        when(groundService.verifyGround(any())).thenReturn(false);
+        when(fileService.storeFile(any())).thenThrow(new FileException("file exception"));
+
+        mockMvc.perform(multipart("/ground")
+                .file(new MockMultipartFile("image", "image.png", "image/png", "this is image".getBytes()))
+                .param("groundName", "test ground")
+                .param("pricePerHour", "10")
+                .param("address", "the address")
+                .param("description", "the description"));
     }
 
     @Test
@@ -431,8 +432,30 @@ class GroundControllerTest {
     }
 
     @ParameterizedTest
-    @MethodSource("requestParamsProviderHCornerCase")
+    @MethodSource("requestParamsProviderCornerCase")
     public void corner_case_when_get_ground_by_match(Map<String, String> requestParams) throws Exception {
+        when(groundService.getGroundById(anyInt())).thenReturn(null);
+        when(groundService.getAllGrounds()).thenReturn(null);
+        when(groundService.getGroundsByMatch(anyString())).thenReturn(new ArrayList<>());
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+        String requestJson = objectWriter.writeValueAsString(requestParams);
+
+        mockMvc.perform(post("/ground/match")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(status().isOk());
+    }
+
+    static Stream<Map<String, String>> requestParamsProviderCornerCase() {
+        HashMap<String, String> map1 = new HashMap<>();
+        map1.put("match", "");
+        HashMap<String, String> map2 = new HashMap<>();
+        map2.put("match", "gid:6578");
+        HashMap<String, String> map3 = new HashMap<>();
+        map3.put("match", "null");
+
+        return Stream.of(map1, map2, map3);
     }
 }

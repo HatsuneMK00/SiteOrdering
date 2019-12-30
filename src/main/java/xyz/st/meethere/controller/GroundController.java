@@ -213,8 +213,9 @@ public class GroundController {
             for (String id : ids) {
                 retGround.add(groundService.getGroundById(Integer.valueOf(id.trim())));
             }
-            if (retGround.size() == 0)
-                responseMsg.setStatus(404);
+//            这里根本就不可能是0，null也会被添加进去的
+//            if (retGround.size() == 0)
+//                responseMsg.setStatus(404);
             responseMsg.getResponseMap().put("result",retGround);
             return responseMsg;
         } else {
