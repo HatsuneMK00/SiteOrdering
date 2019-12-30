@@ -36,7 +36,7 @@ class UserControllerTest {
     void setUp() {
         userService = mock(UserService.class);
         fileService = mock(FileService.class);
-        mailService =
+        mailService = mock(MailService.class);
         mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService, fileService,mailService)).build();
     }
 
