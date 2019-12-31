@@ -150,7 +150,8 @@ public class OrderController {
             @RequestParam("groundId") Integer gid,
             @PathVariable("userId") Integer uid,
             @RequestParam("startTime") String startTime,
-            @RequestParam("duration") Integer duration
+            @RequestParam("duration") Integer duration,
+            @RequestParam("userNum") Integer userNum
     ) {
         ResponseMsg responseMsg = new ResponseMsg();
         if (orderService.validatePreOrder(gid, startTime, duration)) {
@@ -162,6 +163,7 @@ public class OrderController {
         preOrder.setUserId(uid);
         preOrder.setStartTime(startTime);
         preOrder.setDuration(duration);
+        preOrder.setUserNum(userNum);
         preOrder.setPrice(duration * orderService.getGroundPrice(gid));
         preOrder.setPayed(0);
         preOrder.setChecked(0);
@@ -180,7 +182,8 @@ public class OrderController {
             @RequestParam("groundId") Integer gid,
             @PathVariable("userId") Integer uid,
             @RequestParam("startTime") String startTime,
-            @RequestParam("duration") Integer duration
+            @RequestParam("duration") Integer duration,
+            @RequestParam("userNum") Integer userNum
     ) {
         ResponseMsg responseMsg = new ResponseMsg();
         if (orderService.validatePreOrder(gid, startTime, duration)) {
@@ -192,6 +195,7 @@ public class OrderController {
         preOrder.setUserId(uid);
         preOrder.setStartTime(startTime);
         preOrder.setDuration(duration);
+        preOrder.setUserNum(userNum);
         preOrder.setPrice(duration * orderService.getGroundPrice(gid));
         //确保订单生效
         preOrder.setPayed(1);
