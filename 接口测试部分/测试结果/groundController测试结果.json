@@ -1,0 +1,538 @@
+{
+	"id": "0ee93bbc-c139-4119-8f74-ed8e54fdfd72",
+	"name": "meethere-groundControllerTest",
+	"allTests": [],
+	"timestamp": "2019-12-26T07:16:21.385Z",
+	"collection_id": "e5cc6d91-e149-4765-87da-6143a04dfa41",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "4e16ef26-ab17-4929-9566-b465dbe6600c",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "e5cc6d91-e149-4765-87da-6143a04dfa41",
+		"name": "meethere-groundControllerTest",
+		"order": [
+			"0d5c1d53-37c4-433e-83c3-c9d908267285",
+			"b212a1e7-b5be-47c5-a128-be683126ba9b",
+			"f86663f5-3031-479c-82d0-44bdd94ee457",
+			"52d5e3a2-a200-43ca-91d5-e1c994e09779",
+			"7ea478e1-01ba-475d-8520-7cb011072a5c",
+			"4027a6bc-1080-4792-b6a8-a66b1d3b6fad",
+			"96834186-309b-4779-8433-2efb096795c3",
+			"bf029ec5-b6f1-4924-b1b3-49f65bea9198",
+			"f0079f5a-e337-4ebb-8956-4d9ff443ddcc"
+		],
+		"folders_order": [],
+		"isFavorite": false
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [],
+	"results": [
+		{
+			"name": "groundController获取所有场地测试_01",
+			"id": "0d5c1d53-37c4-433e-83c3-c9d908267285",
+			"url": "localhost:8080/ground",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"51"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "51",
+			"totalRequestTime": "51",
+			"iterationResults": {}
+		},
+		{
+			"name": "groundController增加场地测试_01",
+			"id": "b212a1e7-b5be-47c5-a128-be683126ba9b",
+			"url": "localhost:8080/ground/?groundName=testGround&pricePerHour=20&address=somewhere in this world&description=somewhat boring",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"新增成功": true
+			},
+			"testPassFailCounts": {
+				"新增成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"43"
+			],
+			"allTests": [
+				{
+					"新增成功": true
+				}
+			],
+			"time": "43",
+			"totalRequestTime": "43",
+			"iterationResults": {}
+		},
+		{
+			"name": "groundController增加场地测试_02",
+			"id": "f86663f5-3031-479c-82d0-44bdd94ee457",
+			"url": "localhost:8080/ground/?pricePerHour=20&address=somewhere in this world&description=somewhat boring",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request",
+				"detail": {
+					"name": "Bad Request",
+					"detail": "The request cannot be fulfilled due to bad syntax."
+				}
+			},
+			"tests": {
+				"新增失败_部分信息缺失": true
+			},
+			"testPassFailCounts": {
+				"新增失败_部分信息缺失": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"6"
+			],
+			"allTests": [
+				{
+					"新增失败_部分信息缺失": true
+				}
+			],
+			"time": "6",
+			"totalRequestTime": "6",
+			"iterationResults": {}
+		},
+		{
+			"name": "groundController编辑场地信息测试_01",
+			"id": "52d5e3a2-a200-43ca-91d5-e1c994e09779",
+			"url": "localhost:8080/ground/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"编辑成功": true
+			},
+			"testPassFailCounts": {
+				"编辑成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"20"
+			],
+			"allTests": [
+				{
+					"编辑成功": true
+				}
+			],
+			"time": "20",
+			"totalRequestTime": "20",
+			"iterationResults": {}
+		},
+		{
+			"name": "groundController编辑场地信息测试_02",
+			"id": "7ea478e1-01ba-475d-8520-7cb011072a5c",
+			"url": "localhost:8080/ground/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"编辑失败_场地不存在": true
+			},
+			"testPassFailCounts": {
+				"编辑失败_场地不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"16"
+			],
+			"allTests": [
+				{
+					"编辑失败_场地不存在": true
+				}
+			],
+			"time": "16",
+			"totalRequestTime": "16",
+			"iterationResults": {}
+		},
+		{
+			"name": "groundController获取场地信息测试_01",
+			"id": "4027a6bc-1080-4792-b6a8-a66b1d3b6fad",
+			"url": "localhost:8080/ground/1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功_status比对": true,
+				"获取成功_groundId比对": true
+			},
+			"testPassFailCounts": {
+				"获取成功_status比对": {
+					"pass": 1,
+					"fail": 0
+				},
+				"获取成功_groundId比对": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"14"
+			],
+			"allTests": [
+				{
+					"获取成功_status比对": true,
+					"获取成功_groundId比对": true
+				}
+			],
+			"time": "14",
+			"totalRequestTime": "14",
+			"iterationResults": {}
+		},
+		{
+			"name": "groundController获取场地信息测试_02",
+			"id": "96834186-309b-4779-8433-2efb096795c3",
+			"url": "localhost:8080/ground/123",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取失败_场地不存在": true
+			},
+			"testPassFailCounts": {
+				"获取失败_场地不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"21"
+			],
+			"allTests": [
+				{
+					"获取失败_场地不存在": true
+				}
+			],
+			"time": "21",
+			"totalRequestTime": "21",
+			"iterationResults": {}
+		},
+		{
+			"name": "groundController删除场地测试_01",
+			"id": "bf029ec5-b6f1-4924-b1b3-49f65bea9198",
+			"url": "localhost:8080/ground/30",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"删除成功": true
+			},
+			"testPassFailCounts": {
+				"删除成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"36"
+			],
+			"allTests": [
+				{
+					"删除成功": true
+				}
+			],
+			"time": "36",
+			"totalRequestTime": "36",
+			"iterationResults": {}
+		},
+		{
+			"name": "groundController删除场地测试_02",
+			"id": "f0079f5a-e337-4ebb-8956-4d9ff443ddcc",
+			"url": "localhost:8080/ground/321",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"删失败_场馆不存在": true
+			},
+			"testPassFailCounts": {
+				"删失败_场馆不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"33"
+			],
+			"allTests": [
+				{
+					"删失败_场馆不存在": true
+				}
+			],
+			"time": "33",
+			"totalRequestTime": "33",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 10,
+	"totalFail": 0,
+	"totalTime": 240,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "groundController获取所有场地测试_01",
+			"id": "0d5c1d53-37c4-433e-83c3-c9d908267285",
+			"url": "localhost:8080/ground",
+			"time": "2019-12-26T07:16:21.385Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "groundController增加场地测试_01",
+			"id": "b212a1e7-b5be-47c5-a128-be683126ba9b",
+			"url": "localhost:8080/ground/?groundName=testGround&pricePerHour=20&address=somewhere in this world&description=somewhat boring",
+			"time": "2019-12-26T07:16:21.385Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"新增成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "groundController增加场地测试_02",
+			"id": "f86663f5-3031-479c-82d0-44bdd94ee457",
+			"url": "localhost:8080/ground/?pricePerHour=20&address=somewhere in this world&description=somewhat boring",
+			"time": "2019-12-26T07:16:21.385Z",
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request",
+				"detail": {
+					"name": "Bad Request",
+					"detail": "The request cannot be fulfilled due to bad syntax."
+				}
+			},
+			"testPassFailCounts": {
+				"新增失败_部分信息缺失": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "groundController编辑场地信息测试_01",
+			"id": "52d5e3a2-a200-43ca-91d5-e1c994e09779",
+			"url": "localhost:8080/ground/",
+			"time": "2019-12-26T07:16:21.385Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"编辑成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "groundController编辑场地信息测试_02",
+			"id": "7ea478e1-01ba-475d-8520-7cb011072a5c",
+			"url": "localhost:8080/ground/",
+			"time": "2019-12-26T07:16:21.385Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"编辑失败_场地不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "groundController获取场地信息测试_01",
+			"id": "4027a6bc-1080-4792-b6a8-a66b1d3b6fad",
+			"url": "localhost:8080/ground/1",
+			"time": "2019-12-26T07:16:21.385Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功_status比对": {
+					"pass": 1,
+					"fail": 0
+				},
+				"获取成功_groundId比对": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "groundController获取场地信息测试_02",
+			"id": "96834186-309b-4779-8433-2efb096795c3",
+			"url": "localhost:8080/ground/123",
+			"time": "2019-12-26T07:16:21.385Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取失败_场地不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "groundController删除场地测试_01",
+			"id": "bf029ec5-b6f1-4924-b1b3-49f65bea9198",
+			"url": "localhost:8080/ground/30",
+			"time": "2019-12-26T07:16:21.385Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"删除成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "groundController删除场地测试_02",
+			"id": "f0079f5a-e337-4ebb-8956-4d9ff443ddcc",
+			"url": "localhost:8080/ground/321",
+			"time": "2019-12-26T07:16:21.385Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"删失败_场馆不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		}
+	],
+	"synced": false
+}

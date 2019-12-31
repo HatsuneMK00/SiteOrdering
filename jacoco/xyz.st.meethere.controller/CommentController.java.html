@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommentController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">CommentController.java</span></div><h1>CommentController.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
+import xyz.st.meethere.entity.Comment;
+import xyz.st.meethere.entity.Ground;
+import xyz.st.meethere.entity.ResponseMsg;
+import xyz.st.meethere.service.CommentService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@ResponseBody
+public class CommentController {
+    final
+    CommentService commentService;
+
+<span class="fc" id="L22">    public CommentController(CommentService commentService) {</span>
+<span class="fc" id="L23">        this.commentService = commentService;</span>
+<span class="fc" id="L24">    }</span>
+
+<span class="fc" id="L26">    Logger logger = LoggerFactory.getLogger(getClass());</span>
+
+    /*
+     * 获取所有审核通过的留言
+     * */
+    @GetMapping(&quot;/comment&quot;)
+    ResponseMsg getAllComments() {
+<span class="fc" id="L33">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L34">        List&lt;Comment&gt; comments = null;</span>
+//        FIXME: 返回内容里需要有userName，groundName
+<span class="fc" id="L36">        comments = commentService.getAllCheckComments();</span>
+        // FIXME: 当结果为null时返回404
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (comments == null)</span>
+<span class="fc" id="L39">            responseMsg.setStatus(404);</span>
+        else
+<span class="fc" id="L41">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L42">        responseMsg.getResponseMap().put(&quot;result&quot;, comments);</span>
+<span class="fc" id="L43">        return responseMsg;</span>
+    }
+
+    /* TODO: 代码有些冗余
+    * 应该把这两个函数实现成返回通过审核的留言？
+    * 现在这两个接口和getCheckedCommentByGroundId有点重复了
+    * */
+    @GetMapping(&quot;/comment/user/{userId}&quot;)
+    ResponseMsg getCommentsByUserId(@PathVariable(&quot;userId&quot;) Integer id) {
+<span class="fc" id="L52">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L53">        List&lt;Comment&gt; comments = null;</span>
+        //        FIXME: 返回内容里需要有userName，groundName
+<span class="fc" id="L55">        comments = commentService.getCommentsByUserId(id);</span>
+        // FIXME: 当结果为null时返回404 其他情况还是返回200吧
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (comments == null)</span>
+<span class="fc" id="L58">            responseMsg.setStatus(404);</span>
+        else
+//            其实这里不管怎么样都会返回200 因为查不到内容的时候都是返回长度为0的list 不会返回null的
+//        如果为空就不显示吧 不管是用户不存在还是该用户没有comment了
+<span class="fc" id="L62">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L63">        responseMsg.getResponseMap().put(&quot;result&quot;, comments);</span>
+<span class="fc" id="L64">        return responseMsg;</span>
+    }
+
+    @GetMapping(&quot;/comment/ground/{groundId}&quot;)
+    ResponseMsg getCommentsByGroundId(@PathVariable(&quot;groundId&quot;) Integer id) {
+<span class="fc" id="L69">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L70">        List&lt;Comment&gt; comments = null;</span>
+        //        FIXME: 返回内容里需要有userName，groundName
+        //        FIXME: 给用户用接口，返回已审核过的留言
+<span class="fc" id="L73">        comments = commentService.getCommentsByGroundId(id);</span>
+        // FIXME: 当场馆不存在时返回404 场馆存在不论有没有留言都返回200
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (comments == null)</span>
+<span class="fc" id="L76">            responseMsg.setStatus(404);</span>
+        else
+//            情况同上
+<span class="fc" id="L79">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L80">        responseMsg.getResponseMap().put(&quot;result&quot;, comments);</span>
+<span class="fc" id="L81">        return responseMsg;</span>
+    }
+
+    @GetMapping(&quot;/checkedcomment/ground/{groundId}&quot;)
+    ResponseMsg getcheckedCommentsByGroundId(@PathVariable(&quot;groundId&quot;) Integer id) {
+<span class="fc" id="L86">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L87">        List&lt;Comment&gt; comments = null;</span>
+        //        FIXME: 返回内容里需要有userName，groundName
+        //        FIXME: 给用户用接口，返回已审核过的留言
+<span class="fc" id="L90">        comments = commentService.getCheckedCommentsByGroundId(id);</span>
+        // FIXME: 当场馆不存在时返回404 场馆存在不论有没有留言都返回200
+
+//          情况同上
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        if (comments == null)</span>
+<span class="fc" id="L95">            responseMsg.setStatus(404);</span>
+        else
+<span class="fc" id="L97">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L98">        responseMsg.getResponseMap().put(&quot;result&quot;, comments);</span>
+<span class="fc" id="L99">        return responseMsg;</span>
+    }
+
+    /*
+     * 支持4种搜索方式：
+     * 1. 纯文字: 内容匹配
+     * 2. &quot;gid:&quot;开头: 返回对应gid的Ground的留言
+     *   例如: gid: 1,2,3,4,5
+     * 3. &quot;uid:&quot;开头: 返回对应uid的user的留言
+     * 4. 搜索内容为空: 返回全部
+     *
+     * */
+    @ResponseBody
+    @ApiOperation(&quot;通过搜索返回对应comment&quot;)
+    @PostMapping(&quot;/comment/match&quot;)
+//        TODO: 感觉这些逻辑都应该在Service层里面，而不是在Controller里
+    ResponseMsg getCommentByMatch(@RequestBody Map&lt;String, String&gt; params) {
+<span class="fc" id="L116">        String searchParam = params.get(&quot;match&quot;);</span>
+<span class="fc" id="L117">        int groundId = 0;</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        if (params.containsKey(&quot;groundId&quot;)) {</span>
+<span class="fc" id="L119">            groundId = Integer.parseInt(params.get(&quot;groundId&quot;));</span>
+        }
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (searchParam.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L122">            ResponseMsg responseMsg = getAllComments();</span>
+<span class="fc" id="L123">            List&lt;Comment&gt; comments = (List&lt;Comment&gt;) responseMsg.getResponseMap().get(&quot;result&quot;);</span>
+<span class="fc" id="L124">            List&lt;Comment&gt; tempComment = new ArrayList&lt;&gt;();</span>
+            for (Comment comment :
+<span class="fc bfc" id="L126" title="All 2 branches covered.">                    comments) {</span>
+<span class="pc bpc" id="L127" title="2 of 4 branches missed.">                if (groundId == 0 || comment.getGroundId() == groundId)</span>
+<span class="fc" id="L128">                    tempComment.add(comment);</span>
+<span class="fc" id="L129">            }</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">            if (tempComment.size() == 0)</span>
+<span class="fc" id="L131">                responseMsg.setStatus(404);</span>
+<span class="fc" id="L132">            responseMsg.getResponseMap().put(&quot;result&quot;, tempComment);</span>
+<span class="fc" id="L133">            return responseMsg;</span>
+
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        } else if (searchParam.startsWith(&quot;gid:&quot;)) {</span>
+<span class="fc" id="L136">            String param = searchParam.split(&quot;:&quot;)[1];</span>
+<span class="fc" id="L137">            String[] ids = param.split(&quot;,&quot;);</span>
+<span class="fc" id="L138">            ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L139">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L140">            ArrayList&lt;Comment&gt; retComment = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">            for (String id : ids) {</span>
+//                FIXME: 返回内容应该是一层的数组
+<span class="fc" id="L143">                List&lt;Comment&gt; comments = commentService.getCommentsByGroundId(Integer.valueOf(id.trim()));</span>
+                for (Comment comment :
+<span class="fc bfc" id="L145" title="All 2 branches covered.">                        comments) {</span>
+<span class="pc bpc" id="L146" title="3 of 4 branches missed.">                    if (groundId == 0 || comment.getGroundId() == groundId){</span>
+<span class="fc" id="L147">                        retComment.add(comment);</span>
+                    }
+<span class="fc" id="L149">                }</span>
+            }
+<span class="fc bfc" id="L151" title="All 2 branches covered.">            if (retComment.size() == 0)</span>
+<span class="fc" id="L152">                responseMsg.setStatus(404);</span>
+<span class="fc" id="L153">            responseMsg.getResponseMap().put(&quot;result&quot;, retComment);</span>
+<span class="fc" id="L154">            return responseMsg;</span>
+<span class="fc bfc" id="L155" title="All 2 branches covered.">        } else if (searchParam.startsWith(&quot;uid:&quot;)) {</span>
+<span class="fc" id="L156">            String param = searchParam.split(&quot;:&quot;)[1];</span>
+<span class="fc" id="L157">            String[] ids = param.split(&quot;,&quot;);</span>
+<span class="fc" id="L158">            ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L159">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L160">            ArrayList&lt;Comment&gt; retComment = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">            for (String id : ids) {</span>
+//                FIXME: 这边的函数调错了
+<span class="fc" id="L163">                List&lt;Comment&gt; comments = commentService.getCommentsByUserId(Integer.valueOf(id.trim()));</span>
+                for (Comment comment :
+<span class="fc bfc" id="L165" title="All 2 branches covered.">                        comments) {</span>
+<span class="pc bpc" id="L166" title="3 of 4 branches missed.">                    if (groundId == 0 || comment.getGroundId() == groundId){</span>
+<span class="fc" id="L167">                        retComment.add(comment);</span>
+                    }
+<span class="fc" id="L169">                }</span>
+            }
+<span class="fc bfc" id="L171" title="All 2 branches covered.">            if (retComment.size() == 0)</span>
+<span class="fc" id="L172">                responseMsg.setStatus(404);</span>
+<span class="fc" id="L173">            responseMsg.getResponseMap().put(&quot;result&quot;, retComment);</span>
+<span class="fc" id="L174">            return responseMsg;</span>
+        } else {
+<span class="fc" id="L176">            List&lt;Comment&gt; comments = commentService.getCommentsByMatch(searchParam);</span>
+<span class="fc" id="L177">            List&lt;Comment&gt; retComment = new ArrayList&lt;&gt;();</span>
+            for (Comment comment :
+<span class="fc bfc" id="L179" title="All 2 branches covered.">                    comments) {</span>
+<span class="pc bpc" id="L180" title="3 of 4 branches missed.">                if (groundId == 0 || comment.getGroundId() == groundId){</span>
+<span class="fc" id="L181">                    retComment.add(comment);</span>
+                }
+<span class="fc" id="L183">            }</span>
+<span class="fc" id="L184">            ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L185">            responseMsg.setStatus(200);</span>
+<span class="fc bfc" id="L186" title="All 2 branches covered.">            if (comments.size() == 0)</span>
+<span class="fc" id="L187">                responseMsg.setStatus(404);</span>
+<span class="fc" id="L188">            responseMsg.getResponseMap().put(&quot;result&quot;, retComment);</span>
+<span class="fc" id="L189">            return responseMsg;</span>
+        }
+    }
+
+    @DeleteMapping(&quot;/comment/{commentId}&quot;)
+    ResponseMsg deleteComment(@PathVariable(&quot;commentId&quot;) Integer id) {
+<span class="fc" id="L195">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L196">        Comment comment = commentService.getCommentByCommentId(id);</span>
+<span class="fc" id="L197">        int retVal = commentService.deleteComment(id);</span>
+<span class="fc bfc" id="L198" title="All 2 branches covered.">        if (retVal == 1) {</span>
+<span class="fc" id="L199">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L200">            responseMsg.getResponseMap().put(&quot;result&quot;, comment);</span>
+        } else {
+<span class="fc" id="L202">                responseMsg.setStatus(404);</span>
+        }
+<span class="fc" id="L204">        return responseMsg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;通过commentId批量删除新闻&quot;)
+    @DeleteMapping(&quot;/comment/deleteByBatch&quot;)
+    ResponseMsg deleteCommentByBatch(@RequestBody Map&lt;String, List&lt;Integer&gt;&gt; data) {
+<span class="fc" id="L211">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L212">        List&lt;Integer&gt; ids = data.get(&quot;ids&quot;);</span>
+<span class="fc" id="L213">        msg.setStatus(200);</span>
+        ResponseMsg tempMsg;
+<span class="fc bfc" id="L215" title="All 2 branches covered.">        for (Integer id : ids) {</span>
+<span class="fc" id="L216">            tempMsg = deleteComment(id);</span>
+<span class="fc bfc" id="L217" title="All 4 branches covered.">            if (tempMsg.getStatus() == 404 &amp;&amp; msg.getStatus() != 404) {</span>
+<span class="fc" id="L218">                msg.setStatus(404);</span>
+            }
+<span class="fc" id="L220">        }</span>
+//        FIXME: 这边的赋值是个什么鬼
+//        msg.setStatus(200);
+<span class="fc" id="L223">        return msg;</span>
+    }
+
+    @PutMapping(&quot;/comment&quot;)
+    ResponseMsg updateComment(@RequestBody Comment comment) {
+<span class="fc" id="L228">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L229">        int retVal = commentService.updateComment(comment);</span>
+        /*
+         * 这个返回回去的comment里面的值应该是更新过了的
+         * */
+<span class="fc bfc" id="L233" title="All 2 branches covered.">        if (retVal == 1) {</span>
+<span class="fc" id="L234">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L235">            responseMsg.getResponseMap().put(&quot;result&quot;, comment);</span>
+        } else {
+<span class="fc" id="L237">            responseMsg.setStatus(500);</span>
+<span class="fc" id="L238">            responseMsg.getResponseMap().put(&quot;result&quot;, comment);</span>
+        }
+<span class="fc" id="L240">        return responseMsg;</span>
+    }
+
+    @PostMapping(&quot;/comment&quot;)
+    ResponseMsg addComment(@RequestBody Comment comment) {
+<span class="fc" id="L245">        int result = commentService.addComment(comment);</span>
+<span class="fc" id="L246">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L247" title="All 2 branches covered.">        if (result == 1)</span>
+<span class="fc" id="L248">            responseMsg.setStatus(200);</span>
+        else
+<span class="fc" id="L250">            responseMsg.setStatus(500);</span>
+<span class="fc" id="L251">        responseMsg.getResponseMap().put(&quot;result&quot;, comment);</span>
+<span class="fc" id="L252">        return responseMsg;</span>
+    }
+
+    /*
+     * 管理员用
+     * */
+    @GetMapping(&quot;/comment/uncheckedComment&quot;)
+    ResponseMsg getAllUncheckedComment() {
+<span class="fc" id="L260">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L261">        List&lt;Comment&gt; comments = null;</span>
+//        fixme:返回的内容中要有userName,groundName
+//        fixme:不通过的留言也要返回
+<span class="fc" id="L264">        comments = commentService.getAllUncheckComments();</span>
+<span class="fc" id="L265">        responseMsg.getResponseMap().put(&quot;result&quot;, comments);</span>
+<span class="fc" id="L266">        responseMsg.setStatus(200);</span>
+<span class="fc" id="L267">        return responseMsg;</span>
+    }
+
+    @GetMapping(&quot;/comment/allComment&quot;)
+    ResponseMsg getAllComment() {
+<span class="fc" id="L272">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L273">        List&lt;Comment&gt; comments = null;</span>
+<span class="fc" id="L274">        comments = commentService.getAllComments();</span>
+<span class="fc" id="L275">        responseMsg.getResponseMap().put(&quot;result&quot;, comments);</span>
+<span class="fc" id="L276">        responseMsg.setStatus(200);</span>
+<span class="fc bfc" id="L277" title="All 2 branches covered.">        if (comments.size() == 0)</span>
+<span class="fc" id="L278">            responseMsg.setStatus(404);</span>
+<span class="fc" id="L279">        return responseMsg;</span>
+    }
+
+    @PutMapping(&quot;/comment/check/{commentId}&quot;)
+    ResponseMsg checkComment(@PathVariable(&quot;commentId&quot;) Integer commentId) {
+<span class="fc" id="L284">        int retVal = commentService.checkComment(commentId);</span>
+<span class="fc" id="L285">        return getResponseMsg(commentId, retVal);</span>
+    }
+
+    @PutMapping(&quot;/comment/uncheck/{commentId}&quot;)
+    ResponseMsg uncheckComment(@PathVariable(&quot;commentId&quot;) Integer commentId) {
+<span class="fc" id="L290">        int retVal = commentService.uncheckComment(commentId);</span>
+<span class="fc" id="L291">        return getResponseMsg(commentId, retVal);</span>
+    }
+
+    /*
+     * IDEA自动生成的函数
+     * 用于通过commentId获取对应的comment 再根据retVal设置status来封装response信息
+     * */
+    private ResponseMsg getResponseMsg(Integer commentId, int retVal) {
+<span class="fc" id="L299">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L300" title="All 2 branches covered.">        if (retVal == 1) {</span>
+<span class="fc" id="L301">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L302">            Comment comment = commentService.getCommentByCommentId(commentId);</span>
+<span class="fc" id="L303">            responseMsg.getResponseMap().put(&quot;result&quot;, comment);</span>
+<span class="fc" id="L304">        } else {</span>
+<span class="fc" id="L305">            responseMsg.setStatus(404);</span>
+        }
+<span class="fc" id="L307">        return responseMsg;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

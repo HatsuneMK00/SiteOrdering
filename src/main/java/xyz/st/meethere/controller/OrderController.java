@@ -266,6 +266,33 @@ public class OrderController {
         return responseMsg;
     }
 
+    @ApiOperation("更新订单信息")
+    @PutMapping("/order")
+    ResponseMsg updateOrderInfo(@RequestBody PreOrder order) {
+        ResponseMsg responseMsg = new ResponseMsg();
+
+        if (order.getUserNum() == 0 || order.getPreOrderId() == 0) {
+            responseMsg.setStatus(400);
+            return responseMsg;
+        }
+
+        PreOrder newOrder = orderService.getPreOrderById(order.getPreOrderId());
+        if (newOrder == null) {
+            responseMsg.setStatus(404);
+            return responseMsg;
+        }
+//        当前只有修改使用人数的需求 这里就写一个 如果以后要加在这里加就行
+        newOrder.setUserNum(order.getUserNum());
+
+        int result = orderService.updatePreOrder(newOrder);
+        if (result == 1)
+            responseMsg.setStatus(200);
+        else
+            responseMsg.setStatus(500);
+        responseMsg.getResponseMap().put("result", newOrder);
+        return responseMsg;
+    }
+
     //管理员用接口
     @ApiOperation("获取所有未审核订单")
     @GetMapping("/order/uncheckedOrder")

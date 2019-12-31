@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderControllerTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">OrderControllerTest.java</span></div><h1>OrderControllerTest.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import xyz.st.meethere.entity.Ground;
+import xyz.st.meethere.entity.PreOrder;
+import xyz.st.meethere.service.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+<span class="fc" id="L30">class OrderControllerTest {</span>
+    private OrderService orderService;
+    private FileService fileService;
+    private AdminService adminService;
+    private UserService userService;
+    private GroundService groundService;
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    void setUp() {
+<span class="fc" id="L40">        orderService = mock(OrderService.class);</span>
+<span class="fc" id="L41">        fileService = mock(FileService.class);</span>
+<span class="fc" id="L42">        adminService = mock(AdminService.class);</span>
+<span class="fc" id="L43">        userService = mock(UserService.class);</span>
+<span class="fc" id="L44">        mockMvc = MockMvcBuilders.standaloneSetup(new OrderController(orderService, userService, adminService,</span>
+<span class="fc" id="L45">                groundService)).build();</span>
+<span class="fc" id="L46">    }</span>
+
+    @Test
+    public void get_all_order_test() throws Exception {
+<span class="fc" id="L50">        when(orderService.getOrders()).thenReturn(new ArrayList&lt;PreOrder&gt;());</span>
+<span class="fc" id="L51">        mockMvc.perform(get(&quot;/order&quot;))</span>
+<span class="fc" id="L52">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L53">        verify(orderService).getOrders();</span>
+<span class="fc" id="L54">    }</span>
+
+    @Test
+    public void get_uer_order_success() throws Exception {
+<span class="fc" id="L58">        when(orderService.checkUserExistence(1)).thenReturn(true);</span>
+<span class="fc" id="L59">        when(orderService.getAllPreOrdersOfUser(1)).thenReturn(new ArrayList&lt;PreOrder&gt;());</span>
+<span class="fc" id="L60">        mockMvc.perform(get(&quot;/order/user/1/preOrder&quot;))</span>
+<span class="fc" id="L61">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L62">        verify(orderService).getAllPreOrdersOfUser(1);</span>
+<span class="fc" id="L63">        verify(orderService).checkUserExistence(1);</span>
+<span class="fc" id="L64">    }</span>
+
+    @Test
+    public void get_user_order_fail() throws Exception {
+<span class="fc" id="L68">        when(orderService.checkUserExistence(1)).thenReturn(false);</span>
+<span class="fc" id="L69">        mockMvc.perform(get(&quot;/order/user/1/preOrder&quot;))</span>
+<span class="fc" id="L70">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L71">        verify(orderService).checkUserExistence(1);</span>
+<span class="fc" id="L72">    }</span>
+
+    @Test
+    void get_user_specific_order_success() throws Exception {
+<span class="fc" id="L76">        when(orderService.getPreOrder(1, 1)).thenReturn(new PreOrder());</span>
+<span class="fc" id="L77">        mockMvc.perform(get(&quot;/order/user/1/order/1&quot;))</span>
+<span class="fc" id="L78">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L79">        verify(orderService).getPreOrder(1, 1);</span>
+<span class="fc" id="L80">    }</span>
+
+    @Test
+    void get_user_specific_order_fail() throws Exception {
+<span class="fc" id="L84">        when(orderService.getPreOrder(1, 1)).thenReturn(null);</span>
+<span class="fc" id="L85">        mockMvc.perform(get(&quot;/order/user/1/order/1&quot;))</span>
+<span class="fc" id="L86">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L87">        verify(orderService).getPreOrder(1, 1);</span>
+<span class="fc" id="L88">    }</span>
+
+    @Test
+    void post_order_success() throws Exception {
+<span class="fc" id="L92">        when(orderService.validatePreOrder(1, &quot;2019-12-30 12:30:00.0&quot;, 2)).thenReturn(false);</span>
+<span class="fc" id="L93">        when(orderService.getGroundPrice(1)).thenReturn(2);</span>
+<span class="fc" id="L94">        when(orderService.addPreOrder(any(PreOrder.class))).thenReturn(1);</span>
+<span class="fc" id="L95">        mockMvc.perform(post(&quot;/order/user/1/order&quot;)</span>
+<span class="fc" id="L96">                .param(&quot;groundId&quot;, &quot;1&quot;)</span>
+<span class="fc" id="L97">                .param(&quot;startTime&quot;, &quot;2019-12-30 12:30:00.0&quot;)</span>
+<span class="fc" id="L98">                .param(&quot;duration&quot;, &quot;2&quot;)</span>
+<span class="fc" id="L99">                .param(&quot;userNum&quot;,&quot;1&quot;))</span>
+<span class="fc" id="L100">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L101">        verify(orderService).validatePreOrder(1, &quot;2019-12-30 12:30:00.0&quot;, 2);</span>
+<span class="fc" id="L102">        verify(orderService).getGroundPrice(1);</span>
+<span class="fc" id="L103">        verify(orderService).addPreOrder(any(PreOrder.class));</span>
+<span class="fc" id="L104">    }</span>
+
+    @Test
+    void post_order_fail_collision() throws Exception {
+<span class="fc" id="L108">        when(orderService.validatePreOrder(1, &quot;2019-12-30 12:30:00.0&quot;, 2)).thenReturn(true);</span>
+<span class="fc" id="L109">        mockMvc.perform(post(&quot;/order/user/1/order&quot;)</span>
+<span class="fc" id="L110">                .param(&quot;groundId&quot;, &quot;1&quot;)</span>
+<span class="fc" id="L111">                .param(&quot;startTime&quot;, &quot;2019-12-30 12:30:00.0&quot;)</span>
+<span class="fc" id="L112">                .param(&quot;duration&quot;, &quot;2&quot;)</span>
+<span class="fc" id="L113">                .param(&quot;userNum&quot;,&quot;1&quot;))</span>
+<span class="fc" id="L114">                .andExpect(jsonPath(&quot;$.status&quot;).value(510));</span>
+<span class="fc" id="L115">        verify(orderService).validatePreOrder(1, &quot;2019-12-30 12:30:00.0&quot;, 2);</span>
+<span class="fc" id="L116">    }</span>
+
+    @Test
+    public void post_order_fail() throws Exception {
+<span class="fc" id="L120">        when(orderService.validatePreOrder(1, &quot;2019-12-30 12:30:00.0&quot;, 2)).thenReturn(false);</span>
+<span class="fc" id="L121">        when(orderService.getGroundPrice(1)).thenReturn(2);</span>
+<span class="fc" id="L122">        when(orderService.addPreOrder(any(PreOrder.class))).thenReturn(0);</span>
+<span class="fc" id="L123">        mockMvc.perform(post(&quot;/order/user/1/order&quot;)</span>
+<span class="fc" id="L124">                .param(&quot;groundId&quot;, &quot;1&quot;)</span>
+<span class="fc" id="L125">                .param(&quot;startTime&quot;, &quot;2019-12-30 12:30:00.0&quot;)</span>
+<span class="fc" id="L126">                .param(&quot;duration&quot;, &quot;2&quot;)</span>
+<span class="fc" id="L127">                .param(&quot;userNum&quot;,&quot;1&quot;))</span>
+<span class="fc" id="L128">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+<span class="fc" id="L129">        verify(orderService).validatePreOrder(1, &quot;2019-12-30 12:30:00.0&quot;, 2);</span>
+<span class="fc" id="L130">        verify(orderService).getGroundPrice(1);</span>
+<span class="fc" id="L131">        verify(orderService).addPreOrder(any(PreOrder.class));</span>
+<span class="fc" id="L132">    }</span>
+
+    @Test
+    public void post_admin_order_success() throws Exception {
+<span class="fc" id="L136">        when(orderService.validatePreOrder(1, &quot;2019-12-30 12:30:00.0&quot;, 2)).thenReturn(false);</span>
+<span class="fc" id="L137">        when(orderService.getGroundPrice(1)).thenReturn(2);</span>
+<span class="fc" id="L138">        when(orderService.addPreOrder(any(PreOrder.class))).thenReturn(1);</span>
+<span class="fc" id="L139">        mockMvc.perform(post(&quot;/order/admin/1/order&quot;)</span>
+<span class="fc" id="L140">                .param(&quot;groundId&quot;, &quot;1&quot;)</span>
+<span class="fc" id="L141">                .param(&quot;startTime&quot;, &quot;2019-12-30 12:30:00.0&quot;)</span>
+<span class="fc" id="L142">                .param(&quot;duration&quot;, &quot;2&quot;)</span>
+<span class="fc" id="L143">                .param(&quot;userNum&quot;,&quot;1&quot;))</span>
+<span class="fc" id="L144">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L145">        verify(orderService).validatePreOrder(1, &quot;2019-12-30 12:30:00.0&quot;, 2);</span>
+<span class="fc" id="L146">        verify(orderService).getGroundPrice(1);</span>
+<span class="fc" id="L147">        verify(orderService).addPreOrder(any(PreOrder.class));</span>
+<span class="fc" id="L148">    }</span>
+
+    @Test
+    void post_admin_order_fail_collision() throws Exception {
+<span class="fc" id="L152">        when(orderService.validatePreOrder(1, &quot;2019-12-30 12:30:00.0&quot;, 2)).thenReturn(true);</span>
+<span class="fc" id="L153">        mockMvc.perform(post(&quot;/order/admin/1/order&quot;)</span>
+<span class="fc" id="L154">                .param(&quot;groundId&quot;, &quot;1&quot;)</span>
+<span class="fc" id="L155">                .param(&quot;startTime&quot;, &quot;2019-12-30 12:30:00.0&quot;)</span>
+<span class="fc" id="L156">                .param(&quot;duration&quot;, &quot;2&quot;)</span>
+<span class="fc" id="L157">                .param(&quot;userNum&quot;,&quot;1&quot;))</span>
+<span class="fc" id="L158">                .andExpect(jsonPath(&quot;$.status&quot;).value(510));</span>
+<span class="fc" id="L159">        verify(orderService).validatePreOrder(1, &quot;2019-12-30 12:30:00.0&quot;, 2);</span>
+<span class="fc" id="L160">    }</span>
+
+    @Test
+    public void post_admin_order_fail() throws Exception {
+<span class="fc" id="L164">        when(orderService.validatePreOrder(1, &quot;2019-12-30 12:30:00.0&quot;, 2)).thenReturn(false);</span>
+<span class="fc" id="L165">        when(orderService.getGroundPrice(1)).thenReturn(2);</span>
+<span class="fc" id="L166">        when(orderService.addPreOrder(any(PreOrder.class))).thenReturn(0);</span>
+<span class="fc" id="L167">        mockMvc.perform(post(&quot;/order/admin/1/order&quot;)</span>
+<span class="fc" id="L168">                .param(&quot;groundId&quot;, &quot;1&quot;)</span>
+<span class="fc" id="L169">                .param(&quot;startTime&quot;, &quot;2019-12-30 12:30:00.0&quot;)</span>
+<span class="fc" id="L170">                .param(&quot;duration&quot;, &quot;2&quot;)</span>
+<span class="fc" id="L171">                .param(&quot;userNum&quot;,&quot;1&quot;))</span>
+<span class="fc" id="L172">                .andExpect(status().isOk())</span>
+<span class="fc" id="L173">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+<span class="fc" id="L174">        verify(orderService).validatePreOrder(1, &quot;2019-12-30 12:30:00.0&quot;, 2);</span>
+<span class="fc" id="L175">        verify(orderService).getGroundPrice(1);</span>
+<span class="fc" id="L176">        verify(orderService).addPreOrder(any(PreOrder.class));</span>
+<span class="fc" id="L177">    }</span>
+
+    @Test
+    public void delete_order_success() throws Exception {
+<span class="fc" id="L181">        when(orderService.deletePreOrder(1)).thenReturn(1);</span>
+<span class="fc" id="L182">        mockMvc.perform(delete(&quot;/order/1&quot;))</span>
+<span class="fc" id="L183">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L184">        verify(orderService).deletePreOrder(1);</span>
+<span class="fc" id="L185">    }</span>
+
+    @Test
+    public void delete_order_fail() throws Exception {
+<span class="fc" id="L189">        when(orderService.deletePreOrder(1)).thenReturn(0);</span>
+<span class="fc" id="L190">        mockMvc.perform(delete(&quot;/order/1&quot;))</span>
+<span class="fc" id="L191">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+<span class="fc" id="L192">        verify(orderService).deletePreOrder(1);</span>
+<span class="fc" id="L193">    }</span>
+
+    @Test
+    public void delete_order_butch_success() throws Exception {
+<span class="fc" id="L197">        Map&lt;String, List&lt;Integer&gt;&gt; requestParam = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L198">        ArrayList&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L199">        list.add(1);</span>
+<span class="fc" id="L200">        requestParam.put(&quot;ids&quot;, list);</span>
+<span class="fc" id="L201">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L202">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L203">        String requestJson = objectWriter.writeValueAsString(requestParam);</span>
+<span class="fc" id="L204">        when(orderService.deletePreOrder(1)).thenReturn(1);</span>
+<span class="fc" id="L205">        mockMvc.perform(delete(&quot;/order/deleteByBatch&quot;)</span>
+<span class="fc" id="L206">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L207">                .content(requestJson))</span>
+<span class="fc" id="L208">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L209">        verify(orderService).deletePreOrder(1);</span>
+<span class="fc" id="L210">    }</span>
+
+    @Test
+    public void delete_order_butch_fail() throws Exception {
+<span class="fc" id="L214">        Map&lt;String, List&lt;Integer&gt;&gt; requestParam = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L215">        ArrayList&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L216">        list.add(1);</span>
+<span class="fc" id="L217">        requestParam.put(&quot;ids&quot;, list);</span>
+<span class="fc" id="L218">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L219">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L220">        String requestJson = objectWriter.writeValueAsString(requestParam);</span>
+<span class="fc" id="L221">        when(orderService.deletePreOrder(1)).thenReturn(0);</span>
+<span class="fc" id="L222">        mockMvc.perform(delete(&quot;/order/deleteByBatch&quot;)</span>
+<span class="fc" id="L223">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L224">                .content(requestJson))</span>
+<span class="fc" id="L225">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+<span class="fc" id="L226">        verify(orderService).deletePreOrder(1);</span>
+<span class="fc" id="L227">    }</span>
+
+    @Test
+    public void get_order_time_success() throws Exception {
+<span class="fc" id="L231">        when(orderService.checkGroundExistence(1)).thenReturn(true);</span>
+<span class="fc" id="L232">        when(orderService.getOrderTime(1)).thenReturn(new ArrayList&lt;List&gt;());</span>
+<span class="fc" id="L233">        mockMvc.perform(get(&quot;/order/ground/1/orderTime&quot;))</span>
+<span class="fc" id="L234">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L235">        verify(orderService).checkGroundExistence(1);</span>
+<span class="fc" id="L236">        verify(orderService).getOrderTime(1);</span>
+<span class="fc" id="L237">    }</span>
+
+    @Test
+    public void get_order_time_fail() throws Exception {
+<span class="fc" id="L241">        when(orderService.checkGroundExistence(1)).thenReturn(false);</span>
+<span class="fc" id="L242">        mockMvc.perform(get(&quot;/order/ground/1/orderTime&quot;))</span>
+<span class="fc" id="L243">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L244">        verify(orderService).checkGroundExistence(1);</span>
+<span class="fc" id="L245">    }</span>
+
+    @Test
+    public void get_ground_order_success() throws Exception {
+<span class="fc" id="L249">        when(orderService.checkGroundExistence(1)).thenReturn(true);</span>
+<span class="fc" id="L250">        when(orderService.getGroundOrders(1)).thenReturn(new ArrayList&lt;PreOrder&gt;());</span>
+<span class="fc" id="L251">        mockMvc.perform(get(&quot;/order/ground/1/order&quot;))</span>
+<span class="fc" id="L252">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L253">        verify(orderService).checkGroundExistence(1);</span>
+<span class="fc" id="L254">        verify(orderService).getGroundOrders(1);</span>
+<span class="fc" id="L255">    }</span>
+
+    @Test
+    public void get_ground_order_fail() throws Exception {
+<span class="fc" id="L259">        when(orderService.checkGroundExistence(1)).thenReturn(false);</span>
+<span class="fc" id="L260">        mockMvc.perform(get(&quot;/order/ground/1/order&quot;))</span>
+<span class="fc" id="L261">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L262">        verify(orderService).checkGroundExistence(1);</span>
+<span class="fc" id="L263">    }</span>
+
+    @Test
+    public void get_unchecked_order_success() throws Exception {
+<span class="fc" id="L267">        when(orderService.getUncheckedOrders()).thenReturn(new ArrayList&lt;PreOrder&gt;());</span>
+<span class="fc" id="L268">        mockMvc.perform(get(&quot;/order/uncheckedOrder&quot;))</span>
+<span class="fc" id="L269">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L270">        verify(orderService).getUncheckedOrders();</span>
+<span class="fc" id="L271">    }</span>
+
+    @Test
+    public void check_order_success() throws Exception {
+<span class="fc" id="L275">        when(orderService.checkPreOrderExistence(1)).thenReturn(true);</span>
+<span class="fc" id="L276">        when(orderService.checkPreOrder(1)).thenReturn(1);</span>
+<span class="fc" id="L277">        mockMvc.perform(put(&quot;/order/check/1&quot;))</span>
+<span class="fc" id="L278">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L279">        verify(orderService).checkPreOrderExistence(1);</span>
+<span class="fc" id="L280">        verify(orderService).checkPreOrder(1);</span>
+<span class="fc" id="L281">    }</span>
+
+    @Test
+    public void check_order_fail() throws Exception {
+<span class="fc" id="L285">        when(orderService.checkPreOrderExistence(1)).thenReturn(false);</span>
+<span class="fc" id="L286">        mockMvc.perform(put(&quot;/order/check/1&quot;))</span>
+<span class="fc" id="L287">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L288">        verify(orderService).checkPreOrderExistence(1);</span>
+<span class="fc" id="L289">    }</span>
+
+    @Test
+    public void uncheck_order_success() throws Exception {
+<span class="fc" id="L293">        when(orderService.checkPreOrderExistence(1)).thenReturn(true);</span>
+<span class="fc" id="L294">        when(orderService.checkPreOrderFail(1)).thenReturn(1);</span>
+<span class="fc" id="L295">        mockMvc.perform(put(&quot;/order/uncheck/1&quot;))</span>
+<span class="fc" id="L296">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L297">        verify(orderService).checkPreOrderExistence(1);</span>
+<span class="fc" id="L298">        verify(orderService).checkPreOrderFail(1);</span>
+<span class="fc" id="L299">    }</span>
+
+    @Test
+    public void uncheck_order_fail() throws Exception {
+<span class="fc" id="L303">        when(orderService.checkPreOrderExistence(1)).thenReturn(false);</span>
+<span class="fc" id="L304">        mockMvc.perform(put(&quot;/order/uncheck/1&quot;))</span>
+<span class="fc" id="L305">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L306">        verify(orderService).checkPreOrderExistence(1);</span>
+<span class="fc" id="L307">    }</span>
+
+    @ParameterizedTest
+    @MethodSource(&quot;requestParamsProviderHappyPath&quot;)
+    public void happy_path_when_get_order_by_match(Map&lt;String, String&gt; requestParams) throws Exception {
+<span class="fc" id="L312">        List&lt;PreOrder&gt; retOrders = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L313">        retOrders.add(new PreOrder(1, 1));</span>
+<span class="fc" id="L314">        retOrders.add(new PreOrder(1, 2));</span>
+<span class="fc" id="L315">        PreOrder preOrder = new PreOrder(2, 1);</span>
+<span class="fc" id="L316">        when(orderService.getOrders()).thenReturn(retOrders);</span>
+<span class="fc" id="L317">        when(orderService.getGroundOrders(anyInt())).thenReturn(retOrders);</span>
+<span class="fc" id="L318">        when(orderService.getAllPreOrdersOfUser(anyInt())).thenReturn(retOrders);</span>
+<span class="fc" id="L319">        when(orderService.getPreOrderByTimeMatch(anyString())).thenReturn(retOrders);</span>
+
+<span class="fc" id="L321">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L322">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L323">        String requestJson = objectWriter.writeValueAsString(requestParams);</span>
+
+<span class="fc" id="L325">        mockMvc.perform(post(&quot;/order/match&quot;)</span>
+<span class="fc" id="L326">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L327">                .content(requestJson))</span>
+<span class="fc" id="L328">                .andExpect(status().isOk())</span>
+<span class="fc" id="L329">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L330">    }</span>
+
+    static Stream&lt;Map&lt;String, String&gt;&gt; requestParamsProviderHappyPath() {
+<span class="fc" id="L333">        HashMap&lt;String, String&gt; map1 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L334">        map1.put(&quot;match&quot;, &quot;&quot;);</span>
+<span class="fc" id="L335">        HashMap&lt;String, String&gt; map2 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L336">        map2.put(&quot;match&quot;, &quot;gid:1&quot;);</span>
+<span class="fc" id="L337">        HashMap&lt;String, String&gt; map3 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L338">        map3.put(&quot;match&quot;, &quot;uid:1&quot;);</span>
+<span class="fc" id="L339">        HashMap&lt;String, String&gt; map4 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L340">        map4.put(&quot;match&quot;, &quot;time:2019-12-31&quot;);</span>
+
+<span class="fc" id="L342">        return Stream.of(map1, map2, map3, map4);</span>
+    }
+
+    @ParameterizedTest
+    @MethodSource(&quot;requestParamsProviderCornerCase&quot;)
+    public void corner_case_when_get_order_by_match(Map&lt;String, String&gt; requestParams) throws Exception {
+<span class="fc" id="L348">        when(orderService.getOrders()).thenReturn(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L349">        when(orderService.getGroundOrders(anyInt())).thenReturn(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L350">        when(orderService.getAllPreOrdersOfUser(anyInt())).thenReturn(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L351">        when(orderService.getPreOrderByTimeMatch(anyString())).thenReturn(new ArrayList&lt;&gt;());</span>
+
+<span class="fc" id="L353">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L354">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L355">        String requestJson = objectWriter.writeValueAsString(requestParams);</span>
+
+<span class="fc" id="L357">        mockMvc.perform(post(&quot;/order/match&quot;)</span>
+<span class="fc" id="L358">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L359">                .content(requestJson))</span>
+<span class="fc" id="L360">                .andExpect(status().isOk());</span>
+<span class="fc" id="L361">    }</span>
+
+    static Stream&lt;Map&lt;String, String&gt;&gt; requestParamsProviderCornerCase() {
+
+<span class="fc" id="L365">        HashMap&lt;String, String&gt; map1 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L366">        map1.put(&quot;match&quot;, &quot;wrong&quot;);</span>
+<span class="fc" id="L367">        HashMap&lt;String, String&gt; map2 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L368">        map2.put(&quot;match&quot;, &quot;gid:45642&quot;);</span>
+<span class="fc" id="L369">        HashMap&lt;String, String&gt; map3 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L370">        map3.put(&quot;match&quot;, &quot;uid:1234563&quot;);</span>
+<span class="fc" id="L371">        HashMap&lt;String, String&gt; map4 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L372">        map4.put(&quot;match&quot;, &quot;time: 1111-12-31&quot;);</span>
+
+
+<span class="fc" id="L375">        return Stream.of(map1, map2, map3, map4);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

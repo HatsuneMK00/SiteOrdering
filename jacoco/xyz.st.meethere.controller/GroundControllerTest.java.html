@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GroundControllerTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">GroundControllerTest.java</span></div><h1>GroundControllerTest.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.InOrder;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import xyz.st.meethere.entity.Ground;
+import xyz.st.meethere.exception.FileException;
+import xyz.st.meethere.service.FileService;
+import xyz.st.meethere.service.GroundService;
+
+import java.util.*;
+import java.util.stream.Stream;
+
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+<span class="fc" id="L27">class GroundControllerTest {</span>
+
+    private GroundService groundService;
+    private FileService fileService;
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    void setUp() {
+<span class="fc" id="L35">        groundService = mock(GroundService.class);</span>
+<span class="fc" id="L36">        fileService = mock(FileService.class);</span>
+<span class="fc" id="L37">        mockMvc = MockMvcBuilders.standaloneSetup(new GroundController(groundService, fileService)).build();</span>
+<span class="fc" id="L38">    }</span>
+
+    @Test
+    public void happy_path_when_get_all_grounds() throws Exception {
+<span class="fc" id="L42">        List&lt;Ground&gt; retGrounds = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L43">        retGrounds.add(new Ground(</span>
+                &quot;ground 1&quot;,
+                1,
+                null,
+                10,
+                &quot;ground address&quot;,
+                &quot;this is a test ground&quot;
+        ));
+<span class="fc" id="L51">        retGrounds.add(new Ground(</span>
+                &quot;ground 2&quot;,
+                2,
+                null,
+                10,
+                &quot;ground address&quot;,
+                &quot;this is another test ground&quot;
+        ));
+<span class="fc" id="L59">        when(groundService.getAllGrounds()).thenReturn(retGrounds);</span>
+<span class="fc" id="L60">        mockMvc.perform(get(&quot;/ground&quot;))</span>
+<span class="fc" id="L61">                .andExpect(status().isOk())</span>
+<span class="fc" id="L62">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L63">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).exists())</span>
+<span class="fc" id="L64">                .andExpect(jsonPath(&quot;$.responseMap.result[0].groundId&quot;).value(1))</span>
+<span class="fc" id="L65">                .andExpect(jsonPath(&quot;$.responseMap.result[1].groundId&quot;).value(2));</span>
+<span class="fc" id="L66">        verify(groundService).getAllGrounds();</span>
+<span class="fc" id="L67">        verifyNoMoreInteractions(groundService);</span>
+<span class="fc" id="L68">    }</span>
+
+    @Test
+    public void get_null_when_get_all_grounds() throws Exception {
+<span class="fc" id="L72">        when(groundService.getAllGrounds()).thenReturn(null);</span>
+
+<span class="fc" id="L74">        mockMvc.perform(get(&quot;/ground&quot;))</span>
+<span class="fc" id="L75">                .andExpect(status().isOk())</span>
+<span class="fc" id="L76">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L77">        verify(groundService).getAllGrounds();</span>
+<span class="fc" id="L78">    }</span>
+
+    @Test
+    public void get_nothing_when_get_all_grounds() throws Exception {
+<span class="fc" id="L82">        when(groundService.getAllGrounds()).thenReturn(new ArrayList&lt;&gt;());</span>
+
+<span class="fc" id="L84">        mockMvc.perform(get(&quot;/ground&quot;))</span>
+<span class="fc" id="L85">                .andExpect(status().isOk())</span>
+<span class="fc" id="L86">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L87">        verify(groundService).getAllGrounds();</span>
+<span class="fc" id="L88">    }</span>
+
+    @Test
+    public void happy_path_when_get_ground_by_groundId() throws Exception {
+<span class="fc" id="L92">        Ground ground = new Ground(</span>
+                &quot;ground 1&quot;,
+                1,
+                null,
+                10,
+                &quot;ground address&quot;,
+                &quot;this is a test ground&quot;
+        );
+<span class="fc" id="L100">        when(groundService.getGroundById(anyInt())).thenReturn(ground);</span>
+<span class="fc" id="L101">        mockMvc.perform(get(&quot;/ground/1&quot;))</span>
+<span class="fc" id="L102">                .andExpect(status().isOk())</span>
+<span class="fc" id="L103">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).exists());</span>
+<span class="fc" id="L104">        verify(groundService).getGroundById(1);</span>
+<span class="fc" id="L105">    }</span>
+
+    @Test
+    public void ground_not_exist_when_get_ground_by_groundId() throws Exception {
+<span class="fc" id="L109">        when(groundService.getGroundById(1)).thenReturn(null);</span>
+
+<span class="fc" id="L111">        mockMvc.perform(get(&quot;/ground/1&quot;))</span>
+<span class="fc" id="L112">                .andExpect(status().isOk())</span>
+<span class="fc" id="L113">                .andExpect(jsonPath(&quot;$.status&quot;).value(404))</span>
+<span class="fc" id="L114">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).doesNotExist());</span>
+<span class="fc" id="L115">        verify(groundService).getGroundById(1);</span>
+<span class="fc" id="L116">    }</span>
+
+    @Test
+    public void happy_path_when_add_a_ground() throws Exception {
+<span class="fc" id="L120">        Ground ground = new Ground(</span>
+                &quot;ground 1&quot;,
+                1,
+                null,
+                10,
+                &quot;ground address&quot;,
+                &quot;this is a test ground&quot;
+        );
+<span class="fc" id="L128">        when(groundService.verifyGround(any(Ground.class))).thenReturn(false);</span>
+<span class="fc" id="L129">        when(fileService.storeFile(any())).thenReturn(&quot;filename&quot;);</span>
+<span class="fc" id="L130">        when(groundService.addGround(any(Ground.class))).thenReturn(1);</span>
+
+<span class="fc" id="L132">        mockMvc.perform(multipart(&quot;/ground&quot;)</span>
+<span class="fc" id="L133">                .file(new MockMultipartFile(&quot;image&quot;, &quot;image.png&quot;, &quot;image/png&quot;, &quot;this is image&quot;.getBytes()))</span>
+<span class="fc" id="L134">                .param(&quot;groundName&quot;, &quot;test ground&quot;)</span>
+<span class="fc" id="L135">                .param(&quot;pricePerHour&quot;, &quot;10&quot;)</span>
+<span class="fc" id="L136">                .param(&quot;address&quot;, &quot;the address&quot;)</span>
+<span class="fc" id="L137">                .param(&quot;description&quot;, &quot;the description&quot;))</span>
+<span class="fc" id="L138">                .andExpect(status().isOk())</span>
+<span class="fc" id="L139">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L140">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).exists());</span>
+<span class="fc" id="L141">        InOrder order = inOrder(groundService, fileService);</span>
+<span class="fc" id="L142">        order.verify(groundService).verifyGround(any());</span>
+<span class="fc" id="L143">        order.verify(fileService).storeFile(any());</span>
+<span class="fc" id="L144">        order.verify(groundService).addGround(any());</span>
+<span class="fc" id="L145">    }</span>
+
+    @Test
+    public void no_image_when_add_a_ground() throws Exception {
+<span class="fc" id="L149">        mockMvc.perform(multipart(&quot;/ground&quot;)</span>
+<span class="fc" id="L150">                .param(&quot;groundName&quot;, &quot;test ground&quot;)</span>
+<span class="fc" id="L151">                .param(&quot;pricePerHour&quot;, &quot;10&quot;)</span>
+<span class="fc" id="L152">                .param(&quot;address&quot;, &quot;the address&quot;)</span>
+<span class="fc" id="L153">                .param(&quot;description&quot;, &quot;the description&quot;))</span>
+<span class="fc" id="L154">                .andExpect(status().is4xxClientError());</span>
+<span class="fc" id="L155">    }</span>
+
+    @Test
+    public void ground_param_not_verified_when_add_a_ground() throws Exception {
+<span class="fc" id="L159">        Ground ground = new Ground(</span>
+                &quot;ground 1&quot;,
+                1,
+                null,
+                10,
+                &quot;ground address&quot;,
+                &quot;this is a test ground&quot;
+        );
+<span class="fc" id="L167">        when(groundService.verifyGround(any(Ground.class))).thenReturn(true);</span>
+
+<span class="fc" id="L169">        mockMvc.perform(multipart(&quot;/ground&quot;)</span>
+<span class="fc" id="L170">                .file(new MockMultipartFile(&quot;image&quot;, &quot;image.png&quot;, &quot;image/png&quot;, &quot;this is image&quot;.getBytes()))</span>
+<span class="fc" id="L171">                .param(&quot;groundName&quot;, &quot;test ground&quot;)</span>
+<span class="fc" id="L172">                .param(&quot;pricePerHour&quot;, &quot;10&quot;)</span>
+<span class="fc" id="L173">                .param(&quot;address&quot;, &quot;the address&quot;)</span>
+<span class="fc" id="L174">                .param(&quot;description&quot;, &quot;the description&quot;))</span>
+<span class="fc" id="L175">                .andExpect(status().isOk())</span>
+<span class="fc" id="L176">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+<span class="fc" id="L177">        verify(groundService).verifyGround(any());</span>
+<span class="fc" id="L178">        verifyNoMoreInteractions(groundService);</span>
+<span class="fc" id="L179">    }</span>
+
+    @Test
+    public void image_save_fail_when_add_a_ground() throws Exception {
+<span class="fc" id="L183">        when(groundService.verifyGround(any())).thenReturn(false);</span>
+<span class="fc" id="L184">        when(fileService.storeFile(any())).thenThrow(new FileException(&quot;file exception&quot;));</span>
+
+<span class="fc" id="L186">        mockMvc.perform(multipart(&quot;/ground&quot;)</span>
+<span class="fc" id="L187">                .file(new MockMultipartFile(&quot;image&quot;, &quot;image.png&quot;, &quot;image/png&quot;, &quot;this is image&quot;.getBytes()))</span>
+<span class="fc" id="L188">                .param(&quot;groundName&quot;, &quot;test ground&quot;)</span>
+<span class="fc" id="L189">                .param(&quot;pricePerHour&quot;, &quot;10&quot;)</span>
+<span class="fc" id="L190">                .param(&quot;address&quot;, &quot;the address&quot;)</span>
+<span class="fc" id="L191">                .param(&quot;description&quot;, &quot;the description&quot;));</span>
+<span class="fc" id="L192">    }</span>
+
+    @Test
+    public void happy_path_when_update_a_ground() throws Exception {
+<span class="fc" id="L196">        when(groundService.verifyGround(any())).thenReturn(false);</span>
+<span class="fc" id="L197">        when(groundService.updateGround(any())).thenReturn(1);</span>
+
+<span class="fc" id="L199">        Ground ground = new Ground(</span>
+                &quot;ground 1&quot;,
+                1,
+                null,
+                10,
+                &quot;ground address&quot;,
+                &quot;this is a test ground&quot;
+        );
+<span class="fc" id="L207">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L208">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L209">        String requestJson = objectWriter.writeValueAsString(ground);</span>
+
+<span class="fc" id="L211">        mockMvc.perform(put(&quot;/ground&quot;)</span>
+<span class="fc" id="L212">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L213">                .content(requestJson))</span>
+<span class="fc" id="L214">                .andExpect(status().isOk())</span>
+<span class="fc" id="L215">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L216">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).exists());</span>
+<span class="fc" id="L217">        InOrder order = inOrder(groundService);</span>
+<span class="fc" id="L218">        order.verify(groundService).verifyGround(any());</span>
+<span class="fc" id="L219">        order.verify(groundService).updateGround(any());</span>
+<span class="fc" id="L220">    }</span>
+
+    @Test
+    public void ground_not_exist_when_update_a_ground() throws Exception {
+<span class="fc" id="L224">        when(groundService.updateGround(any())).thenReturn(0);</span>
+<span class="fc" id="L225">        when(groundService.verifyGround(any())).thenReturn(false);</span>
+
+<span class="fc" id="L227">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L228">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L229">        String requestJson = objectWriter.writeValueAsString(new Ground());</span>
+
+<span class="fc" id="L231">        mockMvc.perform(put(&quot;/ground&quot;)</span>
+<span class="fc" id="L232">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L233">                .content(requestJson))</span>
+<span class="fc" id="L234">                .andExpect(status().isOk())</span>
+<span class="fc" id="L235">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L236">        InOrder order = inOrder(groundService);</span>
+<span class="fc" id="L237">        order.verify(groundService).verifyGround(any());</span>
+<span class="fc" id="L238">        order.verify(groundService).updateGround(any());</span>
+<span class="fc" id="L239">    }</span>
+
+    @Test
+    public void ground_param_not_verified_when_update_a_ground() throws Exception {
+<span class="fc" id="L243">        when(groundService.verifyGround(any())).thenReturn(true);</span>
+
+<span class="fc" id="L245">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L246">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L247">        String requestJson = objectWriter.writeValueAsString(new Ground());</span>
+
+<span class="fc" id="L249">        mockMvc.perform(put(&quot;/ground&quot;)</span>
+<span class="fc" id="L250">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L251">                .content(requestJson))</span>
+<span class="fc" id="L252">                .andExpect(status().isOk())</span>
+<span class="fc" id="L253">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+<span class="fc" id="L254">        verify(groundService).verifyGround(any());</span>
+<span class="fc" id="L255">        verifyNoMoreInteractions(groundService);</span>
+<span class="fc" id="L256">    }</span>
+
+    @Test
+    public void happy_path_when_delete_a_ground() throws Exception {
+<span class="fc" id="L260">        when(groundService.deleteGround(1)).thenReturn(1);</span>
+<span class="fc" id="L261">        Ground ground = new Ground(</span>
+                &quot;ground 1&quot;,
+                1,
+                null,
+                10,
+                &quot;ground address&quot;,
+                &quot;this is a test ground&quot;
+        );
+<span class="fc" id="L269">        when(groundService.getGroundById(1)).thenReturn(ground);</span>
+<span class="fc" id="L270">        mockMvc.perform(delete(&quot;/ground/1&quot;))</span>
+<span class="fc" id="L271">                .andExpect(status().isOk())</span>
+<span class="fc" id="L272">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L273">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).exists());</span>
+<span class="fc" id="L274">        InOrder order = inOrder(groundService);</span>
+<span class="fc" id="L275">        order.verify(groundService).getGroundById(1);</span>
+<span class="fc" id="L276">        order.verify(groundService).deleteGround(1);</span>
+<span class="fc" id="L277">    }</span>
+
+    @Test
+    public void ground_not_exist_when_delete_a_ground() throws Exception {
+<span class="fc" id="L281">        when(groundService.deleteGround(1)).thenReturn(0);</span>
+
+<span class="fc" id="L283">        mockMvc.perform(delete(&quot;/ground/1&quot;))</span>
+<span class="fc" id="L284">                .andExpect(status().isOk())</span>
+<span class="fc" id="L285">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+
+<span class="fc" id="L287">        verify(groundService).deleteGround(1);</span>
+<span class="fc" id="L288">    }</span>
+
+    @Test
+    public void happy_path_when_add_ground_file_operation() throws Exception {
+<span class="fc" id="L292">        when(groundService.verifyGround(any(Ground.class))).thenReturn(false);</span>
+<span class="fc" id="L293">        when(groundService.addGroundWOFileOperation(any(Ground.class))).thenReturn(1);</span>
+
+<span class="fc" id="L295">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L296">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L297">        String requestJson = objectWriter.writeValueAsString(new Ground());</span>
+
+<span class="fc" id="L299">        mockMvc.perform(post(&quot;/groundWOFileOperation&quot;)</span>
+<span class="fc" id="L300">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L301">                .content(requestJson))</span>
+<span class="fc" id="L302">                .andExpect(status().isOk())</span>
+<span class="fc" id="L303">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L304">        InOrder order = inOrder(groundService);</span>
+<span class="fc" id="L305">        order.verify(groundService).verifyGround(any());</span>
+<span class="fc" id="L306">        order.verify(groundService).addGroundWOFileOperation(any());</span>
+<span class="fc" id="L307">    }</span>
+
+    @Test
+    public void ground_not_valid_when_add_ground_file_operation() throws Exception {
+<span class="fc" id="L311">        when(groundService.verifyGround(any(Ground.class))).thenReturn(true);</span>
+
+<span class="fc" id="L313">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L314">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L315">        String requestJson = objectWriter.writeValueAsString(new Ground());</span>
+
+<span class="fc" id="L317">        mockMvc.perform(post(&quot;/groundWOFileOperation&quot;)</span>
+<span class="fc" id="L318">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L319">                .content(requestJson))</span>
+<span class="fc" id="L320">                .andExpect(status().isOk())</span>
+<span class="fc" id="L321">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+<span class="fc" id="L322">        verify(groundService).verifyGround(any());</span>
+<span class="fc" id="L323">    }</span>
+
+    @Test
+    public void add_ground_file_operation_fail_when_add_ground_file_operation() throws Exception {
+<span class="fc" id="L327">        when(groundService.verifyGround(any())).thenReturn(false);</span>
+
+<span class="fc" id="L329">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L330">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L331">        String requestJson = objectWriter.writeValueAsString(new Ground());</span>
+
+<span class="fc" id="L333">        mockMvc.perform(post(&quot;/groundWOFileOperation&quot;)</span>
+<span class="fc" id="L334">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L335">                .content(requestJson))</span>
+<span class="fc" id="L336">                .andExpect(status().isOk())</span>
+<span class="fc" id="L337">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+<span class="fc" id="L338">        InOrder order = inOrder(groundService);</span>
+<span class="fc" id="L339">        order.verify(groundService).verifyGround(any());</span>
+<span class="fc" id="L340">        order.verify(groundService).addGroundWOFileOperation(any());</span>
+<span class="fc" id="L341">    }</span>
+
+    @Test
+    public void happy_path_when_delete_ground_by_batch() throws Exception {
+//        when(groundService.getCommentByCommentId(anyInt())).thenReturn(null);
+<span class="fc" id="L346">        when(groundService.deleteGround(anyInt())).thenReturn(1);</span>
+
+<span class="fc" id="L348">        HashMap&lt;String, List&lt;Integer&gt;&gt; requestParams = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L349">        requestParams.put(&quot;ids&quot;, Arrays.asList(1, 2, 3));</span>
+
+<span class="fc" id="L351">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L352">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L353">        String requestJson = objectWriter.writeValueAsString(requestParams);</span>
+
+<span class="fc" id="L355">        mockMvc.perform(delete(&quot;/ground/deleteByBatch&quot;)</span>
+<span class="fc" id="L356">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L357">                .content(requestJson))</span>
+<span class="fc" id="L358">                .andExpect(status().isOk())</span>
+<span class="fc" id="L359">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L360">        verify(groundService, times(3)).deleteGround(anyInt());</span>
+<span class="fc" id="L361">    }</span>
+
+    @Test
+    public void fail_once_when_delete_ground_by_batch() throws Exception {
+<span class="fc" id="L365">        when(groundService.deleteGround(anyInt())).thenReturn(1).thenReturn(0);</span>
+<span class="fc" id="L366">        HashMap&lt;String, List&lt;Integer&gt;&gt; requestParams = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L367">        requestParams.put(&quot;ids&quot;, Arrays.asList(1, 2, 3));</span>
+
+<span class="fc" id="L369">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L370">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L371">        String requestJson = objectWriter.writeValueAsString(requestParams);</span>
+
+<span class="fc" id="L373">        mockMvc.perform(delete(&quot;/ground/deleteByBatch&quot;)</span>
+<span class="fc" id="L374">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L375">                .content(requestJson))</span>
+<span class="fc" id="L376">                .andExpect(status().isOk())</span>
+<span class="fc" id="L377">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L378">        verify(groundService, times(3)).deleteGround(anyInt());</span>
+<span class="fc" id="L379">    }</span>
+
+    @ParameterizedTest
+    @MethodSource(&quot;requestParamsProviderHappyPath&quot;)
+    public void happy_path_when_get_ground_by_match(Map&lt;String, String&gt; requestParams) throws Exception {
+<span class="fc" id="L384">        List&lt;Ground&gt; retGrounds = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L385">        retGrounds.add(new Ground(</span>
+                &quot;ground 1&quot;,
+                1,
+                null,
+                10,
+                &quot;ground address&quot;,
+                &quot;this is a test ground&quot;
+        ));
+<span class="fc" id="L393">        retGrounds.add(new Ground(</span>
+                &quot;ground 2&quot;,
+                2,
+                null,
+                10,
+                &quot;ground address&quot;,
+                &quot;this is another test ground&quot;
+        ));
+<span class="fc" id="L401">        Ground ground = new Ground(</span>
+                &quot;ground 1&quot;,
+                1,
+                null,
+                10,
+                &quot;ground address&quot;,
+                &quot;this is a test ground&quot;
+        );
+<span class="fc" id="L409">        when(groundService.getGroundById(anyInt())).thenReturn(ground);</span>
+<span class="fc" id="L410">        when(groundService.getGroundsByMatch(anyString())).thenReturn(retGrounds);</span>
+
+<span class="fc" id="L412">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L413">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L414">        String requestJson = objectWriter.writeValueAsString(requestParams);</span>
+
+<span class="fc" id="L416">        mockMvc.perform(post(&quot;/ground/match&quot;)</span>
+<span class="fc" id="L417">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L418">                .content(requestJson))</span>
+<span class="fc" id="L419">                .andExpect(status().isOk())</span>
+<span class="fc" id="L420">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L421">    }</span>
+
+    static Stream&lt;Map&lt;String, String&gt;&gt; requestParamsProviderHappyPath() {
+<span class="fc" id="L424">        HashMap&lt;String, String&gt; map1 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L425">        map1.put(&quot;match&quot;, &quot;&quot;);</span>
+<span class="fc" id="L426">        HashMap&lt;String, String&gt; map2 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L427">        map2.put(&quot;match&quot;, &quot;gid:1&quot;);</span>
+<span class="fc" id="L428">        HashMap&lt;String, String&gt; map3 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L429">        map3.put(&quot;match&quot;, &quot;hello&quot;);</span>
+
+<span class="fc" id="L431">        return Stream.of(map1, map2, map3);</span>
+    }
+
+    @ParameterizedTest
+    @MethodSource(&quot;requestParamsProviderCornerCase&quot;)
+    public void corner_case_when_get_ground_by_match(Map&lt;String, String&gt; requestParams) throws Exception {
+<span class="fc" id="L437">        when(groundService.getGroundById(anyInt())).thenReturn(null);</span>
+<span class="fc" id="L438">        when(groundService.getAllGrounds()).thenReturn(null);</span>
+<span class="fc" id="L439">        when(groundService.getGroundsByMatch(anyString())).thenReturn(new ArrayList&lt;&gt;());</span>
+
+<span class="fc" id="L441">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L442">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L443">        String requestJson = objectWriter.writeValueAsString(requestParams);</span>
+
+<span class="fc" id="L445">        mockMvc.perform(post(&quot;/ground/match&quot;)</span>
+<span class="fc" id="L446">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L447">                .content(requestJson))</span>
+<span class="fc" id="L448">                .andExpect(status().isOk());</span>
+<span class="fc" id="L449">    }</span>
+
+    static Stream&lt;Map&lt;String, String&gt;&gt; requestParamsProviderCornerCase() {
+<span class="fc" id="L452">        HashMap&lt;String, String&gt; map1 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L453">        map1.put(&quot;match&quot;, &quot;&quot;);</span>
+<span class="fc" id="L454">        HashMap&lt;String, String&gt; map2 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L455">        map2.put(&quot;match&quot;, &quot;gid:6578&quot;);</span>
+<span class="fc" id="L456">        HashMap&lt;String, String&gt; map3 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L457">        map3.put(&quot;match&quot;, &quot;null&quot;);</span>
+
+<span class="fc" id="L459">        return Stream.of(map1, map2, map3);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

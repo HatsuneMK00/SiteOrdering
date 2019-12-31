@@ -1,0 +1,510 @@
+{
+	"info": {
+		"_postman_id": "0f444047-4c21-4a3d-a8e2-58cd56508ad8",
+		"name": "meethere-commentControllerTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "commentController获取评论测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a02c10f3-cd68-45a2-a984-bd1e6f17a7d6",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comment/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController更新评论测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1946d5af-5ba3-48d3-9e10-f8678489bbd1",
+						"exec": [
+							"pm.test(\"更新成功_status比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});",
+							"pm.test(\"更新成功_commentId比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseMap.result.commentId).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                \"commentId\": 1,\r\n                \"userId\": 1,\r\n                \"groundId\": 1,\r\n                \"date\": \"2019-12-19T00:10:48.000+0800\",\r\n                \"content\": \"testComments\",\r\n                \"checked\": 1\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/comment",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController更新评论测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "334a1d51-3be6-4e4c-8d94-edaffa365838",
+						"exec": [
+							"pm.test(\"更新失败_评论ID不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                \"commentId\": 123,\r\n                \"userId\": 1,\r\n                \"groundId\": 1,\r\n                \"date\": \"2019-12-19T00:10:48.000+0800\",\r\n                \"content\": \"testComments\",\r\n                \"checked\": 1\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/comment",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController删除评论测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d29cf7b-40d5-4395-aed4-b355cb84051b",
+						"exec": [
+							"pm.test(\"删除成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comment/3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController删除评论测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "092b0732-c4e9-4aa7-937a-f79cb4d719f5",
+						"exec": [
+							"pm.test(\"删除失败_评论ID不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comment/123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController审核评论测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2d4c804-1958-4283-881a-aee9ea5831bf",
+						"exec": [
+							"pm.test(\"更新成功_status比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});",
+							"pm.test(\"更新成功_commentId比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseMap.result.commentId).to.eql(2);",
+							"});",
+							"pm.test(\"更新成功_checked比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseMap.result.checked).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comment/check/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment",
+						"check",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController审核评论测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "710de754-1adb-456d-9dbc-4ce219ad1337",
+						"exec": [
+							"pm.test(\"审核失败_评论ID不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comment/check/123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment",
+						"check",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController获取场地评论测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b8de0f09-b06f-4def-9908-959558db30d9",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comment/ground/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment",
+						"ground",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController获取场地评论测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a47e318b-953c-4f2e-aaef-49ebf283e271",
+						"exec": [
+							"pm.test(\"获取失败_场地不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comment/ground/123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment",
+						"ground",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController审核未通过评论测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9231ef0a-54a1-4109-988c-8c0ce6a9d005",
+						"exec": [
+							"pm.test(\"审核未通过成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comment/uncheck/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment",
+						"uncheck",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController审核未通过评论测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "67d6f024-f6a4-418e-865e-a3d79e68e90a",
+						"exec": [
+							"pm.test(\"审核未通过失败_评论ID不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comment/uncheck/123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment",
+						"uncheck",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController获取未审核评论测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b1ea579-c016-4c4c-9482-fa2f6a5c06dd",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comment/uncheckedComment",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment",
+						"uncheckedComment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController获取用户评论测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6996d03-23a8-448d-b12d-8fe8d8b601a9",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comment/user/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment",
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commentController获取用户评论测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb33d316-93fd-479c-b264-efcf288e74a7",
+						"exec": [
+							"pm.test(\"获取失败_用户不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comment/user/123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comment",
+						"user",
+						"123"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

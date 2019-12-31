@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NewsControllerTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">NewsControllerTest.java</span></div><h1>NewsControllerTest.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
+import org.mockito.Mock;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import xyz.st.meethere.entity.News;
+import xyz.st.meethere.service.NewsService;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+//@ExtendWith(SpringExtension.class)
+//@SpringBootTest
+/*
+ * 这边不能用SpringBootTest 因为代码中使用了ApplicationHome 而这个东西我觉得不把服务器跑起来是获取不到的
+ * */
+<span class="fc" id="L35">public class NewsControllerTest {</span>
+    //    加上这个注解才知道要注入的是什么对象
+    @Mock
+    private NewsService newsService;
+    private MockMvc mockMvc;
+//    需要被注入的对象
+//    但是并不能注入进去
+//    @InjectMocks
+//    private NewsController newsController;
+
+    @BeforeEach
+    public void setUp() {
+<span class="fc" id="L47">        initMocks(this);</span>
+<span class="fc" id="L48">        newsService = mock(NewsService.class);</span>
+<span class="fc" id="L49">        this.mockMvc = MockMvcBuilders.standaloneSetup(new NewsController(newsService)).build();</span>
+<span class="fc" id="L50">    }</span>
+
+    @Test
+    public void happy_path_when_get_news_by_newsId() throws Exception {
+<span class="fc" id="L54">        int id = 1;</span>
+//        System.out.println(newsService.getClass());
+<span class="fc" id="L56">        when(newsService.getNewsByNewsId(1)).thenReturn(new News(&quot;testNews&quot;, &quot;this is a test news&quot;, null, 1));</span>
+<span class="fc" id="L57">        mockMvc.perform(get(&quot;/news/&quot; + id)</span>
+<span class="fc" id="L58">                .accept(MediaType.APPLICATION_JSON))</span>
+<span class="fc" id="L59">                .andExpect(status().isOk())</span>
+<span class="fc" id="L60">                .andExpect(jsonPath(&quot;$.responseMap.result.newsId&quot;).value(1))</span>
+<span class="fc" id="L61">                .andExpect(jsonPath(&quot;$.responseMap.result.content&quot;).value(&quot;this is a test news&quot;))</span>
+<span class="fc" id="L62">                .andExpect(jsonPath(&quot;$.responseMap.result.title&quot;).value(&quot;testNews&quot;))</span>
+<span class="fc" id="L63">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L64">        verify(newsService).getNewsByNewsId(1);</span>
+<span class="fc" id="L65">    }</span>
+
+    @Test
+    public void should_return_404_when_news_doesnt_exist() throws Exception {
+<span class="fc" id="L69">        when(newsService.getNewsByNewsId(1)).thenReturn(null);</span>
+<span class="fc" id="L70">        mockMvc.perform(get(&quot;/news/1&quot;))</span>
+<span class="fc" id="L71">                .andExpect(status().isOk())</span>
+<span class="fc" id="L72">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L73">        verify(newsService).getNewsByNewsId(anyInt());</span>
+<span class="fc" id="L74">    }</span>
+
+    @Test
+    public void happy_path_when_delete_a_news() throws Exception {
+<span class="fc" id="L78">        when(newsService.deleteNews(1)).thenReturn(1);</span>
+<span class="fc" id="L79">        when(newsService.getNewsByNewsId(1)).thenReturn(new News(&quot;testNews&quot;, &quot;this is a test news&quot;, null, 1));</span>
+<span class="fc" id="L80">        mockMvc.perform(delete(&quot;/news/1&quot;))</span>
+<span class="fc" id="L81">                .andExpect(status().isOk())</span>
+<span class="fc" id="L82">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L83">                .andExpect(jsonPath(&quot;$.responseMap.result.newsId&quot;).value(1))</span>
+<span class="fc" id="L84">                .andExpect(jsonPath(&quot;$.responseMap.result.content&quot;).value(&quot;this is a test news&quot;))</span>
+<span class="fc" id="L85">                .andExpect(jsonPath(&quot;$.responseMap.result.title&quot;).value(&quot;testNews&quot;));</span>
+<span class="fc" id="L86">        InOrder order = inOrder(newsService);</span>
+<span class="fc" id="L87">        order.verify(newsService).getNewsByNewsId(1);</span>
+<span class="fc" id="L88">        order.verify(newsService).deleteNews(1);</span>
+<span class="fc" id="L89">    }</span>
+
+    @Test
+    public void news_doesnt_exist_when_delete_a_news() throws Exception {
+<span class="fc" id="L93">        when(newsService.getNewsByNewsId(2)).thenReturn(null);</span>
+<span class="fc" id="L94">        when(newsService.deleteNews(2)).thenReturn(0);</span>
+<span class="fc" id="L95">        mockMvc.perform(delete(&quot;/news/2&quot;))</span>
+<span class="fc" id="L96">                .andExpect(status().isOk())</span>
+<span class="fc" id="L97">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L98">        InOrder order = inOrder(newsService);</span>
+<span class="fc" id="L99">        order.verify(newsService).getNewsByNewsId(2);</span>
+<span class="fc" id="L100">        order.verify(newsService).deleteNews(2);</span>
+<span class="fc" id="L101">    }</span>
+
+    @Test
+    public void happy_path_when_update_a_news() throws Exception {
+<span class="fc" id="L105">        News news = new News(&quot;test news for update&quot;,</span>
+                &quot;this is a news for update test&quot;,
+                null,
+                1);
+//        这边我觉得是我没有为news重载equals函数，导致如果写一个具体的对象的话
+//        永远都匹配不上，这个打桩就没有用了
+//        这边使用参数匹配器语法
+<span class="fc" id="L112">        when(newsService.updateNews(any(News.class))).thenReturn(1);</span>
+
+        /*
+        * 封装一个json请求体
+        * */
+<span class="fc" id="L117">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L118">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L119">        String requestJson = objectWriter.writeValueAsString(news);</span>
+<span class="fc" id="L120">        mockMvc.perform(put(&quot;/news&quot;)</span>
+<span class="fc" id="L121">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L122">                .characterEncoding(&quot;UTF-8&quot;)</span>
+<span class="fc" id="L123">                .content(requestJson))</span>
+<span class="fc" id="L124">                .andExpect(status().isOk())</span>
+<span class="fc" id="L125">                .andExpect(jsonPath(&quot;$.responseMap.result.title&quot;).value(&quot;test news for update&quot;))</span>
+<span class="fc" id="L126">                .andExpect(jsonPath(&quot;$.responseMap.result.content&quot;)</span>
+<span class="fc" id="L127">                        .value(&quot;this is a news for update test&quot;))</span>
+<span class="fc" id="L128">                .andExpect(jsonPath(&quot;$.responseMap.result.newsId&quot;).value(1))</span>
+<span class="fc" id="L129">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L130">        ArgumentCaptor&lt;News&gt; newsArgumentCaptor = ArgumentCaptor.forClass(News.class);</span>
+<span class="fc" id="L131">        verify(newsService).updateNews(newsArgumentCaptor.capture());</span>
+<span class="fc" id="L132">        News actualArgNews = newsArgumentCaptor.getValue();</span>
+<span class="fc" id="L133">        assertAll(</span>
+<span class="fc" id="L134">                () -&gt; assertEquals(news.getTitle(), actualArgNews.getTitle()),</span>
+<span class="fc" id="L135">                () -&gt; assertEquals(news.getContent(), actualArgNews.getContent()),</span>
+<span class="fc" id="L136">                () -&gt; assertEquals(news.getNewsId(), actualArgNews.getNewsId())</span>
+        );
+<span class="fc" id="L138">    }</span>
+
+    @Test
+    public void news_doesnt_exist_when_update_a_news() throws Exception {
+        /*
+        * 当news不存在时，逻辑上会返回传过来的参数给前端用于查看
+        * 这里就不考虑回传的news了
+        * */
+<span class="fc" id="L146">        when(newsService.updateNews(any(News.class))).thenReturn(0);</span>
+<span class="fc" id="L147">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L148">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L149">        String requestJson = objectWriter.writeValueAsString(new News());</span>
+<span class="fc" id="L150">        mockMvc.perform(put(&quot;/news&quot;)</span>
+<span class="fc" id="L151">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L152">                .content(requestJson))</span>
+<span class="fc" id="L153">                .andExpect(status().isOk())</span>
+<span class="fc" id="L154">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+<span class="fc" id="L155">        verify(newsService).updateNews(any(News.class));</span>
+<span class="fc" id="L156">        verifyNoMoreInteractions(newsService);</span>
+<span class="fc" id="L157">    }</span>
+
+    @Test
+    public void happy_path_when_add_a_news() throws Exception {
+<span class="fc" id="L161">        when(newsService.addNews(any(News.class))).thenReturn(1);</span>
+<span class="fc" id="L162">        when(newsService.hasAllRequiredContent(any())).thenReturn(true);</span>
+<span class="fc" id="L163">        News news = new News(&quot;test news for update&quot;,</span>
+                &quot;this is a news for update test&quot;,
+                null,
+                1);
+<span class="fc" id="L167">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L168">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L169">        String requestJson = objectWriter.writeValueAsString(news);</span>
+<span class="fc" id="L170">        mockMvc.perform(post(&quot;/news&quot;)</span>
+<span class="fc" id="L171">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L172">                .content(requestJson))</span>
+<span class="fc" id="L173">                .andExpect(status().isOk())</span>
+<span class="fc" id="L174">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L175">        ArgumentCaptor&lt;News&gt; newsArgumentCaptor = ArgumentCaptor.forClass(News.class);</span>
+<span class="fc" id="L176">        verify(newsService).addNews(newsArgumentCaptor.capture());</span>
+<span class="fc" id="L177">        News actualArgNews = newsArgumentCaptor.getValue();</span>
+<span class="fc" id="L178">        assertAll(</span>
+<span class="fc" id="L179">                () -&gt; assertEquals(news.getTitle(), actualArgNews.getTitle()),</span>
+<span class="fc" id="L180">                () -&gt; assertEquals(news.getContent(), actualArgNews.getContent()),</span>
+<span class="fc" id="L181">                () -&gt; assertEquals(news.getNewsId(), actualArgNews.getNewsId())</span>
+        );
+<span class="fc" id="L183">    }</span>
+
+    @Test
+    public void fail_when_add_a_news() throws Exception {
+<span class="fc" id="L187">        when(newsService.addNews(any(News.class))).thenReturn(0);</span>
+<span class="fc" id="L188">        when(newsService.hasAllRequiredContent(any())).thenReturn(true);</span>
+<span class="fc" id="L189">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L190">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L191">        String requestJson = objectWriter.writeValueAsString(new News());</span>
+<span class="fc" id="L192">        mockMvc.perform(post(&quot;/news&quot;)</span>
+<span class="fc" id="L193">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L194">                .content(requestJson))</span>
+<span class="fc" id="L195">                .andExpect(status().isOk())</span>
+<span class="fc" id="L196">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+
+<span class="fc" id="L198">        verify(newsService).addNews(any(News.class));</span>
+<span class="fc" id="L199">    }</span>
+
+    @Test
+    public void params_not_enough_when_add_a_news() throws Exception{
+<span class="fc" id="L203">        when(newsService.hasAllRequiredContent(any())).thenReturn(false);</span>
+
+<span class="fc" id="L205">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L206">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L207">        String requestJson = objectWriter.writeValueAsString(new News());</span>
+<span class="fc" id="L208">        mockMvc.perform(post(&quot;/news&quot;)</span>
+<span class="fc" id="L209">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L210">                .content(requestJson))</span>
+<span class="fc" id="L211">                .andExpect(status().isOk())</span>
+<span class="fc" id="L212">                .andExpect(jsonPath(&quot;$.status&quot;).value(400));</span>
+<span class="fc" id="L213">        verify(newsService).hasAllRequiredContent(any());</span>
+<span class="fc" id="L214">        verifyNoMoreInteractions(newsService);</span>
+<span class="fc" id="L215">    }</span>
+
+    @Test
+    public void happy_path_when_get_all_news() throws Exception {
+<span class="fc" id="L219">        List&lt;News&gt; stubNewsResult = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L220">        stubNewsResult.add(new News(&quot;test news for update&quot;,</span>
+                &quot;this is a news for update test&quot;,
+                null,
+                1));
+<span class="fc" id="L224">        stubNewsResult.add(new News(&quot;test news for update&quot;,</span>
+                &quot;this is another news for update test&quot;,
+                null,
+                2));
+<span class="fc" id="L228">        when(newsService.getAllNews()).thenReturn(stubNewsResult);</span>
+<span class="fc" id="L229">        mockMvc.perform(get(&quot;/news&quot;))</span>
+<span class="fc" id="L230">                .andExpect(status().isOk())</span>
+<span class="fc" id="L231">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L232">                .andExpect(jsonPath(&quot;$.responseMap.result[0].newsId&quot;).value(1))</span>
+<span class="fc" id="L233">                .andExpect(jsonPath(&quot;$.responseMap.result[1].newsId&quot;).value(2));</span>
+<span class="fc" id="L234">        verify(newsService).getAllNews();</span>
+<span class="fc" id="L235">        verifyNoMoreInteractions(newsService);</span>
+<span class="fc" id="L236">    }</span>
+
+    @Test
+    public void get_null_when_get_all_news() throws Exception {
+<span class="fc" id="L240">        when(newsService.getAllNews()).thenReturn(null);</span>
+<span class="fc" id="L241">        mockMvc.perform(get(&quot;/news&quot;))</span>
+<span class="fc" id="L242">                .andExpect(status().isOk())</span>
+<span class="fc" id="L243">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L244">        verify(newsService).getAllNews();</span>
+<span class="fc" id="L245">        verifyNoMoreInteractions(newsService);</span>
+<span class="fc" id="L246">    }</span>
+
+    @Test
+    public void get_nothing_when_get_all_news() throws Exception {
+<span class="fc" id="L250">        when(newsService.getAllNews()).thenReturn(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L251">        mockMvc.perform(get(&quot;/news&quot;))</span>
+<span class="fc" id="L252">                .andExpect(status().isOk())</span>
+<span class="fc" id="L253">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L254">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).exists());</span>
+<span class="fc" id="L255">        verify(newsService).getAllNews();</span>
+<span class="fc" id="L256">        verifyNoMoreInteractions(newsService);</span>
+<span class="fc" id="L257">    }</span>
+
+    @Test
+    public void happy_path_when_delete_news_by_batch() throws Exception {
+<span class="fc" id="L261">        when(newsService.deleteNews(anyInt())).thenReturn(1);</span>
+<span class="fc" id="L262">        HashMap&lt;String, List&lt;Integer&gt;&gt; requestParams = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L263">        requestParams.put(&quot;ids&quot;, Arrays.asList(1, 2, 3));</span>
+
+<span class="fc" id="L265">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L266">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L267">        String requestJson = objectWriter.writeValueAsString(requestParams);</span>
+
+<span class="fc" id="L269">        mockMvc.perform(delete(&quot;/news/deleteByBatch&quot;)</span>
+<span class="fc" id="L270">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L271">                .content(requestJson))</span>
+<span class="fc" id="L272">                .andExpect(status().isOk())</span>
+<span class="fc" id="L273">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L274">        verify(newsService, times(3)).deleteNews(anyInt());</span>
+<span class="fc" id="L275">    }</span>
+
+    @Test
+    public void fail_once_when_delete_news_by_batch() throws Exception {
+<span class="fc" id="L279">        when(newsService.deleteNews(anyInt())).thenReturn(1).thenReturn(0);</span>
+<span class="fc" id="L280">        HashMap&lt;String, List&lt;Integer&gt;&gt; requestParams = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L281">        requestParams.put(&quot;ids&quot;, Arrays.asList(1, 2, 3));</span>
+
+<span class="fc" id="L283">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L284">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L285">        String requestJson = objectWriter.writeValueAsString(requestParams);</span>
+
+<span class="fc" id="L287">        mockMvc.perform(delete(&quot;/news/deleteByBatch&quot;)</span>
+<span class="fc" id="L288">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L289">                .content(requestJson))</span>
+<span class="fc" id="L290">                .andExpect(status().isOk())</span>
+<span class="fc" id="L291">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L292">        verify(newsService, times(3)).deleteNews(anyInt());</span>
+<span class="fc" id="L293">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

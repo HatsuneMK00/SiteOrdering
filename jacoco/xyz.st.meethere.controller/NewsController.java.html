@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NewsController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">NewsController.java</span></div><h1>NewsController.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+import xyz.st.meethere.entity.News;
+import xyz.st.meethere.entity.ResponseMsg;
+import xyz.st.meethere.service.NewsService;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@ResponseBody
+public class NewsController {
+
+    final
+    NewsService newsService;
+
+<span class="fc" id="L19">    public NewsController(NewsService newsService) {</span>
+<span class="fc" id="L20">        this.newsService = newsService;</span>
+<span class="fc" id="L21">    }</span>
+
+    @ApiOperation(&quot;获取所有新闻&quot;)
+    @GetMapping(&quot;/news&quot;)
+    ResponseMsg getAllNews() {
+<span class="fc" id="L26">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L27">        List&lt;News&gt; news = newsService.getAllNews();</span>
+//        FIXME: 当返回null时为404，返回空时为200
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (news == null)</span>
+<span class="fc" id="L30">            responseMsg.setStatus(404);</span>
+        else {
+<span class="fc" id="L32">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L33">            responseMsg.getResponseMap().put(&quot;result&quot;, news);</span>
+        }
+<span class="fc" id="L35">        return responseMsg;</span>
+    }
+
+    @ApiOperation(&quot;添加一条新闻&quot;)
+    @PostMapping(&quot;/news&quot;)
+    ResponseMsg addNews(@RequestBody News news) {
+<span class="fc" id="L41">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (!newsService.hasAllRequiredContent(news)) {</span>
+<span class="fc" id="L43">            responseMsg.setStatus(400);</span>
+<span class="fc" id="L44">            return responseMsg;</span>
+        }
+<span class="fc" id="L46">        int result = newsService.addNews(news);</span>
+
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (result == 1) {</span>
+<span class="fc" id="L49">            responseMsg.setStatus(200);</span>
+        } else {
+<span class="fc" id="L51">            responseMsg.setStatus(500);</span>
+        }
+<span class="fc" id="L53">        responseMsg.getResponseMap().put(&quot;result&quot;, news);</span>
+<span class="fc" id="L54">        return responseMsg;</span>
+    }
+
+    @ApiOperation(value = &quot;更改现有的新闻&quot;, notes = &quot;需要在json中填写newsId&quot;)
+    @PutMapping(&quot;/news&quot;)
+    ResponseMsg updateNews(@RequestBody News news) {
+<span class="fc" id="L60">        int result = newsService.updateNews(news);</span>
+<span class="fc" id="L61">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (result == 1)</span>
+<span class="fc" id="L63">            responseMsg.setStatus(200);</span>
+        else
+<span class="fc" id="L65">            responseMsg.setStatus(500);</span>
+<span class="fc" id="L66">        responseMsg.getResponseMap().put(&quot;result&quot;, news);</span>
+<span class="fc" id="L67">        return responseMsg;</span>
+    }
+
+    @ApiOperation(&quot;删除一个新闻&quot;)
+    @DeleteMapping(&quot;/news/{newsId}&quot;)
+    ResponseMsg deleteNews(@PathVariable(&quot;newsId&quot;) Integer id) {
+<span class="fc" id="L73">        News news = newsService.getNewsByNewsId(id);</span>
+<span class="fc" id="L74">        int result = newsService.deleteNews(id);</span>
+<span class="fc" id="L75">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        if (result == 1) {</span>
+<span class="fc" id="L77">            responseMsg.setStatus(200);</span>
+        } else {
+<span class="fc" id="L79">            responseMsg.setStatus(404);</span>
+        }
+<span class="fc" id="L81">        responseMsg.getResponseMap().put(&quot;result&quot;, news);</span>
+<span class="fc" id="L82">        return responseMsg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;通过newsId批量删除新闻&quot;)
+    @DeleteMapping(&quot;/news/deleteByBatch&quot;)
+    ResponseMsg deleteNewsByBatch(@RequestBody Map&lt;String,List&lt;Integer&gt;&gt; data) {
+<span class="fc" id="L89">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L90">        List&lt;Integer&gt; ids = data.get(&quot;ids&quot;);</span>
+<span class="fc" id="L91">        msg.setStatus(200);</span>
+        ResponseMsg tempMsg;
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        for (Integer id : ids) {</span>
+<span class="fc" id="L94">            tempMsg = deleteNews(id);</span>
+<span class="fc bfc" id="L95" title="All 4 branches covered.">            if (tempMsg.getStatus() == 404 &amp;&amp; msg.getStatus() != 404){</span>
+<span class="fc" id="L96">                msg.setStatus(404);</span>
+            }
+<span class="fc" id="L98">        }</span>
+<span class="fc" id="L99">        return msg;</span>
+    }
+
+    @ApiOperation(&quot;根据newsId获取一个新闻&quot;)
+    @GetMapping(&quot;/news/{newsId}&quot;)
+    ResponseMsg getNewsByNewsId(@PathVariable(&quot;newsId&quot;) Integer id) {
+<span class="fc" id="L105">        News news = newsService.getNewsByNewsId(id);</span>
+<span class="fc" id="L106">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (news != null) {</span>
+<span class="fc" id="L108">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L109">            responseMsg.getResponseMap().put(&quot;result&quot;, news);</span>
+        } else {
+<span class="fc" id="L111">            responseMsg.setStatus(404);</span>
+        }
+<span class="fc" id="L113">        return responseMsg;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

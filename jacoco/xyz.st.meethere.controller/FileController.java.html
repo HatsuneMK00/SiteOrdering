@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">FileController.java</span></div><h1>FileController.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import xyz.st.meethere.config.MyServerConfig;
+import xyz.st.meethere.entity.ResponseMsg;
+import xyz.st.meethere.exception.FileException;
+import xyz.st.meethere.service.FileService;
+
+@RestController
+public class FileController {
+    private final FileService fileService;
+
+<span class="fc" id="L15">    public FileController(FileService fileService) {</span>
+<span class="fc" id="L16">        this.fileService = fileService;</span>
+<span class="fc" id="L17">    }</span>
+
+
+    /*
+     * 个人信息头像管理
+     * */
+    @ResponseBody
+    @ApiOperation(&quot;上传图片文件,返回url&quot;)
+    @PostMapping(&quot;/file/uploadImage&quot;)
+    ResponseMsg updateProfilePic(@RequestParam(&quot;image&quot;)MultipartFile file){
+        /*
+         * 封装图片路径
+         * */
+<span class="fc" id="L30">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L31">        responseMsg.setStatus(404);</span>
+<span class="fc" id="L32">        String storeFile = null;</span>
+        try {
+<span class="fc" id="L34">            storeFile = fileService.storeFile(file);</span>
+<span class="fc" id="L35">        } catch (FileException e) {</span>
+<span class="fc" id="L36">            e.printStackTrace();</span>
+<span class="fc" id="L37">            return responseMsg;</span>
+<span class="fc" id="L38">        }</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if(storeFile == null)</span>
+<span class="fc" id="L40">            return responseMsg;</span>
+<span class="fc" id="L41">        responseMsg.setStatus(200);</span>
+
+<span class="fc" id="L43">        String[] temp = storeFile.split(&quot;/&quot;);</span>
+<span class="fc" id="L44">        String server = MyServerConfig.server;</span>
+<span class="fc" id="L45">        String port   = MyServerConfig.port;</span>
+        // Default server regarded as [localhost]
+<span class="fc" id="L47">        String profile_url=&quot;http://&quot;+server+&quot;:&quot;+port+ &quot;/images/&quot;;</span>
+<span class="fc" id="L48">        profile_url = profile_url + temp[temp.length - 1];</span>
+<span class="fc" id="L49">        responseMsg.getResponseMap().put(&quot;url&quot;,profile_url);</span>
+
+<span class="fc" id="L51">        return responseMsg;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

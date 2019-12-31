@@ -1,0 +1,528 @@
+{
+	"id": "cc53d776-7d0b-4c86-a182-c1961bb4eebc",
+	"name": "meethere-newsControllerTest",
+	"allTests": [],
+	"timestamp": "2019-12-26T07:52:04.435Z",
+	"collection_id": "148be0a1-f170-45ae-b768-569b932a286e",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "4e16ef26-ab17-4929-9566-b465dbe6600c",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "148be0a1-f170-45ae-b768-569b932a286e",
+		"name": "meethere-newsControllerTest",
+		"order": [
+			"f012e58c-33f6-40be-a2a0-de01e6d5e364",
+			"16836e08-6baa-4e3e-8897-ac4169a82ef4",
+			"ab494835-45bf-4974-8124-7982aa155db6",
+			"0fa0dcfd-eefa-455a-b398-f266f5896f70",
+			"a0f85e99-c2ee-43ac-9141-7cc70f149b2e",
+			"46a469e7-c63a-4ed5-9ad4-ffb53540d309",
+			"a28b9ae2-0060-41fe-8ca0-1ae52ca45fb0",
+			"0091c910-916c-4849-a786-88af8e38b8ca",
+			"848c9026-9840-4e0e-b9f2-05594e9d4dc2"
+		],
+		"folders_order": [],
+		"isFavorite": false
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [],
+	"results": [
+		{
+			"name": "newsController获取所有新闻测试_01",
+			"id": "f012e58c-33f6-40be-a2a0-de01e6d5e364",
+			"url": "localhost:8080/news",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"71"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "71",
+			"totalRequestTime": "71",
+			"iterationResults": {}
+		},
+		{
+			"name": "newsController新增新闻测试_01",
+			"id": "16836e08-6baa-4e3e-8897-ac4169a82ef4",
+			"url": "localhost:8080/news",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"新增成功": true
+			},
+			"testPassFailCounts": {
+				"新增成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"18"
+			],
+			"allTests": [
+				{
+					"新增成功": true
+				}
+			],
+			"time": "18",
+			"totalRequestTime": "18",
+			"iterationResults": {}
+		},
+		{
+			"name": "newsController新增新闻测试_02",
+			"id": "ab494835-45bf-4974-8124-7982aa155db6",
+			"url": "localhost:8080/news",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"新增失败_部分信息缺失": false
+			},
+			"testPassFailCounts": {
+				"新增失败_部分信息缺失": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				"22"
+			],
+			"allTests": [
+				{
+					"新增失败_部分信息缺失": false
+				}
+			],
+			"time": "22",
+			"totalRequestTime": "22",
+			"iterationResults": {}
+		},
+		{
+			"name": "newsController修改新闻测试_01",
+			"id": "0fa0dcfd-eefa-455a-b398-f266f5896f70",
+			"url": "localhost:8080/news",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"修改成功": true
+			},
+			"testPassFailCounts": {
+				"修改成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"17"
+			],
+			"allTests": [
+				{
+					"修改成功": true
+				}
+			],
+			"time": "17",
+			"totalRequestTime": "17",
+			"iterationResults": {}
+		},
+		{
+			"name": "newsController修改新闻测试_02",
+			"id": "a0f85e99-c2ee-43ac-9141-7cc70f149b2e",
+			"url": "localhost:8080/news",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"修改失败_新闻不存在": true
+			},
+			"testPassFailCounts": {
+				"修改失败_新闻不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"19"
+			],
+			"allTests": [
+				{
+					"修改失败_新闻不存在": true
+				}
+			],
+			"time": "19",
+			"totalRequestTime": "19",
+			"iterationResults": {}
+		},
+		{
+			"name": "newsController获取新闻测试_01",
+			"id": "46a469e7-c63a-4ed5-9ad4-ffb53540d309",
+			"url": "localhost:8080/news/46",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"11"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "11",
+			"totalRequestTime": "11",
+			"iterationResults": {}
+		},
+		{
+			"name": "newsController获取新闻测试_02",
+			"id": "a28b9ae2-0060-41fe-8ca0-1ae52ca45fb0",
+			"url": "localhost:8080/news/117",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取失败_新闻不存在": true
+			},
+			"testPassFailCounts": {
+				"获取失败_新闻不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"14"
+			],
+			"allTests": [
+				{
+					"获取失败_新闻不存在": true
+				}
+			],
+			"time": "14",
+			"totalRequestTime": "14",
+			"iterationResults": {}
+		},
+		{
+			"name": "newsController删除新闻测试_01",
+			"id": "0091c910-916c-4849-a786-88af8e38b8ca",
+			"url": "localhost:8080/news/50",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"删除成功": true
+			},
+			"testPassFailCounts": {
+				"删除成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"42"
+			],
+			"allTests": [
+				{
+					"删除成功": true
+				}
+			],
+			"time": "42",
+			"totalRequestTime": "42",
+			"iterationResults": {}
+		},
+		{
+			"name": "newsController删除新闻测试_02",
+			"id": "848c9026-9840-4e0e-b9f2-05594e9d4dc2",
+			"url": "localhost:8080/news/117",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"删除失败_新闻不存在": true
+			},
+			"testPassFailCounts": {
+				"删除失败_新闻不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"25"
+			],
+			"allTests": [
+				{
+					"删除失败_新闻不存在": true
+				}
+			],
+			"time": "25",
+			"totalRequestTime": "25",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 8,
+	"totalFail": 1,
+	"totalTime": 239,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "newsController获取所有新闻测试_01",
+			"id": "f012e58c-33f6-40be-a2a0-de01e6d5e364",
+			"url": "localhost:8080/news",
+			"time": "2019-12-26T07:52:04.435Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "newsController新增新闻测试_01",
+			"id": "16836e08-6baa-4e3e-8897-ac4169a82ef4",
+			"url": "localhost:8080/news",
+			"time": "2019-12-26T07:52:04.435Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"新增成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "newsController新增新闻测试_02",
+			"id": "ab494835-45bf-4974-8124-7982aa155db6",
+			"url": "localhost:8080/news",
+			"time": "2019-12-26T07:52:04.435Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"新增失败_部分信息缺失": {
+					"pass": 0,
+					"fail": 1
+				}
+			}
+		},
+		{
+			"name": "newsController修改新闻测试_01",
+			"id": "0fa0dcfd-eefa-455a-b398-f266f5896f70",
+			"url": "localhost:8080/news",
+			"time": "2019-12-26T07:52:04.435Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"修改成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "newsController修改新闻测试_02",
+			"id": "a0f85e99-c2ee-43ac-9141-7cc70f149b2e",
+			"url": "localhost:8080/news",
+			"time": "2019-12-26T07:52:04.435Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"修改失败_新闻不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "newsController获取新闻测试_01",
+			"id": "46a469e7-c63a-4ed5-9ad4-ffb53540d309",
+			"url": "localhost:8080/news/46",
+			"time": "2019-12-26T07:52:04.435Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "newsController获取新闻测试_02",
+			"id": "a28b9ae2-0060-41fe-8ca0-1ae52ca45fb0",
+			"url": "localhost:8080/news/117",
+			"time": "2019-12-26T07:52:04.435Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取失败_新闻不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "newsController删除新闻测试_01",
+			"id": "0091c910-916c-4849-a786-88af8e38b8ca",
+			"url": "localhost:8080/news/50",
+			"time": "2019-12-26T07:52:04.435Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"删除成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "newsController删除新闻测试_02",
+			"id": "848c9026-9840-4e0e-b9f2-05594e9d4dc2",
+			"url": "localhost:8080/news/117",
+			"time": "2019-12-26T07:52:04.435Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"删除失败_新闻不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		}
+	],
+	"synced": false
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileControllerTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">FileControllerTest.java</span></div><h1>FileControllerTest.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import xyz.st.meethere.exception.FileException;
+import xyz.st.meethere.service.FileService;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+<span class="fc" id="L21">class FileControllerTest {</span>
+
+    private FileService fileService;
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    void setUp() {
+<span class="fc" id="L28">        fileService = mock(FileService.class);</span>
+<span class="fc" id="L29">        mockMvc = MockMvcBuilders.standaloneSetup(new FileController(fileService)).build();</span>
+<span class="fc" id="L30">    }</span>
+
+    @Test
+    public void happy_path_when_update_profile_pic() throws Exception {
+<span class="fc" id="L34">        when(fileService.storeFile(any())).thenReturn(&quot;filename&quot;);</span>
+
+<span class="fc" id="L36">        mockMvc.perform(multipart(&quot;/file/uploadImage&quot;)</span>
+<span class="fc" id="L37">                .file(new MockMultipartFile(&quot;image&quot;, &quot;image.png&quot;, &quot;image/png&quot;, &quot;this is image&quot;.getBytes())))</span>
+<span class="fc" id="L38">                .andExpect(status().isOk())</span>
+<span class="fc" id="L39">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L40">                .andExpect(jsonPath(&quot;$.responseMap.url&quot;).exists());</span>
+<span class="fc" id="L41">    }</span>
+
+    @Test
+    public void fail_to_save_file_when_update_profile_pic() throws Exception {
+<span class="fc" id="L45">        when(fileService.storeFile(any())).thenReturn(null);</span>
+
+<span class="fc" id="L47">        mockMvc.perform(multipart(&quot;/file/uploadImage&quot;)</span>
+<span class="fc" id="L48">                .file(new MockMultipartFile(&quot;image&quot;, &quot;image.png&quot;, &quot;image/png&quot;, &quot;this is image&quot;.getBytes())))</span>
+<span class="fc" id="L49">                .andExpect(status().isOk())</span>
+<span class="fc" id="L50">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L51">    }</span>
+
+    @Test
+    public void file_exception_happened_when_update_profile_pic() throws Exception {
+<span class="fc" id="L55">        when(fileService.storeFile(any())).thenThrow(new FileException(&quot;file exception&quot;));</span>
+
+<span class="fc" id="L57">        mockMvc.perform(multipart(&quot;/file/uploadImage&quot;)</span>
+<span class="fc" id="L58">                .file(new MockMultipartFile(&quot;image&quot;, &quot;image.png&quot;, &quot;image/png&quot;, &quot;this is image&quot;.getBytes())));</span>
+<span class="fc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "e5cc6d91-e149-4765-87da-6143a04dfa41",
+		"name": "meethere-groundControllerTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "groundController获取所有场地测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2c3e46f8-202e-451d-97bd-48be4e13fb7e",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/ground",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ground"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "groundController增加场地测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4d6e1d2-e580-4740-9000-9cab61b61150",
+						"exec": [
+							"pm.test(\"新增成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/my751/OneDrive/桌面/u=3412251120,2331792818&fm=26&gp=0.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/ground/?groundName=testGround&pricePerHour=20&address=somewhere in this world&description=somewhat boring",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ground",
+						""
+					],
+					"query": [
+						{
+							"key": "groundName",
+							"value": "testGround"
+						},
+						{
+							"key": "pricePerHour",
+							"value": "20"
+						},
+						{
+							"key": "address",
+							"value": "somewhere in this world"
+						},
+						{
+							"key": "description",
+							"value": "somewhat boring"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "groundController增加场地测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "928fd0a1-05cd-48b0-8c05-6de78e1d9a29",
+						"exec": [
+							"pm.test(\"新增失败_部分信息缺失\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/ground/?pricePerHour=20&address=somewhere in this world&description=somewhat boring",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ground",
+						""
+					],
+					"query": [
+						{
+							"key": "groundName",
+							"value": "testGround",
+							"disabled": true
+						},
+						{
+							"key": "pricePerHour",
+							"value": "20"
+						},
+						{
+							"key": "address",
+							"value": "somewhere in this world"
+						},
+						{
+							"key": "description",
+							"value": "somewhat boring"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "groundController编辑场地信息测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b6c8c8c-e604-470c-972e-58a69899f950",
+						"exec": [
+							"pm.test(\"编辑成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"groundName\": \"中北篮球场\",\r\n            \"groundId\": 1,\r\n            \"photo\": null,\r\n            \"pricePerHour\": 20,\r\n            \"address\": \"中山北路3663号\",\r\n            \"description\": \"篮球场噢\"\r\n        }"
+				},
+				"url": {
+					"raw": "{{url}}/ground/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ground",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "groundController编辑场地信息测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b6c8c8c-e604-470c-972e-58a69899f950",
+						"exec": [
+							"pm.test(\"编辑失败_场地不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"groundName\": \"中北篮球场\",\r\n            \"groundId\": 321,\r\n            \"photo\": null,\r\n            \"pricePerHour\": 20,\r\n            \"address\": \"中山北路3663号\",\r\n            \"description\": \"篮球场噢\"\r\n        }"
+				},
+				"url": {
+					"raw": "{{url}}/ground/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ground",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "groundController获取场地信息测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77d9bec9-03f0-4fc5-9eda-7134db9f46ce",
+						"exec": [
+							"pm.test(\"获取成功_status比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});",
+							"pm.test(\"获取成功_groundId比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseMap.result.groundId).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/ground/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ground",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "groundController获取场地信息测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77d9bec9-03f0-4fc5-9eda-7134db9f46ce",
+						"exec": [
+							"pm.test(\"获取失败_场地不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/ground/123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ground",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "groundController删除场地测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d2a29bb-ea5d-4e90-8a6c-db896c071535",
+						"exec": [
+							"pm.test(\"删除成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/ground/30",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ground",
+						"30"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "groundController删除场地测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b15cb9e-9618-4b76-84a3-c3b2a7bdf783",
+						"exec": [
+							"pm.test(\"删失败_场馆不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/ground/321",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ground",
+						"321"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

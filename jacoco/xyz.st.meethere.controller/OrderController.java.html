@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">OrderController.java</span></div><h1>OrderController.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import io.swagger.annotations.*;
+import org.springframework.web.bind.annotation.*;
+import xyz.st.meethere.entity.PreOrder;
+import xyz.st.meethere.entity.ResponseMsg;
+import xyz.st.meethere.service.AdminService;
+import xyz.st.meethere.service.GroundService;
+import xyz.st.meethere.service.OrderService;
+import xyz.st.meethere.service.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@ResponseBody
+public class OrderController {
+    final
+    OrderService orderService;
+    final
+    UserService userService;
+    final
+    AdminService adminService;
+    final
+    GroundService groundService;
+
+    public OrderController(OrderService orderService, UserService userService, AdminService adminService,
+<span class="fc" id="L29">                           GroundService groundService) {</span>
+<span class="fc" id="L30">        this.orderService = orderService;</span>
+<span class="fc" id="L31">        this.userService = userService;</span>
+<span class="fc" id="L32">        this.adminService = adminService;</span>
+<span class="fc" id="L33">        this.groundService = groundService;</span>
+<span class="fc" id="L34">    }</span>
+
+    @ApiOperation(value = &quot;获取所有订单, 包括用户的信息和场地的信息&quot;)
+    @GetMapping(&quot;/order&quot;)
+    ResponseMsg getOrders() {
+<span class="fc" id="L39">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L40">        responseMsg.setStatus(404);</span>
+        // fixme: 返回的内容里应该有userName,groundName
+<span class="fc" id="L42">        List&lt;PreOrder&gt; preOrders = orderService.getOrders();</span>
+
+<span class="fc" id="L44">        responseMsg.setStatus(200);</span>
+<span class="fc" id="L45">        responseMsg.getResponseMap().put(&quot;result&quot;, preOrders);</span>
+<span class="fc" id="L46">        return responseMsg;</span>
+    }
+
+    /*
+     * 支持4种搜索方式：
+     * 1. &quot;time:&quot;开头: 返回当天的所有订单
+     *   例如: time: 2019-12-23
+     * 2. &quot;gid:&quot;开头: 返回对应gid的订单
+     *   例如: gid: 1,2,3,4,5
+     * 3. &quot;uid:&quot;开头: 返回对应uid的订单
+     * 4. 搜索内容为空: 返回全部
+     *
+     * */
+    @PostMapping(&quot;/order/match&quot;)
+    @ApiOperation(&quot;通过搜索内容获取订单&quot;)
+//    没啥用
+//    @ApiParam(
+//            examples = @Example(value = {
+//                    @ExampleProperty(value = &quot;{\&quot;match\&quot;: \&quot;time: 2019-12-23\&quot;}&quot;),
+//                    @ExampleProperty(value = &quot;{\&quot;match\&quot;: \&quot;uid: 1\&quot;}&quot;),
+//                    @ExampleProperty(value = &quot;{\&quot;match\&quot;: \&quot;gid: 1\&quot;}&quot;),
+//                    @ExampleProperty(value = &quot;{\&quot;match\&quot;: \&quot;\&quot;}&quot;)
+//            })
+//    )
+    ResponseMsg getOrderByTimeMatch(@RequestBody Map&lt;String,String&gt; params) {
+<span class="fc" id="L71">        String searchParam = params.get(&quot;match&quot;);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (searchParam.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L73">            return getOrders();</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        } else if (searchParam.startsWith(&quot;gid:&quot;)) {</span>
+<span class="fc" id="L75">            String param = searchParam.split(&quot;:&quot;)[1];</span>
+<span class="fc" id="L76">            String[] ids = param.split(&quot;,&quot;);</span>
+<span class="fc" id="L77">            ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L78">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L79">            ArrayList&lt;PreOrder&gt; retOrder = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">            for (String id : ids) {</span>
+//                FIXME: 返回的内容应该是一层的数组
+<span class="fc" id="L82">                retOrder.addAll(orderService.getGroundOrders(Integer.valueOf(id.trim())));</span>
+            }
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            if (retOrder.size() == 0)</span>
+<span class="fc" id="L85">                responseMsg.setStatus(404);</span>
+<span class="fc" id="L86">            responseMsg.getResponseMap().put(&quot;result&quot;, retOrder);</span>
+<span class="fc" id="L87">            return responseMsg;</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        } else if (searchParam.startsWith(&quot;uid:&quot;)) {</span>
+<span class="fc" id="L89">            String param = searchParam.split(&quot;:&quot;)[1];</span>
+<span class="fc" id="L90">            String[] ids = param.split(&quot;,&quot;);</span>
+<span class="fc" id="L91">            ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L92">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L93">            ArrayList&lt;PreOrder&gt; retOrder = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            for (String id : ids) {</span>
+<span class="fc" id="L95">                retOrder.addAll(orderService.getAllPreOrdersOfUser(Integer.valueOf(id.trim())));</span>
+            }
+<span class="fc bfc" id="L97" title="All 2 branches covered.">            if (retOrder.size() == 0)</span>
+<span class="fc" id="L98">                responseMsg.setStatus(404);</span>
+<span class="fc" id="L99">            responseMsg.getResponseMap().put(&quot;result&quot;, retOrder);</span>
+<span class="fc" id="L100">            return responseMsg;</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        } else if (searchParam.startsWith(&quot;time:&quot;)){</span>
+<span class="fc" id="L102">            String time = searchParam.split(&quot;:&quot;)[1].trim();</span>
+<span class="fc" id="L103">            List&lt;PreOrder&gt; orders = orderService.getPreOrderByTimeMatch(time);</span>
+<span class="fc" id="L104">            ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L105">            responseMsg.setStatus(200);</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">            if (orders.size() == 0)</span>
+<span class="fc" id="L107">                responseMsg.setStatus(404);</span>
+<span class="fc" id="L108">            responseMsg.getResponseMap().put(&quot;result&quot;,orders);</span>
+<span class="fc" id="L109">            return responseMsg;</span>
+        } else {
+<span class="fc" id="L111">            ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L112">            responseMsg.setStatus(500);</span>
+<span class="fc" id="L113">            return responseMsg;</span>
+        }
+    }
+
+    @ApiOperation(value = &quot;获取用户的所有订单&quot;, notes = &quot;如果返回404，则用户不存在&quot;)
+    @GetMapping(&quot;/order/user/{userId}/preOrder&quot;)
+    ResponseMsg getOrdersOfUSer(@PathVariable(&quot;userId&quot;) Integer id) {
+<span class="fc" id="L120">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (!orderService.checkUserExistence(id)) {</span>
+<span class="fc" id="L122">            responseMsg.setStatus(404);</span>
+<span class="fc" id="L123">            return responseMsg;</span>
+        }
+        // fixme: 返回的内容里应该有userName,groundName
+<span class="fc" id="L126">        List&lt;PreOrder&gt; preOrders = orderService.getAllPreOrdersOfUser(id);</span>
+<span class="fc" id="L127">        responseMsg.setStatus(200);</span>
+<span class="fc" id="L128">        responseMsg.getResponseMap().put(&quot;result&quot;, preOrders);</span>
+<span class="fc" id="L129">        return responseMsg;</span>
+    }
+
+    @ApiOperation(&quot;获取某用户指定订单&quot;)
+    @GetMapping(&quot;/order/user/{userId}/order/{preOrderId}&quot;)
+    ResponseMsg getOrderByIdOfUSer(@PathVariable(&quot;userId&quot;) Integer uid, @PathVariable(&quot;preOrderId&quot;) Integer oid) {
+        // fixme: 返回的内容里应该有userName,groundName
+<span class="fc" id="L136">        PreOrder preOrder = orderService.getPreOrder(uid, oid);</span>
+<span class="fc" id="L137">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (preOrder == null) {</span>
+<span class="fc" id="L139">            responseMsg.setStatus(404);</span>
+<span class="fc" id="L140">            return responseMsg;</span>
+        }
+<span class="fc" id="L142">        responseMsg.setStatus(200);</span>
+<span class="fc" id="L143">        responseMsg.getResponseMap().put(&quot;result&quot;, preOrder);</span>
+<span class="fc" id="L144">        return responseMsg;</span>
+    }
+
+    @ApiOperation(value = &quot;新增用户订单&quot;, notes = &quot;若返回510则说明用户输入的开始时间和duration与该场地现有预约单冲突&quot;)
+    @PostMapping(&quot;/order/user/{userId}/order&quot;)
+    ResponseMsg addAnOrder(
+            @RequestParam(&quot;groundId&quot;) Integer gid,
+            @PathVariable(&quot;userId&quot;) Integer uid,
+            @RequestParam(&quot;startTime&quot;) String startTime,
+            @RequestParam(&quot;duration&quot;) Integer duration,
+            @RequestParam(&quot;userNum&quot;) Integer userNum
+    ) {
+<span class="fc" id="L156">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">        if (orderService.validatePreOrder(gid, startTime, duration)) {</span>
+<span class="fc" id="L158">            responseMsg.setStatus(510);</span>
+<span class="fc" id="L159">            return responseMsg;</span>
+        }
+<span class="fc" id="L161">        PreOrder preOrder = new PreOrder();</span>
+<span class="fc" id="L162">        preOrder.setGroundId(gid);</span>
+<span class="fc" id="L163">        preOrder.setUserId(uid);</span>
+<span class="fc" id="L164">        preOrder.setStartTime(startTime);</span>
+<span class="fc" id="L165">        preOrder.setDuration(duration);</span>
+<span class="fc" id="L166">        preOrder.setUserNum(userNum);</span>
+<span class="fc" id="L167">        preOrder.setPrice(duration * orderService.getGroundPrice(gid));</span>
+<span class="fc" id="L168">        preOrder.setPayed(0);</span>
+<span class="fc" id="L169">        preOrder.setChecked(0);</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">        if (orderService.addPreOrder(preOrder) == 1) {</span>
+<span class="fc" id="L171">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L172">            responseMsg.getResponseMap().put(&quot;result&quot;, preOrder);</span>
+<span class="fc" id="L173">            return responseMsg;</span>
+        }
+<span class="fc" id="L175">        responseMsg.setStatus(500);</span>
+<span class="fc" id="L176">        return responseMsg;</span>
+    }
+
+    @ApiOperation(value = &quot;新增管理员订单，用来限制场地的可用时间&quot;, notes = &quot;若返回510则说明管理员输入的开始时间和duration与该场地现有预约单冲突&quot;)
+    @PostMapping(&quot;/order/admin/{userId}/order&quot;)
+    ResponseMsg addAnOrderByAdmin(
+            @RequestParam(&quot;groundId&quot;) Integer gid,
+            @PathVariable(&quot;userId&quot;) Integer uid,
+            @RequestParam(&quot;startTime&quot;) String startTime,
+            @RequestParam(&quot;duration&quot;) Integer duration,
+            @RequestParam(&quot;userNum&quot;) Integer userNum
+    ) {
+<span class="fc" id="L188">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">        if (orderService.validatePreOrder(gid, startTime, duration)) {</span>
+<span class="fc" id="L190">            responseMsg.setStatus(510);</span>
+<span class="fc" id="L191">            return responseMsg;</span>
+        }
+<span class="fc" id="L193">        PreOrder preOrder = new PreOrder();</span>
+<span class="fc" id="L194">        preOrder.setGroundId(gid);</span>
+<span class="fc" id="L195">        preOrder.setUserId(uid);</span>
+<span class="fc" id="L196">        preOrder.setStartTime(startTime);</span>
+<span class="fc" id="L197">        preOrder.setDuration(duration);</span>
+<span class="fc" id="L198">        preOrder.setUserNum(userNum);</span>
+<span class="fc" id="L199">        preOrder.setPrice(duration * orderService.getGroundPrice(gid));</span>
+        //确保订单生效
+<span class="fc" id="L201">        preOrder.setPayed(1);</span>
+<span class="fc" id="L202">        preOrder.setChecked(1);</span>
+<span class="fc bfc" id="L203" title="All 2 branches covered.">        if (orderService.addPreOrder(preOrder) == 1) {</span>
+<span class="fc" id="L204">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L205">            responseMsg.getResponseMap().put(&quot;result&quot;, preOrder);</span>
+<span class="fc" id="L206">            return responseMsg;</span>
+        }
+<span class="fc" id="L208">        responseMsg.setStatus(500);</span>
+<span class="fc" id="L209">        return responseMsg;</span>
+    }
+
+
+    @ApiOperation(&quot;删除用户指定订单&quot;)
+    @DeleteMapping(&quot;/order/{preOrderId}&quot;)
+    ResponseMsg deleteOrder(@PathVariable(&quot;preOrderId&quot;) Integer oid) {
+<span class="fc" id="L216">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L217" title="All 2 branches covered.">        if (orderService.deletePreOrder(oid) == 1)</span>
+<span class="fc" id="L218">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L219">        else responseMsg.setStatus(500);</span>
+<span class="fc" id="L220">        return responseMsg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;通过preOrderId批量删除订单&quot;)
+    @DeleteMapping(&quot;/order/deleteByBatch&quot;)
+    ResponseMsg deleteOrderByBatch(@RequestBody Map&lt;String,List&lt;Integer&gt;&gt; data) {
+<span class="fc" id="L227">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L228">        List&lt;Integer&gt; ids = data.get(&quot;ids&quot;);</span>
+<span class="fc" id="L229">        msg.setStatus(200);</span>
+        ResponseMsg tempMsg;
+<span class="fc bfc" id="L231" title="All 2 branches covered.">        for (Integer id : ids) {</span>
+<span class="fc" id="L232">            tempMsg = deleteOrder(id);</span>
+<span class="pc bpc" id="L233" title="1 of 4 branches missed.">            if (tempMsg.getStatus() == 500 &amp;&amp; msg.getStatus() != 500){</span>
+<span class="fc" id="L234">                msg.setStatus(500);</span>
+<span class="fc" id="L235">                return msg;</span>
+            }
+<span class="fc" id="L237">        }</span>
+<span class="fc" id="L238">        msg.setStatus(200);</span>
+<span class="fc" id="L239">        return msg;</span>
+    }
+
+    @ApiOperation(&quot;获取某场地在目前时间之后所有预约单的开始时间和持续时间，并按开始时间升序排序&quot;)
+    @GetMapping(&quot;/order/ground/{groundId}/orderTime&quot;)
+    ResponseMsg getGroundOrderTime(@PathVariable(&quot;groundId&quot;) Integer gid) {
+<span class="fc" id="L245">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">        if (!orderService.checkGroundExistence(gid)) {</span>
+<span class="fc" id="L247">            responseMsg.setStatus(404);</span>
+<span class="fc" id="L248">            return responseMsg;</span>
+        }
+<span class="fc" id="L250">        List&lt;List&gt; lists = orderService.getOrderTime(gid);</span>
+<span class="fc" id="L251">        responseMsg.setStatus(200);</span>
+<span class="fc" id="L252">        responseMsg.getResponseMap().put(&quot;result&quot;, lists);</span>
+<span class="fc" id="L253">        return responseMsg;</span>
+    }
+
+    @ApiOperation(value = &quot;获取某场地的所有订单&quot;, notes = &quot;若返回404则表明场地不存在&quot;)
+    @GetMapping(&quot;/order/ground/{groundId}/order&quot;)
+    ResponseMsg getGroundOrders(@PathVariable(&quot;groundId&quot;) Integer gid) {
+<span class="fc" id="L259">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L260" title="All 2 branches covered.">        if (!orderService.checkGroundExistence(gid)) {</span>
+<span class="fc" id="L261">            responseMsg.setStatus(404);</span>
+<span class="fc" id="L262">            return responseMsg;</span>
+        }
+<span class="fc" id="L264">        responseMsg.setStatus(200);</span>
+<span class="fc" id="L265">        responseMsg.getResponseMap().put(&quot;result&quot;, orderService.getGroundOrders(gid));</span>
+<span class="fc" id="L266">        return responseMsg;</span>
+    }
+
+    //管理员用接口
+    @ApiOperation(&quot;获取所有未审核订单&quot;)
+    @GetMapping(&quot;/order/uncheckedOrder&quot;)
+    ResponseMsg getAllUncheckedComment() {
+<span class="fc" id="L273">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L274">        List&lt;PreOrder&gt; orders = null;</span>
+        // fixme: 返回的内容里应该有userName,groundName
+//        fixme: 不通过的订单也要返回
+<span class="fc" id="L277">        orders = orderService.getUncheckedOrders();</span>
+<span class="fc" id="L278">        responseMsg.getResponseMap().put(&quot;result&quot;, orders);</span>
+<span class="fc" id="L279">        responseMsg.setStatus(200);</span>
+<span class="fc" id="L280">        return responseMsg;</span>
+    }
+
+    @ApiOperation(&quot;将指定订单审核状态标记为通过&quot;)
+    @PutMapping(&quot;/order/check/{preOrderId}&quot;)
+    ResponseMsg checkOrder(@PathVariable(&quot;preOrderId&quot;) Integer pid) {
+<span class="fc" id="L286">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L287" title="All 2 branches covered.">        if (!orderService.checkPreOrderExistence(pid)) {</span>
+<span class="fc" id="L288">            responseMsg.setStatus(404);</span>
+<span class="fc" id="L289">            return responseMsg;</span>
+        }
+<span class="fc" id="L291">        responseMsg.setStatus(200);</span>
+<span class="fc" id="L292">        responseMsg.getResponseMap().put(&quot;result&quot;, orderService.checkPreOrder(pid));</span>
+<span class="fc" id="L293">        return responseMsg;</span>
+    }
+
+    @ApiOperation(&quot;将指定订单审核状态标记为未通过&quot;)
+    @PutMapping(&quot;/order/uncheck/{preOrderId}&quot;)
+     ResponseMsg uncheckOrder(@PathVariable(&quot;preOrderId&quot;) Integer pid) {
+<span class="fc" id="L299">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L300" title="All 2 branches covered.">        if (!orderService.checkPreOrderExistence(pid)) {</span>
+<span class="fc" id="L301">            responseMsg.setStatus(404);</span>
+<span class="fc" id="L302">            return responseMsg;</span>
+        }
+<span class="fc" id="L304">        responseMsg.setStatus(200);</span>
+<span class="fc" id="L305">        responseMsg.getResponseMap().put(&quot;result&quot;, orderService.checkPreOrderFail(pid));</span>
+<span class="fc" id="L306">        return responseMsg;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
