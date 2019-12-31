@@ -1,0 +1,894 @@
+{
+	"info": {
+		"_postman_id": "b3667e45-e990-4afd-8c73-da77ac529a59",
+		"name": "meethere-adminControllerTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "adminController登录测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4af1986d-c6d7-40f6-b06d-00b4d00f0fe5",
+						"exec": [
+							"pm.test(\"登陆成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/admin/enter?userName=admin&password=123456",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"enter"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "admin"
+						},
+						{
+							"key": "password",
+							"value": "123456"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController登录测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "834cd08c-a069-4ead-b6dd-551b5867423a",
+						"exec": [
+							"pm.test(\"登陆失败_密码为空\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/admin/enter?userName=admin&key=null",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"enter"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "admin"
+						},
+						{
+							"key": "key",
+							"value": "null"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController登录测试_03",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb378c76-2101-446e-a453-68a3f5b07cc9",
+						"exec": [
+							"pm.test(\"登录失败_用户名为空\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/admin/enter?userName=&password=123456",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"enter"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": ""
+						},
+						{
+							"key": "password",
+							"value": "123456"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController登录测试_04",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f94dbc5a-b0a3-42a3-bbd0-fd918e05c13c",
+						"exec": [
+							"pm.test(\"登陆失败_都为空\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/admin/enter?userName=&password=null",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"enter"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": ""
+						},
+						{
+							"key": "password",
+							"value": "null"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController登录测试_05",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a25b7ee-5459-4562-9cd6-8f9c61aa7750",
+						"exec": [
+							"pm.test(\"登陆失败_用户名和密码不匹配\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/admin/enter?userName=admin&password=123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"enter"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "admin"
+						},
+						{
+							"key": "password",
+							"value": "123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController查找测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "97c4c279-8d35-4e17-b99d-103b11d90d72",
+						"exec": [
+							"pm.test(\"查找成功_status比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});",
+							"pm.test(\"查找成功_用户信息比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseMap.result.userId).to.eql(4);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/admin/getById?userId=4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"getById"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController查找测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "98a64ac7-71ad-4fe2-9d29-169fa6a39f09",
+						"exec": [
+							"pm.test(\"查找失败_无对应用户ID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/admin/getById?userId=123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"getById"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController查找测试_03",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7004f525-47fb-4c79-91a3-a20bf784a0c1",
+						"exec": [
+							"pm.test(\"查找失败_用户ID为空\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/admin/getById?userId=null",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"getById"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "null"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController查找测试（用户名）_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9802a2a-8192-4583-be8c-cfdd52c2d469",
+						"exec": [
+							"pm.test(\"查找成功\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/admin/getByName?userName=admin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"getByName"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController查找测试（用户名）_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99535a3e-695a-4deb-803f-3cc24b201eff",
+						"exec": [
+							"pm.test(\"登陆失败_无对应用户名\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/admin/getByName?userName=whatevernot",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"getByName"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "whatevernot"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController查找测试（用户名）_03",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9d5c47ff-8036-4973-bd97-d7f098d68aa2",
+						"exec": [
+							"pm.test(\"查找失败_用户名为空\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/admin/getByName?userName=",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"getByName"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController头像更新测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9170567-c47c-40af-a755-53327d4d5cc1",
+						"exec": [
+							"pm.test(\"更新成功\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"localhost:8080\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/my751/OneDrive/桌面/u=3412251120,2331792818&fm=26&gp=0.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/admin/profilePic?userId=4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"profilePic"
+					],
+					"query": [
+						{
+							"key": "image",
+							"value": "image/face.jpg",
+							"disabled": true
+						},
+						{
+							"key": "userId",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController头像更新测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1d6e4884-8fbb-4d2c-8e0a-0e0b93f0de26",
+						"exec": [
+							"pm.test(\"更新失败_用户不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/my751/OneDrive/桌面/u=3412251120,2331792818&fm=26&gp=0.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/admin/profilePic?userId=123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"profilePic"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController头像更新测试_03",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "60973867-3f22-4de3-85db-49a83ffc5f36",
+						"exec": [
+							"pm.test(\"更新失败_图片为空\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"value": "null",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/admin/profilePic?userId=4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"profilePic"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController信息更新测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "88e2b3a3-374c-47af-913c-096fa9586e39",
+						"exec": [
+							"pm.test(\"更新成功_status比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});",
+							"pm.test(\"更新成功_用户信息比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseMap.user.userId).to.eql(4);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userName\":\"admin\",\"email\":\"1234@qq.com\",\"description\":\"如果让你重新来过\"}"
+				},
+				"url": {
+					"raw": "{{url}}/admin/updateByName",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"updateByName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController信息更新测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "54749d07-eb5b-40e2-adb4-6528d60f3fbb",
+						"exec": [
+							"pm.test(\"更新失败_用户名不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userName\":\"coolHarvey\",\"email\":\"1234@qq.com\",\"description\":\"如果让你重新来过\"}"
+				},
+				"url": {
+					"raw": "{{url}}/admin/updateByName",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"updateByName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController信息更新测试_03",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb9aaf2d-ff20-4000-961b-6749e35ec73b",
+						"exec": [
+							"pm.test(\"更新失败_更新信息为空\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userName\":\"admin\"}"
+				},
+				"url": {
+					"raw": "{{url}}/admin/updateByName",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"updateByName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController信息更新测试（用户ID）_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b726900d-d1fa-4a02-a1cf-7642d8fcd40f",
+						"exec": [
+							"pm.test(\"更新成功_status比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});",
+							"pm.test(\"更新成功_用户信息比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseMap.user.userId).to.eql(4);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userId\":4,\"email\":\"1234@qq.com\",\"description\":\"如果让你重新来过\"}"
+				},
+				"url": {
+					"raw": "{{url}}/admin/updateById",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"updateById"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController信息更新测试（用户ID）_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0f0dce0-87ce-4cab-b9c2-40238ca703d1",
+						"exec": [
+							"pm.test(\"更新失败_用户ID不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userId\":123,\"email\":\"1234@qq.com\",\"description\":\"如果让你重新来过\"}"
+				},
+				"url": {
+					"raw": "{{url}}/admin/updateById",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"updateById"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adminController信息更新测试（用户ID）_03",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9930dfe4-8a45-4d52-9039-feb442b624cb",
+						"exec": [
+							"pm.test(\"更新失败_更新信息为空\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userId\":4}"
+				},
+				"url": {
+					"raw": "{{url}}/admin/updateById",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"admin",
+						"updateById"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

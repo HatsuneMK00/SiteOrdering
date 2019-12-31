@@ -1,0 +1,913 @@
+{
+	"id": "443c494b-5f28-44f1-85ec-98dff13fa329",
+	"name": "meethere-orderControllerTest",
+	"allTests": [],
+	"timestamp": "2019-12-26T09:10:29.424Z",
+	"collection_id": "4dc41739-a3e1-40b9-adfa-e5926dc04899",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "4e16ef26-ab17-4929-9566-b465dbe6600c",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "4dc41739-a3e1-40b9-adfa-e5926dc04899",
+		"name": "meethere-orderControllerTest",
+		"order": [
+			"7bf2fe87-25e7-4988-860e-7a4100537a2c",
+			"fec33180-d8c9-4d51-abf1-3086c3e0da46",
+			"37ef8264-77fa-4f7c-93f8-e1ad2a826800",
+			"a33b4734-2f1c-458a-8560-01e44b37acb7",
+			"0b4c5866-f0d4-40f2-82b9-b85159c5bf43",
+			"c2cc5541-f1bc-410d-9ef0-2e85c256e18d",
+			"a39034ed-15a3-4e08-bebd-e83dd9891540",
+			"5a85b4e2-3dae-4dde-83e4-5158c14de837",
+			"7bc7ae0c-eed7-4fdb-a8ac-348503a76a74",
+			"6736b954-b735-4c78-a25f-51bff7721f34",
+			"a9d2d12f-8549-4596-aa96-ed9c946fa223",
+			"9b96467a-2ea5-499a-bedb-5995bcb90cde",
+			"85a5e8f2-1598-4e2c-8e43-ab31d17170e8",
+			"a6ce012a-f6db-4d54-ba42-a53ab4f3ee84",
+			"d080cfeb-a16f-4799-933f-eece26524007",
+			"5829ed51-f182-4d7c-8acb-d2f7b2d0a482"
+		],
+		"folders_order": [],
+		"isFavorite": false
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [],
+	"results": [
+		{
+			"name": "orderController获取所有订单测试_01",
+			"id": "7bf2fe87-25e7-4988-860e-7a4100537a2c",
+			"url": "localhost:8080/order",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"42"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "42",
+			"totalRequestTime": "42",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController删除订单测试_01",
+			"id": "fec33180-d8c9-4d51-abf1-3086c3e0da46",
+			"url": "localhost:8080/order/21",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"删除成功": true
+			},
+			"testPassFailCounts": {
+				"删除成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"35"
+			],
+			"allTests": [
+				{
+					"删除成功": true
+				}
+			],
+			"time": "35",
+			"totalRequestTime": "35",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController删除订单测试_02",
+			"id": "37ef8264-77fa-4f7c-93f8-e1ad2a826800",
+			"url": "localhost:8080/order/123",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"删除失败_订单不存在": true
+			},
+			"testPassFailCounts": {
+				"删除失败_订单不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"13"
+			],
+			"allTests": [
+				{
+					"删除失败_订单不存在": true
+				}
+			],
+			"time": "13",
+			"totalRequestTime": "13",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController审核订单测试_01",
+			"id": "a33b4734-2f1c-458a-8560-01e44b37acb7",
+			"url": "localhost:8080/order/check/19",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"审核成功": true
+			},
+			"testPassFailCounts": {
+				"审核成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"32"
+			],
+			"allTests": [
+				{
+					"审核成功": true
+				}
+			],
+			"time": "32",
+			"totalRequestTime": "32",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController审核订单测试_02",
+			"id": "0b4c5866-f0d4-40f2-82b9-b85159c5bf43",
+			"url": "localhost:8080/order/check/123",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"审核失败_订单不存在": true
+			},
+			"testPassFailCounts": {
+				"审核失败_订单不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"14"
+			],
+			"allTests": [
+				{
+					"审核失败_订单不存在": true
+				}
+			],
+			"time": "14",
+			"totalRequestTime": "14",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController获取场地订单测试_01",
+			"id": "c2cc5541-f1bc-410d-9ef0-2e85c256e18d",
+			"url": "localhost:8080/order/ground/1/order/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"25"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "25",
+			"totalRequestTime": "25",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController获取场地订单测试_02",
+			"id": "a39034ed-15a3-4e08-bebd-e83dd9891540",
+			"url": "localhost:8080/order/ground/123/order/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取失败_场地不存在": true
+			},
+			"testPassFailCounts": {
+				"获取失败_场地不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"14"
+			],
+			"allTests": [
+				{
+					"获取失败_场地不存在": true
+				}
+			],
+			"time": "14",
+			"totalRequestTime": "14",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController获取场地订单开始时间测试_01",
+			"id": "5a85b4e2-3dae-4dde-83e4-5158c14de837",
+			"url": "localhost:8080/order/ground/7/orderTime",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"31"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "31",
+			"totalRequestTime": "31",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController获取场地订单开始时间测试_02",
+			"id": "7bc7ae0c-eed7-4fdb-a8ac-348503a76a74",
+			"url": "localhost:8080/order/ground/123/orderTime",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取失败_场地不存在": true
+			},
+			"testPassFailCounts": {
+				"获取失败_场地不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"16"
+			],
+			"allTests": [
+				{
+					"获取失败_场地不存在": true
+				}
+			],
+			"time": "16",
+			"totalRequestTime": "16",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController获取所有未审核订单测试_01",
+			"id": "6736b954-b735-4c78-a25f-51bff7721f34",
+			"url": "localhost:8080/order/uncheckedOrder",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"16"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "16",
+			"totalRequestTime": "16",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController新增订单测试_01",
+			"id": "a9d2d12f-8549-4596-aa96-ed9c946fa223",
+			"url": "localhost:8080//order/user/4/order?duration=2&groundId=1&startTime=2019-12-28 12:30:00.0",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"新增成功": true
+			},
+			"testPassFailCounts": {
+				"新增成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"50"
+			],
+			"allTests": [
+				{
+					"新增成功": true
+				}
+			],
+			"time": "50",
+			"totalRequestTime": "50",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController新增订单测试_02",
+			"id": "9b96467a-2ea5-499a-bedb-5995bcb90cde",
+			"url": "localhost:8080//order/user/4/order?duration=2&groundId=&startTime=2019-12-30 12:30:00.0",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error",
+				"detail": {
+					"name": "Internal Server Error",
+					"detail": "A generic error message, given when no more specific message is suitable."
+				}
+			},
+			"tests": {
+				"新增失败_部分信息缺失": true
+			},
+			"testPassFailCounts": {
+				"新增失败_部分信息缺失": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"15"
+			],
+			"allTests": [
+				{
+					"新增失败_部分信息缺失": true
+				}
+			],
+			"time": "15",
+			"totalRequestTime": "15",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController获取用户指定订单测试_01",
+			"id": "85a5e8f2-1598-4e2c-8e43-ab31d17170e8",
+			"url": "localhost:8080/order/user/5/order/19",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"37"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "37",
+			"totalRequestTime": "37",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController获取用户指定订单测试_02",
+			"id": "a6ce012a-f6db-4d54-ba42-a53ab4f3ee84",
+			"url": "localhost:8080/order/user/123/order/19",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取失败_用户不存在": true
+			},
+			"testPassFailCounts": {
+				"获取失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"16"
+			],
+			"allTests": [
+				{
+					"获取失败_用户不存在": true
+				}
+			],
+			"time": "16",
+			"totalRequestTime": "16",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController获取用户所有订单测试_01",
+			"id": "d080cfeb-a16f-4799-933f-eece26524007",
+			"url": "localhost:8080/order/user/5/preOrder",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"22"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "22",
+			"totalRequestTime": "22",
+			"iterationResults": {}
+		},
+		{
+			"name": "orderController获取用户所有订单测试_02",
+			"id": "5829ed51-f182-4d7c-8acb-d2f7b2d0a482",
+			"url": "localhost:8080/order/user/123/preOrder",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取失败_用户不存在": true
+			},
+			"testPassFailCounts": {
+				"获取失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"15"
+			],
+			"allTests": [
+				{
+					"获取失败_用户不存在": true
+				}
+			],
+			"time": "15",
+			"totalRequestTime": "15",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 16,
+	"totalFail": 0,
+	"totalTime": 393,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "orderController获取所有订单测试_01",
+			"id": "7bf2fe87-25e7-4988-860e-7a4100537a2c",
+			"url": "localhost:8080/order",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController删除订单测试_01",
+			"id": "fec33180-d8c9-4d51-abf1-3086c3e0da46",
+			"url": "localhost:8080/order/21",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"删除成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController删除订单测试_02",
+			"id": "37ef8264-77fa-4f7c-93f8-e1ad2a826800",
+			"url": "localhost:8080/order/123",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"删除失败_订单不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController审核订单测试_01",
+			"id": "a33b4734-2f1c-458a-8560-01e44b37acb7",
+			"url": "localhost:8080/order/check/19",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"审核成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController审核订单测试_02",
+			"id": "0b4c5866-f0d4-40f2-82b9-b85159c5bf43",
+			"url": "localhost:8080/order/check/123",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"审核失败_订单不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController获取场地订单测试_01",
+			"id": "c2cc5541-f1bc-410d-9ef0-2e85c256e18d",
+			"url": "localhost:8080/order/ground/1/order/",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController获取场地订单测试_02",
+			"id": "a39034ed-15a3-4e08-bebd-e83dd9891540",
+			"url": "localhost:8080/order/ground/123/order/",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取失败_场地不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController获取场地订单开始时间测试_01",
+			"id": "5a85b4e2-3dae-4dde-83e4-5158c14de837",
+			"url": "localhost:8080/order/ground/7/orderTime",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController获取场地订单开始时间测试_02",
+			"id": "7bc7ae0c-eed7-4fdb-a8ac-348503a76a74",
+			"url": "localhost:8080/order/ground/123/orderTime",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取失败_场地不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController获取所有未审核订单测试_01",
+			"id": "6736b954-b735-4c78-a25f-51bff7721f34",
+			"url": "localhost:8080/order/uncheckedOrder",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController新增订单测试_01",
+			"id": "a9d2d12f-8549-4596-aa96-ed9c946fa223",
+			"url": "localhost:8080//order/user/4/order?duration=2&groundId=1&startTime=2019-12-28 12:30:00.0",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"新增成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController新增订单测试_02",
+			"id": "9b96467a-2ea5-499a-bedb-5995bcb90cde",
+			"url": "localhost:8080//order/user/4/order?duration=2&groundId=&startTime=2019-12-30 12:30:00.0",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error",
+				"detail": {
+					"name": "Internal Server Error",
+					"detail": "A generic error message, given when no more specific message is suitable."
+				}
+			},
+			"testPassFailCounts": {
+				"新增失败_部分信息缺失": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController获取用户指定订单测试_01",
+			"id": "85a5e8f2-1598-4e2c-8e43-ab31d17170e8",
+			"url": "localhost:8080/order/user/5/order/19",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController获取用户指定订单测试_02",
+			"id": "a6ce012a-f6db-4d54-ba42-a53ab4f3ee84",
+			"url": "localhost:8080/order/user/123/order/19",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController获取用户所有订单测试_01",
+			"id": "d080cfeb-a16f-4799-933f-eece26524007",
+			"url": "localhost:8080/order/user/5/preOrder",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "orderController获取用户所有订单测试_02",
+			"id": "5829ed51-f182-4d7c-8acb-d2f7b2d0a482",
+			"url": "localhost:8080/order/user/123/preOrder",
+			"time": "2019-12-26T09:10:29.424Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		}
+	],
+	"synced": false
+}

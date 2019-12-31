@@ -1,0 +1,1143 @@
+{
+	"id": "1b56ab84-a118-46bc-9223-bf366c9bf905",
+	"name": "meethere-userControllerTest",
+	"allTests": [],
+	"timestamp": "2019-12-26T11:52:35.693Z",
+	"collection_id": "d5e0e194-53d0-4f71-a809-928f2398edfd",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "4e16ef26-ab17-4929-9566-b465dbe6600c",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "d5e0e194-53d0-4f71-a809-928f2398edfd",
+		"name": "meethere-userControllerTest",
+		"order": [
+			"8df3b506-cdfb-4fd0-ad04-bca231d02c31",
+			"577882e8-0df4-489a-9c93-d51fce19d924",
+			"6a979a59-178e-48d6-89cd-6abb859ddea5",
+			"dad3196b-eb6d-4d85-bcc2-f51450aae1ec",
+			"182d52f7-3b47-459d-aa55-0969c34128b8",
+			"41b8c481-6270-4536-8bcd-c962135374dc",
+			"2952d7b9-2b22-45e4-b882-8425f23599de",
+			"34f724d1-1cd1-4a09-ba56-131d1a21194d",
+			"b3e02e80-3566-4646-8d9b-a212fa79257f",
+			"4137819e-522e-4405-b7f0-17af83760917",
+			"ee36c272-f748-4669-8762-e7a3ffdd55ba",
+			"bdbc4183-44ea-41db-90cd-f06e7adefb9b",
+			"18b5feeb-f4a3-4638-85bd-dce9b56be7bb",
+			"dcb45d0b-edef-485a-a0b5-f50f3e16efc5",
+			"1c7bbb71-0423-4b60-bc72-2adff98148f9",
+			"c3b8620d-a134-4bbb-b29e-0ea79f583ddd",
+			"83bab2ab-4781-461a-89b8-214ff94af22a",
+			"7f24c5db-1df6-4f2a-bbb1-2cc194e6f48b",
+			"833fe17d-eba8-44a9-b94d-3e3b11bab3ae",
+			"1c279f00-1ca9-4b4f-8ff0-eebce10d378e"
+		],
+		"folders_order": [],
+		"isFavorite": false
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [],
+	"results": [
+		{
+			"name": "userController获取所有用户测试_01",
+			"id": "8df3b506-cdfb-4fd0-ad04-bca231d02c31",
+			"url": "localhost:8080/user/getAll",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"145"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "145",
+			"totalRequestTime": "145",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController多选删除用户测试_01",
+			"id": "577882e8-0df4-489a-9c93-d51fce19d924",
+			"url": "localhost:8080/user/deleteByBatch",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"删除成功": true
+			},
+			"testPassFailCounts": {
+				"删除成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"35"
+			],
+			"allTests": [
+				{
+					"删除成功": true
+				}
+			],
+			"time": "35",
+			"totalRequestTime": "35",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController多选删除用户测试_02",
+			"id": "6a979a59-178e-48d6-89cd-6abb859ddea5",
+			"url": "localhost:8080/user/deleteByBatch",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error",
+				"detail": {
+					"name": "Internal Server Error",
+					"detail": "A generic error message, given when no more specific message is suitable."
+				}
+			},
+			"tests": {
+				"删除失败_用户不存在": true
+			},
+			"testPassFailCounts": {
+				"删除失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"28"
+			],
+			"allTests": [
+				{
+					"删除失败_用户不存在": true
+				}
+			],
+			"time": "28",
+			"totalRequestTime": "28",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController删除用户测试_01",
+			"id": "dad3196b-eb6d-4d85-bcc2-f51450aae1ec",
+			"url": "localhost:8080/user/deleteById?userId=12",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"删除成功": true
+			},
+			"testPassFailCounts": {
+				"删除成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"34"
+			],
+			"allTests": [
+				{
+					"删除成功": true
+				}
+			],
+			"time": "34",
+			"totalRequestTime": "34",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController删除用户测试_02",
+			"id": "182d52f7-3b47-459d-aa55-0969c34128b8",
+			"url": "localhost:8080/user/deleteById?userId=123",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error",
+				"detail": {
+					"name": "Internal Server Error",
+					"detail": "A generic error message, given when no more specific message is suitable."
+				}
+			},
+			"tests": {
+				"删除失败_用户不存在": true
+			},
+			"testPassFailCounts": {
+				"删除失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"23"
+			],
+			"allTests": [
+				{
+					"删除失败_用户不存在": true
+				}
+			],
+			"time": "23",
+			"totalRequestTime": "23",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController邮件发送测试_01",
+			"id": "41b8c481-6270-4536-8bcd-c962135374dc",
+			"url": "localhost:8080/user/email?email=751721909@qq.com&userName=harvey",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"发送成功": true
+			},
+			"testPassFailCounts": {
+				"发送成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"1076"
+			],
+			"allTests": [
+				{
+					"发送成功": true
+				}
+			],
+			"time": "1076",
+			"totalRequestTime": "1076",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController登录测试_01",
+			"id": "2952d7b9-2b22-45e4-b882-8425f23599de",
+			"url": "localhost:8080/user/enter?userName=testGuo&password=123456",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"登陆成功": true
+			},
+			"testPassFailCounts": {
+				"登陆成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"24"
+			],
+			"allTests": [
+				{
+					"登陆成功": true
+				}
+			],
+			"time": "24",
+			"totalRequestTime": "24",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController登录测试_02",
+			"id": "34f724d1-1cd1-4a09-ba56-131d1a21194d",
+			"url": "localhost:8080/user/enter?userName=testGuo&password=123458",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"登陆失败_用户名密码不匹配": true
+			},
+			"testPassFailCounts": {
+				"登陆失败_用户名密码不匹配": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"33"
+			],
+			"allTests": [
+				{
+					"登陆失败_用户名密码不匹配": true
+				}
+			],
+			"time": "33",
+			"totalRequestTime": "33",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController查询用户测试（ID）_01",
+			"id": "b3e02e80-3566-4646-8d9b-a212fa79257f",
+			"url": "localhost:8080/user/getById?userId=1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"查询成功": true
+			},
+			"testPassFailCounts": {
+				"查询成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"18"
+			],
+			"allTests": [
+				{
+					"查询成功": true
+				}
+			],
+			"time": "18",
+			"totalRequestTime": "18",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController查询用户测试（ID）_02",
+			"id": "4137819e-522e-4405-b7f0-17af83760917",
+			"url": "localhost:8080/user/getById?userId=123",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"查询失败_用户不存在": true
+			},
+			"testPassFailCounts": {
+				"查询失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"15"
+			],
+			"allTests": [
+				{
+					"查询失败_用户不存在": true
+				}
+			],
+			"time": "15",
+			"totalRequestTime": "15",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController查询用户测试（用户名）_01",
+			"id": "ee36c272-f748-4669-8762-e7a3ffdd55ba",
+			"url": "localhost:8080/user/getByName?userName=testGuo",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"查询成功": true
+			},
+			"testPassFailCounts": {
+				"查询成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"14"
+			],
+			"allTests": [
+				{
+					"查询成功": true
+				}
+			],
+			"time": "14",
+			"totalRequestTime": "14",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController查询用户测试（用户名）_02",
+			"id": "bdbc4183-44ea-41db-90cd-f06e7adefb9b",
+			"url": "localhost:8080/user/getByName?userName=testGuo111",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"查询失败_用户不存在": true
+			},
+			"testPassFailCounts": {
+				"查询失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"24"
+			],
+			"allTests": [
+				{
+					"查询失败_用户不存在": true
+				}
+			],
+			"time": "24",
+			"totalRequestTime": "24",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController头像更新测试_01",
+			"id": "18b5feeb-f4a3-4638-85bd-dce9b56be7bb",
+			"url": "localhost:8080/user/profilePic?userId=1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"更新成功_status比对": true,
+				"更新成功_包含localhost:8080": false
+			},
+			"testPassFailCounts": {
+				"更新成功_status比对": {
+					"pass": 1,
+					"fail": 0
+				},
+				"更新成功_包含localhost:8080": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				"39"
+			],
+			"allTests": [
+				{
+					"更新成功_status比对": true,
+					"更新成功_包含localhost:8080": false
+				}
+			],
+			"time": "39",
+			"totalRequestTime": "39",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController头像更新测试_02",
+			"id": "dcb45d0b-edef-485a-a0b5-f50f3e16efc5",
+			"url": "localhost:8080/user/profilePic?userId=123",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"更新失败_用户不存在": true
+			},
+			"testPassFailCounts": {
+				"更新失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"34"
+			],
+			"allTests": [
+				{
+					"更新失败_用户不存在": true
+				}
+			],
+			"time": "34",
+			"totalRequestTime": "34",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController用户注册测试_01",
+			"id": "1c7bbb71-0423-4b60-bc72-2adff98148f9",
+			"url": "localhost:8080/user/register",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"注册成功": true
+			},
+			"testPassFailCounts": {
+				"注册成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"1792"
+			],
+			"allTests": [
+				{
+					"注册成功": true
+				}
+			],
+			"time": "1792",
+			"totalRequestTime": "1792",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController用户注册测试_02",
+			"id": "c3b8620d-a134-4bbb-b29e-0ea79f583ddd",
+			"url": "localhost:8080/user/register",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"注册失败_重复用户名": true
+			},
+			"testPassFailCounts": {
+				"注册失败_重复用户名": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"37"
+			],
+			"allTests": [
+				{
+					"注册失败_重复用户名": true
+				}
+			],
+			"time": "37",
+			"totalRequestTime": "37",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController修改用户信息测试（ID）_01",
+			"id": "83bab2ab-4781-461a-89b8-214ff94af22a",
+			"url": "localhost:8080/user/updateById",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"修改成功": true
+			},
+			"testPassFailCounts": {
+				"修改成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"49"
+			],
+			"allTests": [
+				{
+					"修改成功": true
+				}
+			],
+			"time": "49",
+			"totalRequestTime": "49",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController修改用户信息测试（ID）_02",
+			"id": "7f24c5db-1df6-4f2a-bbb1-2cc194e6f48b",
+			"url": "localhost:8080/user/updateById",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"修改失败_用户不存在": true
+			},
+			"testPassFailCounts": {
+				"修改失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"12"
+			],
+			"allTests": [
+				{
+					"修改失败_用户不存在": true
+				}
+			],
+			"time": "12",
+			"totalRequestTime": "12",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController修改用户信息测试（用户名）_01",
+			"id": "833fe17d-eba8-44a9-b94d-3e3b11bab3ae",
+			"url": "localhost:8080/user/updateByName",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"修改成功": true
+			},
+			"testPassFailCounts": {
+				"修改成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"37"
+			],
+			"allTests": [
+				{
+					"修改成功": true
+				}
+			],
+			"time": "37",
+			"totalRequestTime": "37",
+			"iterationResults": {}
+		},
+		{
+			"name": "userController修改用户信息测试（用户名）_02",
+			"id": "1c279f00-1ca9-4b4f-8ff0-eebce10d378e",
+			"url": "localhost:8080/user/updateByName",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"修改失败_用户不存在": true
+			},
+			"testPassFailCounts": {
+				"修改失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"13"
+			],
+			"allTests": [
+				{
+					"修改失败_用户不存在": true
+				}
+			],
+			"time": "13",
+			"totalRequestTime": "13",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 20,
+	"totalFail": 1,
+	"totalTime": 3482,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "userController获取所有用户测试_01",
+			"id": "8df3b506-cdfb-4fd0-ad04-bca231d02c31",
+			"url": "localhost:8080/user/getAll",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController多选删除用户测试_01",
+			"id": "577882e8-0df4-489a-9c93-d51fce19d924",
+			"url": "localhost:8080/user/deleteByBatch",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"删除成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController多选删除用户测试_02",
+			"id": "6a979a59-178e-48d6-89cd-6abb859ddea5",
+			"url": "localhost:8080/user/deleteByBatch",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error",
+				"detail": {
+					"name": "Internal Server Error",
+					"detail": "A generic error message, given when no more specific message is suitable."
+				}
+			},
+			"testPassFailCounts": {
+				"删除失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController删除用户测试_01",
+			"id": "dad3196b-eb6d-4d85-bcc2-f51450aae1ec",
+			"url": "localhost:8080/user/deleteById?userId=12",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"删除成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController删除用户测试_02",
+			"id": "182d52f7-3b47-459d-aa55-0969c34128b8",
+			"url": "localhost:8080/user/deleteById?userId=123",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error",
+				"detail": {
+					"name": "Internal Server Error",
+					"detail": "A generic error message, given when no more specific message is suitable."
+				}
+			},
+			"testPassFailCounts": {
+				"删除失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController邮件发送测试_01",
+			"id": "41b8c481-6270-4536-8bcd-c962135374dc",
+			"url": "localhost:8080/user/email?email=751721909@qq.com&userName=harvey",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"发送成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController登录测试_01",
+			"id": "2952d7b9-2b22-45e4-b882-8425f23599de",
+			"url": "localhost:8080/user/enter?userName=testGuo&password=123456",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"登陆成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController登录测试_02",
+			"id": "34f724d1-1cd1-4a09-ba56-131d1a21194d",
+			"url": "localhost:8080/user/enter?userName=testGuo&password=123458",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"登陆失败_用户名密码不匹配": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController查询用户测试（ID）_01",
+			"id": "b3e02e80-3566-4646-8d9b-a212fa79257f",
+			"url": "localhost:8080/user/getById?userId=1",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"查询成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController查询用户测试（ID）_02",
+			"id": "4137819e-522e-4405-b7f0-17af83760917",
+			"url": "localhost:8080/user/getById?userId=123",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"查询失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController查询用户测试（用户名）_01",
+			"id": "ee36c272-f748-4669-8762-e7a3ffdd55ba",
+			"url": "localhost:8080/user/getByName?userName=testGuo",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"查询成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController查询用户测试（用户名）_02",
+			"id": "bdbc4183-44ea-41db-90cd-f06e7adefb9b",
+			"url": "localhost:8080/user/getByName?userName=testGuo111",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"查询失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController头像更新测试_01",
+			"id": "18b5feeb-f4a3-4638-85bd-dce9b56be7bb",
+			"url": "localhost:8080/user/profilePic?userId=1",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"更新成功_status比对": {
+					"pass": 1,
+					"fail": 0
+				},
+				"更新成功_包含localhost:8080": {
+					"pass": 0,
+					"fail": 1
+				}
+			}
+		},
+		{
+			"name": "userController头像更新测试_02",
+			"id": "dcb45d0b-edef-485a-a0b5-f50f3e16efc5",
+			"url": "localhost:8080/user/profilePic?userId=123",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"更新失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController用户注册测试_01",
+			"id": "1c7bbb71-0423-4b60-bc72-2adff98148f9",
+			"url": "localhost:8080/user/register",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"注册成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController用户注册测试_02",
+			"id": "c3b8620d-a134-4bbb-b29e-0ea79f583ddd",
+			"url": "localhost:8080/user/register",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"注册失败_重复用户名": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController修改用户信息测试（ID）_01",
+			"id": "83bab2ab-4781-461a-89b8-214ff94af22a",
+			"url": "localhost:8080/user/updateById",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"修改成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController修改用户信息测试（ID）_02",
+			"id": "7f24c5db-1df6-4f2a-bbb1-2cc194e6f48b",
+			"url": "localhost:8080/user/updateById",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"修改失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController修改用户信息测试（用户名）_01",
+			"id": "833fe17d-eba8-44a9-b94d-3e3b11bab3ae",
+			"url": "localhost:8080/user/updateByName",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"修改成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "userController修改用户信息测试（用户名）_02",
+			"id": "1c279f00-1ca9-4b4f-8ff0-eebce10d378e",
+			"url": "localhost:8080/user/updateByName",
+			"time": "2019-12-26T11:52:35.693Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"修改失败_用户不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		}
+	],
+	"synced": false
+}

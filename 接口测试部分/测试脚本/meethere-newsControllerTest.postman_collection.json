@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "148be0a1-f170-45ae-b768-569b932a286e",
+		"name": "meethere-newsControllerTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "newsController获取所有新闻测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7915f9a2-cf80-4148-b561-3694054b576b",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/news",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"news"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newsController新增新闻测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b7b4759-fa75-47b6-a089-efeb593865d8",
+						"exec": [
+							"pm.test(\"新增成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                \"title\": \"我和你荡秋千\",\r\n                \"content\": \"荡到那天外天\",\r\n                \"date\": \"2019-12-24T21:31:50.000+0800\",\r\n                \"newsId\": 46\r\n            }"
+				},
+				"url": {
+					"raw": "{{url}}/news",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"news"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newsController新增新闻测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f3db65a8-1c86-4502-bbff-f16b987a6428",
+						"exec": [
+							"pm.test(\"新增失败_部分信息缺失\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                \"date\": \"2019-12-24T21:31:50.000+0800\"\r\n            }"
+				},
+				"url": {
+					"raw": "{{url}}/news",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"news"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newsController修改新闻测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ceae87f9-0f7e-428e-a7c9-f93f52c70318",
+						"exec": [
+							"pm.test(\"修改成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                \"title\": \"新闻测试\",\r\n                \"content\": \"刚刚写了个bug，导致标题和内容会一样，还好我发现的早，不然就要被测试喷了\",\r\n                \"date\": \"2019-12-24T21:31:50.000+0800\",\r\n                \"newsId\": 46\r\n            }"
+				},
+				"url": {
+					"raw": "{{url}}/news",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"news"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newsController修改新闻测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22f4f4e2-3ea5-4d16-bbb7-6d7be78a7500",
+						"exec": [
+							"pm.test(\"修改失败_新闻不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                \"title\": \"新闻测试\",\r\n                \"content\": \"刚刚写了个bug，导致标题和内容会一样，还好我发现的早，不然就要被测试喷了\",\r\n                \"date\": \"2019-12-24T21:31:50.000+0800\",\r\n                \"newsId\": 123\r\n            }"
+				},
+				"url": {
+					"raw": "{{url}}/news",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"news"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newsController获取新闻测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b53969d-76d2-45ef-af09-31be2f0e1a88",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/news/46",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"news",
+						"46"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newsController获取新闻测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de4a0817-762d-4486-a5cb-6c0bf34da9c0",
+						"exec": [
+							"pm.test(\"获取失败_新闻不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/news/117",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"news",
+						"117"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newsController删除新闻测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c959ef4b-1641-4f4a-b6ea-fea2f23000a3",
+						"exec": [
+							"pm.test(\"删除成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/news/50",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"news",
+						"50"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newsController删除新闻测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "40647493-c943-4d69-ad04-e92203f0b0c4",
+						"exec": [
+							"pm.test(\"删除失败_新闻不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/news/117",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"news",
+						"117"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
