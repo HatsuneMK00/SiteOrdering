@@ -1,0 +1,823 @@
+2019-12-30 15:35:42,679 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2019-12-30 15:35:42,697 INFO o.a.j.JMeter: Loading user properties from: E:\apache-jmeter\bin\user.properties
+2019-12-30 15:35:42,698 INFO o.a.j.JMeter: Loading system properties from: E:\apache-jmeter\bin\system.properties
+2019-12-30 15:35:42,699 INFO o.a.j.JMeter: Copyright (c) 1998-2019 The Apache Software Foundation
+2019-12-30 15:35:42,699 INFO o.a.j.JMeter: Version 5.2.1
+2019-12-30 15:35:42,699 INFO o.a.j.JMeter: java.version=11.0.3
+2019-12-30 15:35:42,699 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2019-12-30 15:35:42,700 INFO o.a.j.JMeter: os.name=Windows 10
+2019-12-30 15:35:42,700 INFO o.a.j.JMeter: os.arch=amd64
+2019-12-30 15:35:42,700 INFO o.a.j.JMeter: os.version=10.0
+2019-12-30 15:35:42,700 INFO o.a.j.JMeter: file.encoding=GBK
+2019-12-30 15:35:42,700 INFO o.a.j.JMeter: java.awt.headless=true
+2019-12-30 15:35:42,700 INFO o.a.j.JMeter: Max memory     =1073741824
+2019-12-30 15:35:42,700 INFO o.a.j.JMeter: Available Processors =8
+2019-12-30 15:35:42,707 INFO o.a.j.JMeter: Default Locale=English (EN)
+2019-12-30 15:35:42,707 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2019-12-30 15:35:42,707 INFO o.a.j.JMeter: JMeterHome=E:\apache-jmeter
+2019-12-30 15:35:42,707 INFO o.a.j.JMeter: user.dir  =C:\Users\ceej_\Downloads\PerfTesting002_Login
+2019-12-30 15:35:42,707 INFO o.a.j.JMeter: PWD       =C:\Users\ceej_\Downloads\PerfTesting002_Login
+2019-12-30 15:35:42,708 INFO o.a.j.JMeter: IP: 192.168.31.82 Name: CEEJ-DT FullName: CEEJ-DT
+2019-12-30 15:35:42,710 INFO o.a.j.JMeter: Setting property 'jmeter.reportgenerator.outputdir' to:'C:\Users\ceej_\Downloads\PerfTesting002_Login\result\output'
+2019-12-30 15:35:42,712 INFO o.a.j.s.FileServer: Default base='C:\Users\ceej_\Downloads\PerfTesting002_Login'
+2019-12-30 15:35:42,714 INFO o.a.j.s.FileServer: Set new base='C:\Users\ceej_\Downloads\PerfTesting002_Login'
+2019-12-30 15:35:42,823 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2019-12-30 15:35:42,833 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2019-12-30 15:35:42,837 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2019-12-30 15:35:42,841 INFO o.a.j.s.SaveService: Loading file: myscript.jmx
+2019-12-30 15:35:42,880 INFO o.a.j.p.h.c.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
+2019-12-30 15:35:43,087 INFO o.a.j.e.KeyToolUtils: keytool found at 'keytool'
+2019-12-30 15:35:43,087 INFO o.a.j.p.h.p.ProxyControl: HTTP(S) Test Script Recorder SSL Proxy will use keys that support embedded 3rd party resources in file E:\apache-jmeter\bin\proxyserver.jks
+2019-12-30 15:35:43,125 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2019-12-30 15:35:43,125 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2019-12-30 15:35:43,125 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2019-12-30 15:35:43,126 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2019-12-30 15:35:43,126 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2019-12-30 15:35:43,126 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2019-12-30 15:35:43,139 INFO o.a.j.JMeter: Creating summariser <summary>
+2019-12-30 15:35:43,143 INFO o.a.j.r.d.ReportGenerator: ReportGenerator will use for Parsing the separator: ','
+2019-12-30 15:35:43,143 INFO o.a.j.r.d.ReportGenerator: Will generate report at end of test from  results file: result\result.csv
+2019-12-30 15:35:43,143 INFO o.a.j.r.d.ReportGenerator: Reading report generator properties from: E:\apache-jmeter\bin\reportgenerator.properties
+2019-12-30 15:35:43,144 INFO o.a.j.r.d.ReportGenerator: Merging with JMeter properties
+2019-12-30 15:35:43,148 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.temp_dir' not found, using default value 'temp' instead.
+2019-12-30 15:35:43,151 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.apdex_per_transaction' not found, using default value 'null' instead.
+2019-12-30 15:35:43,151 INFO o.a.j.r.c.ReportGeneratorConfiguration: apdex_per_transaction is empty, not APDEX per transaction customization
+2019-12-30 15:35:43,151 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.sample_filter' not found, using default value 'null' instead.
+2019-12-30 15:35:43,152 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.report_title' not found, using default value 'null' instead.
+2019-12-30 15:35:43,152 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.start_date' not found, using default value 'null' instead.
+2019-12-30 15:35:43,152 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.end_date' not found, using default value 'null' instead.
+2019-12-30 15:35:43,152 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.date_format' not found, using default value 'null' instead.
+2019-12-30 15:35:43,157 INFO o.a.j.r.c.ReportGeneratorConfiguration: Will use date range start date: null, end date: null
+2019-12-30 15:35:43,161 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.totalTPS.exclude_controllers' not found, using default value 'false' instead.
+2019-12-30 15:35:43,161 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.activeThreadsOverTime.exclude_controllers' not found, using default value 'false' instead.
+2019-12-30 15:35:43,162 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.timeVsThreads.exclude_controllers' not found, using default value 'false' instead.
+2019-12-30 15:35:43,162 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimeDistribution.exclude_controllers' not found, using default value 'false' instead.
+2019-12-30 15:35:43,162 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.transactionsPerSecond.exclude_controllers' not found, using default value 'false' instead.
+2019-12-30 15:35:43,162 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimePercentiles.exclude_controllers' not found, using default value 'false' instead.
+2019-12-30 15:35:43,162 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimePercentilesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2019-12-30 15:35:43,162 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2019-12-30 15:35:43,162 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.connectTimeOverTime.exclude_controllers' not found, using default value 'false' instead.
+2019-12-30 15:35:43,163 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.latenciesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2019-12-30 15:35:43,163 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.json.filters_only_sample_series' not found, using default value 'true' instead.
+2019-12-30 15:35:43,163 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.json.series_filter' not found, using default value '' instead.
+2019-12-30 15:35:43,164 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.json.show_controllers_only' not found, using default value 'false' instead.
+2019-12-30 15:35:43,164 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.filters_only_sample_series' not found, using default value 'true' instead.
+2019-12-30 15:35:43,164 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.series_filter' not found, using default value '' instead.
+2019-12-30 15:35:43,164 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.show_controllers_only' not found, using default value 'false' instead.
+2019-12-30 15:35:43,170 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2019-12-30 15:35:43,172 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2019-12-30 15:35:43,172 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2019-12-30 15:35:43,179 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2019-12-30 15:35:43,179 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2019-12-30 15:35:43,508 INFO o.a.j.JMeter: Running test (1577691343508)
+2019-12-30 15:35:43,522 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : jp@gc - Ultimate Thread Group
+2019-12-30 15:35:43,522 INFO o.a.j.e.StandardJMeterEngine: Starting 171 threads for group jp@gc - Ultimate Thread Group.
+2019-12-30 15:35:43,522 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2019-12-30 15:35:43,522 INFO k.a.j.t.AbstractSimpleThreadGroup: Starting thread group number 1 threads 171
+2019-12-30 15:35:43,532 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2019-12-30 15:35:43,532 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to ISO-8859-1
+2019-12-30 15:35:43,533 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2019-12-30 15:35:43,533 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2019-12-30 15:35:43,669 INFO k.a.j.t.AbstractSimpleThreadGroup: Started thread group number 1
+2019-12-30 15:35:43,669 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2019-12-30 15:35:44,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-1
+2019-12-30 15:35:44,532 INFO o.a.j.s.FileServer: Stored: source/ground_source.csv
+2019-12-30 15:35:44,536 INFO o.a.j.s.FileServer: Stored: source/user_account.csv
+2019-12-30 15:35:44,536 INFO o.a.j.s.FileServer: Stored: source/admin_account.csv
+2019-12-30 15:35:44,554 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = CEEJ-DT
+2019-12-30 15:35:44,562 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2019-12-30 15:35:44,719 INFO o.a.j.u.JsseSSLManager: Using default SSL protocol: TLS
+2019-12-30 15:35:44,719 INFO o.a.j.u.JsseSSLManager: SSL session context: per-thread
+2019-12-30 15:36:00,005 INFO o.a.j.r.Summariser: summary +   1069 in 00:00:16 =   64.8/s Avg:    13 Min:     8 Max:    50 Err:     0 (0.00%) Active: 1 Started: 1 Finished: 0
+2019-12-30 15:36:30,006 INFO o.a.j.r.Summariser: summary +   2150 in 00:00:30 =   71.7/s Avg:    13 Min:     7 Max:    33 Err:     0 (0.00%) Active: 1 Started: 1 Finished: 0
+2019-12-30 15:36:30,007 INFO o.a.j.r.Summariser: summary =   3219 in 00:00:46 =   69.2/s Avg:    13 Min:     7 Max:    50 Err:     0 (0.00%)
+2019-12-30 15:36:49,524 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-1
+2019-12-30 15:36:49,524 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-1
+2019-12-30 15:36:54,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-21
+2019-12-30 15:36:55,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-20
+2019-12-30 15:36:56,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-19
+2019-12-30 15:36:57,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-18
+2019-12-30 15:36:58,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-17
+2019-12-30 15:36:59,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-16
+2019-12-30 15:37:00,001 INFO o.a.j.r.Summariser: summary +   2548 in 00:00:30 =   84.9/s Avg:    14 Min:     8 Max:    40 Err:     0 (0.00%) Active: 6 Started: 7 Finished: 1
+2019-12-30 15:37:00,003 INFO o.a.j.r.Summariser: summary =   5767 in 00:01:16 =   75.4/s Avg:    14 Min:     7 Max:    50 Err:     0 (0.00%)
+2019-12-30 15:37:00,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-15
+2019-12-30 15:37:01,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-14
+2019-12-30 15:37:02,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-13
+2019-12-30 15:37:03,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-12
+2019-12-30 15:37:04,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-11
+2019-12-30 15:37:05,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-10
+2019-12-30 15:37:06,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-9
+2019-12-30 15:37:07,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-8
+2019-12-30 15:37:08,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-7
+2019-12-30 15:37:09,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-6
+2019-12-30 15:37:10,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-5
+2019-12-30 15:37:11,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-4
+2019-12-30 15:37:12,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-3
+2019-12-30 15:37:13,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-2
+2019-12-30 15:37:30,003 INFO o.a.j.r.Summariser: summary +   8162 in 00:00:30 =  272.0/s Avg:    57 Min:     7 Max:  6643 Err:     0 (0.00%) Active: 20 Started: 21 Finished: 1
+2019-12-30 15:37:30,004 INFO o.a.j.r.Summariser: summary =  13929 in 00:01:46 =  130.8/s Avg:    39 Min:     7 Max:  6643 Err:     0 (0.00%)
+2019-12-30 15:38:00,006 INFO o.a.j.r.Summariser: summary +   7944 in 00:00:30 =  264.8/s Avg:    77 Min:     7 Max: 30286 Err:     1 (0.01%) Active: 20 Started: 21 Finished: 1
+2019-12-30 15:38:00,007 INFO o.a.j.r.Summariser: summary =  21873 in 00:02:16 =  160.2/s Avg:    53 Min:     7 Max: 30286 Err:     1 (0.00%)
+2019-12-30 15:38:30,001 INFO o.a.j.r.Summariser: summary +   8017 in 00:00:30 =  267.3/s Avg:    73 Min:     7 Max: 26151 Err:     0 (0.00%) Active: 20 Started: 21 Finished: 1
+2019-12-30 15:38:30,001 INFO o.a.j.r.Summariser: summary =  29890 in 00:02:46 =  179.5/s Avg:    58 Min:     7 Max: 30286 Err:     1 (0.00%)
+2019-12-30 15:39:00,003 INFO o.a.j.r.Summariser: summary +   8020 in 00:00:30 =  267.3/s Avg:    70 Min:     7 Max:  6992 Err:     0 (0.00%) Active: 20 Started: 21 Finished: 1
+2019-12-30 15:39:00,005 INFO o.a.j.r.Summariser: summary =  37910 in 00:03:16 =  192.9/s Avg:    61 Min:     7 Max: 30286 Err:     1 (0.00%)
+2019-12-30 15:39:30,004 INFO o.a.j.r.Summariser: summary +   8015 in 00:00:30 =  267.2/s Avg:    79 Min:     7 Max: 53372 Err:     0 (0.00%) Active: 20 Started: 21 Finished: 1
+2019-12-30 15:39:30,005 INFO o.a.j.r.Summariser: summary =  45925 in 00:03:46 =  202.8/s Avg:    64 Min:     7 Max: 53372 Err:     1 (0.00%)
+2019-12-30 15:40:00,003 INFO o.a.j.r.Summariser: summary +   8020 in 00:00:30 =  267.4/s Avg:    76 Min:     7 Max: 13056 Err:     0 (0.00%) Active: 20 Started: 21 Finished: 1
+2019-12-30 15:40:00,004 INFO o.a.j.r.Summariser: summary =  53945 in 00:04:16 =  210.3/s Avg:    66 Min:     7 Max: 53372 Err:     1 (0.00%)
+2019-12-30 15:40:30,019 INFO o.a.j.r.Summariser: summary +   6889 in 00:00:30 =  229.5/s Avg:    87 Min:     7 Max:  6679 Err:     0 (0.00%) Active: 20 Started: 21 Finished: 1
+2019-12-30 15:40:30,021 INFO o.a.j.r.Summariser: summary =  60834 in 00:04:47 =  212.3/s Avg:    68 Min:     7 Max: 53372 Err:     1 (0.00%)
+2019-12-30 15:41:00,001 INFO o.a.j.r.Summariser: summary +   8116 in 00:00:30 =  270.7/s Avg:    70 Min:     7 Max: 13458 Err:     0 (0.00%) Active: 20 Started: 21 Finished: 1
+2019-12-30 15:41:00,003 INFO o.a.j.r.Summariser: summary =  68950 in 00:05:16 =  217.9/s Avg:    68 Min:     7 Max: 53372 Err:     1 (0.00%)
+2019-12-30 15:41:30,002 INFO o.a.j.r.Summariser: summary +   8042 in 00:00:30 =  268.1/s Avg:    76 Min:     7 Max: 26124 Err:     0 (0.00%) Active: 20 Started: 21 Finished: 1
+2019-12-30 15:41:30,002 INFO o.a.j.r.Summariser: summary =  76992 in 00:05:46 =  222.2/s Avg:    69 Min:     7 Max: 53372 Err:     1 (0.00%)
+2019-12-30 15:42:00,001 INFO o.a.j.r.Summariser: summary +   8042 in 00:00:30 =  268.1/s Avg:    73 Min:     7 Max: 26624 Err:     0 (0.00%) Active: 20 Started: 21 Finished: 1
+2019-12-30 15:42:00,003 INFO o.a.j.r.Summariser: summary =  85034 in 00:06:16 =  225.9/s Avg:    69 Min:     7 Max: 53372 Err:     1 (0.00%)
+2019-12-30 15:42:18,535 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-21
+2019-12-30 15:42:18,535 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-21
+2019-12-30 15:42:23,542 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-20
+2019-12-30 15:42:23,543 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-20
+2019-12-30 15:42:28,631 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-19
+2019-12-30 15:42:28,631 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-19
+2019-12-30 15:42:30,000 INFO o.a.j.r.Summariser: summary +   8034 in 00:00:30 =  267.8/s Avg:    74 Min:     7 Max: 26532 Err:     0 (0.00%) Active: 17 Started: 21 Finished: 4
+2019-12-30 15:42:30,003 INFO o.a.j.r.Summariser: summary =  93068 in 00:06:46 =  229.0/s Avg:    70 Min:     7 Max: 53372 Err:     1 (0.00%)
+2019-12-30 15:42:33,569 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-18
+2019-12-30 15:42:33,569 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-18
+2019-12-30 15:42:39,100 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-17
+2019-12-30 15:42:39,100 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-17
+2019-12-30 15:42:43,553 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-16
+2019-12-30 15:42:43,553 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-16
+2019-12-30 15:42:48,560 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-15
+2019-12-30 15:42:48,560 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-15
+2019-12-30 15:42:53,614 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-14
+2019-12-30 15:42:53,614 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-14
+2019-12-30 15:42:58,538 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-13
+2019-12-30 15:42:58,539 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-13
+2019-12-30 15:43:00,008 INFO o.a.j.r.Summariser: summary +   8031 in 00:00:30 =  267.6/s Avg:    53 Min:     7 Max:  6629 Err:     0 (0.00%) Active: 11 Started: 21 Finished: 10
+2019-12-30 15:43:00,011 INFO o.a.j.r.Summariser: summary = 101099 in 00:07:16 =  231.6/s Avg:    68 Min:     7 Max: 53372 Err:     1 (0.00%)
+2019-12-30 15:43:03,527 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-12
+2019-12-30 15:43:03,527 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-12
+2019-12-30 15:43:09,292 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-11
+2019-12-30 15:43:09,292 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-11
+2019-12-30 15:43:13,789 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-10
+2019-12-30 15:43:13,789 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-10
+2019-12-30 15:43:18,538 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-9
+2019-12-30 15:43:18,538 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-9
+2019-12-30 15:43:23,533 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-8
+2019-12-30 15:43:23,533 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-8
+2019-12-30 15:43:28,541 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-7
+2019-12-30 15:43:28,542 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-7
+2019-12-30 15:43:30,005 INFO o.a.j.r.Summariser: summary +   8037 in 00:00:30 =  267.9/s Avg:    30 Min:     7 Max:  1626 Err:     0 (0.00%) Active: 5 Started: 21 Finished: 16
+2019-12-30 15:43:30,006 INFO o.a.j.r.Summariser: summary = 109136 in 00:07:46 =  233.9/s Avg:    66 Min:     7 Max: 53372 Err:     1 (0.00%)
+2019-12-30 15:43:33,735 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-6
+2019-12-30 15:43:33,735 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-6
+2019-12-30 15:43:38,530 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-5
+2019-12-30 15:43:38,530 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-5
+2019-12-30 15:43:43,532 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-4
+2019-12-30 15:43:43,532 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-4
+2019-12-30 15:43:48,526 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-3
+2019-12-30 15:43:48,526 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-3
+2019-12-30 15:43:53,537 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-2
+2019-12-30 15:43:53,537 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-2
+2019-12-30 15:43:54,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-71
+2019-12-30 15:43:55,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-70
+2019-12-30 15:43:56,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-69
+2019-12-30 15:43:57,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-68
+2019-12-30 15:43:58,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-67
+2019-12-30 15:43:59,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-66
+2019-12-30 15:44:00,004 INFO o.a.j.r.Summariser: summary +   5563 in 00:00:30 =  185.4/s Avg:    15 Min:     7 Max:   267 Err:     0 (0.00%) Active: 6 Started: 27 Finished: 21
+2019-12-30 15:44:00,006 INFO o.a.j.r.Summariser: summary = 114699 in 00:08:16 =  231.0/s Avg:    63 Min:     7 Max: 53372 Err:     1 (0.00%)
+2019-12-30 15:44:00,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-65
+2019-12-30 15:44:01,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-64
+2019-12-30 15:44:02,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-63
+2019-12-30 15:44:03,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-62
+2019-12-30 15:44:04,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-61
+2019-12-30 15:44:05,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-60
+2019-12-30 15:44:06,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-59
+2019-12-30 15:44:07,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-58
+2019-12-30 15:44:08,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-57
+2019-12-30 15:44:09,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-56
+2019-12-30 15:44:10,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-55
+2019-12-30 15:44:11,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-54
+2019-12-30 15:44:12,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-53
+2019-12-30 15:44:13,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-52
+2019-12-30 15:44:14,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-51
+2019-12-30 15:44:15,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-50
+2019-12-30 15:44:16,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-49
+2019-12-30 15:44:17,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-48
+2019-12-30 15:44:18,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-47
+2019-12-30 15:44:19,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-46
+2019-12-30 15:44:20,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-45
+2019-12-30 15:44:21,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-44
+2019-12-30 15:44:22,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-43
+2019-12-30 15:44:23,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-42
+2019-12-30 15:44:24,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-41
+2019-12-30 15:44:25,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-40
+2019-12-30 15:44:26,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-39
+2019-12-30 15:44:27,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-38
+2019-12-30 15:44:28,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-37
+2019-12-30 15:44:29,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-36
+2019-12-30 15:44:30,009 INFO o.a.j.r.Summariser: summary +   8162 in 00:00:30 =  272.0/s Avg:    70 Min:     7 Max: 12930 Err:     0 (0.00%) Active: 36 Started: 57 Finished: 21
+2019-12-30 15:44:30,010 INFO o.a.j.r.Summariser: summary = 122861 in 00:08:47 =  233.4/s Avg:    64 Min:     7 Max: 53372 Err:     1 (0.00%)
+2019-12-30 15:44:30,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-35
+2019-12-30 15:44:31,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-34
+2019-12-30 15:44:32,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-33
+2019-12-30 15:44:33,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-32
+2019-12-30 15:44:34,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-31
+2019-12-30 15:44:35,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-30
+2019-12-30 15:44:36,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-29
+2019-12-30 15:44:37,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-28
+2019-12-30 15:44:38,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-27
+2019-12-30 15:44:39,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-26
+2019-12-30 15:44:40,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-25
+2019-12-30 15:44:41,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-24
+2019-12-30 15:44:42,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-23
+2019-12-30 15:44:43,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-22
+2019-12-30 15:45:00,003 INFO o.a.j.r.Summariser: summary +   7773 in 00:00:30 =  259.2/s Avg:   171 Min:     7 Max: 26736 Err:     0 (0.00%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:45:00,004 INFO o.a.j.r.Summariser: summary = 130634 in 00:09:16 =  234.7/s Avg:    70 Min:     7 Max: 53372 Err:     1 (0.00%)
+2019-12-30 15:45:30,000 INFO o.a.j.r.Summariser: summary +   8005 in 00:00:30 =  266.9/s Avg:   172 Min:     7 Max: 36461 Err:     2 (0.02%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:45:30,001 INFO o.a.j.r.Summariser: summary = 138639 in 00:09:46 =  236.4/s Avg:    76 Min:     7 Max: 53372 Err:     3 (0.00%)
+2019-12-30 15:46:00,007 INFO o.a.j.r.Summariser: summary +   8013 in 00:00:30 =  267.0/s Avg:   192 Min:     7 Max: 43473 Err:     3 (0.04%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:46:00,009 INFO o.a.j.r.Summariser: summary = 146652 in 00:10:16 =  237.9/s Avg:    82 Min:     7 Max: 53372 Err:     6 (0.00%)
+2019-12-30 15:46:30,006 INFO o.a.j.r.Summariser: summary +   8018 in 00:00:30 =  267.3/s Avg:   189 Min:     7 Max: 53315 Err:     4 (0.05%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:46:30,010 INFO o.a.j.r.Summariser: summary = 154670 in 00:10:46 =  239.2/s Avg:    88 Min:     7 Max: 53372 Err:    10 (0.01%)
+2019-12-30 15:47:00,005 INFO o.a.j.r.Summariser: summary +   8026 in 00:00:30 =  267.6/s Avg:   175 Min:     7 Max: 43169 Err:     3 (0.04%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:47:00,006 INFO o.a.j.r.Summariser: summary = 162696 in 00:11:16 =  240.5/s Avg:    92 Min:     7 Max: 53372 Err:    13 (0.01%)
+2019-12-30 15:47:30,003 INFO o.a.j.r.Summariser: summary +   8027 in 00:00:30 =  267.6/s Avg:   196 Min:     7 Max: 53305 Err:     4 (0.05%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:47:30,004 INFO o.a.j.r.Summariser: summary = 170723 in 00:11:46 =  241.6/s Avg:    97 Min:     7 Max: 53372 Err:    17 (0.01%)
+2019-12-30 15:48:00,001 INFO o.a.j.r.Summariser: summary +   8000 in 00:00:30 =  266.7/s Avg:   177 Min:     7 Max: 30668 Err:     1 (0.01%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:48:00,007 INFO o.a.j.r.Summariser: summary = 178723 in 00:12:16 =  242.7/s Avg:   101 Min:     7 Max: 53372 Err:    18 (0.01%)
+2019-12-30 15:48:30,001 INFO o.a.j.r.Summariser: summary +   7716 in 00:00:30 =  257.2/s Avg:   209 Min:     7 Max: 43260 Err:     3 (0.04%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:48:30,003 INFO o.a.j.r.Summariser: summary = 186439 in 00:12:46 =  243.2/s Avg:   105 Min:     7 Max: 53372 Err:    21 (0.01%)
+2019-12-30 15:49:00,002 INFO o.a.j.r.Summariser: summary +   8020 in 00:00:30 =  267.3/s Avg:   182 Min:     7 Max: 43185 Err:     3 (0.04%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:49:00,004 INFO o.a.j.r.Summariser: summary = 194459 in 00:13:16 =  244.1/s Avg:   108 Min:     7 Max: 53372 Err:    24 (0.01%)
+2019-12-30 15:49:30,010 INFO o.a.j.r.Summariser: summary +   8021 in 00:00:30 =  267.3/s Avg:   182 Min:     7 Max: 42927 Err:     3 (0.04%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:49:30,011 INFO o.a.j.r.Summariser: summary = 202480 in 00:13:47 =  245.0/s Avg:   111 Min:     7 Max: 53372 Err:    27 (0.01%)
+2019-12-30 15:50:00,002 INFO o.a.j.r.Summariser: summary +   8011 in 00:00:30 =  267.1/s Avg:   191 Min:     7 Max: 36509 Err:     1 (0.01%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:50:00,004 INFO o.a.j.r.Summariser: summary = 210491 in 00:14:16 =  245.8/s Avg:   114 Min:     7 Max: 53372 Err:    28 (0.01%)
+2019-12-30 15:50:30,001 INFO o.a.j.r.Summariser: summary +   8024 in 00:00:30 =  267.5/s Avg:   184 Min:     7 Max: 53257 Err:     1 (0.01%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:50:30,002 INFO o.a.j.r.Summariser: summary = 218515 in 00:14:46 =  246.5/s Avg:   117 Min:     7 Max: 53372 Err:    29 (0.01%)
+2019-12-30 15:51:00,012 INFO o.a.j.r.Summariser: summary +   8012 in 00:00:30 =  267.0/s Avg:   179 Min:     7 Max: 82202 Err:     1 (0.01%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:51:00,014 INFO o.a.j.r.Summariser: summary = 226527 in 00:15:17 =  247.2/s Avg:   119 Min:     7 Max: 82202 Err:    30 (0.01%)
+2019-12-30 15:51:30,007 INFO o.a.j.r.Summariser: summary +   8014 in 00:00:30 =  267.2/s Avg:   201 Min:     7 Max: 36718 Err:     5 (0.06%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:51:30,011 INFO o.a.j.r.Summariser: summary = 234541 in 00:15:46 =  247.8/s Avg:   122 Min:     7 Max: 82202 Err:    35 (0.01%)
+2019-12-30 15:52:00,070 INFO o.a.j.r.Summariser: summary +   7696 in 00:00:30 =  256.0/s Avg:   187 Min:     7 Max: 26660 Err:     0 (0.00%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:52:00,072 INFO o.a.j.r.Summariser: summary = 242237 in 00:16:17 =  248.1/s Avg:   124 Min:     7 Max: 82202 Err:    35 (0.01%)
+2019-12-30 15:52:30,003 INFO o.a.j.r.Summariser: summary +   7459 in 00:00:30 =  249.2/s Avg:   193 Min:     7 Max: 37100 Err:     1 (0.01%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:52:30,004 INFO o.a.j.r.Summariser: summary = 249696 in 00:16:46 =  248.1/s Avg:   126 Min:     7 Max: 82202 Err:    36 (0.01%)
+2019-12-30 15:53:00,001 INFO o.a.j.r.Summariser: summary +   8018 in 00:00:30 =  267.3/s Avg:   193 Min:     7 Max: 53392 Err:     3 (0.04%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:53:00,003 INFO o.a.j.r.Summariser: summary = 257714 in 00:17:16 =  248.6/s Avg:   128 Min:     7 Max: 82202 Err:    39 (0.02%)
+2019-12-30 15:53:30,002 INFO o.a.j.r.Summariser: summary +   8017 in 00:00:30 =  267.2/s Avg:   195 Min:     7 Max: 32903 Err:     3 (0.04%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:53:30,006 INFO o.a.j.r.Summariser: summary = 265731 in 00:17:46 =  249.2/s Avg:   130 Min:     7 Max: 82202 Err:    42 (0.02%)
+2019-12-30 15:54:00,011 INFO o.a.j.r.Summariser: summary +   8011 in 00:00:30 =  267.0/s Avg:   174 Min:     7 Max: 33095 Err:     1 (0.01%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:54:00,017 INFO o.a.j.r.Summariser: summary = 273742 in 00:18:17 =  249.7/s Avg:   131 Min:     7 Max: 82202 Err:    43 (0.02%)
+2019-12-30 15:54:30,001 INFO o.a.j.r.Summariser: summary +   8018 in 00:00:30 =  267.4/s Avg:   186 Min:     7 Max: 53372 Err:     3 (0.04%) Active: 50 Started: 71 Finished: 21
+2019-12-30 15:54:30,002 INFO o.a.j.r.Summariser: summary = 281760 in 00:18:46 =  250.1/s Avg:   133 Min:     7 Max: 82202 Err:    46 (0.02%)
+2019-12-30 15:54:48,719 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-71
+2019-12-30 15:54:48,720 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-71
+2019-12-30 15:54:54,200 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-70
+2019-12-30 15:54:54,200 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-70
+2019-12-30 15:54:58,625 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-69
+2019-12-30 15:54:58,626 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-69
+2019-12-30 15:55:00,007 INFO o.a.j.r.Summariser: summary +   8016 in 00:00:30 =  267.1/s Avg:   186 Min:     7 Max: 52289 Err:     2 (0.02%) Active: 47 Started: 71 Finished: 24
+2019-12-30 15:55:00,009 INFO o.a.j.r.Summariser: summary = 289776 in 00:19:16 =  250.6/s Avg:   134 Min:     7 Max: 82202 Err:    48 (0.02%)
+2019-12-30 15:55:03,758 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-68
+2019-12-30 15:55:03,758 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-68
+2019-12-30 15:55:13,524 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-66
+2019-12-30 15:55:13,525 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-66
+2019-12-30 15:55:18,146 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-67
+2019-12-30 15:55:18,146 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-67
+2019-12-30 15:55:20,027 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-65
+2019-12-30 15:55:20,027 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-65
+2019-12-30 15:55:23,891 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-64
+2019-12-30 15:55:23,891 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-64
+2019-12-30 15:55:28,533 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-63
+2019-12-30 15:55:28,533 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-63
+2019-12-30 15:55:30,008 INFO o.a.j.r.Summariser: summary +   8024 in 00:00:30 =  267.4/s Avg:   182 Min:     7 Max: 43001 Err:     3 (0.04%) Active: 41 Started: 71 Finished: 30
+2019-12-30 15:55:30,010 INFO o.a.j.r.Summariser: summary = 297800 in 00:19:47 =  251.0/s Avg:   136 Min:     7 Max: 82202 Err:    51 (0.02%)
+2019-12-30 15:55:34,507 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-62
+2019-12-30 15:55:34,507 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-62
+2019-12-30 15:55:38,916 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-61
+2019-12-30 15:55:38,916 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-61
+2019-12-30 15:55:44,889 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-60
+2019-12-30 15:55:44,890 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-60
+2019-12-30 15:55:48,529 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-59
+2019-12-30 15:55:48,530 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-59
+2019-12-30 15:55:59,675 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-57
+2019-12-30 15:55:59,675 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-57
+2019-12-30 15:56:00,005 INFO o.a.j.r.Summariser: summary +   7993 in 00:00:30 =  266.5/s Avg:   139 Min:     7 Max: 54362 Err:     0 (0.00%) Active: 36 Started: 71 Finished: 35
+2019-12-30 15:56:00,008 INFO o.a.j.r.Summariser: summary = 305793 in 00:20:16 =  251.4/s Avg:   136 Min:     7 Max: 82202 Err:    51 (0.02%)
+2019-12-30 15:56:02,663 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-58
+2019-12-30 15:56:02,663 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-58
+2019-12-30 15:56:03,536 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-56
+2019-12-30 15:56:03,537 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-56
+2019-12-30 15:56:08,929 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-55
+2019-12-30 15:56:08,929 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-55
+2019-12-30 15:56:14,335 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-54
+2019-12-30 15:56:14,335 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-54
+2019-12-30 15:56:18,746 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-53
+2019-12-30 15:56:18,746 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-53
+2019-12-30 15:56:23,779 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-52
+2019-12-30 15:56:23,779 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-52
+2019-12-30 15:56:28,719 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-51
+2019-12-30 15:56:28,720 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-51
+2019-12-30 15:56:30,003 INFO o.a.j.r.Summariser: summary +   7563 in 00:00:30 =  252.1/s Avg:   139 Min:     7 Max: 34126 Err:     2 (0.03%) Active: 29 Started: 71 Finished: 42
+2019-12-30 15:56:30,007 INFO o.a.j.r.Summariser: summary = 313356 in 00:20:46 =  251.4/s Avg:   136 Min:     7 Max: 82202 Err:    53 (0.02%)
+2019-12-30 15:56:34,729 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-50
+2019-12-30 15:56:34,730 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-50
+2019-12-30 15:56:42,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-49
+2019-12-30 15:56:42,950 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-49
+2019-12-30 15:56:45,124 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-48
+2019-12-30 15:56:45,124 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-48
+2019-12-30 15:56:48,965 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-47
+2019-12-30 15:56:48,965 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-47
+2019-12-30 15:56:56,174 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-46
+2019-12-30 15:56:56,174 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-46
+2019-12-30 15:56:58,522 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-45
+2019-12-30 15:56:58,522 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-45
+2019-12-30 15:57:00,000 INFO o.a.j.r.Summariser: summary +   8027 in 00:00:30 =  267.6/s Avg:   100 Min:     7 Max: 27189 Err:     0 (0.00%) Active: 23 Started: 71 Finished: 48
+2019-12-30 15:57:00,003 INFO o.a.j.r.Summariser: summary = 321383 in 00:21:16 =  251.8/s Avg:   135 Min:     7 Max: 82202 Err:    53 (0.02%)
+2019-12-30 15:57:03,539 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-44
+2019-12-30 15:57:03,539 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-44
+2019-12-30 15:57:09,291 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-43
+2019-12-30 15:57:09,291 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-43
+2019-12-30 15:57:15,900 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-42
+2019-12-30 15:57:15,901 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-42
+2019-12-30 15:57:19,454 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-41
+2019-12-30 15:57:19,454 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-41
+2019-12-30 15:57:23,680 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-40
+2019-12-30 15:57:23,681 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-40
+2019-12-30 15:57:28,546 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-39
+2019-12-30 15:57:28,546 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-39
+2019-12-30 15:57:30,001 INFO o.a.j.r.Summariser: summary +   8025 in 00:00:30 =  267.5/s Avg:    77 Min:     7 Max: 13304 Err:     0 (0.00%) Active: 17 Started: 71 Finished: 54
+2019-12-30 15:57:30,008 INFO o.a.j.r.Summariser: summary = 329408 in 00:21:46 =  252.1/s Avg:   133 Min:     7 Max: 82202 Err:    53 (0.02%)
+2019-12-30 15:57:33,544 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-38
+2019-12-30 15:57:33,544 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-38
+2019-12-30 15:57:38,806 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-37
+2019-12-30 15:57:38,807 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-37
+2019-12-30 15:57:44,002 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-36
+2019-12-30 15:57:44,002 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-36
+2019-12-30 15:57:48,527 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-35
+2019-12-30 15:57:48,527 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-35
+2019-12-30 15:57:53,523 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-34
+2019-12-30 15:57:53,523 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-34
+2019-12-30 15:57:58,534 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-33
+2019-12-30 15:57:58,535 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-33
+2019-12-30 15:58:00,007 INFO o.a.j.r.Summariser: summary +   8025 in 00:00:30 =  267.5/s Avg:    53 Min:     7 Max:  6768 Err:     0 (0.00%) Active: 11 Started: 71 Finished: 60
+2019-12-30 15:58:00,016 INFO o.a.j.r.Summariser: summary = 337433 in 00:22:16 =  252.5/s Avg:   132 Min:     7 Max: 82202 Err:    53 (0.02%)
+2019-12-30 15:58:03,569 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-32
+2019-12-30 15:58:03,569 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-32
+2019-12-30 15:58:08,615 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-31
+2019-12-30 15:58:08,615 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-31
+2019-12-30 15:58:13,524 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-30
+2019-12-30 15:58:13,524 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-30
+2019-12-30 15:58:18,529 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-29
+2019-12-30 15:58:18,530 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-29
+2019-12-30 15:58:23,552 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-28
+2019-12-30 15:58:23,552 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-28
+2019-12-30 15:58:28,532 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-27
+2019-12-30 15:58:28,532 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-27
+2019-12-30 15:58:30,006 INFO o.a.j.r.Summariser: summary +   8053 in 00:00:30 =  268.4/s Avg:    30 Min:     7 Max:  1632 Err:     0 (0.00%) Active: 5 Started: 71 Finished: 66
+2019-12-30 15:58:30,024 INFO o.a.j.r.Summariser: summary = 345486 in 00:22:46 =  252.8/s Avg:   129 Min:     7 Max: 82202 Err:    53 (0.02%)
+2019-12-30 15:58:33,523 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-26
+2019-12-30 15:58:33,523 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-26
+2019-12-30 15:58:38,525 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-25
+2019-12-30 15:58:38,525 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-25
+2019-12-30 15:58:43,526 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-24
+2019-12-30 15:58:43,526 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-24
+2019-12-30 15:58:48,524 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-23
+2019-12-30 15:58:48,524 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-23
+2019-12-30 15:58:53,536 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-22
+2019-12-30 15:58:53,537 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-22
+2019-12-30 15:59:44,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-171
+2019-12-30 15:59:45,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-170
+2019-12-30 15:59:46,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-169
+2019-12-30 15:59:47,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-168
+2019-12-30 15:59:48,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-167
+2019-12-30 15:59:49,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-166
+2019-12-30 15:59:50,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-165
+2019-12-30 15:59:51,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-164
+2019-12-30 15:59:52,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-163
+2019-12-30 15:59:53,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-162
+2019-12-30 15:59:54,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-161
+2019-12-30 15:59:55,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-160
+2019-12-30 15:59:56,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-159
+2019-12-30 15:59:57,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-158
+2019-12-30 15:59:58,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-157
+2019-12-30 15:59:59,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-156
+2019-12-30 16:00:00,004 INFO o.a.j.r.Summariser: summary +   8240 in 00:01:30 =   91.6/s Avg:    22 Min:     7 Max:  1717 Err:     0 (0.00%) Active: 16 Started: 87 Finished: 71
+2019-12-30 16:00:00,017 INFO o.a.j.r.Summariser: summary = 353726 in 00:24:16 =  242.9/s Avg:   127 Min:     7 Max: 82202 Err:    53 (0.01%)
+2019-12-30 16:00:00,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-155
+2019-12-30 16:00:01,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-154
+2019-12-30 16:00:02,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-153
+2019-12-30 16:00:03,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-152
+2019-12-30 16:00:04,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-151
+2019-12-30 16:00:05,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-150
+2019-12-30 16:00:06,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-149
+2019-12-30 16:00:07,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-148
+2019-12-30 16:00:08,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-147
+2019-12-30 16:00:09,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-146
+2019-12-30 16:00:10,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-145
+2019-12-30 16:00:11,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-144
+2019-12-30 16:00:12,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-143
+2019-12-30 16:00:13,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-142
+2019-12-30 16:00:14,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-141
+2019-12-30 16:00:15,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-140
+2019-12-30 16:00:16,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-139
+2019-12-30 16:00:17,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-138
+2019-12-30 16:00:18,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-137
+2019-12-30 16:00:19,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-136
+2019-12-30 16:00:20,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-135
+2019-12-30 16:00:21,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-134
+2019-12-30 16:00:22,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-133
+2019-12-30 16:00:23,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-132
+2019-12-30 16:00:24,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-131
+2019-12-30 16:00:25,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-130
+2019-12-30 16:00:26,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-129
+2019-12-30 16:00:27,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-128
+2019-12-30 16:00:28,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-127
+2019-12-30 16:00:29,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-126
+2019-12-30 16:00:30,002 INFO o.a.j.r.Summariser: summary +   7987 in 00:00:30 =  266.2/s Avg:   102 Min:     7 Max:  6773 Err:     0 (0.00%) Active: 46 Started: 117 Finished: 71
+2019-12-30 16:00:30,004 INFO o.a.j.r.Summariser: summary = 361713 in 00:24:46 =  243.3/s Avg:   126 Min:     7 Max: 82202 Err:    53 (0.01%)
+2019-12-30 16:00:30,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-125
+2019-12-30 16:00:31,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-124
+2019-12-30 16:00:32,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-123
+2019-12-30 16:00:33,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-122
+2019-12-30 16:00:34,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-121
+2019-12-30 16:00:35,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-120
+2019-12-30 16:00:36,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-119
+2019-12-30 16:00:37,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-118
+2019-12-30 16:00:38,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-117
+2019-12-30 16:00:39,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-116
+2019-12-30 16:00:40,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-115
+2019-12-30 16:00:41,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-114
+2019-12-30 16:00:42,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-113
+2019-12-30 16:00:43,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-112
+2019-12-30 16:00:44,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-111
+2019-12-30 16:00:45,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-110
+2019-12-30 16:00:46,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-109
+2019-12-30 16:00:47,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-108
+2019-12-30 16:00:48,524 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-107
+2019-12-30 16:00:49,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-106
+2019-12-30 16:00:50,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-105
+2019-12-30 16:00:51,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-104
+2019-12-30 16:00:52,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-103
+2019-12-30 16:00:53,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-102
+2019-12-30 16:00:54,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-101
+2019-12-30 16:00:55,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-100
+2019-12-30 16:00:56,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-99
+2019-12-30 16:00:57,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-98
+2019-12-30 16:00:58,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-97
+2019-12-30 16:00:59,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-96
+2019-12-30 16:01:00,005 INFO o.a.j.r.Summariser: summary +   7596 in 00:00:30 =  253.2/s Avg:   215 Min:     6 Max: 30702 Err:     1 (0.01%) Active: 76 Started: 147 Finished: 71
+2019-12-30 16:01:00,008 INFO o.a.j.r.Summariser: summary = 369309 in 00:25:16 =  243.5/s Avg:   128 Min:     6 Max: 82202 Err:    54 (0.01%)
+2019-12-30 16:01:00,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-95
+2019-12-30 16:01:01,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-94
+2019-12-30 16:01:02,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-93
+2019-12-30 16:01:03,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-92
+2019-12-30 16:01:04,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-91
+2019-12-30 16:01:05,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-90
+2019-12-30 16:01:06,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-89
+2019-12-30 16:01:07,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-88
+2019-12-30 16:01:08,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-87
+2019-12-30 16:01:09,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-86
+2019-12-30 16:01:10,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-85
+2019-12-30 16:01:11,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-84
+2019-12-30 16:01:12,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-83
+2019-12-30 16:01:13,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-82
+2019-12-30 16:01:14,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-81
+2019-12-30 16:01:15,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-80
+2019-12-30 16:01:16,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-79
+2019-12-30 16:01:17,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-78
+2019-12-30 16:01:18,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-77
+2019-12-30 16:01:19,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-76
+2019-12-30 16:01:20,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-75
+2019-12-30 16:01:21,522 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-74
+2019-12-30 16:01:22,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-73
+2019-12-30 16:01:23,523 INFO o.a.j.t.JMeterThread: Thread started: jp@gc - Ultimate Thread Group 1-72
+2019-12-30 16:01:30,002 INFO o.a.j.r.Summariser: summary +   7971 in 00:00:30 =  265.7/s Avg:   292 Min:     7 Max: 43431 Err:     6 (0.08%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:01:30,004 INFO o.a.j.r.Summariser: summary = 377280 in 00:25:46 =  244.0/s Avg:   131 Min:     6 Max: 82202 Err:    60 (0.02%)
+2019-12-30 16:02:00,002 INFO o.a.j.r.Summariser: summary +   8017 in 00:00:30 =  267.2/s Avg:   361 Min:     7 Max: 56107 Err:    14 (0.17%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:02:00,005 INFO o.a.j.r.Summariser: summary = 385297 in 00:26:16 =  244.4/s Avg:   136 Min:     6 Max: 82202 Err:    74 (0.02%)
+2019-12-30 16:02:30,000 INFO o.a.j.r.Summariser: summary +   8025 in 00:00:30 =  267.5/s Avg:   390 Min:     7 Max: 58149 Err:    19 (0.24%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:02:30,002 INFO o.a.j.r.Summariser: summary = 393322 in 00:26:46 =  244.8/s Avg:   141 Min:     6 Max: 82202 Err:    93 (0.02%)
+2019-12-30 16:03:00,001 INFO o.a.j.r.Summariser: summary +   8008 in 00:00:30 =  266.9/s Avg:   356 Min:     7 Max: 52285 Err:     9 (0.11%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:03:00,006 INFO o.a.j.r.Summariser: summary = 401330 in 00:27:16 =  245.2/s Avg:   146 Min:     6 Max: 82202 Err:   102 (0.03%)
+2019-12-30 16:03:30,005 INFO o.a.j.r.Summariser: summary +   8022 in 00:00:30 =  267.4/s Avg:   386 Min:     7 Max: 57451 Err:    12 (0.15%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:03:30,008 INFO o.a.j.r.Summariser: summary = 409352 in 00:27:46 =  245.6/s Avg:   150 Min:     6 Max: 82202 Err:   114 (0.03%)
+2019-12-30 16:04:00,001 INFO o.a.j.r.Summariser: summary +   8009 in 00:00:30 =  267.0/s Avg:   384 Min:     7 Max: 53333 Err:    13 (0.16%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:04:00,004 INFO o.a.j.r.Summariser: summary = 417361 in 00:28:16 =  246.0/s Avg:   155 Min:     6 Max: 82202 Err:   127 (0.03%)
+2019-12-30 16:04:30,009 INFO o.a.j.r.Summariser: summary +   8020 in 00:00:30 =  267.3/s Avg:   372 Min:     7 Max: 54405 Err:    10 (0.12%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:04:30,016 INFO o.a.j.r.Summariser: summary = 425381 in 00:28:46 =  246.4/s Avg:   159 Min:     6 Max: 82202 Err:   137 (0.03%)
+2019-12-30 16:05:00,005 INFO o.a.j.r.Summariser: summary +   7820 in 00:00:30 =  260.7/s Avg:   395 Min:     7 Max: 56619 Err:     8 (0.10%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:05:00,009 INFO o.a.j.r.Summariser: summary = 433201 in 00:29:16 =  246.6/s Avg:   163 Min:     6 Max: 82202 Err:   145 (0.03%)
+2019-12-30 16:05:30,007 INFO o.a.j.r.Summariser: summary +   8010 in 00:00:30 =  267.0/s Avg:   350 Min:     7 Max: 53235 Err:     7 (0.09%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:05:30,008 INFO o.a.j.r.Summariser: summary = 441211 in 00:29:46 =  247.0/s Avg:   167 Min:     6 Max: 82202 Err:   152 (0.03%)
+2019-12-30 16:06:00,004 INFO o.a.j.r.Summariser: summary +   7723 in 00:00:30 =  257.5/s Avg:   390 Min:     7 Max: 50652 Err:    17 (0.22%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:06:00,006 INFO o.a.j.r.Summariser: summary = 448934 in 00:30:16 =  247.1/s Avg:   170 Min:     6 Max: 82202 Err:   169 (0.04%)
+2019-12-30 16:06:30,006 INFO o.a.j.r.Summariser: summary +   8029 in 00:00:30 =  267.6/s Avg:   370 Min:     7 Max: 57032 Err:    18 (0.22%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:06:30,009 INFO o.a.j.r.Summariser: summary = 456963 in 00:30:46 =  247.5/s Avg:   174 Min:     6 Max: 82202 Err:   187 (0.04%)
+2019-12-30 16:07:00,001 INFO o.a.j.r.Summariser: summary +   8012 in 00:00:30 =  267.1/s Avg:   391 Min:     7 Max: 56095 Err:    13 (0.16%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:07:00,004 INFO o.a.j.r.Summariser: summary = 464975 in 00:31:16 =  247.8/s Avg:   178 Min:     6 Max: 82202 Err:   200 (0.04%)
+2019-12-30 16:07:30,003 INFO o.a.j.r.Summariser: summary +   8011 in 00:00:30 =  267.0/s Avg:   362 Min:     7 Max: 56515 Err:    12 (0.15%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:07:30,006 INFO o.a.j.r.Summariser: summary = 472986 in 00:31:46 =  248.1/s Avg:   181 Min:     6 Max: 82202 Err:   212 (0.04%)
+2019-12-30 16:08:00,010 INFO o.a.j.r.Summariser: summary +   8014 in 00:00:30 =  267.1/s Avg:   383 Min:     7 Max: 57627 Err:    12 (0.15%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:08:00,012 INFO o.a.j.r.Summariser: summary = 481000 in 00:32:17 =  248.4/s Avg:   184 Min:     6 Max: 82202 Err:   224 (0.05%)
+2019-12-30 16:08:30,008 INFO o.a.j.r.Summariser: summary +   8018 in 00:00:30 =  267.3/s Avg:   364 Min:     7 Max: 53486 Err:    10 (0.12%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:08:30,011 INFO o.a.j.r.Summariser: summary = 489018 in 00:32:47 =  248.7/s Avg:   187 Min:     6 Max: 82202 Err:   234 (0.05%)
+2019-12-30 16:09:00,001 INFO o.a.j.r.Summariser: summary +   8013 in 00:00:30 =  267.2/s Avg:   354 Min:     7 Max: 53360 Err:    12 (0.15%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:09:00,005 INFO o.a.j.r.Summariser: summary = 497031 in 00:33:16 =  249.0/s Avg:   190 Min:     6 Max: 82202 Err:   246 (0.05%)
+2019-12-30 16:09:30,008 INFO o.a.j.r.Summariser: summary +   7915 in 00:00:30 =  263.8/s Avg:   418 Min:     7 Max: 56594 Err:    17 (0.21%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:09:30,010 INFO o.a.j.r.Summariser: summary = 504946 in 00:33:47 =  249.2/s Avg:   193 Min:     6 Max: 82202 Err:   263 (0.05%)
+2019-12-30 16:10:00,002 INFO o.a.j.r.Summariser: summary +   7968 in 00:00:30 =  265.7/s Avg:   336 Min:     7 Max: 56606 Err:     9 (0.11%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:10:00,004 INFO o.a.j.r.Summariser: summary = 512914 in 00:34:16 =  249.4/s Avg:   196 Min:     6 Max: 82202 Err:   272 (0.05%)
+2019-12-30 16:10:30,001 INFO o.a.j.r.Summariser: summary +   8018 in 00:00:30 =  267.3/s Avg:   380 Min:     7 Max: 58125 Err:    17 (0.21%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:10:30,004 INFO o.a.j.r.Summariser: summary = 520932 in 00:34:46 =  249.7/s Avg:   199 Min:     6 Max: 82202 Err:   289 (0.06%)
+2019-12-30 16:11:00,002 INFO o.a.j.r.Summariser: summary +   8024 in 00:00:30 =  267.4/s Avg:   387 Min:     7 Max: 56504 Err:    18 (0.22%) Active: 100 Started: 171 Finished: 71
+2019-12-30 16:11:00,006 INFO o.a.j.r.Summariser: summary = 528956 in 00:35:16 =  249.9/s Avg:   201 Min:     6 Max: 82202 Err:   307 (0.06%)
+2019-12-30 16:11:28,629 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-171
+2019-12-30 16:11:28,629 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-171
+2019-12-30 16:11:30,003 INFO o.a.j.r.Summariser: summary +   8018 in 00:00:30 =  267.3/s Avg:   371 Min:     7 Max: 54374 Err:    15 (0.19%) Active: 99 Started: 171 Finished: 72
+2019-12-30 16:11:30,005 INFO o.a.j.r.Summariser: summary = 536974 in 00:35:46 =  250.2/s Avg:   204 Min:     6 Max: 82202 Err:   322 (0.06%)
+2019-12-30 16:11:40,692 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-169
+2019-12-30 16:11:40,692 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-169
+2019-12-30 16:11:48,824 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-168
+2019-12-30 16:11:48,824 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-168
+2019-12-30 16:11:53,585 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-166
+2019-12-30 16:11:53,585 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-166
+2019-12-30 16:11:55,847 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-170
+2019-12-30 16:11:55,847 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-170
+2019-12-30 16:12:00,002 INFO o.a.j.r.Summariser: summary +   8022 in 00:00:30 =  267.4/s Avg:   363 Min:     7 Max: 56614 Err:    16 (0.20%) Active: 95 Started: 171 Finished: 76
+2019-12-30 16:12:00,005 INFO o.a.j.r.Summariser: summary = 544996 in 00:36:16 =  250.4/s Avg:   206 Min:     6 Max: 82202 Err:   338 (0.06%)
+2019-12-30 16:12:00,782 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-167
+2019-12-30 16:12:00,782 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-167
+2019-12-30 16:12:08,531 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-163
+2019-12-30 16:12:08,531 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-163
+2019-12-30 16:12:14,598 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-164
+2019-12-30 16:12:14,598 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-164
+2019-12-30 16:12:16,132 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-162
+2019-12-30 16:12:16,132 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-162
+2019-12-30 16:12:18,670 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-161
+2019-12-30 16:12:18,670 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-161
+2019-12-30 16:12:19,334 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-165
+2019-12-30 16:12:19,334 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-165
+2019-12-30 16:12:29,114 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-159
+2019-12-30 16:12:29,114 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-159
+2019-12-30 16:12:30,000 INFO o.a.j.r.Summariser: summary +   8026 in 00:00:30 =  267.6/s Avg:   362 Min:     7 Max: 56621 Err:    15 (0.19%) Active: 88 Started: 171 Finished: 83
+2019-12-30 16:12:30,003 INFO o.a.j.r.Summariser: summary = 553022 in 00:36:46 =  250.6/s Avg:   208 Min:     6 Max: 82202 Err:   353 (0.06%)
+2019-12-30 16:12:38,800 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-157
+2019-12-30 16:12:38,800 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-157
+2019-12-30 16:12:43,864 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-156
+2019-12-30 16:12:43,864 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-156
+2019-12-30 16:12:45,816 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-158
+2019-12-30 16:12:45,816 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-158
+2019-12-30 16:12:50,075 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-155
+2019-12-30 16:12:50,075 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-155
+2019-12-30 16:12:53,770 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-154
+2019-12-30 16:12:53,771 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-154
+2019-12-30 16:12:58,915 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-153
+2019-12-30 16:12:58,915 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-153
+2019-12-30 16:13:00,003 INFO o.a.j.r.Summariser: summary +   7505 in 00:00:30 =  250.1/s Avg:   355 Min:     7 Max: 56089 Err:     5 (0.07%) Active: 82 Started: 171 Finished: 89
+2019-12-30 16:13:00,005 INFO o.a.j.r.Summariser: summary = 560527 in 00:37:16 =  250.6/s Avg:   210 Min:     6 Max: 82202 Err:   358 (0.06%)
+2019-12-30 16:13:08,528 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-151
+2019-12-30 16:13:08,528 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-151
+2019-12-30 16:13:16,359 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-160
+2019-12-30 16:13:16,359 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-160
+2019-12-30 16:13:17,742 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-150
+2019-12-30 16:13:17,742 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-150
+2019-12-30 16:13:19,046 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-149
+2019-12-30 16:13:19,047 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-149
+2019-12-30 16:13:23,576 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-148
+2019-12-30 16:13:23,576 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-148
+2019-12-30 16:13:30,001 INFO o.a.j.r.Summariser: summary +   8013 in 00:00:30 =  267.1/s Avg:   300 Min:     7 Max: 84431 Err:     5 (0.06%) Active: 77 Started: 171 Finished: 94
+2019-12-30 16:13:30,003 INFO o.a.j.r.Summariser: summary = 568540 in 00:37:46 =  250.8/s Avg:   212 Min:     6 Max: 84431 Err:   363 (0.06%)
+2019-12-30 16:13:31,831 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-147
+2019-12-30 16:13:31,831 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-147
+2019-12-30 16:13:34,273 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-146
+2019-12-30 16:13:34,273 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-146
+2019-12-30 16:13:39,993 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-145
+2019-12-30 16:13:39,993 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-145
+2019-12-30 16:13:43,714 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-144
+2019-12-30 16:13:43,714 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-144
+2019-12-30 16:13:50,100 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-152
+2019-12-30 16:13:50,101 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-152
+2019-12-30 16:14:00,000 INFO o.a.j.r.Summariser: summary +   8023 in 00:00:30 =  267.4/s Avg:   276 Min:     7 Max: 52295 Err:     6 (0.07%) Active: 72 Started: 171 Finished: 99
+2019-12-30 16:14:00,002 INFO o.a.j.r.Summariser: summary = 576563 in 00:38:16 =  251.1/s Avg:   213 Min:     6 Max: 84431 Err:   369 (0.06%)
+2019-12-30 16:14:04,823 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-140
+2019-12-30 16:14:04,823 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-140
+2019-12-30 16:14:06,579 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-143
+2019-12-30 16:14:06,579 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-143
+2019-12-30 16:14:08,531 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-139
+2019-12-30 16:14:08,531 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-139
+2019-12-30 16:14:14,597 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-138
+2019-12-30 16:14:14,598 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-138
+2019-12-30 16:14:17,383 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-141
+2019-12-30 16:14:17,383 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-141
+2019-12-30 16:14:24,549 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-136
+2019-12-30 16:14:24,549 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-136
+2019-12-30 16:14:28,855 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-135
+2019-12-30 16:14:28,856 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-135
+2019-12-30 16:14:30,005 INFO o.a.j.r.Summariser: summary +   8022 in 00:00:30 =  267.4/s Avg:   239 Min:     7 Max: 53310 Err:     7 (0.09%) Active: 65 Started: 171 Finished: 106
+2019-12-30 16:14:30,007 INFO o.a.j.r.Summariser: summary = 584585 in 00:38:46 =  251.3/s Avg:   213 Min:     6 Max: 84431 Err:   376 (0.06%)
+2019-12-30 16:14:31,669 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-137
+2019-12-30 16:14:31,669 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-137
+2019-12-30 16:14:33,536 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-134
+2019-12-30 16:14:33,536 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-134
+2019-12-30 16:14:36,378 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-142
+2019-12-30 16:14:36,378 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-142
+2019-12-30 16:14:50,714 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-131
+2019-12-30 16:14:50,715 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-131
+2019-12-30 16:14:58,814 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-130
+2019-12-30 16:14:58,814 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-130
+2019-12-30 16:14:58,965 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-133
+2019-12-30 16:14:58,965 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-133
+2019-12-30 16:15:00,000 INFO o.a.j.r.Summariser: summary +   8032 in 00:00:30 =  267.8/s Avg:   256 Min:     8 Max: 56045 Err:     9 (0.11%) Active: 59 Started: 171 Finished: 112
+2019-12-30 16:15:00,003 INFO o.a.j.r.Summariser: summary = 592617 in 00:39:16 =  251.5/s Avg:   214 Min:     6 Max: 84431 Err:   385 (0.06%)
+2019-12-30 16:15:10,196 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-127
+2019-12-30 16:15:10,196 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-127
+2019-12-30 16:15:11,689 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-129
+2019-12-30 16:15:11,689 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-129
+2019-12-30 16:15:13,710 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-126
+2019-12-30 16:15:13,710 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-126
+2019-12-30 16:15:19,566 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-125
+2019-12-30 16:15:19,566 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-125
+2019-12-30 16:15:19,718 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-132
+2019-12-30 16:15:19,718 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-132
+2019-12-30 16:15:21,014 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-128
+2019-12-30 16:15:21,014 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-128
+2019-12-30 16:15:25,253 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-124
+2019-12-30 16:15:25,253 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-124
+2019-12-30 16:15:30,000 INFO o.a.j.r.Summariser: summary +   8032 in 00:00:30 =  267.7/s Avg:   221 Min:     7 Max: 56616 Err:     6 (0.07%) Active: 52 Started: 171 Finished: 119
+2019-12-30 16:15:30,002 INFO o.a.j.r.Summariser: summary = 600649 in 00:39:46 =  251.7/s Avg:   214 Min:     6 Max: 84431 Err:   391 (0.07%)
+2019-12-30 16:15:33,685 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-122
+2019-12-30 16:15:33,685 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-122
+2019-12-30 16:15:34,880 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-123
+2019-12-30 16:15:34,880 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-123
+2019-12-30 16:15:38,524 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-121
+2019-12-30 16:15:38,525 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-121
+2019-12-30 16:15:45,116 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-120
+2019-12-30 16:15:45,116 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-120
+2019-12-30 16:15:49,218 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-119
+2019-12-30 16:15:49,218 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-119
+2019-12-30 16:15:54,614 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-118
+2019-12-30 16:15:54,614 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-118
+2019-12-30 16:15:58,642 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-117
+2019-12-30 16:15:58,642 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-117
+2019-12-30 16:16:00,001 INFO o.a.j.r.Summariser: summary +   8028 in 00:00:30 =  267.6/s Avg:   195 Min:     7 Max: 43163 Err:     4 (0.05%) Active: 45 Started: 171 Finished: 126
+2019-12-30 16:16:00,004 INFO o.a.j.r.Summariser: summary = 608677 in 00:40:16 =  251.9/s Avg:   213 Min:     6 Max: 84431 Err:   395 (0.06%)
+2019-12-30 16:16:03,754 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-116
+2019-12-30 16:16:03,755 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-116
+2019-12-30 16:16:09,149 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-115
+2019-12-30 16:16:09,149 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-115
+2019-12-30 16:16:13,533 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-114
+2019-12-30 16:16:13,534 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-114
+2019-12-30 16:16:18,732 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-113
+2019-12-30 16:16:18,732 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-113
+2019-12-30 16:16:23,534 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-112
+2019-12-30 16:16:23,534 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-112
+2019-12-30 16:16:29,185 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-111
+2019-12-30 16:16:29,185 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-111
+2019-12-30 16:16:30,000 INFO o.a.j.r.Summariser: summary +   7502 in 00:00:30 =  250.1/s Avg:   169 Min:     7 Max: 27182 Err:     0 (0.00%) Active: 39 Started: 171 Finished: 132
+2019-12-30 16:16:30,002 INFO o.a.j.r.Summariser: summary = 616179 in 00:40:46 =  251.9/s Avg:   213 Min:     6 Max: 84431 Err:   395 (0.06%)
+2019-12-30 16:16:33,862 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-110
+2019-12-30 16:16:33,863 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-110
+2019-12-30 16:16:39,003 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-109
+2019-12-30 16:16:39,003 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-109
+2019-12-30 16:16:43,666 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-108
+2019-12-30 16:16:43,667 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-108
+2019-12-30 16:16:48,535 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-107
+2019-12-30 16:16:48,535 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-107
+2019-12-30 16:16:53,565 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-106
+2019-12-30 16:16:53,565 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-106
+2019-12-30 16:16:58,645 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-105
+2019-12-30 16:16:58,645 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-105
+2019-12-30 16:17:00,002 INFO o.a.j.r.Summariser: summary +   8042 in 00:00:30 =  268.1/s Avg:   131 Min:     7 Max: 52271 Err:     1 (0.01%) Active: 33 Started: 171 Finished: 138
+2019-12-30 16:17:00,003 INFO o.a.j.r.Summariser: summary = 624221 in 00:41:16 =  252.1/s Avg:   212 Min:     6 Max: 84431 Err:   396 (0.06%)
+2019-12-30 16:17:03,934 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-104
+2019-12-30 16:17:03,934 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-104
+2019-12-30 16:17:08,846 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-103
+2019-12-30 16:17:08,846 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-103
+2019-12-30 16:17:13,530 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-102
+2019-12-30 16:17:13,530 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-102
+2019-12-30 16:17:18,889 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-101
+2019-12-30 16:17:18,889 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-101
+2019-12-30 16:17:28,065 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-100
+2019-12-30 16:17:28,065 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-100
+2019-12-30 16:17:29,790 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-99
+2019-12-30 16:17:29,790 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-99
+2019-12-30 16:17:30,003 INFO o.a.j.r.Summariser: summary +   8033 in 00:00:30 =  267.7/s Avg:   123 Min:     7 Max: 45968 Err:     2 (0.02%) Active: 27 Started: 171 Finished: 144
+2019-12-30 16:17:30,004 INFO o.a.j.r.Summariser: summary = 632254 in 00:41:46 =  252.2/s Avg:   211 Min:     6 Max: 84431 Err:   398 (0.06%)
+2019-12-30 16:17:33,524 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-98
+2019-12-30 16:17:33,525 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-98
+2019-12-30 16:17:38,925 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-97
+2019-12-30 16:17:38,925 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-97
+2019-12-30 16:17:43,528 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-96
+2019-12-30 16:17:43,528 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-96
+2019-12-30 16:17:48,837 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-95
+2019-12-30 16:17:48,837 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-95
+2019-12-30 16:17:54,124 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-94
+2019-12-30 16:17:54,124 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-94
+2019-12-30 16:17:58,530 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-93
+2019-12-30 16:17:58,531 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-93
+2019-12-30 16:18:00,002 INFO o.a.j.r.Summariser: summary +   7536 in 00:00:30 =  251.2/s Avg:   103 Min:     7 Max: 53297 Err:     0 (0.00%) Active: 21 Started: 171 Finished: 150
+2019-12-30 16:18:00,010 INFO o.a.j.r.Summariser: summary = 639790 in 00:42:16 =  252.2/s Avg:   209 Min:     6 Max: 84431 Err:   398 (0.06%)
+2019-12-30 16:18:03,838 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-92
+2019-12-30 16:18:03,838 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-92
+2019-12-30 16:18:08,547 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-91
+2019-12-30 16:18:08,547 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-91
+2019-12-30 16:18:13,616 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-90
+2019-12-30 16:18:13,616 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-90
+2019-12-30 16:18:18,539 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-89
+2019-12-30 16:18:18,539 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-89
+2019-12-30 16:18:23,730 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-88
+2019-12-30 16:18:23,730 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-88
+2019-12-30 16:18:29,243 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-87
+2019-12-30 16:18:29,243 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-87
+2019-12-30 16:18:30,002 INFO o.a.j.r.Summariser: summary +   6964 in 00:00:30 =  232.1/s Avg:    81 Min:     8 Max: 29131 Err:     0 (0.00%) Active: 15 Started: 171 Finished: 156
+2019-12-30 16:18:30,004 INFO o.a.j.r.Summariser: summary = 646754 in 00:42:46 =  252.0/s Avg:   208 Min:     6 Max: 84431 Err:   398 (0.06%)
+2019-12-30 16:18:33,533 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-86
+2019-12-30 16:18:33,533 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-86
+2019-12-30 16:18:38,532 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-85
+2019-12-30 16:18:38,532 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-85
+2019-12-30 16:18:43,916 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-84
+2019-12-30 16:18:43,916 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-84
+2019-12-30 16:18:48,535 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-83
+2019-12-30 16:18:48,536 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-83
+2019-12-30 16:18:53,688 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-82
+2019-12-30 16:18:53,688 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-82
+2019-12-30 16:18:58,800 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-81
+2019-12-30 16:18:58,800 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-81
+2019-12-30 16:19:00,203 INFO o.a.j.r.Summariser: summary +   7277 in 00:00:30 =  241.0/s Avg:    50 Min:     8 Max:  3693 Err:     0 (0.00%) Active: 9 Started: 171 Finished: 162
+2019-12-30 16:19:00,206 INFO o.a.j.r.Summariser: summary = 654031 in 00:43:17 =  251.9/s Avg:   206 Min:     6 Max: 84431 Err:   398 (0.06%)
+2019-12-30 16:19:03,607 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-80
+2019-12-30 16:19:03,607 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-80
+2019-12-30 16:19:08,567 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-79
+2019-12-30 16:19:08,567 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-79
+2019-12-30 16:19:13,543 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-78
+2019-12-30 16:19:13,543 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-78
+2019-12-30 16:19:18,552 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-77
+2019-12-30 16:19:18,552 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-77
+2019-12-30 16:19:23,529 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-76
+2019-12-30 16:19:23,529 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-76
+2019-12-30 16:19:28,523 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-75
+2019-12-30 16:19:28,523 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-75
+2019-12-30 16:19:30,004 INFO o.a.j.r.Summariser: summary +   6392 in 00:00:30 =  214.5/s Avg:    29 Min:     7 Max:   935 Err:     0 (0.00%) Active: 3 Started: 171 Finished: 168
+2019-12-30 16:19:30,008 INFO o.a.j.r.Summariser: summary = 660423 in 00:43:46 =  251.4/s Avg:   205 Min:     6 Max: 84431 Err:   398 (0.06%)
+2019-12-30 16:19:33,566 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-74
+2019-12-30 16:19:33,566 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-74
+2019-12-30 16:19:38,531 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-73
+2019-12-30 16:19:38,531 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-73
+2019-12-30 16:19:43,532 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: jp@gc - Ultimate Thread Group 1-72
+2019-12-30 16:19:43,533 INFO o.a.j.t.JMeterThread: Thread finished: jp@gc - Ultimate Thread Group 1-72
+2019-12-30 16:19:43,533 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2019-12-30 16:19:43,533 INFO o.a.j.s.FileServer: Close: source/ground_source.csv
+2019-12-30 16:19:43,533 INFO o.a.j.s.FileServer: Close: source/user_account.csv
+2019-12-30 16:19:43,534 INFO o.a.j.s.FileServer: Close: source/admin_account.csv
+2019-12-30 16:19:43,557 INFO o.a.j.r.Summariser: summary +   1484 in 00:00:14 =  109.5/s Avg:    17 Min:     8 Max:   149 Err:     0 (0.00%) Active: 0 Started: 171 Finished: 171
+2019-12-30 16:19:43,560 INFO o.a.j.r.Summariser: summary = 661907 in 00:44:00 =  250.7/s Avg:   204 Min:     6 Max: 84431 Err:   398 (0.06%)
+2019-12-30 16:19:43,561 INFO o.a.j.JMeter: Generating Dashboard
+2019-12-30 16:19:43,561 INFO o.a.j.r.d.ReportGenerator: Flushing result collector before report Generation
+2019-12-30 16:19:43,571 WARN o.a.j.s.CSVSaveService: Unknown column name 1577691344627
+2019-12-30 16:19:43,572 WARN o.a.j.r.c.CsvSampleReader: File 'C:\Users\ceej_\Downloads\PerfTesting002_Login\result\result.csv' does not contain the field names header, ensure the jmeter.save.saveservice.* properties are the same as when the CSV file was created or the file may be read incorrectly when generating report
+2019-12-30 16:19:43,579 INFO o.a.j.r.p.NormalizerSampleConsumer: Using format, 'ms', to parse timeStamp field
+2019-12-30 16:19:58,476 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.AggregateConsumer#stopProducing(): beginDate produced 0 samples
+2019-12-30 16:19:58,476 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.AggregateConsumer#stopProducing(): endDate produced 0 samples
+2019-12-30 16:19:58,478 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.ApdexSummaryConsumer#stopProducing(): apdexSummary produced 0 samples
+2019-12-30 16:19:58,478 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.RequestsSummaryConsumer#stopProducing(): requestsSummary produced 0 samples
+2019-12-30 16:19:58,491 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.StatisticsSummaryConsumer#stopProducing(): statisticsSummary produced 0 samples
+2019-12-30 16:19:58,493 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.Top5ErrorsBySamplerConsumer#stopProducing(): top5ErrorsBySampler produced 0 samples
+2019-12-30 16:19:58,493 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.ErrorsSummaryConsumer#stopProducing(): errorsSummary produced 0 samples
+2019-12-30 16:19:58,493 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.HitsPerSecondGraphConsumer#stopProducing(): hitsPerSecond produced 0 samples
+2019-12-30 16:20:01,586 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.LatencyVSRequestGraphConsumer#stopProducing(): latencyVsRequest produced 0 samples
+2019-12-30 16:20:01,609 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.SyntheticResponseTimeDistributionGraphConsumer#stopProducing(): syntheticResponseTimeDistribution produced 0 samples
+2019-12-30 16:20:01,609 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.BytesThroughputGraphConsumer#stopProducing(): bytesThroughputOverTime produced 0 samples
+2019-12-30 16:20:01,609 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.CodesPerSecondGraphConsumer#stopProducing(): codesPerSecond produced 0 samples
+2019-12-30 16:20:04,623 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimeVSRequestGraphConsumer#stopProducing(): responseTimeVsRequest produced 0 samples
+2019-12-30 16:20:04,629 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.FilterConsumer#stopProducing(): startIntervalControlerFilter produced 4633342 samples
+2019-12-30 16:20:04,629 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.TotalTPSGraphConsumer#stopProducing(): totalTPS produced 0 samples
+2019-12-30 16:20:04,630 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ActiveThreadsGraphConsumer#stopProducing(): activeThreadsOverTime produced 0 samples
+2019-12-30 16:20:04,630 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.TimeVSThreadGraphConsumer#stopProducing(): timeVsThreads produced 0 samples
+2019-12-30 16:20:04,630 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimeDistributionGraphConsumer#stopProducing(): responseTimeDistribution produced 0 samples
+2019-12-30 16:20:04,630 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.TransactionsPerSecondGraphConsumer#stopProducing(): transactionsPerSecond produced 0 samples
+2019-12-30 16:20:04,630 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimePercentilesGraphConsumer#stopProducing(): responseTimePercentiles produced 0 samples
+2019-12-30 16:20:04,635 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimePercentilesOverTimeGraphConsumer#stopProducing(): responseTimePercentilesOverTime produced 0 samples
+2019-12-30 16:20:04,655 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimeOverTimeGraphConsumer#stopProducing(): responseTimesOverTime produced 0 samples
+2019-12-30 16:20:04,655 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ConnectTimeOverTimeGraphConsumer#stopProducing(): connectTimeOverTime produced 0 samples
+2019-12-30 16:20:04,655 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.LatencyOverTimeGraphConsumer#stopProducing(): latenciesOverTime produced 0 samples
+2019-12-30 16:20:04,655 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.FilterConsumer#stopProducing(): nameFilter produced 16548300 samples
+2019-12-30 16:20:04,655 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.FilterConsumer#stopProducing(): dateRangeFilter produced 3309660 samples
+2019-12-30 16:20:04,655 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.NormalizerSampleConsumer#stopProducing(): normalizer produced 1103220 samples
+2019-12-30 16:20:04,656 INFO o.a.j.r.p.CsvFileSampleSource: produce(): 1103220 samples produced in 21s 46 ms on channel 0
+2019-12-30 16:20:04,656 INFO o.a.j.r.d.ReportGenerator: Exporting data using exporter:'json' of className:'org.apache.jmeter.report.dashboard.JsonExporter'
+2019-12-30 16:20:04,657 INFO o.a.j.r.d.JsonExporter: Found data for consumer statisticsSummary?in context
+2019-12-30 16:20:04,657 INFO o.a.j.r.d.JsonExporter: Creating statistics for overall
+2019-12-30 16:20:04,658 INFO o.a.j.r.d.JsonExporter: Creating statistics for other transactions
+2019-12-30 16:20:04,658 INFO o.a.j.r.d.JsonExporter: Checking output folder
+2019-12-30 16:20:04,658 INFO o.a.j.r.d.JsonExporter: Writing statistics JSON to C:\Users\ceej_\Downloads\PerfTesting002_Login\result\output\statistics.json
+2019-12-30 16:20:04,799 INFO o.a.j.r.d.ReportGenerator: Exporting data using exporter:'html' of className:'org.apache.jmeter.report.dashboard.HtmlTemplateExporter'
+2019-12-30 16:20:04,802 INFO o.a.j.r.d.HtmlTemplateExporter: Will generate dashboard in folder: C:\Users\ceej_\Downloads\PerfTesting002_Login\result\output
+2019-12-30 16:20:04,873 INFO o.a.j.r.d.HtmlTemplateExporter: Report will be generated in: C:\Users\ceej_\Downloads\PerfTesting002_Login\result\output, creating folder structure
+2019-12-30 16:20:04,875 INFO o.a.j.r.d.TemplateVisitor: Copying folder from 'E:\apache-jmeter\bin\report-template' to 'C:\Users\ceej_\Downloads\PerfTesting002_Login\result\output', got message: C:\Users\ceej_\Downloads\PerfTesting002_Login\result\output, found non empty folder with following content [C:\Users\ceej_\Downloads\PerfTesting002_Login\result\output\statistics.json], will be ignored
+2019-12-30 16:20:05,463 INFO o.a.j.JMeter: Dashboard generated

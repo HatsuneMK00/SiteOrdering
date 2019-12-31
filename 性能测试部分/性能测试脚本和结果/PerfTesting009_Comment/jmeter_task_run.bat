@@ -1,0 +1,1 @@
+jmeter -n -t myscript.jmx -l result\result.csv -e -o result\output

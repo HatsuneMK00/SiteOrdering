@@ -1,0 +1,100 @@
+2019-12-30 18:07:59,384 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2019-12-30 18:07:59,403 INFO o.a.j.JMeter: Loading user properties from: E:\apache-jmeter\bin\user.properties
+2019-12-30 18:07:59,403 INFO o.a.j.JMeter: Loading system properties from: E:\apache-jmeter\bin\system.properties
+2019-12-30 18:07:59,405 INFO o.a.j.JMeter: Copyright (c) 1998-2019 The Apache Software Foundation
+2019-12-30 18:07:59,405 INFO o.a.j.JMeter: Version 5.2.1
+2019-12-30 18:07:59,405 INFO o.a.j.JMeter: java.version=11.0.3
+2019-12-30 18:07:59,405 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2019-12-30 18:07:59,405 INFO o.a.j.JMeter: os.name=Windows 10
+2019-12-30 18:07:59,405 INFO o.a.j.JMeter: os.arch=amd64
+2019-12-30 18:07:59,405 INFO o.a.j.JMeter: os.version=10.0
+2019-12-30 18:07:59,405 INFO o.a.j.JMeter: file.encoding=GBK
+2019-12-30 18:07:59,405 INFO o.a.j.JMeter: java.awt.headless=null
+2019-12-30 18:07:59,406 INFO o.a.j.JMeter: Max memory     =1073741824
+2019-12-30 18:07:59,406 INFO o.a.j.JMeter: Available Processors =8
+2019-12-30 18:07:59,413 INFO o.a.j.JMeter: Default Locale=English (EN)
+2019-12-30 18:07:59,413 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2019-12-30 18:07:59,413 INFO o.a.j.JMeter: JMeterHome=E:\apache-jmeter
+2019-12-30 18:07:59,413 INFO o.a.j.JMeter: user.dir  =C:\Users\ceej_\Downloads\PerfTesting003_UserInfo
+2019-12-30 18:07:59,413 INFO o.a.j.JMeter: PWD       =C:\Users\ceej_\Downloads\PerfTesting003_UserInfo
+2019-12-30 18:07:59,414 INFO o.a.j.JMeter: IP: 192.168.31.82 Name: CEEJ-DT FullName: CEEJ-DT
+2019-12-30 18:07:59,742 INFO o.a.j.g.a.LookAndFeelCommand: Installing Darcula LAF
+2019-12-30 18:07:59,748 INFO o.a.j.g.a.LookAndFeelCommand: Using look and feel: com.bulenkov.darcula.DarculaLaf [Darcula]
+2019-12-30 18:07:59,749 INFO o.a.j.JMeter: Setting LAF to: com.bulenkov.darcula.DarculaLaf
+2019-12-30 18:07:59,807 INFO o.a.j.JMeter: Loaded icon properties from org/apache/jmeter/images/icon.properties
+2019-12-30 18:08:00,546 INFO o.j.r.JARSourceHTTP: Found cached repo
+2019-12-30 18:08:00,681 INFO o.j.r.PluginManager: Plugins Status: [jpgc-graphs-basic=2.0, jpgc-casutg=2.9, jpgc-filterresults=2.2, jpgc-perfmon=2.1, jpgc-plugins-manager=1.3, jpgc-synthesis=2.2, jmeter-core=5.2.1, jmeter-ftp=5.2.1, jmeter-http=5.2.1, jmeter-jdbc=5.2.1, jmeter-jms=5.2.1, jmeter-junit=5.2.1, jmeter-java=5.2.1, jmeter-ldap=5.2.1, jmeter-mail=5.2.1, jmeter-mongodb=5.2.1, jmeter-native=5.2.1, jmeter-tcp=5.2.1, jmeter-components=5.2.1]
+2019-12-30 18:08:01,748 WARN o.a.j.g.ObjectTableModel: Header count=13 but classes count=11
+2019-12-30 18:08:01,749 WARN o.a.j.g.ObjectTableModel: Header count=13 but writeFunctor count=11
+2019-12-30 18:08:02,406 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2019-12-30 18:08:02,407 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2019-12-30 18:08:02,407 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2019-12-30 18:08:02,407 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2019-12-30 18:08:02,407 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2019-12-30 18:08:02,407 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2019-12-30 18:08:02,775 INFO o.a.j.e.KeyToolUtils: keytool found at 'keytool'
+2019-12-30 18:08:02,776 INFO o.a.j.p.h.p.ProxyControl: HTTP(S) Test Script Recorder SSL Proxy will use keys that support embedded 3rd party resources in file E:\apache-jmeter\bin\proxyserver.jks
+2019-12-30 18:08:02,941 INFO o.a.j.s.FileServer: Default base='C:\Users\ceej_\Downloads\PerfTesting003_UserInfo'
+2019-12-30 18:08:03,366 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2019-12-30 18:08:03,367 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to ISO-8859-1
+2019-12-30 18:08:03,367 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2019-12-30 18:08:03,368 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2019-12-30 18:08:21,861 INFO o.a.j.g.a.Load: Loading file: C:\Users\ceej_\Downloads\PerfTesting003_UserInfo\myscript.jmx
+2019-12-30 18:08:21,862 INFO o.a.j.s.FileServer: Set new base='C:\Users\ceej_\Downloads\PerfTesting003_UserInfo'
+2019-12-30 18:08:21,978 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2019-12-30 18:08:21,991 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2019-12-30 18:08:21,994 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2019-12-30 18:08:21,997 INFO o.a.j.s.SaveService: Loading file: C:\Users\ceej_\Downloads\PerfTesting003_UserInfo\myscript.jmx
+2019-12-30 18:08:22,129 INFO o.a.j.p.h.c.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
+2019-12-30 18:08:22,258 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2019-12-30 18:08:22,258 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2019-12-30 18:08:22,703 INFO o.a.j.s.FileServer: Set new base='C:\Users\ceej_\Downloads\PerfTesting003_UserInfo'
+2019-12-30 18:08:27,248 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:08:27,249 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:08:27,250 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2019-12-30 18:08:36,337 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:08:36,337 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:08:47,362 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:08:47,363 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:08:50,276 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:08:50,276 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:00,287 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:00,287 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:02,338 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:02,338 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:06,175 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:06,176 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:11,850 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:11,851 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:14,251 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:14,251 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:17,313 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:17,314 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:19,989 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:19,989 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:25,925 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695741286
+2019-12-30 18:09:25,926 INFO o.a.j.s.CSVSaveService: result\server_res.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:28,525 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:28,525 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:31,475 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:31,475 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:33,139 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:33,139 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:42,575 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:42,576 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:47,226 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:47,226 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:49,963 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:49,963 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:51,938 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:51,939 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:53,926 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:53,926 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:55,864 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:55,864 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:09:57,764 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:09:57,764 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:10:06,413 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:10:06,413 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.
+2019-12-30 18:10:12,863 WARN o.a.j.s.CSVSaveService: Unknown column name 1577695740878
+2019-12-30 18:10:12,864 INFO o.a.j.s.CSVSaveService: result\result.csv does not appear to have a valid header. Using default configuration.

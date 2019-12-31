@@ -19,4 +19,9 @@ var navs = [
         "icon": "&#xe62a",
         "href": "page/broadcast/user_broadcast.html",
         "spread": false
+}, {
+        "title": "我的留言",
+        "icon": "&#xe63a",
+        "href": "page/comment/user_comment.html",
+        "spread": false
 }];
