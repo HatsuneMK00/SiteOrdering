@@ -95,7 +95,8 @@ class OrderControllerTest {
         mockMvc.perform(post("/order/user/1/order")
                 .param("groundId", "1")
                 .param("startTime", "2019-12-30 12:30:00.0")
-                .param("duration", "2"))
+                .param("duration", "2")
+                .param("userNum","1"))
                 .andExpect(jsonPath("$.status").value(200));
         verify(orderService).validatePreOrder(1, "2019-12-30 12:30:00.0", 2);
         verify(orderService).getGroundPrice(1);
