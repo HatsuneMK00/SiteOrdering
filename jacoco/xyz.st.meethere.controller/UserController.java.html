@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import xyz.st.meethere.config.MyServerConfig;
+import xyz.st.meethere.entity.ResponseMsg;
+import xyz.st.meethere.entity.User;
+import xyz.st.meethere.exception.FileException;
+import xyz.st.meethere.service.FileService;
+import xyz.st.meethere.service.MailService;
+import xyz.st.meethere.service.UserService;
+
+import java.util.List;
+import java.util.Map;
+
+// user表以userId为主键
+// userName为登陆的的主键，数据库中设置UNIQEUE索引
+<span class="pc bpc" id="L20" title="1 of 2 branches missed.">@RestController</span>
+public class UserController {
+    private final UserService userService;
+    private final FileService fileService;
+    private final MailService mailService;
+
+<span class="fc" id="L26">    public UserController(UserService userService, FileService fileService, MailService mailService) {</span>
+<span class="fc" id="L27">        this.userService = userService;</span>
+<span class="fc" id="L28">        this.fileService = fileService;</span>
+<span class="fc" id="L29">        this.mailService = mailService;</span>
+<span class="fc" id="L30">    }</span>
+
+    @ResponseBody
+    @ApiOperation(&quot;通过userName查找用户，用户名Unique&quot;)
+    @GetMapping(&quot;/user/getByName&quot;)
+    ResponseMsg getUserByName(@RequestParam(&quot;userName&quot;) String userName) {
+<span class="fc" id="L36">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L37">        msg.setStatus(404);</span>
+<span class="fc" id="L38">        User user = userService.getUserByName(userName);</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (user != null) {</span>
+<span class="fc" id="L40">            msg.setStatus(200);</span>
+        }
+<span class="fc" id="L42">        msg.getResponseMap().put(&quot;result&quot;, user);</span>
+<span class="fc" id="L43">        return msg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;通过userId查找用户&quot;)
+    @GetMapping(&quot;/user/getById&quot;)
+    ResponseMsg getUserById(@RequestParam(&quot;userId&quot;) int userId) {
+<span class="fc" id="L50">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L51">        msg.setStatus(404);</span>
+<span class="fc" id="L52">        User user = userService.getUserById(userId);</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (user != null) {</span>
+<span class="fc" id="L54">            msg.setStatus(200);</span>
+        }
+<span class="fc" id="L56">        msg.getResponseMap().put(&quot;result&quot;, user);</span>
+<span class="fc" id="L57">        return msg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;查找所有用户&quot;)
+    @GetMapping(&quot;/user/getAll&quot;)
+    ResponseMsg traverseUser() {
+<span class="fc" id="L64">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L65">        msg.setStatus(404);</span>
+<span class="fc" id="L66">        List&lt;User&gt; user = userService.traverseUser();</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (user != null) {</span>
+<span class="fc" id="L68">            msg.setStatus(200);</span>
+        }
+<span class="fc" id="L70">        msg.getResponseMap().put(&quot;result&quot;, user);</span>
+<span class="fc" id="L71">        return msg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;通过userName和password登陆&quot;)
+    @GetMapping(&quot;/user/enter&quot;)
+    ResponseMsg loginUser(@RequestParam(&quot;userName&quot;) String userName, @RequestParam(&quot;password&quot;) String password) {
+<span class="fc" id="L78">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L79">        msg.setStatus(404);</span>
+<span class="fc" id="L80">        boolean isPwdCorrect = userService.checkUserPassword(userName, password);</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        if (isPwdCorrect) {</span>
+<span class="fc" id="L82">            msg.setStatus(200);</span>
+        }
+<span class="fc" id="L84">        return msg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;通过email userName password注册&quot;)
+    @PutMapping(&quot;/user/register&quot;)
+    ResponseMsg registerUser(@RequestBody Map params) {
+<span class="fc" id="L91">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L92">        msg.setStatus(404);</span>
+<span class="pc bpc" id="L93" title="2 of 6 branches missed.">        if (!(params.containsKey(&quot;email&quot;) &amp;&amp; params.containsKey(&quot;userName&quot;) &amp;&amp; params.containsKey(&quot;password&quot;))) {</span>
+<span class="fc" id="L94">            return msg;</span>
+        }
+<span class="fc" id="L96">        String email = params.get(&quot;email&quot;).toString();</span>
+<span class="fc" id="L97">        String userName = params.get(&quot;userName&quot;).toString();</span>
+<span class="fc" id="L98">        String password = params.get(&quot;password&quot;).toString();</span>
+<span class="fc" id="L99">        int registerStatus = userService.addUser(email, userName, password);</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (registerStatus &gt; 0) {</span>
+<span class="fc" id="L101">            emailUser(email, userName);</span>
+<span class="fc" id="L102">            msg.setStatus(200);</span>
+        }
+<span class="fc" id="L104">        return msg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;通过userId删除&quot;)
+    @DeleteMapping(&quot;/user/deleteById&quot;)
+    ResponseMsg deleteUser(@RequestParam(&quot;userId&quot;) int userId) {
+<span class="fc" id="L111">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L112">        msg.setStatus(404);</span>
+<span class="fc" id="L113">        int registerStatus = userService.deleteUserById(userId);</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        if (registerStatus &gt; 0) {</span>
+<span class="fc" id="L115">            msg.setStatus(200);</span>
+        }
+<span class="fc" id="L117">        return msg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;通过userId的数组删除&quot;)
+    @DeleteMapping(&quot;/user/deleteByBatch&quot;)
+    ResponseMsg deleteUser(@RequestBody Map&lt;String, List&lt;Integer&gt;&gt; params) {
+<span class="fc" id="L124">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L125">        msg.setStatus(200);</span>
+//        FIXME: 这里的参数名称和/ground/deleteByBatch不一致(&quot;ids&quot;)
+<span class="fc" id="L127">        List&lt;Integer&gt; ids = params.get(&quot;userId&quot;);</span>
+        ResponseMsg tempMsg;
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        for (Integer id : ids) {</span>
+<span class="fc" id="L130">            tempMsg = deleteUser(id);</span>
+<span class="fc bfc" id="L131" title="All 4 branches covered.">            if (tempMsg.getStatus() == 404 &amp;&amp; msg.getStatus() != 404) {</span>
+<span class="fc" id="L132">                msg.setStatus(404);</span>
+            }
+<span class="fc" id="L134">        }</span>
+<span class="fc" id="L135">        return msg;</span>
+    }
+
+
+    @ResponseBody
+    @ApiOperation(&quot;发送邮件给email，用户userName&quot;)
+    @GetMapping(&quot;/user/email&quot;)
+//    FIXME: 返回值没有使用
+    ResponseMsg emailUser(@RequestParam(&quot;email&quot;) String email, @RequestParam(&quot;userName&quot;) String userName) {
+<span class="fc" id="L144">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L145">        msg.setStatus(404);</span>
+<span class="fc" id="L146">        boolean emailStatus = mailService.sendmail(email, userName);</span>
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">        if (emailStatus) {</span>
+<span class="fc" id="L148">            msg.setStatus(200);</span>
+        }
+<span class="fc" id="L150">        return msg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;修改用户信息，使用userId识别用户&quot;)
+    @PostMapping(&quot;/user/updateById&quot;)
+    ResponseMsg updateById(@RequestBody Map params) {
+<span class="fc" id="L157">        ResponseMsg msg = new ResponseMsg();</span>
+//        FIXME: 参数传递错误应该返回400
+<span class="fc" id="L159">        msg.setStatus(400);</span>
+<span class="fc" id="L160">        if (</span>
+<span class="pc bpc" id="L161" title="1 of 4 branches missed.">                (!(params.containsKey(&quot;userId&quot;))||!(params.containsKey(&quot;password&quot;)))</span>
+                        &amp;&amp;
+<span class="pc bpc" id="L163" title="5 of 6 branches missed.">                        (!(params.containsKey(&quot;userId&quot;)) || !(params.containsKey(&quot;email&quot;)) || !(params.containsKey(&quot;description&quot;)))</span>
+        )
+        {
+<span class="fc" id="L166">            return msg;</span>
+        }
+<span class="fc" id="L168">        User user = userService.getUserById(Integer.parseInt((params.get(&quot;userId&quot;).toString())));</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">        if (user == null) {</span>
+<span class="fc" id="L170">            msg.setStatus(404);</span>
+<span class="fc" id="L171">            return msg;</span>
+        }
+<span class="fc" id="L173">        user.updateUser(params);</span>
+<span class="fc" id="L174">        int ret = userService.updateUserByModel(user);</span>
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">        if (ret &gt; 0) {</span>
+<span class="fc" id="L176">            msg.setStatus(200);</span>
+<span class="fc" id="L177">            msg.getResponseMap().put(&quot;user&quot;, user);</span>
+        }
+<span class="fc" id="L179">        return msg;</span>
+    }
+
+//    @ResponseBody
+//    @ApiOperation(&quot;修改用户信息，使用userName识别用户&quot;)
+//    @PostMapping(&quot;/user/updateByName&quot;)
+//    ResponseMsg updateByName(@RequestBody Map params) {
+//        ResponseMsg msg = new ResponseMsg();
+//        msg.setStatus(404);
+//        if (!(params.containsKey(&quot;userName&quot;))) {
+//            return msg;
+//        }
+//        User user = userService.getUserByName((String) params.get(&quot;userName&quot;));
+//        if (user == null) return msg;
+//        user.updateUser(params);
+//        int ret = userService.updateUserByModel(user);
+//        if (ret &gt; 0) {
+//            msg.setStatus(200);
+//            msg.getResponseMap().put(&quot;user&quot;, user);
+//        }
+//        return msg;
+//    }
+
+    /*
+     * 个人信息头像管理
+     * */
+    @ResponseBody
+    @ApiOperation(&quot;更新用户头像&quot;)
+    @PostMapping(&quot;/user/profilePic&quot;)
+    ResponseMsg updateProfilePic(@RequestParam(&quot;image&quot;) MultipartFile file, @RequestParam(&quot;userId&quot;) Integer id) {
+        /*
+         * 封装图片路径
+         * */
+<span class="fc" id="L212">        String storeFile = null;</span>
+        try {
+<span class="fc" id="L214">            storeFile = fileService.storeFile(file);</span>
+<span class="fc" id="L215">        } catch (FileException e) {</span>
+<span class="fc" id="L216">            e.printStackTrace();</span>
+<span class="fc" id="L217">        }</span>
+<span class="pc bpc" id="L218" title="1 of 4 branches missed.">        assert storeFile != null;</span>
+//        System.out.println(MyServerConfig.port);
+<span class="fc" id="L220">        int result = userService.updateUserProfilePicByUserId(storeFile, id);</span>
+<span class="fc" id="L221">        User user = userService.getUserById(id);</span>
+<span class="fc" id="L222">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L223">        responseMsg.setStatus(result);</span>
+<span class="fc" id="L224">        responseMsg.getResponseMap().put(&quot;user&quot;, user);</span>
+
+<span class="fc" id="L226">        return responseMsg;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

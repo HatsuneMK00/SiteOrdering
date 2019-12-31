@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">AdminController.java</span></div><h1>AdminController.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import xyz.st.meethere.entity.ResponseMsg;
+import xyz.st.meethere.entity.User;
+import xyz.st.meethere.exception.FileException;
+import xyz.st.meethere.service.AdminService;
+import xyz.st.meethere.service.FileService;
+
+import java.util.Map;
+
+@RestController
+public class AdminController {
+    private final AdminService adminService;
+    private final FileService fileService;
+
+<span class="fc" id="L19">    public AdminController(AdminService adminService, FileService fileService) {</span>
+<span class="fc" id="L20">        this.adminService = adminService;</span>
+<span class="fc" id="L21">        this.fileService = fileService;</span>
+<span class="fc" id="L22">    }</span>
+
+//    @ResponseBody
+//    @ApiOperation(&quot;通过userName查找管理员&quot;)
+//    @GetMapping(&quot;/admin/getByName&quot;)
+//    ResponseMsg getUserByName(@RequestParam(&quot;userName&quot;) String userName){
+//        ResponseMsg msg = new ResponseMsg();msg.setStatus(404);
+//        User user = adminService.getAdminByName(userName);
+//        if(user != null){
+//            msg.setStatus(200);
+//        }
+//        msg.getResponseMap().put(&quot;result&quot;,user);
+//        return msg;
+//    }
+
+    @ResponseBody
+    @ApiOperation(&quot;通过userId查找管理员&quot;)
+    @GetMapping(&quot;/admin/getById&quot;)
+    ResponseMsg getUserById(@RequestParam(&quot;userId&quot;) int userId) {
+<span class="fc" id="L41">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L42">        msg.setStatus(404);</span>
+<span class="fc" id="L43">        User user = adminService.getAdminById(userId);</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (user != null) {</span>
+<span class="fc" id="L45">            msg.setStatus(200);</span>
+        }
+<span class="fc" id="L47">        msg.getResponseMap().put(&quot;result&quot;, user);</span>
+<span class="fc" id="L48">        return msg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;通过userName和password登陆&quot;)
+    @GetMapping(&quot;/admin/enter&quot;)
+    ResponseMsg loginAdmin(@RequestParam(&quot;userName&quot;) String userName, @RequestParam(&quot;password&quot;) String password) {
+<span class="fc" id="L55">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L56">        msg.setStatus(404);</span>
+<span class="fc" id="L57">        boolean isPwdCorrect = adminService.checkAdminPassword(userName, password);</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (isPwdCorrect) {</span>
+<span class="fc" id="L59">            User user = adminService.getAdminByName(userName);</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">            if (user != null) {</span>
+<span class="fc" id="L61">                msg.setStatus(200);</span>
+            }
+<span class="fc" id="L63">            msg.getResponseMap().put(&quot;result&quot;, user);</span>
+<span class="fc" id="L64">            return msg;</span>
+        }
+<span class="fc" id="L66">        return msg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;修改管理员信息，使用userId识别管理员&quot;)
+    @PostMapping(&quot;/admin/updateById&quot;)
+//    FIXME:参数接受的方法最好改成PathVariable或者RequestParam
+    ResponseMsg updateById(@RequestBody Map params) {
+<span class="fc" id="L74">        ResponseMsg msg = new ResponseMsg();</span>
+//        FIXME:参数传递错误返回400
+<span class="fc" id="L76">        msg.setStatus(400);</span>
+
+<span class="fc" id="L78">        if (</span>
+<span class="pc bpc" id="L79" title="1 of 4 branches missed.">                (!(params.containsKey(&quot;userId&quot;))||!(params.containsKey(&quot;password&quot;)))</span>
+                        &amp;&amp;
+<span class="pc bpc" id="L81" title="1 of 6 branches missed.">                        (!(params.containsKey(&quot;userId&quot;)) || !(params.containsKey(&quot;email&quot;)) || !(params.containsKey(&quot;description&quot;)))</span>
+        )
+        {
+<span class="fc" id="L84">            return msg;</span>
+        }
+
+<span class="fc" id="L87">        User user = adminService.getAdminById(Integer.parseInt((params.get(&quot;userId&quot;).toString())));</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        if (user == null) {</span>
+<span class="fc" id="L89">            msg.setStatus(404);</span>
+<span class="fc" id="L90">            return msg;</span>
+        }
+<span class="fc" id="L92">        user.updateUser(params);</span>
+<span class="fc" id="L93">        int ret = adminService.updateAdminByModel(user);</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        if (ret &gt; 0) {</span>
+<span class="fc" id="L95">            msg.setStatus(200);</span>
+            //        FIXME: 统一返回值名称
+<span class="fc" id="L97">            msg.getResponseMap().put(&quot;user&quot;, user);</span>
+        } else {
+<span class="fc" id="L99">            msg.setStatus(500);</span>
+        }
+<span class="fc" id="L101">        return msg;</span>
+    }
+
+//    @ResponseBody
+//    @ApiOperation(&quot;修改管理员信息，使用userName识别管理员&quot;)
+//    @PostMapping(&quot;/admin/updateByName&quot;)
+//    ResponseMsg updateByName(@RequestBody Map params){
+//        ResponseMsg msg = new ResponseMsg();
+//        msg.setStatus(404);
+//        if(!(params.containsKey(&quot;userName&quot;))){
+//            return msg;
+//        }
+//        User user=adminService.getAdminByName((String)params.get(&quot;userName&quot;));
+//        if(user==null) return msg;
+//        user.updateUser(params);
+//        int ret = adminService.updateAdminByModel(user);
+//        if(ret&gt;0) {
+//            msg.setStatus(200);
+//            msg.getResponseMap().put(&quot;user&quot;,user);
+//        }
+//        return msg;
+//    }
+
+    /*
+     * 个人信息头像管理
+     * */
+    @ResponseBody
+    @ApiOperation(&quot;更新管理员头像&quot;)
+    @PostMapping(&quot;/admin/profilePic&quot;)
+    ResponseMsg updateProfilePic(@RequestParam(&quot;image&quot;) MultipartFile file, @RequestParam(&quot;userId&quot;) Integer id) throws FileException {
+        /*
+         * 封装图片路径
+         * */
+<span class="fc" id="L134">        String storeFile = null;</span>
+<span class="fc" id="L135">        storeFile = fileService.storeFile(file);</span>
+<span class="fc" id="L136">        int result = adminService.updateAdminProfilePicByAdminId(storeFile, id);</span>
+<span class="fc" id="L137">        User user = adminService.getAdminById(id);</span>
+<span class="fc" id="L138">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L139">        responseMsg.setStatus(result);</span>
+//        FIXME:统一返回内容名称
+<span class="fc" id="L141">        responseMsg.getResponseMap().put(&quot;user&quot;, user);</span>
+
+<span class="fc" id="L143">        return responseMsg;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

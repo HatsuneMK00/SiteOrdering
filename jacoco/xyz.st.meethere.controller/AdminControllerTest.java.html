@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminControllerTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">AdminControllerTest.java</span></div><h1>AdminControllerTest.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import xyz.st.meethere.entity.User;
+import xyz.st.meethere.exception.FileException;
+import xyz.st.meethere.service.AdminService;
+import xyz.st.meethere.service.FileService;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+<span class="fc" id="L26">class AdminControllerTest {</span>
+
+    private AdminService adminService;
+    private FileService fileService;
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    void setUp() {
+<span class="fc" id="L34">        adminService = mock(AdminService.class);</span>
+<span class="fc" id="L35">        fileService = mock(FileService.class);</span>
+<span class="fc" id="L36">        mockMvc = MockMvcBuilders.standaloneSetup(new AdminController(adminService, fileService)).build();</span>
+<span class="fc" id="L37">    }</span>
+
+//    @Test
+//    public void happy_path_when_get_admin_by_name(){
+//
+//    }
+//
+//    @Test
+//    public void admin_not_exist_when_get_admin_by_name() {
+//
+//    }
+
+    @Test
+    public void happy_path_when_get_admin_by_id() throws Exception {
+<span class="fc" id="L51">        User admin = new User(1, &quot;user1&quot;, &quot;123&quot;, null, null, null, 100, true);</span>
+<span class="fc" id="L52">        when(adminService.getAdminById(1)).thenReturn(admin);</span>
+<span class="fc" id="L53">        mockMvc.perform(get(&quot;/admin/getById&quot;)</span>
+<span class="fc" id="L54">                .param(&quot;userId&quot;,&quot;1&quot;))</span>
+<span class="fc" id="L55">                .andExpect(status().isOk())</span>
+<span class="fc" id="L56">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L57">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).isNotEmpty());</span>
+<span class="fc" id="L58">        verify(adminService).getAdminById(1);</span>
+<span class="fc" id="L59">    }</span>
+
+    @Test
+    public void admin_not_exist_when_get_admin_by_id() throws Exception {
+<span class="fc" id="L63">        when(adminService.getAdminById(1)).thenReturn(null);</span>
+<span class="fc" id="L64">        mockMvc.perform(get(&quot;/admin/getById&quot;)</span>
+<span class="fc" id="L65">                .param(&quot;userId&quot;,&quot;1&quot;))</span>
+<span class="fc" id="L66">                .andExpect(status().isOk())</span>
+<span class="fc" id="L67">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L68">        verify(adminService).getAdminById(1);</span>
+<span class="fc" id="L69">    }</span>
+
+    @Test
+    public void happy_path_when_login_admin() throws Exception {
+<span class="fc" id="L73">        User admin = new User(1, &quot;user1&quot;, &quot;123&quot;, null, null, null, 100, true);</span>
+<span class="fc" id="L74">        when(adminService.checkAdminPassword(&quot;user&quot;, &quot;123&quot;)).thenReturn(true);</span>
+<span class="fc" id="L75">        when(adminService.getAdminByName(anyString())).thenReturn(admin);</span>
+<span class="fc" id="L76">        mockMvc.perform(get(&quot;/admin/enter&quot;)</span>
+<span class="fc" id="L77">                .param(&quot;userName&quot;,&quot;user&quot;)</span>
+<span class="fc" id="L78">                .param(&quot;password&quot;,&quot;123&quot;))</span>
+<span class="fc" id="L79">                .andExpect(status().isOk())</span>
+<span class="fc" id="L80">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L81">        verify(adminService).checkAdminPassword(&quot;user&quot;, &quot;123&quot;);</span>
+<span class="fc" id="L82">    }</span>
+
+    @Test
+    public void pwd_wrong_when_login_admin() throws Exception {
+<span class="fc" id="L86">        when(adminService.checkAdminPassword(&quot;user1&quot;, &quot;123&quot;)).thenReturn(false);</span>
+<span class="fc" id="L87">        mockMvc.perform(get(&quot;/admin/enter&quot;)</span>
+<span class="fc" id="L88">                .param(&quot;userName&quot;,&quot;user1&quot;)</span>
+<span class="fc" id="L89">                .param(&quot;password&quot;,&quot;123&quot;))</span>
+<span class="fc" id="L90">                .andExpect(status().isOk())</span>
+<span class="fc" id="L91">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L92">        verify(adminService).checkAdminPassword(&quot;user1&quot;, &quot;123&quot;);</span>
+<span class="fc" id="L93">    }</span>
+
+    @Test
+    public void admin_not_exist_when_login_admin() throws Exception {
+<span class="fc" id="L97">        when(adminService.checkAdminPassword(&quot;user1&quot;, &quot;123&quot;)).thenReturn(true);</span>
+<span class="fc" id="L98">        when(adminService.getAdminByName(anyString())).thenReturn(null);</span>
+<span class="fc" id="L99">        mockMvc.perform(get(&quot;/admin/enter&quot;)</span>
+<span class="fc" id="L100">                .param(&quot;userName&quot;,&quot;user1&quot;)</span>
+<span class="fc" id="L101">                .param(&quot;password&quot;,&quot;123&quot;))</span>
+<span class="fc" id="L102">                .andExpect(status().isOk())</span>
+<span class="fc" id="L103">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L104">        verify(adminService).checkAdminPassword(&quot;user1&quot;, &quot;123&quot;);</span>
+<span class="fc" id="L105">    }</span>
+
+    @Test
+    public void happy_path_when_update_admin_info_by_id() throws Exception {
+<span class="fc" id="L109">        User admin = new User(1, &quot;user1&quot;, &quot;123&quot;, null, null, null, 100, true);</span>
+<span class="fc" id="L110">        when(adminService.getAdminById(1)).thenReturn(admin);</span>
+<span class="fc" id="L111">        when(adminService.updateAdminByModel(admin)).thenReturn(200);</span>
+
+<span class="fc" id="L113">        Map&lt;String, Object&gt; requestParam = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L114">        requestParam.put(&quot;userId&quot;,1);</span>
+<span class="fc" id="L115">        requestParam.put(&quot;email&quot;,&quot;123@123.com&quot;);</span>
+<span class="fc" id="L116">        requestParam.put(&quot;description&quot;,&quot;this is a user&quot;);</span>
+
+<span class="fc" id="L118">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L119">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L120">        String requestJson = objectWriter.writeValueAsString(requestParam);</span>
+
+<span class="fc" id="L122">        mockMvc.perform(post(&quot;/admin/updateById&quot;)</span>
+<span class="fc" id="L123">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L124">                .content(requestJson))</span>
+<span class="fc" id="L125">                .andExpect(status().isOk())</span>
+<span class="fc" id="L126">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L127">                .andExpect(jsonPath(&quot;$.responseMap.user&quot;).isNotEmpty());</span>
+<span class="fc" id="L128">        InOrder order = inOrder(adminService);</span>
+<span class="fc" id="L129">        order.verify(adminService).getAdminById(1);</span>
+<span class="fc" id="L130">        order.verify(adminService).updateAdminByModel(any());</span>
+<span class="fc" id="L131">    }</span>
+
+    @Test
+    public void update_admin_by_model_fail_when_update_admin_by_id() throws Exception {
+<span class="fc" id="L135">        User admin = new User(1, &quot;user1&quot;, &quot;123&quot;, null, null, null, 100, true);</span>
+<span class="fc" id="L136">        when(adminService.getAdminById(1)).thenReturn(admin);</span>
+<span class="fc" id="L137">        when(adminService.updateAdminByModel(admin)).thenReturn(-1);</span>
+
+<span class="fc" id="L139">        Map&lt;String, Object&gt; requestParam = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L140">        requestParam.put(&quot;userId&quot;,1);</span>
+<span class="fc" id="L141">        requestParam.put(&quot;email&quot;,&quot;123@123.com&quot;);</span>
+<span class="fc" id="L142">        requestParam.put(&quot;description&quot;,&quot;this is a user&quot;);</span>
+
+<span class="fc" id="L144">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L145">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L146">        String requestJson = objectWriter.writeValueAsString(requestParam);</span>
+
+<span class="fc" id="L148">        mockMvc.perform(post(&quot;/admin/updateById&quot;)</span>
+<span class="fc" id="L149">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L150">                .content(requestJson))</span>
+<span class="fc" id="L151">                .andExpect(status().isOk())</span>
+<span class="fc" id="L152">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+<span class="fc" id="L153">        InOrder order = inOrder(adminService);</span>
+<span class="fc" id="L154">        order.verify(adminService).getAdminById(1);</span>
+<span class="fc" id="L155">        order.verify(adminService).updateAdminByModel(any());</span>
+<span class="fc" id="L156">    }</span>
+
+    @Test
+    public void no_id_passed_when_update_admin_info_by_id() throws Exception {
+<span class="fc" id="L160">        Map&lt;String, Integer&gt; requestParam = new HashMap&lt;&gt;();</span>
+
+<span class="fc" id="L162">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L163">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L164">        String requestJson = objectWriter.writeValueAsString(requestParam);</span>
+
+<span class="fc" id="L166">        mockMvc.perform(post(&quot;/admin/updateById&quot;)</span>
+<span class="fc" id="L167">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L168">                .content(requestJson))</span>
+<span class="fc" id="L169">                .andExpect(status().isOk())</span>
+<span class="fc" id="L170">                .andExpect(jsonPath(&quot;$.status&quot;).value(400));</span>
+<span class="fc" id="L171">        verifyNoInteractions(adminService);</span>
+<span class="fc" id="L172">    }</span>
+
+    @Test
+    public void admin_not_exist_when_update_admin_info_by_id() throws Exception {
+<span class="fc" id="L176">        when(adminService.getAdminById(1)).thenReturn(null);</span>
+
+<span class="fc" id="L178">        Map&lt;String, Object&gt; requestParam = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L179">        requestParam.put(&quot;userId&quot;,1);</span>
+<span class="fc" id="L180">        requestParam.put(&quot;email&quot;,&quot;123@123.com&quot;);</span>
+<span class="fc" id="L181">        requestParam.put(&quot;description&quot;,&quot;this is a user&quot;);</span>
+
+<span class="fc" id="L183">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L184">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L185">        String requestJson = objectWriter.writeValueAsString(requestParam);</span>
+
+<span class="fc" id="L187">        mockMvc.perform(post(&quot;/admin/updateById&quot;)</span>
+<span class="fc" id="L188">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L189">                .content(requestJson))</span>
+<span class="fc" id="L190">                .andExpect(status().isOk())</span>
+<span class="fc" id="L191">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L192">        verify(adminService).getAdminById(anyInt());</span>
+<span class="fc" id="L193">        verifyNoMoreInteractions(adminService);</span>
+<span class="fc" id="L194">    }</span>
+
+    @Test
+    public void admin_info_missing_when_update_admin_info_by_id() throws Exception {
+<span class="fc" id="L198">        when(adminService.getAdminById(1)).thenReturn(null);</span>
+
+<span class="fc" id="L200">        Map&lt;String, Integer&gt; requestParam = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L201">        requestParam.put(&quot;userId&quot;,1);</span>
+
+<span class="fc" id="L203">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L204">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L205">        String requestJson = objectWriter.writeValueAsString(requestParam);</span>
+
+<span class="fc" id="L207">        mockMvc.perform(post(&quot;/admin/updateById&quot;)</span>
+<span class="fc" id="L208">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L209">                .content(requestJson))</span>
+<span class="fc" id="L210">                .andExpect(status().isOk())</span>
+<span class="fc" id="L211">                .andExpect(jsonPath(&quot;$.status&quot;).value(400));</span>
+<span class="fc" id="L212">        verifyNoMoreInteractions(adminService);</span>
+<span class="fc" id="L213">    }</span>
+
+    @Test
+    public void happy_path_when_update_admin_profile_pic() throws Exception {
+<span class="fc" id="L217">        User admin = new User(1, &quot;user1&quot;, &quot;123&quot;, null, null, null, 100, true);</span>
+<span class="fc" id="L218">        when(fileService.storeFile(any())).thenReturn(&quot;filename&quot;);</span>
+<span class="fc" id="L219">        when(adminService.updateAdminProfilePicByAdminId(anyString(),anyInt())).thenReturn(200);</span>
+<span class="fc" id="L220">        when(adminService.getAdminById(1)).thenReturn(admin);</span>
+<span class="fc" id="L221">        mockMvc.perform(multipart(&quot;/admin/profilePic&quot;)</span>
+<span class="fc" id="L222">                .file(new MockMultipartFile(&quot;image&quot;, &quot;image.png&quot;, &quot;image/png&quot;, &quot;this is image&quot;.getBytes()))</span>
+<span class="fc" id="L223">                .param(&quot;userId&quot;, &quot;1&quot;))</span>
+<span class="fc" id="L224">                .andExpect(status().isOk())</span>
+<span class="fc" id="L225">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L226">                .andExpect(jsonPath(&quot;$.responseMap.user&quot;).exists());</span>
+<span class="fc" id="L227">        InOrder order = inOrder(adminService, fileService);</span>
+<span class="fc" id="L228">        order.verify(fileService).storeFile(any());</span>
+<span class="fc" id="L229">        order.verify(adminService).updateAdminProfilePicByAdminId(anyString(), anyInt());</span>
+<span class="fc" id="L230">        order.verify(adminService).getAdminById(1);</span>
+<span class="fc" id="L231">    }</span>
+
+    @Test
+    public void fail_to_save_file_when_update_admin_profile_pic() throws Exception {
+<span class="fc" id="L235">        when(fileService.storeFile(any())).thenThrow(new FileException(&quot;image save fail!&quot;));</span>
+<span class="fc" id="L236">        assertThrows(Exception.class,() -&gt; {</span>
+<span class="pc" id="L237">            mockMvc.perform(multipart(&quot;/admin/profilePic&quot;)</span>
+<span class="fc" id="L238">                    .file(new MockMultipartFile(&quot;image&quot;, &quot;image.png&quot;, &quot;image/png&quot;, &quot;this is image&quot;.getBytes()))</span>
+<span class="fc" id="L239">                    .param(&quot;userId&quot;, &quot;1&quot;));</span>
+<span class="nc" id="L240">        });</span>
+<span class="fc" id="L241">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

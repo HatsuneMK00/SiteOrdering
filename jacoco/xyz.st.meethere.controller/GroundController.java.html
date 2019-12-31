@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GroundController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">GroundController.java</span></div><h1>GroundController.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import xyz.st.meethere.entity.Ground;
+import xyz.st.meethere.entity.ResponseMsg;
+import xyz.st.meethere.exception.FileException;
+import xyz.st.meethere.service.FileService;
+import xyz.st.meethere.service.GroundService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+
+/*
+ * GroundController 和 NewsController用了两种不同的传参和返回值方式
+ * GroundController中使用了ResponseMsg，里面有状态码，可能会方便测试一些
+ * NewsController中直接使用的Model对象，在api文档中会更加好看一些(也没多好看)
+ * */
+@RestController
+@ResponseBody
+public class GroundController {
+    final
+    GroundService groundService;
+    final
+    FileService fileService;
+
+<span class="fc" id="L32">    public GroundController(GroundService groundService, FileService fileService) {</span>
+<span class="fc" id="L33">        this.groundService = groundService;</span>
+<span class="fc" id="L34">        this.fileService = fileService;</span>
+<span class="fc" id="L35">    }</span>
+
+    @ApiOperation(value = &quot;获取所有场馆信息&quot;)
+    @GetMapping(&quot;/ground&quot;)
+    ResponseMsg getAllGroundsInfo() {
+<span class="fc" id="L40">        List&lt;Ground&gt; grounds = groundService.getAllGrounds();</span>
+<span class="fc" id="L41">        ResponseMsg responseMsg = new ResponseMsg();</span>
+//        FIXME: 只有grounds为null时返回404
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (grounds == null)</span>
+<span class="fc" id="L44">            responseMsg.setStatus(404);</span>
+        else {
+<span class="fc" id="L46">            responseMsg.getResponseMap().put(&quot;result&quot;, grounds);</span>
+<span class="fc" id="L47">            responseMsg.setStatus(200);</span>
+        }
+<span class="fc" id="L49">        return responseMsg;</span>
+    }
+
+    @ApiOperation(value = &quot;根据场馆id获取场馆信息&quot;)
+    @GetMapping(&quot;/ground/{groundId}&quot;)
+    ResponseMsg getGroundByGroundId(@PathVariable(&quot;groundId&quot;) Integer groundId) {
+<span class="fc" id="L55">        Ground ground = groundService.getGroundById(groundId);</span>
+<span class="fc" id="L56">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (ground == null)</span>
+<span class="fc" id="L58">            responseMsg.setStatus(404);</span>
+        else
+<span class="fc" id="L60">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L61">        responseMsg.getResponseMap().put(&quot;result&quot;, ground);</span>
+<span class="fc" id="L62">        return responseMsg;</span>
+    }
+
+
+    /*
+     * 这个POST应该是用表单提交的
+     * */
+    @ApiOperation(value = &quot;增加一个场馆信息&quot;)
+    @PostMapping(&quot;/ground&quot;)
+    ResponseMsg addGround(
+            @RequestParam(&quot;groundName&quot;) String groundName,
+            @RequestParam(&quot;pricePerHour&quot;) int pricePerHour,
+            @RequestParam(&quot;address&quot;) String address,
+            @RequestParam(&quot;description&quot;) String description,
+            @RequestParam(&quot;image&quot;) MultipartFile file
+    ) {
+
+<span class="fc" id="L79">        Ground ground = new Ground(groundName, pricePerHour, address, description);</span>
+        /*
+         * 有效性检查
+         * */
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (groundService.verifyGround(ground)) {</span>
+<span class="fc" id="L84">            ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L85">            responseMsg.setStatus(500);</span>
+<span class="fc" id="L86">            return responseMsg;</span>
+        }
+
+        /*
+         * 封装图片路径
+         * */
+        String storeFile;
+        try {
+<span class="fc" id="L94">            storeFile = fileService.storeFile(file);</span>
+<span class="fc" id="L95">            ground.setPhoto(storeFile);</span>
+<span class="fc" id="L96">        } catch (FileException e) {</span>
+<span class="fc" id="L97">            e.printStackTrace();</span>
+<span class="fc" id="L98">        }</span>
+<span class="fc" id="L99">        int result = groundService.addGround(ground);</span>
+<span class="fc" id="L100">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (result == 1)</span>
+<span class="fc" id="L102">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L103">        responseMsg.getResponseMap().put(&quot;result&quot;, ground);</span>
+<span class="fc" id="L104">        return responseMsg;</span>
+    }
+
+    /*
+     * 这个POST应该是用表单提交的
+     * */
+    @ApiOperation(value = &quot;增加一个场馆信息, 直接提供图片的url&quot;)
+    @PostMapping(&quot;/groundWOFileOperation&quot;)
+    ResponseMsg addGround(@RequestBody Ground ground
+    ) {
+        /*
+         * 有效性检查
+         * */
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (groundService.verifyGround(ground)) {</span>
+<span class="fc" id="L118">            ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L119">            responseMsg.setStatus(500);</span>
+<span class="fc" id="L120">            return responseMsg;</span>
+        }
+
+<span class="fc" id="L123">        int result = groundService.addGroundWOFileOperation(ground);</span>
+<span class="fc" id="L124">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        if (result == 1)</span>
+<span class="fc" id="L126">            responseMsg.setStatus(200);</span>
+        else
+<span class="fc" id="L128">            responseMsg.setStatus(500);</span>
+<span class="fc" id="L129">        responseMsg.getResponseMap().put(&quot;result&quot;, ground);</span>
+<span class="fc" id="L130">        return responseMsg;</span>
+    }
+
+
+    @ApiOperation(value = &quot;对现有场馆信息进行编辑&quot;)
+    @PutMapping(&quot;/ground&quot;)
+    ResponseMsg updateGround(@RequestBody Ground ground) {
+        /*
+         * 有效性检查
+         * */
+<span class="fc bfc" id="L140" title="All 2 branches covered.">        if (groundService.verifyGround(ground)) {</span>
+<span class="fc" id="L141">            ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L142">            responseMsg.setStatus(500);</span>
+<span class="fc" id="L143">            return responseMsg;</span>
+        }
+
+<span class="fc" id="L146">        int result = groundService.updateGround(ground);</span>
+<span class="fc" id="L147">        ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">        if (result == 1) {</span>
+<span class="fc" id="L149">            responseMsg.setStatus(200);</span>
+//                FIXME:需要返回更新后的内容
+<span class="fc" id="L151">            responseMsg.getResponseMap().put(&quot;result&quot;, ground);</span>
+        } else
+//            FIXME: 没有找到该ground时返回404
+<span class="fc" id="L154">            responseMsg.setStatus(404);</span>
+<span class="fc" id="L155">        return responseMsg;</span>
+    }
+
+    @ApiOperation(value = &quot;删除一个场馆&quot;)
+    @DeleteMapping(&quot;/ground/{groundId}&quot;)
+    ResponseMsg deleteGround(@PathVariable(&quot;groundId&quot;) Integer groundId) {
+<span class="fc" id="L161">        Ground ground = groundService.getGroundById(groundId);</span>
+<span class="fc" id="L162">        int result = groundService.deleteGround(groundId);</span>
+<span class="fc" id="L163">        ResponseMsg responseMsg = new ResponseMsg();</span>
+//        FIXME:删除时需要返回被删除内容
+<span class="fc" id="L165">        responseMsg.getResponseMap().put(&quot;result&quot;, ground);</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">        if (result == 1)</span>
+<span class="fc" id="L167">            responseMsg.setStatus(200);</span>
+        else
+//            FIXME:没有找到删除对象返回404
+<span class="fc" id="L170">            responseMsg.setStatus(404);</span>
+<span class="fc" id="L171">        return responseMsg;</span>
+    }
+
+    @ResponseBody
+    @ApiOperation(&quot;通过groundId批量删除场馆&quot;)
+    @DeleteMapping(&quot;/ground/deleteByBatch&quot;)
+    ResponseMsg deleteGroundByBatch(@RequestBody Map&lt;String, List&lt;Integer&gt;&gt; data) {
+<span class="fc" id="L178">        ResponseMsg msg = new ResponseMsg();</span>
+<span class="fc" id="L179">        List&lt;Integer&gt; ids = data.get(&quot;ids&quot;);</span>
+        ResponseMsg tempMsg;
+<span class="fc" id="L181">        msg.setStatus(200);</span>
+<span class="fc bfc" id="L182" title="All 2 branches covered.">        for (Integer id : ids) {</span>
+<span class="fc" id="L183">            tempMsg = deleteGround(id);</span>
+<span class="fc bfc" id="L184" title="All 4 branches covered.">            if (tempMsg.getStatus() == 404 &amp;&amp; msg.getStatus() != 404) {</span>
+<span class="fc" id="L185">                msg.setStatus(404);</span>
+            }
+<span class="fc" id="L187">        }</span>
+<span class="fc" id="L188">        return msg;</span>
+    }
+
+    /*
+     * 支持3种搜索方式：
+     * 1. 纯文字: 标题匹配
+     * 2. &quot;gid:&quot;开头: 返回对应gid的Ground
+     *   例如: gid: 1,2,3,4,5
+     * 3. 搜索内容为空: 返回全部
+     *
+     * */
+    @ResponseBody
+    @ApiOperation(&quot;通过搜索返回对应ground&quot;)
+    @PostMapping(&quot;/ground/match&quot;)
+//        TODO: 感觉这些逻辑都应该在Service层里面，而不是在Controller里
+    ResponseMsg getGroundByMatch(@RequestBody Map&lt;String,String&gt; params) {
+<span class="fc" id="L204">        String searchParam = params.get(&quot;match&quot;);</span>
+<span class="fc bfc" id="L205" title="All 2 branches covered.">        if (searchParam.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L206">            return getAllGroundsInfo();</span>
+<span class="fc bfc" id="L207" title="All 2 branches covered.">        } else if (searchParam.startsWith(&quot;gid:&quot;)) {</span>
+<span class="fc" id="L208">            String param = searchParam.split(&quot;:&quot;)[1];</span>
+<span class="fc" id="L209">            String[] ids = param.split(&quot;,&quot;);</span>
+<span class="fc" id="L210">            ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L211">            responseMsg.setStatus(200);</span>
+<span class="fc" id="L212">            ArrayList&lt;Ground&gt; retGround = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">            for (String id : ids) {</span>
+<span class="fc" id="L214">                retGround.add(groundService.getGroundById(Integer.valueOf(id.trim())));</span>
+            }
+//            这里根本就不可能是0，null也会被添加进去的
+//            if (retGround.size() == 0)
+//                responseMsg.setStatus(404);
+<span class="fc" id="L219">            responseMsg.getResponseMap().put(&quot;result&quot;,retGround);</span>
+<span class="fc" id="L220">            return responseMsg;</span>
+        } else {
+<span class="fc" id="L222">            List&lt;Ground&gt; grounds = groundService.getGroundsByMatch(searchParam);</span>
+<span class="fc" id="L223">            ResponseMsg responseMsg = new ResponseMsg();</span>
+<span class="fc" id="L224">            responseMsg.setStatus(200);</span>
+<span class="fc bfc" id="L225" title="All 2 branches covered.">            if (grounds.size() == 0)</span>
+<span class="fc" id="L226">                responseMsg.setStatus(404);</span>
+<span class="fc" id="L227">            responseMsg.getResponseMap().put(&quot;result&quot;, grounds);</span>
+<span class="fc" id="L228">            return responseMsg;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

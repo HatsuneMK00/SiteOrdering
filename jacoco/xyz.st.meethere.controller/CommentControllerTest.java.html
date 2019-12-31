@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommentControllerTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">meethere$xyz_st_meethere_controller_in_meethere.exec</a> &gt; <a href="index.source.html" class="el_package">xyz.st.meethere.controller</a> &gt; <span class="el_source">CommentControllerTest.java</span></div><h1>CommentControllerTest.java</h1><pre class="source lang-java linenums">package xyz.st.meethere.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import xyz.st.meethere.entity.Comment;
+import xyz.st.meethere.service.CommentService;
+
+import java.util.*;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+
+<span class="fc" id="L27">public class CommentControllerTest {</span>
+
+    private CommentService commentService;
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    void setUp() {
+<span class="fc" id="L34">        commentService = mock(CommentService.class);</span>
+<span class="fc" id="L35">        this.mockMvc = standaloneSetup(new CommentController(commentService)).build();</span>
+<span class="fc" id="L36">    }</span>
+
+    @Test
+    public void happy_path_when_get_all_comments() throws Exception {
+<span class="fc" id="L40">        List&lt;Comment&gt; retComments = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L41">        retComments.add(new Comment(</span>
+                1,
+                1,
+                1,
+                null,
+                &quot;this is comment 1&quot;,
+                1
+        ));
+<span class="fc" id="L49">        retComments.add(new Comment(</span>
+                2,
+                1,
+                2,
+                null,
+                &quot;this is comment 2&quot;,
+                1
+        ));
+<span class="fc" id="L57">        when(commentService.getAllCheckComments()).thenReturn(retComments);</span>
+<span class="fc" id="L58">        mockMvc.perform(get(&quot;/comment&quot;))</span>
+<span class="fc" id="L59">                .andExpect(status().isOk())</span>
+<span class="fc" id="L60">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L61">                .andExpect(jsonPath(&quot;$.responseMap.result[0].checked&quot;).value(1))</span>
+<span class="fc" id="L62">                .andExpect(jsonPath(&quot;$.responseMap.result[1].checked&quot;).value(1));</span>
+<span class="fc" id="L63">        verify(commentService).getAllCheckComments();</span>
+<span class="fc" id="L64">        verifyNoMoreInteractions(commentService);</span>
+<span class="fc" id="L65">    }</span>
+
+    @Test
+    public void get_null_when_get_all_checked_comments() throws Exception {
+<span class="fc" id="L69">        when(commentService.getAllCheckComments()).thenReturn(null);</span>
+<span class="fc" id="L70">        mockMvc.perform(get(&quot;/comment&quot;))</span>
+<span class="fc" id="L71">                .andExpect(status().isOk())</span>
+<span class="fc" id="L72">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L73">        verify(commentService).getAllCheckComments();</span>
+<span class="fc" id="L74">    }</span>
+
+    @Test
+    public void get_nothing_when_get_all_checked_comments() throws Exception {
+<span class="fc" id="L78">        when(commentService.getAllCheckComments()).thenReturn(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L79">        mockMvc.perform(get(&quot;/comment&quot;))</span>
+<span class="fc" id="L80">                .andExpect(status().isOk())</span>
+<span class="fc" id="L81">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L82">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).exists());</span>
+<span class="fc" id="L83">        verify(commentService).getAllCheckComments();</span>
+<span class="fc" id="L84">        verifyNoMoreInteractions(commentService);</span>
+<span class="fc" id="L85">    }</span>
+
+    @Test
+    public void happy_path_when_get_all_comments_by_userId() throws Exception {
+<span class="fc" id="L89">        int userId = 1;</span>
+<span class="fc" id="L90">        List&lt;Comment&gt; retComments = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L91">        retComments.add(new Comment(</span>
+                1,
+                1,
+                1,
+                null,
+                &quot;this is comment 1&quot;,
+                1
+        ));
+<span class="fc" id="L99">        retComments.add(new Comment(</span>
+                2,
+                1,
+                2,
+                null,
+                &quot;this is comment 2&quot;,
+                1
+        ));
+<span class="fc" id="L107">        when(commentService.getCommentsByUserId(userId)).thenReturn(retComments);</span>
+<span class="fc" id="L108">        mockMvc.perform(get(&quot;/comment/user/&quot; + userId))</span>
+<span class="fc" id="L109">                .andExpect(status().isOk())</span>
+<span class="fc" id="L110">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L111">                .andExpect(jsonPath(&quot;$.responseMap.result[0].userId&quot;).value(userId))</span>
+<span class="fc" id="L112">                .andExpect(jsonPath(&quot;$.responseMap.result[1].userId&quot;).value(userId));</span>
+<span class="fc" id="L113">        verify(commentService).getCommentsByUserId(userId);</span>
+<span class="fc" id="L114">        verifyNoMoreInteractions(commentService);</span>
+<span class="fc" id="L115">    }</span>
+
+    @Test
+    public void get_null_when_get_all_comments_by_userId() throws Exception {
+<span class="fc" id="L119">        int userId = 1;</span>
+<span class="fc" id="L120">        when(commentService.getCommentsByUserId(userId)).thenReturn(null);</span>
+<span class="fc" id="L121">        mockMvc.perform(get(&quot;/comment/user/&quot; + userId))</span>
+<span class="fc" id="L122">                .andExpect(status().isOk())</span>
+<span class="fc" id="L123">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L124">        verify(commentService).getCommentsByUserId(userId);</span>
+<span class="fc" id="L125">    }</span>
+
+    @Test
+    public void get_nothing_when_get_all_comments_by_userId() throws Exception {
+<span class="fc" id="L129">        int userId = 1;</span>
+<span class="fc" id="L130">        when(commentService.getCommentsByUserId(userId)).thenReturn(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L131">        mockMvc.perform(get(&quot;/comment/user/&quot; + userId))</span>
+<span class="fc" id="L132">                .andExpect(status().isOk())</span>
+<span class="fc" id="L133">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L134">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).exists());</span>
+<span class="fc" id="L135">        verify(commentService).getCommentsByUserId(userId);</span>
+<span class="fc" id="L136">        verifyNoMoreInteractions(commentService);</span>
+<span class="fc" id="L137">    }</span>
+
+    @Test
+    public void happy_path_when_get_all_comments_by_groundId() throws Exception {
+<span class="fc" id="L141">        int groundId = 1;</span>
+<span class="fc" id="L142">        List&lt;Comment&gt; retComments = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L143">        retComments.add(new Comment(</span>
+                1,
+                1,
+                groundId,
+                null,
+                &quot;this is comment 1&quot;,
+                1
+        ));
+<span class="fc" id="L151">        retComments.add(new Comment(</span>
+                2,
+                2,
+                groundId,
+                null,
+                &quot;this is comment 2&quot;,
+                1
+        ));
+<span class="fc" id="L159">        when(commentService.getCommentsByGroundId(groundId)).thenReturn(retComments);</span>
+<span class="fc" id="L160">        mockMvc.perform(get(&quot;/comment/ground/&quot; + groundId))</span>
+<span class="fc" id="L161">                .andExpect(status().isOk())</span>
+<span class="fc" id="L162">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L163">                .andExpect(jsonPath(&quot;$.responseMap.result[0].groundId&quot;).value(groundId))</span>
+<span class="fc" id="L164">                .andExpect(jsonPath(&quot;$.responseMap.result[1].groundId&quot;).value(groundId));</span>
+<span class="fc" id="L165">        verify(commentService).getCommentsByGroundId(groundId);</span>
+<span class="fc" id="L166">        verifyNoMoreInteractions(commentService);</span>
+<span class="fc" id="L167">    }</span>
+
+    @Test
+    public void get_null_when_get_all_comments_by_groundId() throws Exception {
+<span class="fc" id="L171">        int groundId = 1;</span>
+<span class="fc" id="L172">        when(commentService.getCommentsByGroundId(groundId)).thenReturn(null);</span>
+<span class="fc" id="L173">        mockMvc.perform(get(&quot;/comment/ground/&quot; + groundId))</span>
+<span class="fc" id="L174">                .andExpect(status().isOk())</span>
+<span class="fc" id="L175">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L176">        verify(commentService).getCommentsByGroundId(groundId);</span>
+<span class="fc" id="L177">    }</span>
+
+    @Test
+    public void get_nothing_when_get_all_comments_by_groundId() throws Exception {
+<span class="fc" id="L181">        int groundId = 1;</span>
+<span class="fc" id="L182">        when(commentService.getCommentsByGroundId(groundId)).thenReturn(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L183">        mockMvc.perform(get(&quot;/comment/ground/&quot; + groundId))</span>
+<span class="fc" id="L184">                .andExpect(status().isOk())</span>
+<span class="fc" id="L185">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L186">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).exists());</span>
+<span class="fc" id="L187">        verify(commentService).getCommentsByGroundId(groundId);</span>
+<span class="fc" id="L188">        verifyNoMoreInteractions(commentService);</span>
+<span class="fc" id="L189">    }</span>
+
+    @Test
+    public void happy_path_when_delete_a_comment() throws Exception {
+<span class="fc" id="L193">        int commentId = 1;</span>
+<span class="fc" id="L194">        Comment retComment = new Comment(</span>
+                commentId,
+                1,
+                1,
+                null,
+                &quot;this is comment 1&quot;,
+                1
+        );
+<span class="fc" id="L202">        when(commentService.getCommentByCommentId(commentId)).thenReturn(retComment);</span>
+<span class="fc" id="L203">        when(commentService.deleteComment(commentId)).thenReturn(1);</span>
+
+<span class="fc" id="L205">        mockMvc.perform(delete(&quot;/comment/&quot; + commentId))</span>
+<span class="fc" id="L206">                .andExpect(status().isOk())</span>
+<span class="fc" id="L207">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L208">                .andExpect(jsonPath(&quot;$.responseMap.result.commentId&quot;).value(retComment.getCommentId()))</span>
+<span class="fc" id="L209">                .andExpect(jsonPath(&quot;$.responseMap.result.content&quot;).value(retComment.getContent()));</span>
+<span class="fc" id="L210">        InOrder order = inOrder(commentService);</span>
+<span class="fc" id="L211">        order.verify(commentService).getCommentByCommentId(commentId);</span>
+<span class="fc" id="L212">        order.verify(commentService).deleteComment(commentId);</span>
+<span class="fc" id="L213">    }</span>
+
+    @Test
+    public void comment_doesnt_exist_when_delete_a_comment() throws Exception {
+<span class="fc" id="L217">        int commentId = 1;</span>
+<span class="fc" id="L218">        when(commentService.deleteComment(commentId)).thenReturn(0);</span>
+<span class="fc" id="L219">        when(commentService.getCommentByCommentId(commentId)).thenReturn(null);</span>
+<span class="fc" id="L220">        mockMvc.perform(delete(&quot;/comment/&quot; + commentId))</span>
+<span class="fc" id="L221">                .andExpect(status().isOk())</span>
+<span class="fc" id="L222">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L223">        InOrder order = inOrder(commentService);</span>
+<span class="fc" id="L224">        order.verify(commentService).getCommentByCommentId(commentId);</span>
+<span class="fc" id="L225">        order.verify(commentService).deleteComment(commentId);</span>
+<span class="fc" id="L226">    }</span>
+
+    @Test
+    public void happy_path_when_update_a_comment() throws Exception {
+<span class="fc" id="L230">        Comment comment = new Comment(</span>
+                1,
+                1,
+                1,
+                null,
+                &quot;this is comment 1&quot;,
+                0
+        );
+<span class="fc" id="L238">        when(commentService.updateComment(any(Comment.class))).thenReturn(1);</span>
+
+<span class="fc" id="L240">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L241">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L242">        String requestJson = objectWriter.writeValueAsString(comment);</span>
+
+<span class="fc" id="L244">        mockMvc.perform(put(&quot;/comment&quot;)</span>
+<span class="fc" id="L245">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L246">                .content(requestJson))</span>
+<span class="fc" id="L247">                .andExpect(status().isOk())</span>
+<span class="fc" id="L248">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L249">                .andExpect(jsonPath(&quot;$.responseMap.result.commentId&quot;).value(1));</span>
+<span class="fc" id="L250">        ArgumentCaptor&lt;Comment&gt; commentArgumentCaptor = ArgumentCaptor.forClass(Comment.class);</span>
+<span class="fc" id="L251">        verify(commentService).updateComment(commentArgumentCaptor.capture());</span>
+<span class="fc" id="L252">        Comment actualArgComment = commentArgumentCaptor.getValue();</span>
+
+<span class="fc" id="L254">        assertAll(</span>
+<span class="fc" id="L255">                ()-&gt;assertEquals(comment.getCommentId(),actualArgComment.getCommentId()),</span>
+<span class="fc" id="L256">                () -&gt; assertEquals(comment.getGroundId(),actualArgComment.getGroundId()),</span>
+<span class="fc" id="L257">                () -&gt; assertEquals(comment.getUserId(),actualArgComment.getUserId())</span>
+        );
+<span class="fc" id="L259">    }</span>
+
+    @Test
+    public void comment_doesnt_exist_when_update_a_news() throws Exception {
+<span class="fc" id="L263">        when(commentService.updateComment(any(Comment.class))).thenReturn(0);</span>
+
+<span class="fc" id="L265">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L266">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L267">        String requestJson = objectWriter.writeValueAsString(new Comment());</span>
+
+<span class="fc" id="L269">        mockMvc.perform(put(&quot;/comment&quot;)</span>
+<span class="fc" id="L270">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L271">                .content(requestJson))</span>
+<span class="fc" id="L272">                .andExpect(status().isOk())</span>
+<span class="fc" id="L273">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+<span class="fc" id="L274">        verify(commentService).updateComment(any(Comment.class));</span>
+<span class="fc" id="L275">        verifyNoMoreInteractions(commentService);</span>
+<span class="fc" id="L276">    }</span>
+
+    @Test
+    public void happy_path_when_add_a_comment() throws Exception {
+<span class="fc" id="L280">        when(commentService.addComment(any(Comment.class))).thenReturn(1);</span>
+
+<span class="fc" id="L282">        Comment comment = new Comment(</span>
+                1,
+                1,
+                1,
+                null,
+                &quot;this is comment 1&quot;,
+                0
+        );
+
+<span class="fc" id="L291">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L292">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L293">        String requestJson = objectWriter.writeValueAsString(comment);</span>
+
+<span class="fc" id="L295">        mockMvc.perform(post(&quot;/comment&quot;)</span>
+<span class="fc" id="L296">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L297">                .content(requestJson))</span>
+<span class="fc" id="L298">                .andExpect(status().isOk())</span>
+<span class="fc" id="L299">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L300">                .andExpect(jsonPath(&quot;$.responseMap.result.commentId&quot;).value(1));</span>
+<span class="fc" id="L301">        ArgumentCaptor&lt;Comment&gt; commentArgumentCaptor = ArgumentCaptor.forClass(Comment.class);</span>
+<span class="fc" id="L302">        verify(commentService).addComment(commentArgumentCaptor.capture());</span>
+<span class="fc" id="L303">        Comment actualArgComment = commentArgumentCaptor.getValue();</span>
+
+<span class="fc" id="L305">        assertAll(</span>
+<span class="fc" id="L306">                ()-&gt;assertEquals(comment.getCommentId(),actualArgComment.getCommentId()),</span>
+<span class="fc" id="L307">                () -&gt; assertEquals(comment.getGroundId(),actualArgComment.getGroundId()),</span>
+<span class="fc" id="L308">                () -&gt; assertEquals(comment.getUserId(),actualArgComment.getUserId())</span>
+        );
+<span class="fc" id="L310">    }</span>
+
+    @Test
+    public void nothing_passed_when_add_a_comment() throws Exception {
+<span class="fc" id="L314">        when(commentService.addComment(any(Comment.class))).thenReturn(0);</span>
+
+<span class="fc" id="L316">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L317">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L318">        String requestJson = objectWriter.writeValueAsString(new Comment());</span>
+
+<span class="fc" id="L320">        mockMvc.perform(post(&quot;/comment&quot;)</span>
+<span class="fc" id="L321">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L322">                .content(requestJson))</span>
+<span class="fc" id="L323">                .andExpect(status().isOk())</span>
+<span class="fc" id="L324">                .andExpect(jsonPath(&quot;$.status&quot;).value(500));</span>
+<span class="fc" id="L325">        verify(commentService).addComment(any(Comment.class));</span>
+<span class="fc" id="L326">        verifyNoMoreInteractions(commentService);</span>
+<span class="fc" id="L327">    }</span>
+
+    @Test
+    public void happy_path_when_get_all_unchecked_comment() throws Exception {
+<span class="fc" id="L331">        List&lt;Comment&gt; retComments = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L332">        retComments.add(new Comment(</span>
+                1,
+                1,
+                1,
+                null,
+                &quot;this is comment 1&quot;,
+                0
+        ));
+<span class="fc" id="L340">        retComments.add(new Comment(</span>
+                2,
+                2,
+                1,
+                null,
+                &quot;this is comment 2&quot;,
+                0
+        ));
+<span class="fc" id="L348">        when(commentService.getAllUncheckComments()).thenReturn(retComments);</span>
+
+<span class="fc" id="L350">        mockMvc.perform(get(&quot;/comment/uncheckedComment&quot;))</span>
+<span class="fc" id="L351">                .andExpect(status().isOk())</span>
+<span class="fc" id="L352">                .andExpect(jsonPath(&quot;$.responseMap.result[0].checked&quot;).value(0))</span>
+<span class="fc" id="L353">                .andExpect(jsonPath(&quot;$.responseMap.result[1].checked&quot;).value(0));</span>
+<span class="fc" id="L354">        verify(commentService).getAllUncheckComments();</span>
+<span class="fc" id="L355">        verifyNoMoreInteractions(commentService);</span>
+<span class="fc" id="L356">    }</span>
+
+    @Test
+    public void happy_path_when_admin_check_a_comment() throws Exception {
+<span class="fc" id="L360">        when(commentService.checkComment(1)).thenReturn(1);</span>
+<span class="fc" id="L361">        Comment retComment = new Comment(</span>
+                1,
+                1,
+                1,
+                null,
+                &quot;this is comment 1&quot;,
+                1
+        );
+<span class="fc" id="L369">        when(commentService.getCommentByCommentId(1)).thenReturn(retComment);</span>
+<span class="fc" id="L370">        mockMvc.perform(put(&quot;/comment/check/1&quot;))</span>
+<span class="fc" id="L371">                .andExpect(status().isOk())</span>
+<span class="fc" id="L372">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).exists())</span>
+<span class="fc" id="L373">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L374">                .andExpect(jsonPath(&quot;$.responseMap.result.commentId&quot;).value(1));</span>
+<span class="fc" id="L375">        InOrder order = inOrder(commentService);</span>
+<span class="fc" id="L376">        order.verify(commentService).checkComment(1);</span>
+<span class="fc" id="L377">        order.verify(commentService).getCommentByCommentId(1);</span>
+<span class="fc" id="L378">    }</span>
+
+    @Test
+    public void comment_doesnt_exist_when_admin_check_a_comment() throws Exception {
+<span class="fc" id="L382">        when(commentService.checkComment(1)).thenReturn(0);</span>
+<span class="fc" id="L383">        mockMvc.perform(put(&quot;/comment/check/1&quot;))</span>
+<span class="fc" id="L384">                .andExpect(status().isOk())</span>
+<span class="fc" id="L385">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L386">        verify(commentService).checkComment(1);</span>
+<span class="fc" id="L387">        verifyNoMoreInteractions(commentService);</span>
+<span class="fc" id="L388">    }</span>
+
+    @Test
+    public void happy_path_when_admin_uncheck_a_comment() throws Exception {
+<span class="fc" id="L392">        when(commentService.uncheckComment(1)).thenReturn(1);</span>
+<span class="fc" id="L393">        Comment retComment = new Comment(</span>
+                1,
+                1,
+                1,
+                null,
+                &quot;this is comment 1&quot;,
+                1
+        );
+<span class="fc" id="L401">        when(commentService.getCommentByCommentId(1)).thenReturn(retComment);</span>
+<span class="fc" id="L402">        mockMvc.perform(put(&quot;/comment/uncheck/1&quot;))</span>
+<span class="fc" id="L403">                .andExpect(status().isOk())</span>
+<span class="fc" id="L404">                .andExpect(jsonPath(&quot;$.responseMap.result&quot;).exists())</span>
+<span class="fc" id="L405">                .andExpect(jsonPath(&quot;$.status&quot;).value(200))</span>
+<span class="fc" id="L406">                .andExpect(jsonPath(&quot;$.responseMap.result.commentId&quot;).value(1));</span>
+<span class="fc" id="L407">        InOrder order = inOrder(commentService);</span>
+<span class="fc" id="L408">        order.verify(commentService).uncheckComment(1);</span>
+<span class="fc" id="L409">        order.verify(commentService).getCommentByCommentId(1);</span>
+<span class="fc" id="L410">    }</span>
+
+    @Test
+    public void comment_doesnt_exist_when_admin_uncheck_a_comment() throws Exception {
+<span class="fc" id="L414">        when(commentService.uncheckComment(1)).thenReturn(0);</span>
+<span class="fc" id="L415">        mockMvc.perform(put(&quot;/comment/uncheck/1&quot;))</span>
+<span class="fc" id="L416">                .andExpect(status().isOk())</span>
+<span class="fc" id="L417">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L418">        verify(commentService).uncheckComment(1);</span>
+<span class="fc" id="L419">        verifyNoMoreInteractions(commentService);</span>
+<span class="fc" id="L420">    }</span>
+
+    @Test
+    public void happy_path_when_get_checked_comment_by_ground_id() throws Exception {
+<span class="fc" id="L424">        when(commentService.getCheckedCommentsByGroundId(anyInt())).thenReturn(new ArrayList&lt;&gt;());</span>
+
+<span class="fc" id="L426">        mockMvc.perform(get(&quot;/checkedcomment/ground/1&quot;))</span>
+<span class="fc" id="L427">                .andExpect(status().isOk())</span>
+<span class="fc" id="L428">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+
+<span class="fc" id="L430">        verify(commentService).getCheckedCommentsByGroundId(1);</span>
+<span class="fc" id="L431">    }</span>
+
+    @Test
+    public void comment_not_exist_or_ground_not_exist_when_checked_comment_by_ground_id() throws Exception {
+<span class="fc" id="L435">        when(commentService.getCheckedCommentsByGroundId(anyInt())).thenReturn(null);</span>
+
+<span class="fc" id="L437">        mockMvc.perform(get(&quot;/checkedcomment/ground/1&quot;))</span>
+<span class="fc" id="L438">                .andExpect(status().isOk())</span>
+<span class="fc" id="L439">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+
+<span class="fc" id="L441">        verify(commentService).getCheckedCommentsByGroundId(1);</span>
+<span class="fc" id="L442">    }</span>
+
+    @ParameterizedTest
+    @MethodSource(&quot;matchStringProviderHappyPath&quot;)
+    public void happy_path_when_get_comment_by_match_without_ground_id(Map&lt;String,String&gt; requestParams) throws Exception{
+<span class="fc" id="L447">        List&lt;Comment&gt; retComments = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L448">        retComments.add(new Comment(</span>
+                1,
+                1,
+                1,
+                null,
+                &quot;this is comment 1&quot;,
+                0
+        ));
+<span class="fc" id="L456">        retComments.add(new Comment(</span>
+                2,
+                2,
+                1,
+                null,
+                &quot;this is comment 2&quot;,
+                0
+        ));
+<span class="fc" id="L464">        Comment retComment = new Comment(</span>
+                1,
+                1,
+                1,
+                null,
+                &quot;this is comment 1&quot;,
+                1
+        );
+
+<span class="fc" id="L473">        when(commentService.getAllCheckComments()).thenReturn(retComments);</span>
+<span class="fc" id="L474">        when(commentService.getCommentsByGroundId(anyInt())).thenReturn(retComments);</span>
+<span class="fc" id="L475">        when(commentService.getCommentsByUserId(anyInt())).thenReturn(retComments);</span>
+<span class="fc" id="L476">        when(commentService.getCommentsByMatch(anyString())).thenReturn(retComments);</span>
+
+<span class="fc" id="L478">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L479">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L480">        String requestJson = objectWriter.writeValueAsString(requestParams);</span>
+
+<span class="fc" id="L482">        mockMvc.perform(post(&quot;/comment/match&quot;)</span>
+<span class="fc" id="L483">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L484">                .content(requestJson))</span>
+<span class="fc" id="L485">                .andExpect(status().isOk())</span>
+<span class="fc" id="L486">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+
+<span class="fc" id="L488">    }</span>
+
+    static Stream&lt;Map&lt;String,String&gt;&gt; matchStringProviderHappyPath(){
+<span class="fc" id="L491">        HashMap&lt;String, String&gt; map1 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L492">        map1.put(&quot;match&quot;,&quot;gid:1&quot;);</span>
+<span class="fc" id="L493">        HashMap&lt;String, String&gt; map2 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L494">        map2.put(&quot;match&quot;,&quot;uid:1&quot;);</span>
+<span class="fc" id="L495">        HashMap&lt;String, String&gt; map3 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L496">        map3.put(&quot;match&quot;,&quot;hello&quot;);</span>
+<span class="fc" id="L497">        HashMap&lt;String, String&gt; map4 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L498">        map4.put(&quot;match&quot;,&quot;&quot;);</span>
+<span class="fc" id="L499">        map4.put(&quot;groundId&quot;,&quot;1&quot;);</span>
+<span class="fc" id="L500">        return Stream.of(</span>
+                map1,map2,map3,map4
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource(&quot;matchStringProviderCornerCase&quot;)
+    public void corner_case_when_get_comment_by_match_without_ground_id(Map&lt;String,String&gt; requestParams) throws Exception {
+<span class="fc" id="L508">        when(commentService.getAllCheckComments()).thenReturn(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L509">        when(commentService.getCommentsByGroundId(anyInt())).thenReturn(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L510">        when(commentService.getCommentsByUserId(anyInt())).thenReturn(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L511">        when(commentService.getCommentsByMatch(anyString())).thenReturn(new ArrayList&lt;&gt;());</span>
+
+<span class="fc" id="L513">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L514">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L515">        String requestJson = objectWriter.writeValueAsString(requestParams);</span>
+
+<span class="fc" id="L517">        mockMvc.perform(post(&quot;/comment/match&quot;)</span>
+<span class="fc" id="L518">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L519">                .content(requestJson))</span>
+<span class="fc" id="L520">                .andExpect(status().isOk())</span>
+<span class="fc" id="L521">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L522">    }</span>
+
+    static Stream&lt;Map&lt;String,String&gt;&gt; matchStringProviderCornerCase(){
+<span class="fc" id="L525">        HashMap&lt;String, String&gt; map1 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L526">        map1.put(&quot;match&quot;,&quot;gid:452&quot;);</span>
+<span class="fc" id="L527">        HashMap&lt;String, String&gt; map2 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L528">        map2.put(&quot;match&quot;,&quot;uid:51&quot;);</span>
+<span class="fc" id="L529">        HashMap&lt;String, String&gt; map3 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L530">        map3.put(&quot;match&quot;,&quot;null&quot;);</span>
+<span class="fc" id="L531">        HashMap&lt;String, String&gt; map4 = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L532">        map4.put(&quot;match&quot;,&quot;&quot;);</span>
+<span class="fc" id="L533">        map4.put(&quot;groundId&quot;,&quot;1&quot;);</span>
+<span class="fc" id="L534">        return Stream.of(</span>
+                map1,map2,map3,map4
+        );
+    }
+
+    @Test
+    public void happy_path_when_delete_comment_by_batch() throws Exception {
+<span class="fc" id="L541">        when(commentService.getCommentByCommentId(anyInt())).thenReturn(null);</span>
+<span class="fc" id="L542">        when(commentService.deleteComment(anyInt())).thenReturn(1);</span>
+
+<span class="fc" id="L544">        HashMap&lt;String,List&lt;Integer&gt;&gt; requestParams = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L545">        requestParams.put(&quot;ids&quot;, Arrays.asList(1, 2, 3));</span>
+
+<span class="fc" id="L547">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L548">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L549">        String requestJson = objectWriter.writeValueAsString(requestParams);</span>
+
+<span class="fc" id="L551">        mockMvc.perform(delete(&quot;/comment/deleteByBatch&quot;)</span>
+<span class="fc" id="L552">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L553">                .content(requestJson))</span>
+<span class="fc" id="L554">                .andExpect(status().isOk())</span>
+<span class="fc" id="L555">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L556">        verify(commentService, times(3)).deleteComment(anyInt());</span>
+<span class="fc" id="L557">    }</span>
+
+    @Test
+    public void fail_once_when_delete_comment_by_batch() throws Exception {
+<span class="fc" id="L561">        when(commentService.deleteComment(anyInt())).thenReturn(1).thenReturn(0);</span>
+<span class="fc" id="L562">        HashMap&lt;String,List&lt;Integer&gt;&gt; requestParams = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L563">        requestParams.put(&quot;ids&quot;, Arrays.asList(1, 2, 3));</span>
+
+<span class="fc" id="L565">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L566">        ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();</span>
+<span class="fc" id="L567">        String requestJson = objectWriter.writeValueAsString(requestParams);</span>
+
+<span class="fc" id="L569">        mockMvc.perform(delete(&quot;/comment/deleteByBatch&quot;)</span>
+<span class="fc" id="L570">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L571">                .content(requestJson))</span>
+<span class="fc" id="L572">                .andExpect(status().isOk())</span>
+<span class="fc" id="L573">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L574">        verify(commentService, times(3)).deleteComment(anyInt());</span>
+<span class="fc" id="L575">    }</span>
+
+    @Test
+    public void happy_path_when_get_all_comment() throws Exception {
+<span class="fc" id="L579">        List&lt;Comment&gt; retComments = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L580">        retComments.add(new Comment(</span>
+                1,
+                1,
+                1,
+                null,
+                &quot;this is comment 1&quot;,
+                0
+        ));
+<span class="fc" id="L588">        retComments.add(new Comment(</span>
+                2,
+                2,
+                1,
+                null,
+                &quot;this is comment 2&quot;,
+                0
+        ));
+<span class="fc" id="L596">        Comment retComment = new Comment(</span>
+                1,
+                1,
+                1,
+                null,
+                &quot;this is comment 1&quot;,
+                1
+        );
+<span class="fc" id="L604">        when(commentService.getAllComments()).thenReturn(retComments);</span>
+
+<span class="fc" id="L606">        mockMvc.perform(get(&quot;/comment/allComment&quot;))</span>
+<span class="fc" id="L607">                .andExpect(status().isOk())</span>
+<span class="fc" id="L608">                .andExpect(jsonPath(&quot;$.status&quot;).value(200));</span>
+<span class="fc" id="L609">        verify(commentService).getAllComments();</span>
+<span class="fc" id="L610">    }</span>
+
+    @Test
+    public void get_nothing_when_get_all_comment() throws Exception {
+<span class="fc" id="L614">        when(commentService.getAllComments()).thenReturn(new ArrayList&lt;&gt;());</span>
+
+<span class="fc" id="L616">        mockMvc.perform(get(&quot;/comment/allComment&quot;))</span>
+<span class="fc" id="L617">                .andExpect(status().isOk())</span>
+<span class="fc" id="L618">                .andExpect(jsonPath(&quot;$.status&quot;).value(404));</span>
+<span class="fc" id="L619">        verify(commentService).getAllComments();</span>
+<span class="fc" id="L620">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
