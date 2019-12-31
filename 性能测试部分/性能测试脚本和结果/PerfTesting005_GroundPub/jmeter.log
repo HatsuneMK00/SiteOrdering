@@ -1,0 +1,49 @@
+2019-12-30 17:15:50,310 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2019-12-30 17:15:50,329 INFO o.a.j.JMeter: Loading user properties from: E:\apache-jmeter\bin\user.properties
+2019-12-30 17:15:50,329 INFO o.a.j.JMeter: Loading system properties from: E:\apache-jmeter\bin\system.properties
+2019-12-30 17:15:50,331 INFO o.a.j.JMeter: Copyright (c) 1998-2019 The Apache Software Foundation
+2019-12-30 17:15:50,331 INFO o.a.j.JMeter: Version 5.2.1
+2019-12-30 17:15:50,331 INFO o.a.j.JMeter: java.version=11.0.3
+2019-12-30 17:15:50,331 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2019-12-30 17:15:50,331 INFO o.a.j.JMeter: os.name=Windows 10
+2019-12-30 17:15:50,331 INFO o.a.j.JMeter: os.arch=amd64
+2019-12-30 17:15:50,331 INFO o.a.j.JMeter: os.version=10.0
+2019-12-30 17:15:50,331 INFO o.a.j.JMeter: file.encoding=GBK
+2019-12-30 17:15:50,331 INFO o.a.j.JMeter: java.awt.headless=null
+2019-12-30 17:15:50,331 INFO o.a.j.JMeter: Max memory     =1073741824
+2019-12-30 17:15:50,331 INFO o.a.j.JMeter: Available Processors =8
+2019-12-30 17:15:50,338 INFO o.a.j.JMeter: Default Locale=English (EN)
+2019-12-30 17:15:50,339 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2019-12-30 17:15:50,339 INFO o.a.j.JMeter: JMeterHome=E:\apache-jmeter
+2019-12-30 17:15:50,339 INFO o.a.j.JMeter: user.dir  =C:\Users\ceej_\Downloads\PerfTesting005_GroundPub
+2019-12-30 17:15:50,339 INFO o.a.j.JMeter: PWD       =C:\Users\ceej_\Downloads\PerfTesting005_GroundPub
+2019-12-30 17:15:50,340 INFO o.a.j.JMeter: IP: 192.168.31.82 Name: CEEJ-DT FullName: CEEJ-DT
+2019-12-30 17:15:50,664 INFO o.a.j.g.a.LookAndFeelCommand: Installing Darcula LAF
+2019-12-30 17:15:50,671 INFO o.a.j.g.a.LookAndFeelCommand: Using look and feel: com.bulenkov.darcula.DarculaLaf [Darcula]
+2019-12-30 17:15:50,671 INFO o.a.j.JMeter: Setting LAF to: com.bulenkov.darcula.DarculaLaf
+2019-12-30 17:15:50,732 INFO o.a.j.JMeter: Loaded icon properties from org/apache/jmeter/images/icon.properties
+2019-12-30 17:15:51,481 INFO o.j.r.JARSourceHTTP: Found cached repo
+2019-12-30 17:15:51,619 INFO o.j.r.PluginManager: Plugins Status: [jpgc-graphs-basic=2.0, jpgc-casutg=2.9, jpgc-filterresults=2.2, jpgc-perfmon=2.1, jpgc-plugins-manager=1.3, jpgc-synthesis=2.2, jmeter-core=5.2.1, jmeter-ftp=5.2.1, jmeter-http=5.2.1, jmeter-jdbc=5.2.1, jmeter-jms=5.2.1, jmeter-junit=5.2.1, jmeter-java=5.2.1, jmeter-ldap=5.2.1, jmeter-mail=5.2.1, jmeter-mongodb=5.2.1, jmeter-native=5.2.1, jmeter-tcp=5.2.1, jmeter-components=5.2.1]
+2019-12-30 17:15:52,670 WARN o.a.j.g.ObjectTableModel: Header count=13 but classes count=11
+2019-12-30 17:15:52,671 WARN o.a.j.g.ObjectTableModel: Header count=13 but writeFunctor count=11
+2019-12-30 17:15:53,321 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2019-12-30 17:15:53,322 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2019-12-30 17:15:53,322 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2019-12-30 17:15:53,322 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2019-12-30 17:15:53,322 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2019-12-30 17:15:53,322 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2019-12-30 17:15:53,622 INFO o.a.j.e.KeyToolUtils: keytool found at 'keytool'
+2019-12-30 17:15:53,623 INFO o.a.j.p.h.p.ProxyControl: HTTP(S) Test Script Recorder SSL Proxy will use keys that support embedded 3rd party resources in file E:\apache-jmeter\bin\proxyserver.jks
+2019-12-30 17:15:53,787 INFO o.a.j.s.FileServer: Default base='C:\Users\ceej_\Downloads\PerfTesting005_GroundPub'
+2019-12-30 17:15:54,214 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2019-12-30 17:15:54,214 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to ISO-8859-1
+2019-12-30 17:15:54,214 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2019-12-30 17:15:54,215 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2019-12-30 17:15:56,252 INFO o.a.j.g.a.Load: Loading file: C:\Users\ceej_\Downloads\PerfTesting005_GroundPub\myscript.jmx
+2019-12-30 17:15:56,252 INFO o.a.j.s.FileServer: Set new base='C:\Users\ceej_\Downloads\PerfTesting005_GroundPub'
+2019-12-30 17:15:56,365 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2019-12-30 17:15:56,380 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2019-12-30 17:15:56,383 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2019-12-30 17:15:56,386 INFO o.a.j.s.SaveService: Loading file: C:\Users\ceej_\Downloads\PerfTesting005_GroundPub\myscript.jmx
+2019-12-30 17:15:56,513 INFO o.a.j.p.h.c.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
+2019-12-30 17:15:56,853 INFO o.a.j.s.FileServer: Set new base='C:\Users\ceej_\Downloads\PerfTesting005_GroundPub'
