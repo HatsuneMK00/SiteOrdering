@@ -31,6 +31,7 @@ layui.config({
     //提交场地预约信息
     $(".preorder_add").click(function(){
             //忽略秒和分
+            var user_num=$("input:text[name='userNum']").val();
             var dates=$("input:text[name='date']").val().split("~");
             for(var i=0;i<2;i++){
                 dates[i]=new Date(dates[i]);
@@ -47,19 +48,19 @@ layui.config({
 
             console.log(dates[0].toString()+":持续"+duration);
 
-            occupy(dates[0],duration,$.cookie('groundId'));
+            occupy(dates[0],duration,$.cookie('groundId'),user_num);
         }
     );
 
 
-    //占用场地的时间
-    function occupy(t,d,gid){
+    //占用场地的时间和人数
+    function occupy(t,d,gid,n){
         var tt=fromDateToString(t);
         $.ajax({
             url: baseUrl + "order/user/"+user_id+"/order",
             type: "post",
             dataType: "json",
-            data: {groundId:gid,startTime:tt,duration:d},
+            data: {groundId:gid,startTime:tt,duration:d,userNum:n},
             async:false,
             success : function(data){
                 if(data.status===200){
