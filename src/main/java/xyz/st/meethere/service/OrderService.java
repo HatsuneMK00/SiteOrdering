@@ -29,6 +29,10 @@ public class OrderService {
         return orderMapper.getAPreOrderOfUser(uid, oid);
     }
 
+    public PreOrder getPreOrderById(Integer id) {
+        return orderMapper.getPreOrderByPid(id);
+    }
+
     public List<PreOrder> getPreOrderByTimeMatch(String time){
         System.out.println(time + " 00:00:00.000");
         Timestamp startTime = Timestamp.valueOf(time + " 00:00:00");
@@ -39,6 +43,12 @@ public class OrderService {
     public int addPreOrder(PreOrder preOrder) {
         setDate(preOrder);
         return orderMapper.addPreOrder(preOrder);
+    }
+
+    public int updatePreOrder(PreOrder preOrder) {
+//        更新订单不修改订单时间
+//        setDate(preOrder);
+        return orderMapper.updatePreOrder(preOrder);
     }
 
     public int deletePreOrder(Integer oid) {
