@@ -33,7 +33,7 @@ public interface OrderMapper {
 
     @Options(useGeneratedKeys = true, keyProperty = "preOrderId")
     @Insert("insert into preorder(groundId,userNum,userId,orderTime,price,startTime,duration,payed,checked) values" +
-            "(#{groundId},#{userNum}" +
+            "(#{groundId},#{userNum}," +
             "#{userId},#{orderTime},#{price},#{startTime},#{duration},#{payed},#{checked})")
     int addPreOrder(PreOrder preOrder);
 

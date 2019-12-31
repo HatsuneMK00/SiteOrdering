@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -94,7 +95,8 @@ class OrderControllerTest {
         mockMvc.perform(post("/order/user/1/order")
                 .param("groundId", "1")
                 .param("startTime", "2019-12-30 12:30:00.0")
-                .param("duration", "2"))
+                .param("duration", "2")
+                .param("userNum","1"))
                 .andExpect(jsonPath("$.status").value(200));
         verify(orderService).validatePreOrder(1, "2019-12-30 12:30:00.0", 2);
         verify(orderService).getGroundPrice(1);
@@ -107,7 +109,8 @@ class OrderControllerTest {
         mockMvc.perform(post("/order/user/1/order")
                 .param("groundId", "1")
                 .param("startTime", "2019-12-30 12:30:00.0")
-                .param("duration", "2"))
+                .param("duration", "2")
+                .param("userNum","1"))
                 .andExpect(jsonPath("$.status").value(510));
         verify(orderService).validatePreOrder(1, "2019-12-30 12:30:00.0", 2);
     }
@@ -120,7 +123,8 @@ class OrderControllerTest {
         mockMvc.perform(post("/order/user/1/order")
                 .param("groundId", "1")
                 .param("startTime", "2019-12-30 12:30:00.0")
-                .param("duration", "2"))
+                .param("duration", "2")
+                .param("userNum","1"))
                 .andExpect(jsonPath("$.status").value(500));
         verify(orderService).validatePreOrder(1, "2019-12-30 12:30:00.0", 2);
         verify(orderService).getGroundPrice(1);
@@ -135,7 +139,8 @@ class OrderControllerTest {
         mockMvc.perform(post("/order/admin/1/order")
                 .param("groundId", "1")
                 .param("startTime", "2019-12-30 12:30:00.0")
-                .param("duration", "2"))
+                .param("duration", "2")
+                .param("userNum","1"))
                 .andExpect(jsonPath("$.status").value(200));
         verify(orderService).validatePreOrder(1, "2019-12-30 12:30:00.0", 2);
         verify(orderService).getGroundPrice(1);
@@ -148,7 +153,8 @@ class OrderControllerTest {
         mockMvc.perform(post("/order/admin/1/order")
                 .param("groundId", "1")
                 .param("startTime", "2019-12-30 12:30:00.0")
-                .param("duration", "2"))
+                .param("duration", "2")
+                .param("userNum","1"))
                 .andExpect(jsonPath("$.status").value(510));
         verify(orderService).validatePreOrder(1, "2019-12-30 12:30:00.0", 2);
     }
@@ -161,7 +167,9 @@ class OrderControllerTest {
         mockMvc.perform(post("/order/admin/1/order")
                 .param("groundId", "1")
                 .param("startTime", "2019-12-30 12:30:00.0")
-                .param("duration", "2"))
+                .param("duration", "2")
+                .param("userNum","1"))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(500));
         verify(orderService).validatePreOrder(1, "2019-12-30 12:30:00.0", 2);
         verify(orderService).getGroundPrice(1);
