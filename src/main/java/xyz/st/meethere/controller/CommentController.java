@@ -218,8 +218,7 @@ public class CommentController {
                 msg.setStatus(404);
             }
         }
-//        FIXME: 这边的赋值是个什么鬼
-//        msg.setStatus(200);
+//        FIXME: 这边的赋值是个什么鬼msg.setStatus(200);
         return msg;
     }
 

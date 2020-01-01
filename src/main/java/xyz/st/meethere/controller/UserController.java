@@ -1,10 +1,10 @@
 package xyz.st.meethere.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import xyz.st.meethere.config.MyServerConfig;
 import xyz.st.meethere.entity.ResponseMsg;
 import xyz.st.meethere.entity.User;
 import xyz.st.meethere.exception.FileException;
@@ -22,6 +22,8 @@ public class UserController {
     private final UserService userService;
     private final FileService fileService;
     private final MailService mailService;
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     public UserController(UserService userService, FileService fileService, MailService mailService) {
         this.userService = userService;
@@ -158,11 +160,11 @@ public class UserController {
 //        FIXME: 参数传递错误应该返回400
         msg.setStatus(400);
         if (
-                (!(params.containsKey("userId"))||!(params.containsKey("password")))
+                (!(params.containsKey("userId")) || !(params.containsKey("password")))
                         &&
-                        (!(params.containsKey("userId")) || !(params.containsKey("email")) || !(params.containsKey("description")))
-        )
-        {
+                        (!(params.containsKey("userId")) || !(params.containsKey("email")) || !(params.containsKey(
+                                "description")))
+        ) {
             return msg;
         }
         User user = userService.getUserById(Integer.parseInt((params.get("userId").toString())));
@@ -179,26 +181,6 @@ public class UserController {
         return msg;
     }
 
-//    @ResponseBody
-//    @ApiOperation("修改用户信息，使用userName识别用户")
-//    @PostMapping("/user/updateByName")
-//    ResponseMsg updateByName(@RequestBody Map params) {
-//        ResponseMsg msg = new ResponseMsg();
-//        msg.setStatus(404);
-//        if (!(params.containsKey("userName"))) {
-//            return msg;
-//        }
-//        User user = userService.getUserByName((String) params.get("userName"));
-//        if (user == null) return msg;
-//        user.updateUser(params);
-//        int ret = userService.updateUserByModel(user);
-//        if (ret > 0) {
-//            msg.setStatus(200);
-//            msg.getResponseMap().put("user", user);
-//        }
-//        return msg;
-//    }
-
     /*
      * 个人信息头像管理
      * */
@@ -213,10 +195,9 @@ public class UserController {
         try {
             storeFile = fileService.storeFile(file);
         } catch (FileException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         assert storeFile != null;
-//        System.out.println(MyServerConfig.port);
         int result = userService.updateUserProfilePicByUserId(storeFile, id);
         User user = userService.getUserById(id);
         ResponseMsg responseMsg = new ResponseMsg();

@@ -2,7 +2,6 @@ package xyz.st.meethere.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Service;
 import xyz.st.meethere.config.MyServerConfig;
@@ -23,13 +22,11 @@ public class UserService {
     Logger logger = LoggerFactory.getLogger(getClass());
 
     public User getUserByName(String userName) {
-        User user = userMapper.getUserByName(userName);
-        return user;
+        return userMapper.getUserByName(userName);
     }
 
     public User getUserById(int userId) {
-        User user = userMapper.getUserById(userId);
-        return user;
+        return userMapper.getUserById(userId);
     }
 
     public List<User> traverseUser() {
@@ -52,8 +49,8 @@ public class UserService {
         user.setEmail(email);
         user.setUserName(userName);
         user.setPassword(password);
-        User existed_user = userMapper.getUserByNameWOAuthority(userName);
-        if (existed_user != null) return 0;
+        User existedUser = userMapper.getUserByNameWOAuthority(userName);
+        if (existedUser != null) return 0;
         return userMapper.addUser(user);
     }
 
@@ -65,9 +62,9 @@ public class UserService {
         filename = new ApplicationHome(getClass()).getSource().getParentFile().getPath() + filename;
         File file = new File(filename);
         if (file.delete()) {
-            logger.info("删除用户头像文件成功，用户id: " + userId);
+            logger.info(String.format("删除用户头像文件成功，用户id: %d", userId));
         } else {
-            logger.warn("删除用户头像文件失败，文件名: " + filename);
+            logger.warn(String.format("删除用户头像文件失败，文件名: %s", filename));
         }
 
         return userMapper.deleteUserById(userId);

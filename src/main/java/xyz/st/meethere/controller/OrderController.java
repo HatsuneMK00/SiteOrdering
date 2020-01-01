@@ -58,15 +58,6 @@ public class OrderController {
      * */
     @PostMapping("/order/match")
     @ApiOperation("通过搜索内容获取订单")
-//    没啥用
-//    @ApiParam(
-//            examples = @Example(value = {
-//                    @ExampleProperty(value = "{\"match\": \"time: 2019-12-23\"}"),
-//                    @ExampleProperty(value = "{\"match\": \"uid: 1\"}"),
-//                    @ExampleProperty(value = "{\"match\": \"gid: 1\"}"),
-//                    @ExampleProperty(value = "{\"match\": \"\"}")
-//            })
-//    )
     ResponseMsg getOrderByTimeMatch(@RequestBody Map<String,String> params) {
         String searchParam = params.get("match");
         if (searchParam.equals("")) {

@@ -1,6 +1,8 @@
 package xyz.st.meethere.controller;
 
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.st.meethere.config.MyServerConfig;
@@ -11,6 +13,8 @@ import xyz.st.meethere.service.FileService;
 @RestController
 public class FileController {
     private final FileService fileService;
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     public FileController(FileService fileService) {
         this.fileService = fileService;
@@ -23,7 +27,7 @@ public class FileController {
     @ResponseBody
     @ApiOperation("上传图片文件,返回url")
     @PostMapping("/file/uploadImage")
-    ResponseMsg updateProfilePic(@RequestParam("image")MultipartFile file){
+    ResponseMsg updateProfilePic(@RequestParam("image") MultipartFile file) {
         /*
          * 封装图片路径
          * */
@@ -33,20 +37,20 @@ public class FileController {
         try {
             storeFile = fileService.storeFile(file);
         } catch (FileException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
             return responseMsg;
         }
-        if(storeFile == null)
+        if (storeFile == null)
             return responseMsg;
         responseMsg.setStatus(200);
 
         String[] temp = storeFile.split("/");
         String server = MyServerConfig.server;
-        String port   = MyServerConfig.port;
+        String port = MyServerConfig.port;
         // Default server regarded as [localhost]
-        String profile_url="http://"+server+":"+port+ "/images/";
-        profile_url = profile_url + temp[temp.length - 1];
-        responseMsg.getResponseMap().put("url",profile_url);
+        String profileUrl = "http://" + server + ":" + port + "/images/";
+        profileUrl = profileUrl + temp[temp.length - 1];
+        responseMsg.getResponseMap().put("url", profileUrl);
 
         return responseMsg;
     }

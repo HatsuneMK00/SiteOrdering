@@ -25,8 +25,8 @@ public class AdminService {
     }
 
     public int updateAdminByModel(User user) {
-        User existed_admin = adminMapper.getUserByNameWOAuthority(user.getUserName());
-        if (existed_admin != null && existed_admin.getUserId() != user.getUserId()) return 0;
+        User existedAdmin = adminMapper.getUserByNameWOAuthority(user.getUserName());
+        if (existedAdmin != null && existedAdmin.getUserId() != user.getUserId()) return 0;
         return adminMapper.updateAdmin(user);
     }
 
@@ -34,9 +34,9 @@ public class AdminService {
         String[] temp = profilePic.split("/");
 
         // Default server regarded as [localhost]
-        String profile_url = MyServerConfig.server + ":" + MyServerConfig.port + "/images/";
-        profile_url = profile_url + temp[temp.length - 1];
-        int result = adminMapper.updateAdminProfilePicByAdminId(userId, profile_url);
+        String profileUrl = MyServerConfig.server + ":" + MyServerConfig.port + "/images/";
+        profileUrl = profileUrl + temp[temp.length - 1];
+        int result = adminMapper.updateAdminProfilePicByAdminId(userId, profileUrl);
         if (result == 1)
             return 200;
         else

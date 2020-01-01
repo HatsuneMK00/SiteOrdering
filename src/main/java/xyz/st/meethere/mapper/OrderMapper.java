@@ -1,13 +1,11 @@
 package xyz.st.meethere.mapper;
 
-import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import xyz.st.meethere.entity.Ground;
 import xyz.st.meethere.entity.PreOrder;
 import xyz.st.meethere.entity.User;
 
-import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.List;
 

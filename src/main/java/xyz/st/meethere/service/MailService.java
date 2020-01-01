@@ -123,11 +123,10 @@ public class MailService {
 
     public boolean sendmail(String mailto, String username)
     {
-        String MailTo=mailto;
-        String MailSubject="MeetHere - Application Received";
-        String MailBody="<h1>Welcome to use Meethere System. Dear "+username+",<br />" +
+        String mailSubject="MeetHere - Application Received";
+        String mailBody="<h1>Welcome to use Meethere System. Dear "+username+",<br />" +
                 "<br />"+"Congratulations,you have registered successfully</h1>";
-        sendMimeMessge(MailTo,MailSubject,MailBody);
+        sendMimeMessge(mailto,mailSubject,mailBody);
         return true;
     }
 }

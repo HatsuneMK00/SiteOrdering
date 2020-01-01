@@ -23,15 +23,12 @@ public class MyServerConfig implements ApplicationListener<WebServerInitializedE
     * 让自动注入先于构造函数中的调用
     * */
 //    @Autowired
-    public MyServerConfig(Environment environment) {
-//        port = environment.getProperty("local.server.port");
-//        logger.info("port: " + port);
-//        port="8080";
+    public MyServerConfig() {
         try {
             server = InetAddress.getLocalHost().getHostAddress();
             if (server.startsWith("192.168"))
                 server = "localhost";
-            logger.info("--------------------------------------server ip address: " + server);
+            logger.info(String.format("--------------------------------------server ip address: %s", server));
         } catch (UnknownHostException e) {
             logger.error(e.getMessage(),e);
             server = "localhost";
@@ -42,6 +39,6 @@ public class MyServerConfig implements ApplicationListener<WebServerInitializedE
     @Override
     public void onApplicationEvent(WebServerInitializedEvent webServerInitializedEvent) {
         port = String.valueOf(webServerInitializedEvent.getWebServer().getPort());
-        logger.info("------------------------------------------port: " + MyServerConfig.port);
+        logger.info(String.format("------------------------------------------port: %s", MyServerConfig.port));
     }
 }

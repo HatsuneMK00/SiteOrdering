@@ -2,7 +2,6 @@ package xyz.st.meethere.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Service;
 import xyz.st.meethere.entity.Ground;
@@ -62,9 +61,9 @@ public class GroundService {
         filename = new ApplicationHome(getClass()).getSource().getParentFile().getPath() +  filename;
         File file = new File(filename);
         if (file.delete()) {
-            logger.info("删除场馆文件成功，场馆id: " + id);
+            logger.info(String.format("删除场馆文件成功，场馆id: %d", id));
         } else {
-            logger.warn("删除场馆文件失败，文件名: " + filename);
+            logger.warn(String.format("删除场馆文件失败，文件名: %s", filename));
         }
         return groundMapper.deleteGround(id);
     }

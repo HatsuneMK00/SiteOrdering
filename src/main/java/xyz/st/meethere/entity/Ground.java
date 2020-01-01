@@ -3,8 +3,6 @@ package xyz.st.meethere.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.util.Map;
-
 @ApiModel(value = "Ground")
 public class Ground {
     @ApiModelProperty("场馆名字")
