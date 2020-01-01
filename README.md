@@ -10,18 +10,18 @@
   - 性能：曹威杰
 ## [Meethere home](http://47.101.217.16:8080/ "start Meethere")
 - Deployed with Ali light-weight ECS server
-  - 1 core/2GB RAM/40GB ROM/10Mbps Bandwidth
+  - 1 CORE/2GB RAM/40GB ROM/10Mbps Bandwidth
 - Backend
   - Springboot
 - Frontend
   - Layui
 ## Navigation
-- [source code](src\main\java)
-- [unit testing code](src\test)
-- [testing converage](覆盖度部分)
-- [integration testing](接口测试部分)
-- [system testing](系统测试部分)
-- [performance testing](性能测试部分)
+- [source code](https://github.com/HatsuneMK00/SiteOrdering/tree/master/src/main/java)
+- [unit testing code](https://github.com/HatsuneMK00/SiteOrdering/tree/master/src/test)
+- [testing converage](https://github.com/HatsuneMK00/SiteOrdering/tree/master/覆盖度部分)
+- [integration testing](https://github.com/HatsuneMK00/SiteOrdering/tree/master/接口测试部分)
+- [system testing](https://github.com/HatsuneMK00/SiteOrdering/tree/master/系统测试部分)
+- [performance testing](https://github.com/HatsuneMK00/SiteOrdering/tree/master/性能测试部分)
 
 
 <!-- ## doc
