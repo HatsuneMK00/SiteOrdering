@@ -10,7 +10,7 @@
     </parent>
     <groupId>xyz.st</groupId>
     <artifactId>meethere</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>1.0.0.RELEASE</version>
     <name>meethere</name>
     <description>project for software testing course</description>
 
