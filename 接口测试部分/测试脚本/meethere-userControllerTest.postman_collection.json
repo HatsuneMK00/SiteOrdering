@@ -1,0 +1,849 @@
+{
+	"info": {
+		"_postman_id": "d5e0e194-53d0-4f71-a809-928f2398edfd",
+		"name": "meethere-userControllerTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "userController获取所有用户测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1f85d616-5e07-4d51-bc1f-8beb04cc1368",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/getAll",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController多选删除用户测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a318b98-a346-41b8-9e06-e625a11c1038",
+						"exec": [
+							"pm.test(\"删除成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"userId\":[11]\n}"
+				},
+				"url": {
+					"raw": "{{url}}/user/deleteByBatch",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"deleteByBatch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController多选删除用户测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7fa0e5b7-8548-4fb4-94f7-f74349765242",
+						"exec": [
+							"pm.test(\"删除失败_用户不存在\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\":[123]\n}"
+				},
+				"url": {
+					"raw": "{{url}}/user/deleteByBatch",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"deleteByBatch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController删除用户测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7f16a53-c902-402f-9b57-8891d23cc274",
+						"exec": [
+							"pm.test(\"删除成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/deleteById?userId=12",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"deleteById"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "12"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController删除用户测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "daa28bbf-da17-4c31-ad32-c0ca386aeeda",
+						"exec": [
+							"pm.test(\"删除失败_用户不存在\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/deleteById?userId=123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"deleteById"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController邮件发送测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce46d088-8d51-4f73-b0d3-ec1f09a25a0b",
+						"exec": [
+							"pm.test(\"发送成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/email?email=751721909@qq.com&userName=harvey",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"email"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "751721909@qq.com"
+						},
+						{
+							"key": "userName",
+							"value": "harvey"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController登录测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d65c9df-a6cb-42c8-9b3f-1233177b7ee5",
+						"exec": [
+							"pm.test(\"登陆成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/enter?userName=testGuo&password=123456",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"enter"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "testGuo"
+						},
+						{
+							"key": "password",
+							"value": "123456"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController登录测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef6c150f-3d68-46ad-89c3-7e74fe039e4e",
+						"exec": [
+							"pm.test(\"登陆失败_用户名密码不匹配\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/enter?userName=testGuo&password=123458",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"enter"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "testGuo"
+						},
+						{
+							"key": "password",
+							"value": "123458"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController查询用户测试（ID）_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28dcbcfc-94d6-4a64-9e21-7a12db1a5538",
+						"exec": [
+							"pm.test(\"查询成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/getById?userId=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"getById"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController查询用户测试（ID）_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b71c39b2-a557-4472-a668-a5c2a31f48d1",
+						"exec": [
+							"pm.test(\"查询失败_用户不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/getById?userId=123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"getById"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController查询用户测试（用户名）_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "990ab3b6-c8ab-4028-b87c-0e86a561441a",
+						"exec": [
+							"pm.test(\"查询成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/getByName?userName=testGuo",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"getByName"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "testGuo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController查询用户测试（用户名）_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8faddc37-e7ff-42c7-9b6b-df96e7f382c6",
+						"exec": [
+							"pm.test(\"查询失败_用户不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/getByName?userName=testGuo111",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"getByName"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "testGuo111"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController头像更新测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c3ef841-4ea1-4965-93b5-e054c24eae6b",
+						"exec": [
+							"pm.test(\"更新成功_status比对\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});",
+							"pm.test(\"更新成功_包含localhost:8080\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"localhost:8080\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/my751/OneDrive/桌面/u=3412251120,2331792818&fm=26&gp=0.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user/profilePic?userId=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"profilePic"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController头像更新测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8efa6169-4d4d-4fb8-a4ac-68ff843cb3e7",
+						"exec": [
+							"pm.test(\"更新失败_用户不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/my751/OneDrive/桌面/u=3412251120,2331792818&fm=26&gp=0.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user/profilePic?userId=123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"profilePic"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController用户注册测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84d260a4-e81b-4fe7-976f-3b7e6143e0d7",
+						"exec": [
+							"pm.test(\"注册成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"751721909@qq.com\",\n\t\"userName\":\"harvey{{$randomInt}}\",\n\t\"password\":\"123456\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/user/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController用户注册测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d833130-5825-4a46-ab5a-eb72721aa652",
+						"exec": [
+							"pm.test(\"注册失败_重复用户名\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"751721909@qq.com\",\n\t\"userName\":\"harvey\",\n\t\"password\":\"123456\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/user/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController修改用户信息测试（ID）_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f5cfe56-ac10-4a8c-8f3d-0186153d311f",
+						"exec": [
+							"pm.test(\"修改成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                \"userId\": 1,\r\n                \"password\": \"123456\",\r\n                \"email\": \"1749597640@qq.com\",\r\n                \"description\": \"我是Guo111\",\r\n                \"profilePic\": \"localhost:null/images/-1881346016261925845u=3412251120,2331792818&fm=26&gp=0.jpg\",\r\n                \"balance\": 666,\r\n                \"authority\": false\r\n            }"
+				},
+				"url": {
+					"raw": "{{url}}/user/updateById",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"updateById"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController修改用户信息测试（ID）_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f649157c-cfa9-45ab-8a35-826f21f7c4c8",
+						"exec": [
+							"pm.test(\"修改失败_用户不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                \"userId\": 123,\r\n                \"password\": \"123456\",\r\n                \"email\": \"1749597640@qq.com\",\r\n                \"description\": \"我是Guo111\",\r\n                \"profilePic\": \"localhost:null/images/-1881346016261925845u=3412251120,2331792818&fm=26&gp=0.jpg\",\r\n                \"balance\": 666,\r\n                \"authority\": false\r\n            }"
+				},
+				"url": {
+					"raw": "{{url}}/user/updateById",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"updateById"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController修改用户信息测试（用户名）_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aa239661-1dbd-43c3-91f6-a9bec46cf582",
+						"exec": [
+							"pm.test(\"修改成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                \"userName\":\"testGuo\",\r\n                \"password\": \"123456\",\r\n                \"email\": \"1749597640@qq.com\",\r\n                \"description\": \"我是Guo111\",\r\n                \"profilePic\": \"localhost:null/images/-1881346016261925845u=3412251120,2331792818&fm=26&gp=0.jpg\",\r\n                \"balance\": 666,\r\n                \"authority\": false\r\n            }"
+				},
+				"url": {
+					"raw": "{{url}}/user/updateByName",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"updateByName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userController修改用户信息测试（用户名）_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2d0f8a91-2a63-4c56-8b9e-e4418d22d1a1",
+						"exec": [
+							"pm.test(\"修改失败_用户不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                \"userName\":\"testGuo111\",\r\n                \"password\": \"123456\",\r\n                \"email\": \"1749597640@qq.com\",\r\n                \"description\": \"我是Guo111\",\r\n                \"profilePic\": \"localhost:null/images/-1881346016261925845u=3412251120,2331792818&fm=26&gp=0.jpg\",\r\n                \"balance\": 666,\r\n                \"authority\": false\r\n            }"
+				},
+				"url": {
+					"raw": "{{url}}/user/updateByName",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"updateByName"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

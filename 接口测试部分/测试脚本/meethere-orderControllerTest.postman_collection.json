@@ -1,0 +1,592 @@
+{
+	"info": {
+		"_postman_id": "4dc41739-a3e1-40b9-adfa-e5926dc04899",
+		"name": "meethere-orderControllerTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "orderController获取所有订单测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "87b43da9-1974-4bf2-a069-dbe6236a5543",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController删除订单测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ab28ffb-f939-4e10-9fb9-ae9c8c92017f",
+						"exec": [
+							"pm.test(\"删除成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/21",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController删除订单测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eeb7f8c0-6ac2-4342-a1bb-9d1ec7834d0c",
+						"exec": [
+							"pm.test(\"删除失败_订单不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController审核订单测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7de75a3b-459d-423c-8ba5-291c65156a36",
+						"exec": [
+							"pm.test(\"审核成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/check/19",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"check",
+						"19"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController审核订单测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "45922485-5c51-438f-ac0b-52b116535919",
+						"exec": [
+							"pm.test(\"审核失败_订单不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/check/123",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"check",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController获取场地订单测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "54bc1abc-644f-4908-803c-5d02cab0c1d3",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/ground/1/order/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"ground",
+						"1",
+						"order",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController获取场地订单测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ae68df9-d485-4b10-a079-cd80543e84d8",
+						"exec": [
+							"pm.test(\"获取失败_场地不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/ground/123/order/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"ground",
+						"123",
+						"order",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController获取场地订单开始时间测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "035dc41d-5235-4ee4-8f57-2a9b70e00c23",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/ground/7/orderTime",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"ground",
+						"7",
+						"orderTime"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController获取场地订单开始时间测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "05083b70-669c-483f-ba3b-3fadd53cef11",
+						"exec": [
+							"pm.test(\"获取失败_场地不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/ground/123/orderTime",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"ground",
+						"123",
+						"orderTime"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController获取所有未审核订单测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96d92366-0cab-499f-80f3-ed4259df967f",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/uncheckedOrder",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"uncheckedOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController新增订单测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5ade9f1-1276-402e-b75f-5fb709ff5aa4",
+						"exec": [
+							"pm.test(\"新增成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/user/4/order?duration=2&groundId=1&startTime=2019-12-28 12:30:00.0",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"",
+						"order",
+						"user",
+						"4",
+						"order"
+					],
+					"query": [
+						{
+							"key": "duration",
+							"value": "2"
+						},
+						{
+							"key": "groundId",
+							"value": "1"
+						},
+						{
+							"key": "startTime",
+							"value": "2019-12-28 12:30:00.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController新增订单测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0f0f424f-9866-40f9-975b-50368895f1e2",
+						"exec": [
+							"pm.test(\"新增失败_部分信息缺失\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/user/4/order?duration=2&groundId=&startTime=2019-12-30 12:30:00.0",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"",
+						"order",
+						"user",
+						"4",
+						"order"
+					],
+					"query": [
+						{
+							"key": "duration",
+							"value": "2"
+						},
+						{
+							"key": "groundId",
+							"value": ""
+						},
+						{
+							"key": "startTime",
+							"value": "2019-12-30 12:30:00.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController获取用户指定订单测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ab53d23-ac39-4c52-aa68-de59a1101488",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/user/5/order/19",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"user",
+						"5",
+						"order",
+						"19"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController获取用户指定订单测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "46fc004e-47ec-4ab9-aea6-e1f87eec6ccd",
+						"exec": [
+							"pm.test(\"获取失败_用户不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/user/123/order/19",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"user",
+						"123",
+						"order",
+						"19"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController获取用户所有订单测试_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33b1db31-97f6-4cfa-b8b7-53f075ab4b16",
+						"exec": [
+							"pm.test(\"获取成功\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/user/5/preOrder",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"user",
+						"5",
+						"preOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderController获取用户所有订单测试_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bc9e003a-0467-45f1-a509-caa8390ae18f",
+						"exec": [
+							"pm.test(\"获取失败_用户不存在\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/order/user/123/preOrder",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"order",
+						"user",
+						"123",
+						"preOrder"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

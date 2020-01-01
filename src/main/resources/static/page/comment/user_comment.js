@@ -69,8 +69,8 @@ layui.config({
                         check = "通过审核";
                     }
                     var t="";
-                    if(currData[i].data!=null && currData[i].data!=""){
-                        t=fromDateToChineseString(new Date(currData[i].data));
+                    if(currData[i].date!=null && currData[i].date!=""){
+                        t=fromDateToChineseString(new Date(currData[i].date));
                     }
 
                     dataHtml += '<tr>'

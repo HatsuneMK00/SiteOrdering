@@ -51,7 +51,45 @@ layui.config({
         });
     });
 
+// 提交编辑内容
+    $("body").on("click",".preorder_edit",function(data){  //编辑
+        var _this = $(this);
+        layer.confirm('确定修改使用人数？',{icon:3, title:'提示信息'},function(index){
+            for(var i=0;i<newsData.length;i++){
+                if(newsData[i].preOrderId == _this.attr("data-id")){
+                    var toUpdate = JSON.stringify({
+                        userNum: _this.parents("tr").find("td:eq(7)").find("input[name='userNum']").val(),
+                        preOrderId:  _this.parents("tr").find("td:eq(0)").text(),
+                    });
+                    // alert(_this.parents("tr").find("td:eq(0)").text());
 
+                    $.ajax({
+                        url: baseUrl + "order",
+                        type: "put",
+                        dataType: "json",
+                        contentType: 'application/json;charset=UTF-8',
+                        data:toUpdate,
+                        async:false,
+                        success: function (data) {
+                            if (data.status === 200) {
+                                layer.msg("用户修改")
+                                refreshList();
+                            }
+                            else{
+                                layer.msg("用户修改失败");
+                            }
+                        },
+                        error: function () {
+                            layer.msg("检查一下网络吧");
+                            window.location.reload();
+                        }
+                    });
+
+                }
+            }
+            layer.close(index);
+        });
+    })
     //渲染数据函数
     function newsList(that) {
 
@@ -86,20 +124,22 @@ layui.config({
                         + '<td >' + currData[i].price + '</td>'
                         + '<td >' + ts + '</td>'
                         + '<td >' + currData[i].duration + '小时 </td>'
+                        + '<td><input type="text" name="userNum" placeholder="用户未填写使用人数" value="'+currData[i].userNum+'" autocomplete="off" class="layui-input"></td>'
                         + '<td >' + check + '</td>'
-                        + '<td>'
+                        + '<td style="text-align:center;">'
+                        +    '<a class="layui-btn layui-btn-mini preorder_edit" data-id="'+currData[i].preOrderId+'"><i class="iconfont icon-edit"></i> 提交</a><br>'
                             + '<a class="layui-btn layui-btn-danger layui-btn-mini preorder_del" data-id="'+currData[i].preOrderId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
                         + '</td>'
                         + '</tr>';
                 }
             } else {
-                dataHtml = '<tr><td colspan="10">暂无数据</td></tr>';
+                dataHtml = '<tr><td colspan="11">暂无数据</td></tr>';
             }
             return dataHtml;
         }
 
         //分页
-        var nums = 10; //每页出现的数据量
+        var nums = 11; //每页出现的数据量
         laypage({
             cont: "page",
             pages: Math.ceil(that.length / nums),

@@ -1,0 +1,833 @@
+{
+	"id": "1d7fc3d0-355c-4e18-ac91-7a0444461bd5",
+	"name": "meethere-commentControllerTest",
+	"allTests": [],
+	"timestamp": "2019-12-26T03:32:38.665Z",
+	"collection_id": "0f444047-4c21-4a3d-a8e2-58cd56508ad8",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "4e16ef26-ab17-4929-9566-b465dbe6600c",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "0f444047-4c21-4a3d-a8e2-58cd56508ad8",
+		"name": "meethere-commentControllerTest",
+		"order": [
+			"1cf936a3-840a-41db-83ce-d76894b0cc82",
+			"49f3b155-abf8-4d5d-9937-8cd7325f2128",
+			"ee12825e-b680-4fb6-a153-7743f4e556bd",
+			"5546f700-cfca-4a68-83b7-c43a758949c1",
+			"153ee31c-e130-4e65-aa50-aca2d477cf66",
+			"d1cd9d6f-7a1b-4c61-89a2-b79e4fc251b7",
+			"e9461684-559d-47ab-a0b7-d8028e186da3",
+			"93bd3604-e689-4f30-865f-d9e78bf9527b",
+			"e7fa3217-430f-49f9-9018-9e54192079b6",
+			"eacec816-b442-49ff-a19a-495f59c5cb70",
+			"6f572ec7-4be2-4666-bcf7-695fe0b9974a",
+			"c373e956-346a-4277-87d8-4beeeba157b3",
+			"47ebed31-219c-4353-9eb2-00710b72b73f",
+			"205d1999-f011-4243-9a9e-2859b3c8ea99"
+		],
+		"folders_order": [],
+		"isFavorite": false
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [],
+	"results": [
+		{
+			"name": "commentController获取评论测试_01",
+			"id": "1cf936a3-840a-41db-83ce-d76894b0cc82",
+			"url": "localhost:8080/comment/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"30"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "30",
+			"totalRequestTime": "30",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController更新评论测试_01",
+			"id": "49f3b155-abf8-4d5d-9937-8cd7325f2128",
+			"url": "localhost:8080/comment",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"更新成功_status比对": true,
+				"更新成功_commentId比对": true
+			},
+			"testPassFailCounts": {
+				"更新成功_status比对": {
+					"pass": 1,
+					"fail": 0
+				},
+				"更新成功_commentId比对": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"64"
+			],
+			"allTests": [
+				{
+					"更新成功_status比对": true,
+					"更新成功_commentId比对": true
+				}
+			],
+			"time": "64",
+			"totalRequestTime": "64",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController更新评论测试_02",
+			"id": "ee12825e-b680-4fb6-a153-7743f4e556bd",
+			"url": "localhost:8080/comment",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"更新失败_评论ID不存在": true
+			},
+			"testPassFailCounts": {
+				"更新失败_评论ID不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"18"
+			],
+			"allTests": [
+				{
+					"更新失败_评论ID不存在": true
+				}
+			],
+			"time": "18",
+			"totalRequestTime": "18",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController删除评论测试_01",
+			"id": "5546f700-cfca-4a68-83b7-c43a758949c1",
+			"url": "localhost:8080/comment/3",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"删除成功": true
+			},
+			"testPassFailCounts": {
+				"删除成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"34"
+			],
+			"allTests": [
+				{
+					"删除成功": true
+				}
+			],
+			"time": "34",
+			"totalRequestTime": "34",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController删除评论测试_02",
+			"id": "153ee31c-e130-4e65-aa50-aca2d477cf66",
+			"url": "localhost:8080/comment/123",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"删除失败_评论ID不存在": true
+			},
+			"testPassFailCounts": {
+				"删除失败_评论ID不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"36"
+			],
+			"allTests": [
+				{
+					"删除失败_评论ID不存在": true
+				}
+			],
+			"time": "36",
+			"totalRequestTime": "36",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController审核评论测试_01",
+			"id": "d1cd9d6f-7a1b-4c61-89a2-b79e4fc251b7",
+			"url": "localhost:8080/comment/check/2",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"更新成功_status比对": true,
+				"更新成功_commentId比对": true,
+				"更新成功_checked比对": true
+			},
+			"testPassFailCounts": {
+				"更新成功_status比对": {
+					"pass": 1,
+					"fail": 0
+				},
+				"更新成功_commentId比对": {
+					"pass": 1,
+					"fail": 0
+				},
+				"更新成功_checked比对": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"31"
+			],
+			"allTests": [
+				{
+					"更新成功_status比对": true,
+					"更新成功_commentId比对": true,
+					"更新成功_checked比对": true
+				}
+			],
+			"time": "31",
+			"totalRequestTime": "31",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController审核评论测试_02",
+			"id": "e9461684-559d-47ab-a0b7-d8028e186da3",
+			"url": "localhost:8080/comment/check/123",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"审核失败_评论ID不存在": true
+			},
+			"testPassFailCounts": {
+				"审核失败_评论ID不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"19"
+			],
+			"allTests": [
+				{
+					"审核失败_评论ID不存在": true
+				}
+			],
+			"time": "19",
+			"totalRequestTime": "19",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController获取场地评论测试_01",
+			"id": "93bd3604-e689-4f30-865f-d9e78bf9527b",
+			"url": "localhost:8080/comment/ground/1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"15"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "15",
+			"totalRequestTime": "15",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController获取场地评论测试_02",
+			"id": "e7fa3217-430f-49f9-9018-9e54192079b6",
+			"url": "localhost:8080/comment/ground/123",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取失败_场地不存在": false
+			},
+			"testPassFailCounts": {
+				"获取失败_场地不存在": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				"17"
+			],
+			"allTests": [
+				{
+					"获取失败_场地不存在": false
+				}
+			],
+			"time": "17",
+			"totalRequestTime": "17",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController审核未通过评论测试_01",
+			"id": "eacec816-b442-49ff-a19a-495f59c5cb70",
+			"url": "localhost:8080/comment/uncheck/2",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"审核未通过成功": true
+			},
+			"testPassFailCounts": {
+				"审核未通过成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"50"
+			],
+			"allTests": [
+				{
+					"审核未通过成功": true
+				}
+			],
+			"time": "50",
+			"totalRequestTime": "50",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController审核未通过评论测试_02",
+			"id": "6f572ec7-4be2-4666-bcf7-695fe0b9974a",
+			"url": "localhost:8080/comment/uncheck/123",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"审核未通过失败_评论ID不存在": true
+			},
+			"testPassFailCounts": {
+				"审核未通过失败_评论ID不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"19"
+			],
+			"allTests": [
+				{
+					"审核未通过失败_评论ID不存在": true
+				}
+			],
+			"time": "19",
+			"totalRequestTime": "19",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController获取未审核评论测试_01",
+			"id": "c373e956-346a-4277-87d8-4beeeba157b3",
+			"url": "localhost:8080/comment/uncheckedComment",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"22"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "22",
+			"totalRequestTime": "22",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController获取用户评论测试_01",
+			"id": "47ebed31-219c-4353-9eb2-00710b72b73f",
+			"url": "localhost:8080/comment/user/1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取成功": true
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"18"
+			],
+			"allTests": [
+				{
+					"获取成功": true
+				}
+			],
+			"time": "18",
+			"totalRequestTime": "18",
+			"iterationResults": {}
+		},
+		{
+			"name": "commentController获取用户评论测试_02",
+			"id": "205d1999-f011-4243-9a9e-2859b3c8ea99",
+			"url": "localhost:8080/comment/user/123",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"获取失败_用户不存在": false
+			},
+			"testPassFailCounts": {
+				"获取失败_用户不存在": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				"24"
+			],
+			"allTests": [
+				{
+					"获取失败_用户不存在": false
+				}
+			],
+			"time": "24",
+			"totalRequestTime": "24",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 15,
+	"totalFail": 2,
+	"totalTime": 397,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "commentController获取评论测试_01",
+			"id": "1cf936a3-840a-41db-83ce-d76894b0cc82",
+			"url": "localhost:8080/comment/",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "commentController更新评论测试_01",
+			"id": "49f3b155-abf8-4d5d-9937-8cd7325f2128",
+			"url": "localhost:8080/comment",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"更新成功_status比对": {
+					"pass": 1,
+					"fail": 0
+				},
+				"更新成功_commentId比对": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "commentController更新评论测试_02",
+			"id": "ee12825e-b680-4fb6-a153-7743f4e556bd",
+			"url": "localhost:8080/comment",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"更新失败_评论ID不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "commentController删除评论测试_01",
+			"id": "5546f700-cfca-4a68-83b7-c43a758949c1",
+			"url": "localhost:8080/comment/3",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"删除成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "commentController删除评论测试_02",
+			"id": "153ee31c-e130-4e65-aa50-aca2d477cf66",
+			"url": "localhost:8080/comment/123",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"删除失败_评论ID不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "commentController审核评论测试_01",
+			"id": "d1cd9d6f-7a1b-4c61-89a2-b79e4fc251b7",
+			"url": "localhost:8080/comment/check/2",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"更新成功_status比对": {
+					"pass": 1,
+					"fail": 0
+				},
+				"更新成功_commentId比对": {
+					"pass": 1,
+					"fail": 0
+				},
+				"更新成功_checked比对": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "commentController审核评论测试_02",
+			"id": "e9461684-559d-47ab-a0b7-d8028e186da3",
+			"url": "localhost:8080/comment/check/123",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"审核失败_评论ID不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "commentController获取场地评论测试_01",
+			"id": "93bd3604-e689-4f30-865f-d9e78bf9527b",
+			"url": "localhost:8080/comment/ground/1",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "commentController获取场地评论测试_02",
+			"id": "e7fa3217-430f-49f9-9018-9e54192079b6",
+			"url": "localhost:8080/comment/ground/123",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取失败_场地不存在": {
+					"pass": 0,
+					"fail": 1
+				}
+			}
+		},
+		{
+			"name": "commentController审核未通过评论测试_01",
+			"id": "eacec816-b442-49ff-a19a-495f59c5cb70",
+			"url": "localhost:8080/comment/uncheck/2",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"审核未通过成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "commentController审核未通过评论测试_02",
+			"id": "6f572ec7-4be2-4666-bcf7-695fe0b9974a",
+			"url": "localhost:8080/comment/uncheck/123",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"审核未通过失败_评论ID不存在": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "commentController获取未审核评论测试_01",
+			"id": "c373e956-346a-4277-87d8-4beeeba157b3",
+			"url": "localhost:8080/comment/uncheckedComment",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "commentController获取用户评论测试_01",
+			"id": "47ebed31-219c-4353-9eb2-00710b72b73f",
+			"url": "localhost:8080/comment/user/1",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取成功": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "commentController获取用户评论测试_02",
+			"id": "205d1999-f011-4243-9a9e-2859b3c8ea99",
+			"url": "localhost:8080/comment/user/123",
+			"time": "2019-12-26T03:32:38.665Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"获取失败_用户不存在": {
+					"pass": 0,
+					"fail": 1
+				}
+			}
+		}
+	],
+	"synced": false
+}
