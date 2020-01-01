@@ -126,8 +126,8 @@ layui.config({
                         + '<td >' + currData[i].duration + '小时 </td>'
                         + '<td><input type="text" name="userNum" placeholder="用户未填写使用人数" value="'+currData[i].userNum+'" autocomplete="off" class="layui-input"></td>'
                         + '<td >' + check + '</td>'
-                        + '<td>'
-                        +    '<a class="layui-btn layui-btn-mini preorder_edit" data-id="'+currData[i].preOrderId+'"><i class="iconfont icon-edit"></i> 提交</a>'
+                        + '<td style="text-align:center;">'
+                        +    '<a class="layui-btn layui-btn-mini preorder_edit" data-id="'+currData[i].preOrderId+'"><i class="iconfont icon-edit"></i> 提交</a><br>'
                             + '<a class="layui-btn layui-btn-danger layui-btn-mini preorder_del" data-id="'+currData[i].preOrderId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
                         + '</td>'
                         + '</tr>';
