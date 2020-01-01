@@ -37,3 +37,6 @@ build/
 /.idea/$PRODUCT_WORKSPACE_FILE$
 /.idea/misc.xml
 src/main/resources/static/images/
+!/.idea/checkstyle-idea.xml
+/.idea/checkstyle-idea.xml
+/.idea/checkstyleidea-libs/
