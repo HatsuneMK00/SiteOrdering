@@ -47,9 +47,9 @@ public class FileService {
             Date date = new Date();
             String str = simpleDateFormat.format(date);
             Random random = new Random();
-            int img_ran = random.nextInt() * (99999 - 10000 + 1) + 10000;// 获取5位随机数
+            int imgRan = random.nextInt() * (99999 - 10000 + 1) + 10000;// 获取5位随机数
 
-            String intervalName = img_ran + "" + str;
+            String intervalName = imgRan + "" + str;
             fileName = uploadPath + intervalName +fileName;
             logger.info("uploadPath: " + uploadPath);
             logger.info("filename: " + fileName);

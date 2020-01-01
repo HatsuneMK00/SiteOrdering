@@ -69,8 +69,8 @@ public class UserService {
     }
 
     public int updateUserByModel(User user) {
-        User existed_user = userMapper.getUserByNameWOAuthority(user.getUserName());
-        if (existed_user != null && existed_user.getUserId() != user.getUserId()) return 0;
+        User existedUser = userMapper.getUserByNameWOAuthority(user.getUserName());
+        if (existedUser != null && existedUser.getUserId() != user.getUserId()) return 0;
         return userMapper.updateUser(user);
     }
 
@@ -81,10 +81,10 @@ public class UserService {
 
 //        使用私有变量的时候没有赋上值
 //        改为直接使用MyServerConfig中的static属性
-        String profile_url = MyServerConfig.server + ":" + MyServerConfig.port + "/images/";
+        String profileUrl = MyServerConfig.server + ":" + MyServerConfig.port + "/images/";
         logger.info(MyServerConfig.port);
-        profile_url = profile_url + temp[temp.length - 1];
-        int result = userMapper.updateUserProfilePicByUserId(userId, profile_url);
+        profileUrl = profileUrl + temp[temp.length - 1];
+        int result = userMapper.updateUserProfilePicByUserId(userId, profileUrl);
         if (result == 1)
             return 200;
         else
