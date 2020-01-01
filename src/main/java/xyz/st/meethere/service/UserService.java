@@ -39,9 +39,7 @@ public class UserService {
 
     public boolean checkUserPassword(String name, String pwd) {
         User user = userMapper.getUserByName(name);
-        if (user != null && user.getPassword().equals(pwd))
-            return true;
-        return false;
+        return user != null && user.getPassword().equals(pwd);
     }
 
     public int addUser(String email, String userName, String password) {
