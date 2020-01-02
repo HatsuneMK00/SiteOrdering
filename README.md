@@ -16,12 +16,13 @@
 - Frontend
   - Layui
 ## Navigation
-- [source code](https://github.com/HatsuneMK00/SiteOrdering/tree/master/src/main/java)
-- [unit testing code](https://github.com/HatsuneMK00/SiteOrdering/tree/master/src/test)
-- [testing converage](https://github.com/HatsuneMK00/SiteOrdering/tree/master/覆盖度部分)
-- [integration testing](https://github.com/HatsuneMK00/SiteOrdering/tree/master/接口测试部分)
-- [system testing](https://github.com/HatsuneMK00/SiteOrdering/tree/master/系统测试部分)
-- [performance testing](https://github.com/HatsuneMK00/SiteOrdering/tree/master/性能测试部分)
+- [Source code](https://github.com/HatsuneMK00/SiteOrdering/tree/master/src/main/java)
+- [Unit testing code](https://github.com/HatsuneMK00/SiteOrdering/tree/master/src/test)
+- [Testing converage](https://github.com/HatsuneMK00/SiteOrdering/tree/master/覆盖度部分)
+- [Static analysis](https://github.com/HatsuneMK00/SiteOrdering/tree/master/静态分析部分)
+- [Integration testing](https://github.com/HatsuneMK00/SiteOrdering/tree/master/接口测试部分)
+- [System testing](https://github.com/HatsuneMK00/SiteOrdering/tree/master/系统测试部分)
+- [Performance testing](https://github.com/HatsuneMK00/SiteOrdering/tree/master/性能测试部分)
 
 
 <!-- ## doc
