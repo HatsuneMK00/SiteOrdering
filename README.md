@@ -15,6 +15,10 @@
   - Springboot
 - Frontend
   - Layui
+- User Account
+  - userName: user001/password:1
+- Admin Account
+  - userName: admin001/password:1
 ## Navigation
 - [Source code](https://github.com/HatsuneMK00/SiteOrdering/tree/master/src/main/java)
 - [Unit testing code](https://github.com/HatsuneMK00/SiteOrdering/tree/master/src/test)
